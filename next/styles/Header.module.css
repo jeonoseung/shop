@@ -1,0 +1,13 @@
+.header{
+    display:flex;
+    justify-content: space-between;
+    border-bottom:1px solid black;
+    width:1080px;
+    margin:auto;
+}
+@media(max-width:1080px)
+{
+    .header{
+        width:100%;
+    }
+}
