@@ -6,9 +6,10 @@ export default function header(){
             <div>
                 logo
             </div>
-            <div>
-                search
-            </div>
+            <label className={styles.search}>
+                <input type='text'/>
+                <span>아이콘</span>
+            </label>
             <div>
                 cc
             </div>

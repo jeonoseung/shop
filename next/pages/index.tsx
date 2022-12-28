@@ -1,7 +1,9 @@
-import Image from 'next/image'
+
 import { Inter } from '@next/font/google'
 import ImageSlider from "../src/components/Home/ImageSlider";
 import styles from "../styles/Home.module.css"
+import SuggestionProducts from "../src/components/Home/SuggestionProduct";
+import EventBanner from "../src/components/Home/EventBanner";
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -10,19 +12,21 @@ export default function Home() {
         {src:'/image/image2.jpg'},
         {src:'/image/image3.jpg'},
         {src:'/image/image4.jpg'},
+        {src:'/image/image1.jpg'},
+        {src:'/image/image2.jpg'},
+        {src:'/image/image3.jpg'},
+        {src:'/image/image4.jpg'},
+        {src:'/image/image1.jpg'},
+        {src:'/image/image2.jpg'},
+        {src:'/image/image2.jpg'},
     ]
-    3
+    const banner = '/image/image1.jpg';
   return (
     <div>
-        <ImageSlider />
+        <ImageSlider/>
         <div className={styles.home}>
-            <div>
-                {load_images.map((item, index)=>(
-                    <div key={index}>
-                        <Image src={item.src} alt='이미지' width={100} height={100} priority={true}/>
-                    </div>
-                ))}
-            </div>
+            <SuggestionProducts images={load_images}/>
+            <EventBanner images={banner}/>
         </div>
     </div>
   )

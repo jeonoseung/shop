@@ -57,7 +57,7 @@ function ImageSlider(){
     useEffect(()=>{
         time.current = setInterval(()=>{
             Next.current?.click()
-        },5000)
+        },10000)
         return ()=>{
             clearInterval(time.current)
         }

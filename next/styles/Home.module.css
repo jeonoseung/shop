@@ -20,16 +20,48 @@
     top:50%;
     right:5%;
 }
+/*home 페이지 form*/
+.home_form{
+    width:100%;
+    margin:1rem 0;
+}
+.home_form h2{
+    text-align:center;
+}
+/** 추천 상품 양식*/
+.suggestion_div{
+    width:inherit;
+    overflow:hidden;
+}
+.suggestion{
+    width:inherit;
+    display:flex;
+    transition: all 0.5s;
+}
+.suggestion_products{
+    width:250px;
+    padding:10px;
+}
+/** */
+.home_banner_img{
+    width:100%;
+    height:100px;
+}
 .home{
-    display:grid;
-    grid-column: auto;
+    /*display:flex;*/
+    /*grid-template-columns: repeat(4, minmax(25%, auto));*/
     width:1080px;
     margin:auto;
-
+}
+.home div{
+    float:left;
 }
 @media(max-width:1080px)
 {
     .home{
+        width:100%;
+    }
+    .suggestion{
         width:100%;
     }
 }
