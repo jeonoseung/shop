@@ -1,12 +1,13 @@
 import styles from "../../../styles/Home.module.css"
 import Image from "next/image";
-import {MouseEventHandler, useRef, useState} from "react";
+import {MouseEventHandler, useEffect, useRef, useState} from "react";
 interface props{
     images:{
         src:string
     }[]
 }
 export default function SuggestionProducts({images}:props){
+    const div_width = 1080;
     const products_div = useRef<HTMLDivElement>(null)
     const [Index, setIndex] = useState<number>(0)
     const PreviousProducts:MouseEventHandler<HTMLButtonElement> = (e)=>{
@@ -15,7 +16,7 @@ export default function SuggestionProducts({images}:props){
         const index = Index - 1;
         setIndex(Index - 1);
         if(index === 0) div.style.transform = `translate(0px)`;
-        else div.style.transform = `translate(-${index * 1080}px)`;
+        else div.style.transform = `translate(-${index * div_width}px)`;
     }
     const NextProducts:MouseEventHandler<HTMLButtonElement> = (e) =>{
         const div = products_div.current;
@@ -24,7 +25,7 @@ export default function SuggestionProducts({images}:props){
         setIndex(Index + 1);
         if(index === Math.floor(images.length/4))
             div.style.transform = `translate(-${(270 * (images.length-4))}px)`;
-        else div.style.transform = `translate(-${index * 1080}px)`;
+        else div.style.transform = `translate(-${index * div_width}px)`;
     }
     return(
         <div className={styles.home_form}>
@@ -33,7 +34,7 @@ export default function SuggestionProducts({images}:props){
                 <div className={styles.suggestion} ref={products_div}>
                     {images.map((item, index)=>(
                         <div key={index} className={styles.suggestion_products}>
-                            <Image  src={item.src} alt='seg' width={250} height={270} priority={true}/>
+                            <Image src={item.src} alt='seg' width={250} height={270} priority={true}/>
                         </div>
                     ))}
                 </div>

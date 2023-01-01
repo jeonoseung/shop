@@ -42,6 +42,107 @@
     width:250px;
     padding:10px;
 }
+.suggestion_category{
+    width:100%;
+}
+.suggestion_category .main{
+    width:inherit;
+    display:flex;
+}
+.suggestion_category .main .image{
+    width:60%;
+}
+.suggestion_category .main .image Img{
+    width:100%;
+    height:auto;
+}
+.suggestion_category .main .text{
+    width:40%;
+}
+.suggestion_category .main .text .title{
+    margin:0.5rem 1.5rem;
+}
+.suggestion_category .main .text .content{
+    margin:0.5rem 1.5rem;
+}
+.suggestion_category .list{
+    width:100%;
+    display:grid;
+    grid-template-columns: repeat(2, minmax(50%, auto));
+}
+.suggestion_category .list .products{
+    display:flex;
+    align-items: center;
+    margin:0.75rem 0;
+    justify-content: space-between;
+}
+.suggestion_category .list_img{
+    width:20%;
+    height:auto;
+
+}
+.suggestion_category .list .products .content{
+    width:60%;
+}
+.suggestion_category .list .products .content div{
+    margin:0.5rem;
+}
+.suggestion_category .list .products  .button_div{
+    width:20%;
+}
+.suggestion_category .list .products  .button_div button{
+    width:75px;
+    padding:0.5rem 0.5rem;
+    border:1px solid rgb(221, 221, 221);
+    border-radius: 0.25rem;
+    background:white;
+}
+.suggestion_category .view_all{
+    text-align: center;
+}
+.suggestion_category .view_all button{
+    border:1px solid rgb(221, 221, 221);
+    background: white;
+    font-size:1.15rem;
+    padding:0.75rem 12rem;
+}
+.limited_offer{
+    display:flex;
+    margin:1rem 0;
+}
+.limited_offer .hlo_text{
+    width:35%;
+}
+.limited_offer .hlo_text *{
+
+}
+.limited_offer .hlo_product{
+    width:65%;
+}
+.limited_offer .hlo_product .hlo_product_img{
+    width:100%;
+    height:auto;
+}
+.hlo_product span{
+    margin:0.5rem 0;
+}
+.hlp_product .product_name{
+
+}
+.hlo_product .product_subname{
+    color:rgb(153, 153, 153);
+    font-size:14px;
+}
+.hlo_product .product_price{
+    color:rgb(51,51,51);
+    font-size:16px;
+}
+.limited_offer .hlo_product *{
+    display:block;
+}
+.timer_hm::after{
+    content: ":";
+}
 /** */
 .home_banner_img{
     width:100%;
@@ -52,16 +153,14 @@
     /*grid-template-columns: repeat(4, minmax(25%, auto));*/
     width:1080px;
     margin:auto;
-}
-.home div{
-    float:left;
+    padding-bottom:5rem;
 }
 @media(max-width:1080px)
 {
-    .home{
-        width:100%;
-    }
-    .suggestion{
-        width:100%;
-    }
+    /*.home{*/
+    /*    width:100%;*/
+    /*}*/
+    /*.suggestion{*/
+    /*    width:100%;*/
+    /*}*/
 }
