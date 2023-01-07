@@ -3,9 +3,9 @@
     align-items:center;
     justify-content: space-between;
     border-bottom:1px solid black;
-    width:1080px;
+    width:1024px;
     margin:auto;
-    padding:0.5rem;
+    padding:0.5rem 0;
 }
 .search{
     display:flex;
@@ -27,7 +27,7 @@
 .search span{
     width:20%;
 }
-@media(max-width:1080px)
+@media(max-width:1024px)
 {
     .header{
         width:100%;

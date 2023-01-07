@@ -10,17 +10,17 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
     const load_images = [
-        {src:'/image/image1.jpg'},
-        {src:'/image/image2.jpg'},
-        {src:'/image/image3.jpg'},
-        {src:'/image/image4.jpg'},
-        {src:'/image/image1.jpg'},
-        {src:'/image/image2.jpg'},
-        {src:'/image/image3.jpg'},
-        {src:'/image/image4.jpg'},
-        {src:'/image/image1.jpg'},
-        {src:'/image/image2.jpg'},
-        {src:'/image/image2.jpg'},
+        {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image3.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image4.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image3.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image4.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
     ]
     const banner = '/image/image1.jpg';
     const main = {

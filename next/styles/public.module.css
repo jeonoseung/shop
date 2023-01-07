@@ -1,0 +1,35 @@
+.content{
+    width:1024px;
+    margin:auto;
+}
+.checkbox{
+    display:flex;
+    align-items:center;
+}
+.checkbox input[type='checkbox']{
+    display:none;
+}
+.checkbox input[type='checkbox'] + span{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:24px;
+    height:24px;
+    fill:#ddd;
+    border-radius:14px;
+    border:1px solid #ddd;
+    background:#fff;
+}
+.checkbox input[type='checkbox']:checked + span{
+    fill:white;
+    border:1px solid #0d6efd;
+    background:#0d6efd;
+}
+.checkbox div{
+    height:24px;
+    margin:0 0.5rem;
+    font-weight:600;
+}
+.sign_or{
+    color:#ddd;
+}

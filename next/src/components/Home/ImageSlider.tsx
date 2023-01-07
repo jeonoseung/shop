@@ -23,13 +23,13 @@ function ImageSlider(){
     const [NClick, setNClick] = useState<number>(0)
     const [SliderStyle, setSliderStyle] = useState<CSSProperties>({
             width:`${(load_images.length+1) * 100}vw`,
-            transition:`all 0.5s`,
+            transition:`transform 0.5s`,
         })
     const PreviousImage = () =>{
         const value = Index - 1;
         if(value < 0)
         {
-            setSliderStyle(a=>({...a, transition:`all 0s`,transform:`translate(-${(Images.length-1) * 100}vw)`}))
+            setSliderStyle(a=>({...a, transition:`transform 0s`,transform:`translate(-${(Images.length-1) * 100}vw)`}))
             setIndex(Images.length-1)
         }
         else
@@ -43,7 +43,7 @@ function ImageSlider(){
         const value = Index + 1;
         if(Index === Images.length-1)
         {
-            setSliderStyle(a=>({...a, transition:`all 0s`,transform:`translate(0vw)`}))
+            setSliderStyle(a=>({...a, transition:`transform 0s`,transform:`translate(0vw)`}))
             setIndex(0)
         }
         else
@@ -65,14 +65,14 @@ function ImageSlider(){
     useEffect(()=>{
         if(Index === 0 && PClick >= 1)
         {
-            setSliderStyle(a=>({...a,transition:`all 0.5s`,transform:`translate(-${(Index + 1) * 100}vw)`}))
+            setSliderStyle(a=>({...a,transition:`transform 0.5s`,transform:`translate(-${(Index + 1) * 100}vw)`}))
             setIndex(Index+1)
         }
     },[PClick])
     useEffect(()=>{
         if(Index === Images.length-1 && NClick >= 1)
         {
-            setSliderStyle(a=>({...a,transition:`all 0.5s`,transform:`translate(-${(Index-1) * 100}vw)`}))
+            setSliderStyle(a=>({...a,transition:`transform 0.5s`,transform:`translate(-${(Index-1) * 100}vw)`}))
             setIndex(Index-1)
         }
 

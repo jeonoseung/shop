@@ -29,7 +29,7 @@ export default function LimitedOffer(){
         {
             if(hour === 0 && minute === 0)
             {
-                return false;
+                return false
             }
             setSec(String(59))
             if(minute - 1 < 0)
