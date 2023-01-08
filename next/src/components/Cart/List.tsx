@@ -1,20 +1,11 @@
-import {ChangeEvent, ChangeEventHandler, Dispatch, SetStateAction, useEffect, useState} from "react";
+import {ChangeEvent} from "react";
 import public_style from '../../../styles/public.module.css'
 import styles from '../../../styles/cart.module.css'
-import Image from "next/image";
-interface props{
-    product:{
-        id:number
-        brand:string
-        name:string
-        select_option:string
-        count:number
-    }
-    CheckState:number[]
-    setCheckState:Dispatch<SetStateAction<number[]>>
-}
+import {CartListProps} from "Cart";
 
-export default function CartList({product,CheckState,setCheckState}:props){
+
+export default function CartList({product,index,list,CheckState,setCheckState,setProductList}:CartListProps){
+
     const CheckChange=(e:ChangeEvent<HTMLInputElement>,id:number)=>{
         e.target.checked
             ? setCheckState([...CheckState,id])
@@ -24,6 +15,16 @@ export default function CartList({product,CheckState,setCheckState}:props){
         width:'75px',
         height:'100px',
         border:'1px solid black'
+    }
+    const Subtract = () =>{
+        const copy = [...list]
+        copy[index].count -= 1;
+        setProductList(copy)
+    }
+    const Plus = () =>{
+        const copy = [...list]
+        copy[index].count += 1;
+        setProductList(copy)
     }
     return(
         <div className={styles.cart_list}>
@@ -44,8 +45,25 @@ export default function CartList({product,CheckState,setCheckState}:props){
                 </div>
             </div>
             <div>
+                {product.select_option !== ''
+                        ? <div>
+                            <div>[{product.brand}]{product.select_option}]</div>
+                            <div>[{product.brand}]{product.name}</div>
+                        </div>
+                        : <div>
+                            <div>[{product.brand}]{product.name}</div>
+                        </div>}
+            </div>
+            <div>
                 <div>
-                    
+                    <button onClick={Subtract} disabled={product.count === 1}>-</button>
+                    <span>{product.count}</span>
+                    <button onClick={Plus}>+</button>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <span>{product.price*product.count}</span>
                 </div>
             </div>
         </div>
