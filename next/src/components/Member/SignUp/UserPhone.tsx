@@ -33,12 +33,9 @@ export function UserPhone({value,setState}:props){
             <span className={styles.title_div}>전화번호</span>
             <div className={styles.signup_input_div}>
                 <input type={"text"} className={styles.signup_input} maxLength={11} value={value} onChange={Check} placeholder={'숫자만 입력해주세요'}/>
-            </div>
-            <button className={styles.event_button}>본인인증</button>
-            <div></div>
-            <div>
                 <span className={styles.warning}>{warning}</span>
             </div>
+            <button className={styles.event_button}>본인인증</button>
         </div>
     )
 }

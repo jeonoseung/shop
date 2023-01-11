@@ -33,10 +33,6 @@ export function UserPass({value,setState}:props){
             <span className={styles.title_div}>비밀번호</span>
             <div className={styles.signup_input_div}>
                 <input type={"password"} className={styles.signup_input} maxLength={20} value={value} onChange={Check} placeholder={'비밀번호를 입력해주세요'}/>
-            </div>
-            <div></div>
-            <div></div>
-            <div>
                 <span className={styles.warning}>{warning}</span>
             </div>
         </div>

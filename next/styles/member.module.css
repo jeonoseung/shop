@@ -94,7 +94,8 @@
     align-items:center;
 }
 .signup .signup_form .input_div .signup_input{
-    width:400px;
+    width:100%;
+    box-sizing : border-box;
     display:block;
     height:45px;
     padding:0 0.75rem;
@@ -169,8 +170,12 @@
     background: #0d6efd;
     border:1px solid #0d6efd;
 }
+.signup_form .signup_input_div{
+    padding:0 0.5rem;
+}
 .signup_form .signup_input_div .birth_div{
-    width:400px;
+    width:100%;
+    box-sizing : border-box;
     display:flex;
     align-items:center;
     height:45px;
@@ -190,6 +195,7 @@
     color:#ddd;
 }
 .signup_form .birth_div input[type='text']{
+    box-sizing : border-box;
     display:block;
     border:0;
     font-size:16px;

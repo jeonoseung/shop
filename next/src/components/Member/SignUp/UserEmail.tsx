@@ -31,12 +31,9 @@ export function UserEmail({value,setState}:props){
             <span className={styles.title_div}>이메일</span>
             <div className={styles.signup_input_div}>
                 <input type={"text"} className={styles.signup_input} maxLength={30} value={value} onChange={Check} placeholder={'예:test1234@naver.com'}/>
-            </div>
-            <button className={styles.event_button}>중복확인</button>
-            <div></div>
-            <div>
                 <span className={styles.warning}>{warning}</span>
             </div>
+            <button className={styles.event_button}>중복확인</button>
         </div>
     )
 }

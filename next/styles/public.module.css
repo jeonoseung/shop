@@ -33,3 +33,36 @@
 .sign_or{
     color:#ddd;
 }
+.input-text{
+    width:100%;
+    box-sizing : border-box;
+    border:1px solid #ddd;
+    border-radius:0.5rem;
+    height:35px;
+    padding:0.5rem;
+}
+.input-text:focus{
+    outline:none;
+}
+.button{
+    width:100%;
+    border:1px solid #ddd;
+    background: white;
+    height:35px;
+    border-radius:0.5rem;
+}
+.button:hover{
+    cursor:pointer;
+}
+.button:active{
+    cursor:pointer;
+}
+.onff-btn{
+
+}
+.onff-btn input[type='checkbox']{
+    display:none;
+}
+.onff-btn span{
+    padding:0.5rem;
+}

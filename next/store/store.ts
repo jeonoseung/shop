@@ -1,22 +1,24 @@
 // *** store.ts 파일
 // 슬라이스들을 통합한 store를 만들고, RootState를 정의해준다.
 
-import { configureStore, Action, getDefaultMiddleware } from '@reduxjs/toolkit';
+import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import counterSlice from './counterSlice';
-import logger from 'redux-logger';
+import product from "./product/management/ProductAdd";
 
 // 리덕스 store 생성함수
 const makeStore = () => {
     // 미들웨어 추가(필요 없을 경우 생략)
     const middleware = getDefaultMiddleware();
     if (process.env.NODE_ENV === 'development') {
-        middleware.push(logger);
+        // middleware.push(logger);
     }
 
     // 슬라이스 통합 store 생성
-    const store = configureStore({
+    return configureStore({
         reducer: {
+            product: product.reducer,
             counter: counterSlice.reducer,
+
             // [counterSlice.name]: counterSlice.reducer, // 위와 동일한 코드다.
             // [numberSlice.name]: numberSlice.reducer
         },
@@ -24,8 +26,6 @@ const makeStore = () => {
         // middleware: [...getDefaultMiddleware(), logger]
         devTools: process.env.NODE_ENV === 'development' // 개발자도구 설정
     });
-
-    return store;
 };
 
 // store 생성

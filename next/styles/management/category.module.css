@@ -1,0 +1,43 @@
+.category-controller{
+
+}
+
+.category{
+    width:100%;
+}
+.category .modal{
+    position:absolute;
+    padding:0.5rem;
+    width:100%;
+    max-width:500px;
+    height:350px;
+    background:white;
+    top:30%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+.category .category-select{
+    display:grid;
+    grid-template-columns:50% 10%;
+    align-items:center;
+}
+.category .controller{
+    display:grid;
+    grid-template-columns:75% 25%;
+}
+.category .controller *{
+    display:block;
+    width:100%;
+}
+.controller .button-div{
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+}
+.controller .button-div button{
+    width:50px;
+    font-size:20px;
+}
+.category .list{
+
+}
