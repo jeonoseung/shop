@@ -1,5 +1,6 @@
 import styles from "../../../../styles/member.module.css";
 import {ChangeEventHandler, Dispatch, SetStateAction, useState} from "react";
+import {RegExp} from "../../../function/RegExp";
 
 interface value{
     id:string,
@@ -22,9 +23,9 @@ interface props{
 export function UserPass({value,setState}:props){
     const [warning,setWarning] = useState<string>('')
     const Check:ChangeEventHandler<HTMLInputElement> = (e) =>{
-        const test = /^[0-9a-zA-z]{5,20}$/
-        !test.test(e.target.value)
-            ? setWarning('영문자,숫자 조합 7~20자 입력이 필요합니다!')
+        const {status,msg} = RegExp.UserPassCheck(e.target.value);
+        status
+            ? setWarning(msg)
             : setWarning('')
         setState(c=>({...c,pass:e.target.value}))
     }

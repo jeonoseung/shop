@@ -47,7 +47,7 @@ export default function Birth({value,setState}:props){
                         parseInt(birth.day) > 31 || parseInt(birth.day) < 1 ? setWarning('출생일를 다시 확인 해주세요'):
                             setWarning('')
         }
-        else setStart(true)
+        else setStart(true);setState(c=>({...c,birth:`${birth.year}/${birth.month}/${birth.day}`}));
     },[birth])
     return(
         <div className={styles.input_div}>

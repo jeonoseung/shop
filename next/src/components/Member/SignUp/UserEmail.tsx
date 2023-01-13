@@ -1,5 +1,6 @@
 import styles from "../../../../styles/member.module.css";
 import {ChangeEventHandler, Dispatch, SetStateAction, useState} from "react";
+import {RegExp} from "../../../function/RegExp";
 interface value{
     id:string,
     pass:string,
@@ -20,9 +21,9 @@ interface props{
 export function UserEmail({value,setState}:props){
     const [warning,setWarning] = useState<string>('')
     const Check:ChangeEventHandler<HTMLInputElement> = (e) =>{
-        const test = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-        !test.test(e.target.value)
-            ? setWarning('올바른 이메일 형식이 아닙니다')
+        const {status,msg} = RegExp.UserEmailCheck(e.target.value)
+        status
+            ? setWarning(msg)
             : setWarning('')
         setState(c=>({...c,email:e.target.value}))
     }

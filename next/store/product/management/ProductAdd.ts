@@ -2,12 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {useState} from "react";
 
 type StateType = {
-    [name:string]:string
+    [name:string]:string | number
     title:string,
     sub:string,
     price:string,
     sale:string,
-    category:string
+    category:number,
+    brand:string
 };
 interface test{
     value:string
@@ -18,7 +19,8 @@ const initialState: StateType = {
     sub:'',
     price:'',
     sale:'',
-    category:''
+    category:0,
+    brand:''
 };
 
 export const product = createSlice({

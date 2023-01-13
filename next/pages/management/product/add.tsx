@@ -11,14 +11,23 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import {getCategory} from "../../../src/components/Get/api";
 import {useQuery} from "react-query";
+
+
 interface option{
     [name:string]:string
     content:string
     described:string
 }
-
+interface props{
+    data:{
+        result:{
+            category_id:number
+            category_name:string
+        }[]
+    }
+}
 export default function ProductAdd(props:any) {
-    const result = useQuery('category',getCategory,{initialData:props.test})
+    const result = useQuery('category',getCategory,{initialData:props.data})
     const product = useSelector((state:RootState)=>state.product)
     const [file,setFile] = useState<File>()
     const [Option,setOption] = useState<option[]>([
@@ -39,22 +48,33 @@ export default function ProductAdd(props:any) {
                 "Content-Type":"multipart/form-data"
             }
         })
+        if(result.status === 200)
+        {
+            alert("추가 되었습니다")
+        }
+        else
+        {
+            alert("오류 발생")
+        }
     }
-
     return(
         <div className={public_style.content}>
             <div className={styles['product-add']}>
                 <div className={styles['set-product']}>
-                    <label>
-                        <input type={'file'} onChange={ImageChange}/>
-                        <Image
-                            className={styles['set-product-img']}
-                            priority={true} src={'/image/image1.jpg'}
-                            alt={'상품 이미지'}
-                            width={100} height={100}/>
-                    </label>
+                    <div>
+                        <label>
+                            <input type={'file'} onChange={ImageChange}/>
+                            <Image
+                                className={styles['set-product-img']}
+                                priority={true}
+                                src={'/image/image1.jpg'}
+                                alt={''}
+                                width={100} height={100}
+                            />
+                        </label>
+                    </div>
                     <div className={styles['set-product-info']}>
-                        <CategoryIndex category={result.data}/>
+                        <CategoryIndex />
                         <ProductData />
                         <OptionAdd Option={Option} setOption={setOption}/>
                         <button onClick={Save}>저장</button>
@@ -66,6 +86,6 @@ export default function ProductAdd(props:any) {
 }
 export async function getServerSideProps(){
     const data = await axios.get(`${process.env.URL}/api/category/1`)
-    return {props:{test:data.data}}
+    return {props:{data:data.data}}
 }
 

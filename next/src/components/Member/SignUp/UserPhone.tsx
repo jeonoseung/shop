@@ -1,5 +1,6 @@
 import styles from "../../../../styles/member.module.css";
 import {ChangeEventHandler, Dispatch, SetStateAction, useState} from "react";
+import {RegExp} from "../../../function/RegExp";
 
 interface value{
     id:string,
@@ -23,8 +24,9 @@ export function UserPhone({value,setState}:props){
     const [warning,setWarning] = useState<string>('')
     const Check:ChangeEventHandler<HTMLInputElement> = (e) =>{
         e.target.value = e.target.value.replace(/[^0-9]/g, '');
-        e.target.value === ''
-            ? setWarning('전화번호를 입력해주세요')
+        const {status,msg} = RegExp.UserPhoneCheck(e.target.value)
+        status
+            ? setWarning(msg)
             : setWarning('')
         setState(c=>({...c,phone:e.target.value}))
     }

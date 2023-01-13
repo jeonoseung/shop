@@ -9,7 +9,7 @@ interface props{
 }
 
 export default function OptionAdd({Option,setOption}:props){
-    const ChangeOptionInput = (e:ChangeEvent<HTMLInputElement>,index:number,key:string) =>{
+    const ChangeOptionInput = (e:ChangeEvent<HTMLInputElement|HTMLTextAreaElement>,index:number,key:string) =>{
         const c = [...Option]
         c[index][key] = e.target.value
         setOption(c)
@@ -38,23 +38,28 @@ export default function OptionAdd({Option,setOption}:props){
                                value={item.name}
                                placeholder={'옵션 명 ex:배송,판매자...'}
                                maxLength={15}
+                               spellCheck={'false'}
                         />
                     </div>
                     <div>
-                        <input type={'text'}
-                               className={public_style['input-text']}
-                               onChange={(e)=>ChangeOptionInput(e,index,'content')}
-                               value={item.content}
-                               placeholder={'옵션 내용'}
-                               maxLength={45}
-                        />
-                        <input type={'text'}
-                               className={public_style['input-text']}
-                               onChange={(e)=>ChangeOptionInput(e,index,'described')}
-                               value={item.described}
-                               placeholder={'옵션 설명'}
-                               maxLength={60}
-                        />
+                        <textarea
+                            className={public_style['textarea']}
+                            onChange={(e)=>ChangeOptionInput(e,index,'content')}
+                            value={item.content}
+                            placeholder={'옵션 내용'}
+                            maxLength={250}
+                            spellCheck={'false'}
+                        >
+                        </textarea>
+                        <textarea
+                            className={public_style['textarea']}
+                            onChange={(e)=>ChangeOptionInput(e,index,'described')}
+                            value={item.described}
+                            placeholder={'옵션 설명'}
+                            maxLength={250}
+                            spellCheck={'false'}
+                        >
+                        </textarea>
                     </div>
                     <div>
                         <button

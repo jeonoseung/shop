@@ -1,5 +1,6 @@
 import {ChangeEventHandler, Dispatch, SetStateAction, useState} from "react";
 import styles from "../../../../styles/member.module.css";
+import {RegExp} from "../../../function/RegExp";
 interface value{
     id:string
     pass:string
@@ -20,8 +21,9 @@ interface props{
 export default function UserName({value,setState}:props){
     const [warning,setWarning] = useState<string>('')
     const Check:ChangeEventHandler<HTMLInputElement> = (e) =>{
-        e.target.value === ''
-            ? setWarning('이름을 입력 해주세요')
+        const {status,msg} = RegExp.UserNameCheck(e.target.value);
+        status
+            ? setWarning(msg)
             : setWarning('')
         setState(c=>({...c,name:e.target.value}))
     }

@@ -1,5 +1,6 @@
 import styles from "../../../../styles/member.module.css";
 import {ChangeEventHandler, Dispatch, SetStateAction, useState} from "react";
+import {RegExp} from "../../../function/RegExp";
 interface value{
     id:string
     pass:string
@@ -21,11 +22,14 @@ interface props{
 export function UserId({value,setState}:props){
     const [warning,setWarning] = useState<string>('')
     const Check:ChangeEventHandler<HTMLInputElement> = (e) =>{
-        const test = /^[0-9a-zA-z]{5,20}$/
-        !test.test(e.target.value)
-            ? setWarning('영문자,숫자 조합 7~20자 입력이 필요합니다!')
+        const {status,msg} = RegExp.UserIdCheck(e.target.value)
+        status
+            ? setWarning(msg)
             : setWarning('')
         setState(c=>({...c,id:e.target.value}))
+    }
+    const OverlapCheck=()=>{
+
     }
     return(
         <div className={styles.input_div}>
@@ -38,7 +42,7 @@ export function UserId({value,setState}:props){
                        placeholder={'아이디를 입력해주세요'}/>
                 <span className={styles.warning}>{warning}</span>
             </div>
-            <button className={styles.event_button}>중복확인</button>
+            <button className={styles.event_button} onClick={OverlapCheck}>중복확인</button>
         </div>
     )
 }
