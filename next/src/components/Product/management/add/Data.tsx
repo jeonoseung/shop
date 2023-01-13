@@ -4,14 +4,7 @@ import {ChangeEvent, Dispatch, SetStateAction} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../../store/store";
 import {ChangeValue} from "../../../../../store/product/management/ProductAdd";
-interface set{
-    [name:string]:string
-    title:string
-    sub:string
-    price:string
-    sale:string
-    category:string
-}
+
 
 export default function ProductData(){
     const dispatch = useDispatch();

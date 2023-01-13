@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import p_styles from "../../../../styles/public.module.css"
 import styles from "../../../../styles/member.module.css";
 import {UserId} from "./UserId";
@@ -12,6 +12,8 @@ import Gender from "./Gender";
 import Birth from "./Birth";
 import FormData from "form-data";
 import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../../../store/store";
 
 
 export default function SignUpIndex(){
@@ -28,7 +30,19 @@ export default function SignUpIndex(){
         gender:'',
         birth:''
     })
+    const overlap = useSelector((state:RootState)=>state.overlap)
     const test = async () =>{
+        if(!overlap.id)
+        {
+            alert("아이디 중복 확인이 필요합니다")
+            return false;
+        }
+        else if(!overlap.email)
+        {
+            alert("이메일 중복 확인이 필요합니다")
+            return false;
+        }
+
         const form:FormData = new FormData()
         form.append("data",JSON.stringify(Profile))
         const result = axios.post('/api/member/1',form,{
