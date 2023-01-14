@@ -4,16 +4,13 @@ import Header from '../src/components/Header/header'
 import Head from "next/head";
 import {Provider} from "react-redux";
 import store from "../store/store";
-import {QueryClient, QueryClientProvider, Hydrate, useQuery} from "react-query";
+import {QueryClient, QueryClientProvider, Hydrate, useQuery, dehydrate} from "react-query";
 import {ReactQueryDevtools} from "react-query/devtools";
-import axios from "axios";
-
-import Test from "./test";
+import {getSession} from "../src/components/Get/api";
 
 interface props extends AppProps{
     user:any
 }
-
 export default function App({Component, pageProps, user}: props) {
     const query = new QueryClient();
     return (
@@ -35,4 +32,14 @@ export default function App({Component, pageProps, user}: props) {
             </QueryClientProvider>
         </div>
     )
+}
+export async function getServerSideProps(){
+    const queryClient = new QueryClient()
+    await queryClient.prefetchQuery('user',getSession)
+
+    return {
+        props:{
+            dehydratedState: dehydrate(queryClient),
+        }
+    }
 }

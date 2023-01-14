@@ -3,6 +3,9 @@ import styles from '../../../styles/member.module.css'
 import {ChangeEvent, useState} from "react";
 import Link from "next/link";
 import axios from "axios";
+import {useRouter} from "next/router";
+import {useQuery} from "react-query";
+import {getSession} from "../Get/api";
 
 interface user{
     [name:string]:string
@@ -11,6 +14,7 @@ interface user{
 }
 
 export default function Login(){
+    const Router = useRouter()
     const [user, setUser] = useState<user>({
         id:'',
         pass:''
@@ -21,19 +25,21 @@ export default function Login(){
         setUser(copy)
     }
     const UserLogin = async () =>{
+
         if(user.id === '' || user.pass === '')
         {
             alert('아이디 또는 비밀번호를 입력 해주세요');
             return false;
         }
-        const obj = JSON.stringify(user)
-        const result = await axios
-            .get(`/api/member/login/${obj}`)
-            .catch((result)=>{
-                console.log(result)
-            })
-        console.log(result)
 
+        const obj = JSON.stringify(user)
+
+        const result = await axios.post(`/api/member/login/${obj}`,user).catch(({response})=>{
+            alert(response.data.msg)
+            return false
+        })
+
+        result ? window.location.href = '/' : null
     }
     return(
         <div className={styles.login}>

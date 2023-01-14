@@ -5,16 +5,9 @@ import SuggestionProducts from "../src/components/Home/SuggestionProduct";
 import EventBanner from "../src/components/Home/EventBanner";
 import SuggestionCategory from "../src/components/Home/SuggestionCategory";
 import LimitedOffer from "../src/components/Home/LimitedOffer";
-import {QueryClient} from "react-query";
-import {getSession} from "next-auth/react";
-
-// export async function getServerSideProps(){
-//     const queryClient = new QueryClient()
-//
-//     await queryClient.prefetchQuery('user')
-// }
 
 export default function Home() {
+
     const load_images = [
         {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
         {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
@@ -52,4 +45,5 @@ export default function Home() {
     </div>
   )
 }
+
 

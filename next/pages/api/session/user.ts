@@ -9,7 +9,7 @@ export default withIronSessionApiRoute(
         {
             if(req.session.user)
             {
-                res.status(200).send({state:true})
+                res.status(200).send({state:true,data:req.session.user})
             }
             else
             {

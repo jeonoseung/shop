@@ -13,17 +13,17 @@ declare module "iron-session" {
             id:number
             login_id:string
             auth:number
+            name:string
         }
     }
 }
 
 export default withIronSessionApiRoute(
     async function UserLogin(req,res){
-        if(req.method === "GET")
+        if(req.method === "POST")
         {
-            if(typeof req.query.user !== "string") return false;
-            const user = JSON.parse(req.query.user)
-            const [rows] = await db.promise().query(`SELECT user_id, user_login_id, user_authority, user_login_password FROM user WHERE user_login_id = '${user.id}'`)
+            const user = req.body
+            const [rows] = await db.promise().query(`SELECT user_id, user_login_id, user_authority,user_name, user_login_password FROM user WHERE user_login_id = '${user.id}'`)
             if(rows.length === 1)
             {
                 const result = await bcrypt.compare(user.pass,rows[0].user_login_password)
@@ -33,7 +33,8 @@ export default withIronSessionApiRoute(
                     req.session.user = {
                         id:row.user_id,
                         login_id:row.user_login_id,
-                        auth:row.user_authority
+                        auth:row.user_authority,
+                        name:row.user_name
                     }
                     await req.session.save();
                     res.status(200).send({user:req.session.user})

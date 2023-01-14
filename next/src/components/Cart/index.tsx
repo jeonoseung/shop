@@ -65,13 +65,15 @@ export default function Cart({list}:props){
             <div className={styles.cart}>
                 <div>
                     {ProductList.map((item,index)=>(
-                        <CartList key={item.id}
-                                  product={item}
-                                  index={index}
-                                  list={ProductList}
-                                  CheckState={CheckState}
-                                  setCheckState={setCheckState}
-                                  setProductList={setProductList}/>
+                        <CartList
+                            key={item.id}
+                            product={item}
+                            index={index}
+                            list={ProductList}
+                            CheckState={CheckState}
+                            setCheckState={setCheckState}
+                            setProductList={setProductList}
+                        />
                     ))}
                 </div>
                 <CartTotalPrice list={ProductList} CheckState={CheckState}/>
