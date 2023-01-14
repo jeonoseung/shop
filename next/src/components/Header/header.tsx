@@ -1,9 +1,12 @@
 import styles from '../../../styles/Header.module.css'
-import {useState} from "react";
 import HeaderTop from "./HeaderTop";
 import HeaderBottom from "./HeaderBottom";
+import axios from "axios";
+import {dehydrate, QueryClient, useQuery} from "react-query";
+import {getSession} from "../Get/api";
 
-export default function header(){
+
+export default function Header({user}:any){
     return (
         <header className={styles.header}>
             <HeaderTop />
@@ -11,3 +14,4 @@ export default function header(){
         </header>
     )
 }
+

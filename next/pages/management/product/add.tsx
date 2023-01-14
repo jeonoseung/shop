@@ -1,7 +1,7 @@
 import public_style from '../../../styles/public.module.css'
 import styles from '../../../styles/management/product.module.css'
 import Image from "next/image";
-import {ChangeEvent, useEffect, useState} from "react";
+import {ChangeEvent, useState} from "react";
 import OptionAdd from "../../../src/components/Product/management/add/Option";
 import {File} from "next/dist/compiled/@edge-runtime/primitives/fetch";
 import axios from "axios";
@@ -27,7 +27,7 @@ interface props{
     }
 }
 export default function ProductAdd(props:any) {
-    const result = useQuery('category',getCategory,{initialData:props.data})
+    useQuery('category',getCategory,{initialData:props.data})
     const product = useSelector((state:RootState)=>state.product)
     const [file,setFile] = useState<File>()
     const [Option,setOption] = useState<option[]>([

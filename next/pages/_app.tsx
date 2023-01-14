@@ -4,10 +4,17 @@ import Header from '../src/components/Header/header'
 import Head from "next/head";
 import {Provider} from "react-redux";
 import store from "../store/store";
-import {QueryClient, QueryClientProvider, Hydrate} from "react-query";
+import {QueryClient, QueryClientProvider, Hydrate, useQuery} from "react-query";
 import {ReactQueryDevtools} from "react-query/devtools";
+import axios from "axios";
 
-export default function App({ Component, pageProps }: AppProps) {
+import Test from "./test";
+
+interface props extends AppProps{
+    user:any
+}
+
+export default function App({Component, pageProps, user}: props) {
     const query = new QueryClient();
     return (
         <div>

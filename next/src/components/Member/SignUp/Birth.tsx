@@ -62,7 +62,6 @@ export default function Birth({value,setState}:props){
                 </div>
                 <span className={styles.warning}>{warning}</span>
             </div>
-            <button className={styles.event_button}>중복확인</button>
         </div>
     )
 }

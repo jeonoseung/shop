@@ -8,8 +8,7 @@ interface category{
     category_name:string
 }
 
-export default function handler(req:NextApiRequest,res:NextApiResponse) {
-    db.query("SELECT * FROM category", async (err:ErrorHandler, result:category[])=>{
-        return res.status(200).json({result})
-    })
+export default async function handler(req:NextApiRequest,res:NextApiResponse) {
+    const [rows] = await db.promise().query("SELECT * FROM category")
+    return res.status(200).json({rows})
 }

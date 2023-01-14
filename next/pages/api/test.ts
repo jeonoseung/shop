@@ -6,13 +6,13 @@ import { withIronSessionApiRoute } from "iron-session/next";
 const db = require('../../src/db/db')
 
 type Data = {
-  name: string
+    name: string
 }
 interface collection{
-  collection_id:number
-  collection_title:string
-  collection_name:string
-  collection_subtitle:string
+    collection_id:number
+    collection_title:string
+    collection_name:string
+    collection_subtitle:string
 }
 
 export default withIronSessionApiRoute(
@@ -26,12 +26,12 @@ export default withIronSessionApiRoute(
         res.send({ ok: true });
     },
     {
-      cookieName: "cookie_cookie",
-      password: "DAj5CTuS%R08K#DOr!X?dbundefinedMI6m5RA$Egr5^&2T#*Bi@XrkM9UHP^q^IPyhFI2jlPm@WvIN6CX&5lZk2JH3UQ@ifZRundefinedLiMIBSxTJ",
-      // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
-      cookieOptions: {
-        secure: process.env.NODE_ENV === "production",
-      },
+        cookieName: "cookie_cookie",
+        password: "DAj5CTuS%R08K#DOr!X?dbundefinedMI6m5RA$Egr5^&2T#*Bi@XrkM9UHP^q^IPyhFI2jlPm@WvIN6CX&5lZk2JH3UQ@ifZRundefinedLiMIBSxTJ",
+        // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
+        cookieOptions: {
+            secure: process.env.NODE_ENV === "production",
+        },
     },
 )
 // const handler = async (req:NextApiRequest,res:NextApiResponse)=> {

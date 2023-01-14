@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import p_styles from "../../../../styles/public.module.css"
 import styles from "../../../../styles/member.module.css";
 import {UserId} from "./UserId";
@@ -14,7 +14,6 @@ import FormData from "form-data";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../store/store";
-
 
 export default function SignUpIndex(){
     const [Profile, setProfile] = useState({
@@ -69,7 +68,7 @@ export default function SignUpIndex(){
                 <Gender value={Profile.gender} setState={setProfile}/>
                 <Birth value={Profile.birth} setState={setProfile}/>
             </div>
-            <button type={'button'} className={p_styles.button} onClick={test}>회원가입</button>
+            <button type={'button'} className={styles.event_button} onClick={test}>회원가입</button>
         </div>
     )
 }

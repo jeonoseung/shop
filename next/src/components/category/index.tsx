@@ -25,7 +25,7 @@ export default function CategoryIndex(){
                         value={useSelector((state:RootState)=>state.product.category)}
                         onChange={(e)=>dispatch(ChangeValue({value:e.target.value,key:'category'}))}>
                     <option value={''}>선택</option>
-                    {data.result.map((item:category)=>(
+                    {data.rows.map((item:category)=>(
                         <option key={item.category_id} value={item.category_id}>{item.category_name}</option>
                     ))}
                 </select>
@@ -44,7 +44,7 @@ export default function CategoryIndex(){
                         </div>
                     </div>
                     <div className={styles['list']}>
-                        {data.result.map((item:category)=>(
+                        {data.rows.map((item:category)=>(
                             <div key={item.category_id}>{item.category_name}</div>
                         ))}
                     </div>

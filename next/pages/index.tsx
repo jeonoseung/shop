@@ -1,12 +1,18 @@
 
-import { Inter } from '@next/font/google'
 import ImageSlider from "../src/components/Home/ImageSlider";
 import styles from "../styles/Home.module.css"
 import SuggestionProducts from "../src/components/Home/SuggestionProduct";
 import EventBanner from "../src/components/Home/EventBanner";
 import SuggestionCategory from "../src/components/Home/SuggestionCategory";
 import LimitedOffer from "../src/components/Home/LimitedOffer";
-const inter = Inter({ subsets: ['latin'] })
+import {QueryClient} from "react-query";
+import {getSession} from "next-auth/react";
+
+// export async function getServerSideProps(){
+//     const queryClient = new QueryClient()
+//
+//     await queryClient.prefetchQuery('user')
+// }
 
 export default function Home() {
     const load_images = [
@@ -46,3 +52,4 @@ export default function Home() {
     </div>
   )
 }
+
