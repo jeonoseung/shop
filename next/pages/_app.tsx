@@ -1,6 +1,6 @@
 import '../styles/public.css'
 import type { AppProps } from 'next/app'
-import Header from '../src/component/header/header'
+import Header from "../src/component/header/header";
 import Head from "next/head";
 import {Provider} from "react-redux";
 import store from "../store/store";

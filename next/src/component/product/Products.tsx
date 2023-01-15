@@ -1,7 +1,7 @@
 import styles from "../../../styles/Product.module.css";
 import Image from "next/image";
-import {useQuery} from "react-query";
-import {getProduct} from "../../function/api/get/api";
+import {dehydrate, QueryClient, useQuery} from "react-query";
+import {getProduct, getSession} from "../../function/api/get/api";
 import {setPrice} from "../../function/public/price";
 interface props{
     list:{
@@ -13,13 +13,13 @@ interface props{
     }[]
 }
 
-export default function Products({list}:props){
+export default function Products(){
     const {isLoading, data}:any = useQuery('product',getProduct);
 
     return(
         <div>
             <div className={styles.option}>
-                <span className={styles.list_length}>총 {list.length}건</span>
+                <span className={styles.list_length}>총 {!isLoading ? data.length : '-'}건</span>
                 <div>
                     신상품순
                 </div>
@@ -66,4 +66,13 @@ export default function Products({list}:props){
             }
         </div>
     )
+}
+export async function getServerSideProps(){
+    const queryClient = new QueryClient()
+    await queryClient.prefetchQuery('product',getProduct)
+    return {
+        props:{
+            dehydratedState: dehydrate(queryClient),
+        }
+    }
 }

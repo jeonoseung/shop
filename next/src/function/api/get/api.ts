@@ -14,7 +14,7 @@ export const getSession = async ()=>{
     return data.data
 }
 export const getProduct = async ()=>{
-    const data = await axios.get('/api/product')
+    const data = await axios.get(`/api/product`)
     return data.data
 }
 
