@@ -2,7 +2,7 @@ import styles from "../../../styles/Header.module.css";
 import {ChangeEventHandler, CSSProperties, useState} from "react";
 import Link from "next/link";
 import {useQuery} from "react-query";
-import {getSession} from "../Get/api";
+import {getSession} from "../../function/api/get/api";
 
 export default function HeaderTop() {
     const [Search,setSearch] = useState('');

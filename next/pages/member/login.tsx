@@ -1,6 +1,6 @@
 import public_styles from '../../styles/public.module.css';
 import styles from '../../styles/member.module.css';
-import Login from "../../src/components/Member/login";
+import Login from "../../src/component/member/login";
 
 export default function login(){
     return(

@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import {ChangeValue} from "../../../store/product/management/ProductAdd";
 import {useQuery} from "react-query";
-import {getCategory} from "../Get/api";
+import {getCategory} from "../../function/api/get/api";
 
 interface category{
     category_id:number

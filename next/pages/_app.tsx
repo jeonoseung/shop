@@ -1,12 +1,12 @@
 import '../styles/public.css'
 import type { AppProps } from 'next/app'
-import Header from '../src/components/Header/header'
+import Header from '../src/component/header/header'
 import Head from "next/head";
 import {Provider} from "react-redux";
 import store from "../store/store";
 import {QueryClient, QueryClientProvider, Hydrate, useQuery, dehydrate} from "react-query";
 import {ReactQueryDevtools} from "react-query/devtools";
-import {getSession} from "../src/components/Get/api";
+import {getSession} from "../src/function/api/get/api";
 
 interface props extends AppProps{
     user:any

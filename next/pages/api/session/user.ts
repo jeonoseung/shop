@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {withIronSessionApiRoute} from "iron-session/next";
-import {IronSessionOption} from "../../../src/function/api/IronSession/options";
+import {IronSessionOption} from "../../../src/function/api/iron-session/options";
 
 
 export default withIronSessionApiRoute(

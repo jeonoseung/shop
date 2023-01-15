@@ -44,16 +44,16 @@ export default function SignUpIndex(){
 
         const form:FormData = new FormData()
         form.append("data",JSON.stringify(Profile))
-        const result = axios.post('/api/member/1',form,{
+        const result:any = axios.post('/api/member/1',form,{
             headers:{
                 "Content-Type":"multipart/form-data"
             }
         })
-        result.then((result)=>{
-            console.log(result)
-        }).catch(({response})=>{
+        result.catch(({response}:any)=>{
             alert(response.data.msg)
+            return false
         })
+        result ? window.location.href = '/member/login' : null
     }
     return(
         <div className={styles.signup}>

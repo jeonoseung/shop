@@ -5,7 +5,7 @@ import Link from "next/link";
 import axios from "axios";
 import {useRouter} from "next/router";
 import {useQuery} from "react-query";
-import {getSession} from "../Get/api";
+import {getSession} from "../../function/api/get/api";
 
 interface user{
     [name:string]:string

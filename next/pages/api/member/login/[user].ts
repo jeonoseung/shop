@@ -3,7 +3,7 @@ import ResponseClass from "../../../../src/function/api/Response";
 const bcrypt = require('bcrypt');
 const db = require('../../../../src/db/db')
 import { withIronSessionApiRoute } from "iron-session/next";
-import {IronSessionOption} from "../../../../src/function/api/IronSession/options";
+import {IronSessionOption} from "../../../../src/function/api/iron-session/options";
 
 
 

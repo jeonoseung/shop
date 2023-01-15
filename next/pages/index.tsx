@@ -1,10 +1,10 @@
 
-import ImageSlider from "../src/components/Home/ImageSlider";
+import ImageSlider from "../src/component/home/ImageSlider";
 import styles from "../styles/Home.module.css"
-import SuggestionProducts from "../src/components/Home/SuggestionProduct";
-import EventBanner from "../src/components/Home/EventBanner";
-import SuggestionCategory from "../src/components/Home/SuggestionCategory";
-import LimitedOffer from "../src/components/Home/LimitedOffer";
+import SuggestionProducts from "../src/component/home/SuggestionProduct";
+import EventBanner from "../src/component/home/EventBanner";
+import SuggestionCategory from "../src/component/home/SuggestionCategory";
+import LimitedOffer from "../src/component/home/LimitedOffer";
 
 export default function Home() {
 
