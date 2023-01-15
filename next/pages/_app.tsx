@@ -1,13 +1,17 @@
 import '../styles/public.css'
 import type { AppProps } from 'next/app'
-import Header from '../src/components/Header/header'
+import Header from '../src/component/header/header'
 import Head from "next/head";
 import {Provider} from "react-redux";
 import store from "../store/store";
-import {QueryClient, QueryClientProvider, Hydrate} from "react-query";
+import {QueryClient, QueryClientProvider, Hydrate, useQuery, dehydrate} from "react-query";
 import {ReactQueryDevtools} from "react-query/devtools";
+import {getSession} from "../src/function/api/get/api";
 
-export default function App({ Component, pageProps }: AppProps) {
+interface props extends AppProps{
+    user:any
+}
+export default function App({Component, pageProps, user}: props) {
     const query = new QueryClient();
     return (
         <div>
@@ -28,4 +32,14 @@ export default function App({ Component, pageProps }: AppProps) {
             </QueryClientProvider>
         </div>
     )
+}
+export async function getServerSideProps(){
+    const queryClient = new QueryClient()
+    await queryClient.prefetchQuery('user',getSession)
+
+    return {
+        props:{
+            dehydratedState: dehydrate(queryClient),
+        }
+    }
 }

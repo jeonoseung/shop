@@ -23,7 +23,7 @@
 }
 .login_form input:focus{
     outline:none;
-    border:1px solid black;
+    border:1px solid #0d6efd;
 }
 .login .login_form .user_find{
     text-align:right;
@@ -122,7 +122,7 @@
     outline:none;
     border:1px solid #0d6efd;
 }
-.signup .signup_form .input_div .event_button{
+.signup .event_button{
     transition: border, background-color 0.5s;
     width:100%;
     height:45px;
@@ -132,7 +132,17 @@
     color:#0d6efd;
     border-radius:0.25rem;
 }
-.signup .signup_form .input_div .event_button:hover{
+.signup .event-button__disabled{
+    transition: border, background-color 0.5s;
+    width:100%;
+    height:45px;
+    padding:0 0.75rem;
+    border:1px solid #ddd;
+    color:#ddd;
+    background: white;
+    border-radius:0.25rem;
+}
+.signup .event_button:hover{
     cursor: pointer;
 }
 .signup_form .input_div .signup_radio{

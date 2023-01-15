@@ -1,14 +1,13 @@
 
-import { Inter } from '@next/font/google'
-import ImageSlider from "../src/components/Home/ImageSlider";
+import ImageSlider from "../src/component/home/ImageSlider";
 import styles from "../styles/Home.module.css"
-import SuggestionProducts from "../src/components/Home/SuggestionProduct";
-import EventBanner from "../src/components/Home/EventBanner";
-import SuggestionCategory from "../src/components/Home/SuggestionCategory";
-import LimitedOffer from "../src/components/Home/LimitedOffer";
-const inter = Inter({ subsets: ['latin'] })
+import SuggestionProducts from "../src/component/home/SuggestionProduct";
+import EventBanner from "../src/component/home/EventBanner";
+import SuggestionCategory from "../src/component/home/SuggestionCategory";
+import LimitedOffer from "../src/component/home/LimitedOffer";
 
 export default function Home() {
+
     const load_images = [
         {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
         {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
@@ -46,3 +45,5 @@ export default function Home() {
     </div>
   )
 }
+
+

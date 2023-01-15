@@ -4,7 +4,7 @@
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import counterSlice from './counterSlice';
 import product from "./product/management/ProductAdd";
-
+import overlap from "./member/overlap-check";
 // 리덕스 store 생성함수
 const makeStore = () => {
     // 미들웨어 추가(필요 없을 경우 생략)
@@ -17,6 +17,7 @@ const makeStore = () => {
     return configureStore({
         reducer: {
             product: product.reducer,
+            overlap:overlap.reducer,
             counter: counterSlice.reducer,
 
             // [counterSlice.name]: counterSlice.reducer, // 위와 동일한 코드다.

@@ -9,3 +9,6 @@ h2{
     color:#333;
     user-select:none;
 }
+a{
+    text-decoration:none;
+}

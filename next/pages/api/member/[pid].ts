@@ -33,7 +33,7 @@ n.post(async (req:NextApiRequest,res:NextApiResponse)=>{
 
         const PASS_CHECK = RegExp.UserPassCheckRe(data.pass,data.pass_chk);
         PASS_CHECK.status ?
-            BadRequest400(res,"pass",'InputError','RegExp',`비밀번호 - ${PASS_CHECK.msg}`,data.pass_chk) : null;
+            BadRequest400(res,"pass_check",'InputError','RegExp',`비밀번호 - ${PASS_CHECK.msg}`,data.pass_chk) : null;
 
         const NAME = RegExp.UserNameCheck(data.name);
         NAME.status ?

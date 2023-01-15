@@ -1,15 +1,15 @@
 import public_style from '../../../styles/public.module.css'
 import styles from '../../../styles/management/product.module.css'
 import Image from "next/image";
-import {ChangeEvent, useEffect, useState} from "react";
-import OptionAdd from "../../../src/components/Product/management/add/Option";
+import {ChangeEvent, useState} from "react";
+import OptionAdd from "../../../src/component/product/management/add/Option";
 import {File} from "next/dist/compiled/@edge-runtime/primitives/fetch";
 import axios from "axios";
-import CategoryIndex from "../../../src/components/category";
-import ProductData from "../../../src/components/Product/management/add/Data";
+import CategoryIndex from "../../../src/component/category";
+import ProductData from "../../../src/component/product/management/add/Data";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
-import {getCategory} from "../../../src/components/Get/api";
+import {getCategory} from "../../../src/function/api/get/api";
 import {useQuery} from "react-query";
 
 
@@ -27,7 +27,7 @@ interface props{
     }
 }
 export default function ProductAdd(props:any) {
-    const result = useQuery('category',getCategory,{initialData:props.data})
+    useQuery('category',getCategory,{initialData:props.data})
     const product = useSelector((state:RootState)=>state.product)
     const [file,setFile] = useState<File>()
     const [Option,setOption] = useState<option[]>([
