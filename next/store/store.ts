@@ -5,6 +5,8 @@ import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import counterSlice from './counterSlice';
 import product from "./product/management/ProductAdd";
 import overlap from "./member/overlap-check";
+import info from "./product/product-info/reducer";
+import product_add from "./product/management/product-add/reducer";
 // 리덕스 store 생성함수
 const makeStore = () => {
     // 미들웨어 추가(필요 없을 경우 생략)
@@ -12,16 +14,14 @@ const makeStore = () => {
     if (process.env.NODE_ENV === 'development') {
         // middleware.push(logger);
     }
-
     // 슬라이스 통합 store 생성
     return configureStore({
         reducer: {
             product: product.reducer,
             overlap:overlap.reducer,
             counter: counterSlice.reducer,
-
-            // [counterSlice.name]: counterSlice.reducer, // 위와 동일한 코드다.
-            // [numberSlice.name]: numberSlice.reducer
+            ProductInfo:info.reducer,
+            ProductAdd:product_add.reducer,
         },
         middleware, // 미들웨어 불필요시 생략
         // middleware: [...getDefaultMiddleware(), logger]

@@ -4,8 +4,9 @@ import {ChangeEvent, useState} from "react";
 import Link from "next/link";
 import axios from "axios";
 import {useRouter} from "next/router";
-import {useQuery} from "react-query";
-import {getSession} from "../../function/api/get/api";
+import {dehydrate, QueryClient, useQuery} from "react-query";
+import {getProductInfo, getSession} from "../../function/api/get/api";
+import {GetServerSideProps} from "next";
 
 interface user{
     [name:string]:string
@@ -14,7 +15,7 @@ interface user{
 }
 
 export default function Login(){
-    const Router = useRouter()
+
     const [user, setUser] = useState<user>({
         id:'',
         pass:''

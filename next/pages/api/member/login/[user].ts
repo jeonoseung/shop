@@ -1,7 +1,7 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import ResponseClass from "../../../../src/function/api/Response";
+import {database} from "../../../../src/db/db";
 const bcrypt = require('bcrypt');
-const db = require('../../../../src/db/db')
 import { withIronSessionApiRoute } from "iron-session/next";
 import {IronSessionOption} from "../../../../src/function/api/iron-session/options";
 
@@ -23,7 +23,7 @@ export default withIronSessionApiRoute(
         if(req.method === "POST")
         {
             const user = req.body
-            const [rows] = await db.promise().query(`SELECT user_id, user_login_id, user_authority,user_name, user_login_password FROM user WHERE user_login_id = '${user.id}'`)
+            const [rows] = await database.promise().query(`SELECT user_id, user_login_id, user_authority,user_name, user_login_password FROM user WHERE user_login_id = '${user.id}'`)
             if(rows.length === 1)
             {
                 const result = await bcrypt.compare(user.pass,rows[0].user_login_password)

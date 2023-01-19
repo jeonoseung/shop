@@ -1,91 +1,90 @@
-import public_style from '../../../styles/public.module.css'
-import styles from '../../../styles/management/product.module.css'
-import Image from "next/image";
-import {ChangeEvent, useState} from "react";
-import OptionAdd from "../../../src/component/product/management/add/Option";
+import {withIronSessionSsr} from "iron-session/next";
+import {IronSessionOption} from "../../../src/function/api/iron-session/options"
+import publicStyles from '../../../styles/public.module.css'
+import styles from '../../../src/component/product/management/add/product-add.module.css'
+import CategoryAndBrand from "../../../src/component/product/management/add/category-brand";
+import NameAndTitle from "../../../src/component/product/management/add/name-title";
+import PriceAndDiscount from "../../../src/component/product/management/add/price-discount";
+import StorageAndDelivery from "../../../src/component/product/management/add/storage-delivery";
+import ImageManagement from "../../../src/component/product/management/add/image-management";
+import {useState} from "react";
 import {File} from "next/dist/compiled/@edge-runtime/primitives/fetch";
-import axios from "axios";
-import CategoryIndex from "../../../src/component/category";
-import ProductData from "../../../src/component/product/management/add/Data";
-import {useDispatch, useSelector} from "react-redux";
+import FormData from "form-data";
+import {dehydrate, QueryClient, useQuery} from "react-query";
+import {getCategory, getProductInfo} from "../../../src/function/api/get/api";
+import {Provider, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
-import {getCategory} from "../../../src/function/api/get/api";
-import {useQuery} from "react-query";
+import ProductOption from "../../../src/component/product/management/add/product-option";
+import axios from "axios";
 
-
-interface option{
-    [name:string]:string
-    content:string
-    described:string
-}
 interface props{
-    data:{
-        result:{
-            category_id:number
-            category_name:string
-        }[]
-    }
+    user:number
 }
-export default function ProductAdd(props:any) {
-    useQuery('category',getCategory,{initialData:props.data})
-    const product = useSelector((state:RootState)=>state.product)
+
+export default function ProductAddPage({user}:props){
     const [file,setFile] = useState<File>()
-    const [Option,setOption] = useState<option[]>([
-        {name:'',content:'',described:''}
-    ])
-    const ImageChange = (e:ChangeEvent<HTMLInputElement>) =>{
-        if(!e.target.files) return false;
-        setFile(e.target.files[0])
-    }
-    const Save = async () =>{
-        const form:FormData = new FormData();
-        if(!file){alert("이미지를 선택 해주세요");return false;}
-        form.append("file",file)
-        form.append("data",JSON.stringify(product))
-        form.append("option",JSON.stringify(Option))
-        const result = await axios.post("/api/product/1",form,{
+    const value = useSelector((state:RootState)=>state.ProductAdd.data)
+    const option = useSelector((state:RootState)=>state.ProductAdd.option)
+
+    const SaveProduct = async () =>{
+
+        const form:FormData = new FormData()
+
+        if(!file) {alert("선택된 이미지가 없습니다");return false}
+
+        form.append('file',file)
+        form.append('data',JSON.stringify(value))
+        form.append('option',JSON.stringify(option))
+        form.append('user',user)
+
+        const result = await axios.post('/api/product',form,{
             headers:{
                 "Content-Type":"multipart/form-data"
             }
         })
-        if(result.status === 200)
-        {
-            alert("추가 되었습니다")
-        }
-        else
-        {
-            alert("오류 발생")
-        }
+        console.log(result)
     }
+
     return(
-        <div className={public_style.content}>
-            <div className={styles['product-add']}>
-                <div className={styles['set-product']}>
-                    <div>
-                        <label>
-                            <input type={'file'} onChange={ImageChange}/>
-                            <Image
-                                className={styles['set-product-img']}
-                                priority={true}
-                                src={'/image/image1.jpg'}
-                                alt={''}
-                                width={100} height={100}
-                            />
-                        </label>
+        <div className={publicStyles.content}>
+            <div className={styles['product']}>
+                <div className={styles['product-image-div']}>
+                    <ImageManagement file={file} setFile={setFile}/>
+                </div>
+                <div>
+                    <div className={styles['product-data-div']}>
+                        <CategoryAndBrand />
+                        <NameAndTitle />
+                        <PriceAndDiscount />
+                        <StorageAndDelivery />
                     </div>
-                    <div className={styles['set-product-info']}>
-                        <CategoryIndex />
-                        <ProductData />
-                        <OptionAdd Option={Option} setOption={setOption}/>
-                        <button onClick={Save}>저장</button>
-                    </div>
+                    <ProductOption />
+                    <button className={publicStyles['button']} onClick={SaveProduct}>저장</button>
                 </div>
             </div>
         </div>
     )
 }
-export async function getServerSideProps(){
-    const data = await axios.get(`${process.env.URL}/api/category/1`)
-    return {props:{data:data.data}}
-}
+export const getServerSideProps = withIronSessionSsr(
+    async function getServerSideProps({ req }) {
+        const user = req.session.user;
+        const queryClient = new QueryClient()
+        await queryClient.prefetchQuery('product-category',()=>getCategory(true))
 
+        if (!user || user.auth !== 1) {
+            return {
+                redirect: {
+                    permanent:false,
+                    destination:"/"
+                }
+            };
+        }
+        return {
+            props: {
+                dehydratedState: dehydrate(queryClient),
+                user:req.session.user.id
+            },
+        };
+    },
+    IronSessionOption
+);

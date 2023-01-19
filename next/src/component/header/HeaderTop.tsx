@@ -1,12 +1,14 @@
 import styles from "../../../styles/Header.module.css";
 import {ChangeEventHandler, CSSProperties, useState} from "react";
 import Link from "next/link";
-import {useQuery} from "react-query";
-import {getSession} from "../../function/api/get/api";
+import {dehydrate, QueryClient, useQuery} from "react-query";
+import {getProductInfo, getSession} from "../../function/api/get/api";
+import {GetServerSideProps} from "next";
 
 export default function HeaderTop() {
     const [Search,setSearch] = useState('');
-    const {data,isLoading} =useQuery('user',getSession)
+    const {data,isLoading} =useQuery('user',()=>getSession(false))
+
     const InputSearch:ChangeEventHandler<HTMLInputElement> = (e) =>{
         setSearch(e.target.value)
     }
@@ -43,12 +45,12 @@ export default function HeaderTop() {
                 <div className={styles.user_menu_list}>
                     <div className={styles.member}>
                         {
-                            !isLoading && data.state === true
+                            !isLoading && data !== ''
                                 ?
                                 <div>
                                     <Link href={'/my-page'}>
                                         <span>
-                                            {data.data.name} 님
+                                            {data.name} 님
                                         </span>
                                     </Link>
                                 </div>

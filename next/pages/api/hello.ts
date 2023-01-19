@@ -2,8 +2,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {ErrorHandler} from "next/dist/client/components/react-dev-overlay/internal/helpers/use-error-handler";
 import { withIronSessionApiRoute } from "iron-session/next";
+import {database} from "../../src/db/db";
 
-const db = require('../../src/db/db')
 
 type Data = {
   name: string

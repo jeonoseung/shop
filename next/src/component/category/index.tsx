@@ -16,7 +16,7 @@ export default function CategoryIndex(){
     const [ModalState,setModalState] = useState<boolean>(false)
     const SwitchModal=(e:ChangeEvent<HTMLInputElement>)=>{setModalState(e.target.checked)}
     const dispatch = useDispatch();
-    const {data}= useQuery('category',getCategory)
+    const {data}= useQuery('category',()=>getCategory(false))
 
     return(
         <div className={styles.category}>

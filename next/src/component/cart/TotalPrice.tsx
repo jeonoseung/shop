@@ -1,5 +1,7 @@
 import {ProductType} from "Cart";
 import {useEffect, useMemo, useState} from "react";
+import {dehydrate, QueryClient} from "react-query";
+import {getProduct, getProductInfo} from "../../function/api/get/api";
 
 interface props{
     list:ProductType[]

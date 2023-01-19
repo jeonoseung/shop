@@ -1,7 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {ErrorHandler} from "next/dist/client/components/react-dev-overlay/internal/helpers/use-error-handler";
-const db = require('../../../src/db/db')
+import {database} from "../../../src/db/db";
+
 
 interface category{
     category_id:number
@@ -9,6 +10,6 @@ interface category{
 }
 
 export default async function handler(req:NextApiRequest,res:NextApiResponse) {
-    const [rows] = await db.promise().query("SELECT * FROM category")
+    const [rows] = await database.promise().query("SELECT * FROM category")
     return res.status(200).json({rows})
 }

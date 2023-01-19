@@ -3,6 +3,7 @@ import Image from "next/image";
 import {dehydrate, QueryClient, useQuery} from "react-query";
 import {getProduct, getSession} from "../../function/api/get/api";
 import {setPrice} from "../../function/public/price";
+import {useState} from "react";
 interface props{
     list:{
         src:string
@@ -14,15 +15,11 @@ interface props{
 }
 
 export default function Products(){
-    const {isLoading, data}:any = useQuery('product',getProduct);
-
+    const {isLoading, data}:any = useQuery('product',()=>getProduct(false));
     return(
         <div>
             <div className={styles.option}>
                 <span className={styles.list_length}>총 {!isLoading ? data.length : '-'}건</span>
-                <div>
-                    신상품순
-                </div>
             </div>
             {
                 !isLoading
@@ -66,13 +63,4 @@ export default function Products(){
             }
         </div>
     )
-}
-export async function getServerSideProps(){
-    const queryClient = new QueryClient()
-    await queryClient.prefetchQuery('product',getProduct)
-    return {
-        props:{
-            dehydratedState: dehydrate(queryClient),
-        }
-    }
 }

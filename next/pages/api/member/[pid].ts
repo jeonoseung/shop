@@ -1,11 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import nc from 'next-connect';
 import multer from "multer";
-const bcrypt = require('bcrypt');
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {ErrorHandler} from "next/dist/client/components/react-dev-overlay/internal/helpers/use-error-handler";
 import {RegExp} from "../../../src/function/RegExp";
-const db = require('../../../src/db/db')
+import {database} from "../../../src/db/db";
+const bcrypt = require('bcrypt');
+
 export const config = {
     api: {
         bodyParser: false
@@ -67,7 +68,7 @@ n.post(async (req:NextApiRequest,res:NextApiResponse)=>{
         const sql = `INSERT INTO user(user_login_id,user_login_password,user_authority,user_name,user_address,user_phone,user_email,user_gender,user_birth)
                     VALUE('${data.id}','${password}','${3}','${data.name}','${data.zipcode+'_'+data.address+'_'+data.detail}','${data.phone}','${data.email}','${data.gender}','${data.birth}');`
 
-        db.query(sql,(err:ErrorHandler | undefined)=>{
+        database.query(sql,(err:ErrorHandler | undefined)=>{
             if(err)
             {
                 throw Error('sql 에러')

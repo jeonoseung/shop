@@ -2,7 +2,7 @@ import nc from 'next-connect';
 import multer from "multer";
 import path from "path";
 import type { NextApiRequest, NextApiResponse } from 'next'
-const db = require('../../../src/db/db')
+import {database} from "../../../src/db/db";
 import {ErrorHandler} from "next/dist/client/components/react-dev-overlay/internal/helpers/use-error-handler";
 import {RowDataPacket} from "mysql2";
 
@@ -30,8 +30,16 @@ const upload = multer({
 })
 
 const uploadFile = upload.single('file');
-n.use(uploadFile)
 
+
+n.use(uploadFile)
+n.get(async (req:NextApiRequest,res:NextApiResponse)=>{
+    const sql = `SELECT * FROM products WHERE product_id = '${req.query.id}';`;
+    const sql2 = `SELECT * FROM product_option WHERE product_id = '${req.query.id}'`
+    const [data] = await database.promise().query(sql)
+    const [option] = await database.promise().query(sql2)
+    return res.status(200).send({info:data[0],option:option})
+})
 n.post(async (req:MulterRequest,res:NextApiResponse)=>{
     try{
         const data = JSON.parse(req.body.data)
@@ -70,9 +78,9 @@ n.post(async (req:MulterRequest,res:NextApiResponse)=>{
         const sql = `INSERT INTO products(product_name,brand_name,product_title,product_price,product_img,discount_rate,category_id) 
                                 VALUE('${data.title}','${data.brand}','${data.sub}','${data.price}','${src}','${data.sale}','${data.category}')`
 
-        db.query(sql,async (err:ErrorHandler,result:RowDataPacket)=>{
+        database.query(sql,async (err:ErrorHandler,result:RowDataPacket)=>{
             if(err !== null) {throw err;}
-            const sql = `INSERT INTO product_option(po_name,po_content,po_described,po_order,product_id)`
+            const sql = `INSERT INTO product_option(po_name,po_content,po_order,product_id)`
             interface item{
                 name:string
                 content:string
@@ -84,7 +92,7 @@ n.post(async (req:MulterRequest,res:NextApiResponse)=>{
                 sql2 += `('${item.name}','${item.content}','${item.described}','${index+1}','${result.insertId}')`
                 index === option.length-1 ? sql2 += `;` : sql2 += `,`
             })
-            db.query(sql+sql2,async (err:ErrorHandler)=>{
+            database.query(sql+sql2,async (err:ErrorHandler)=>{
                 if(err !== null) {throw err;}
             })
         })

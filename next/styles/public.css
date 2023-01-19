@@ -1,6 +1,23 @@
+@font-face {
+    font-family:"Noto Sans";
+    src: url("../styles/font/Noto_Sans_KR/NotoSansKR-Regular.otf") format('truetype');
+}
+
 body{
     margin:0;
     font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
+}
+pre{
+    font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
+    margin:0;
+    white-space:pre-wrap;
+}
+textarea{
+    font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
+    font-weight:normal;
+}
+button:focus{
+    outline:none;
 }
 h2{
     margin:0;
@@ -8,6 +25,8 @@ h2{
 *{
     color:#333;
     user-select:none;
+    white-space:pre-wrap;
+    box-sizing: border-box;
 }
 a{
     text-decoration:none;

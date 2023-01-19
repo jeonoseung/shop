@@ -8,9 +8,11 @@ type StateType = {
     price:string,
     sale:string,
     category:number,
-    brand:string
+    brand:string,
+    storage_type:string,
+    delivery_type:string,
 };
-interface test{
+interface parameter{
     value:string
     key:string
 }
@@ -20,14 +22,16 @@ const initialState: StateType = {
     price:'',
     sale:'',
     category:0,
-    brand:''
+    brand:'',
+    storage_type:'',
+    delivery_type:''
 };
 
 export const product = createSlice({
     name: 'counter',
     initialState,
     reducers: {
-        ChangeValue:(state:StateType,action:PayloadAction<test>)=>{
+        ChangeValue:(state:StateType,action:PayloadAction<parameter>)=>{
             state[action.payload.key] = action.payload.value
         },
     }
