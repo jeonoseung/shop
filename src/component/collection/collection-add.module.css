@@ -1,0 +1,21 @@
+.collection-add{
+
+}
+.collection-add .collection-set{
+
+}
+.collection-add .collection-product{
+
+}
+.collection-add .collection-product .filter{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 2fr 1fr 2fr;
+    align-items:center;
+    text-align:center;
+    gap:1rem;
+    margin:1rem 0;
+}
+.collection-add .collection-product .product-list{
+
+}

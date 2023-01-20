@@ -1,7 +1,7 @@
 import styles from '../../styles/Product.module.css'
 import Filter from '../../src/component/product/Filter'
 import Products from "../../src/component/product/Products";
-import {getProduct, getProductInfo, getTest} from "../../src/function/api/get/api";
+import {getProduct, getProductInfo} from "../../src/function/api/get/api";
 import axios from "axios";
 import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient} from "react-query";

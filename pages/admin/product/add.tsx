@@ -1,12 +1,12 @@
 import {withIronSessionSsr} from "iron-session/next";
 import {IronSessionOption} from "../../../src/function/api/iron-session/options"
 import publicStyles from '../../../styles/public.module.css'
-import styles from '../../../src/component/product/management/add/product-add.module.css'
-import CategoryAndBrand from "../../../src/component/product/management/add/category-brand";
-import NameAndTitle from "../../../src/component/product/management/add/name-title";
-import PriceAndDiscount from "../../../src/component/product/management/add/price-discount";
-import StorageAndDelivery from "../../../src/component/product/management/add/storage-delivery";
-import ImageManagement from "../../../src/component/product/management/add/image-management";
+import styles from '../../../src/component/product/admin/add/product-add.module.css'
+import CategoryAndBrand from "../../../src/component/product/admin/add/category-brand";
+import NameAndTitle from "../../../src/component/product/admin/add/name-title";
+import PriceAndDiscount from "../../../src/component/product/admin/add/price-discount";
+import StorageAndDelivery from "../../../src/component/product/admin/add/storage-delivery";
+import ImageManagement from "../../../src/component/product/admin/add/image-management";
 import {useState} from "react";
 import {File} from "next/dist/compiled/@edge-runtime/primitives/fetch";
 import FormData from "form-data";
@@ -14,7 +14,7 @@ import {dehydrate, QueryClient, useQuery} from "react-query";
 import {getCategory, getProductInfo} from "../../../src/function/api/get/api";
 import {Provider, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
-import ProductOption from "../../../src/component/product/management/add/product-option";
+import ProductOption from "../../../src/component/product/admin/add/product-option";
 import axios from "axios";
 
 interface props{

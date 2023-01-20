@@ -23,8 +23,10 @@ export const getProductInfo = async (ssr:boolean,pid:string | string[] | undefin
     return data.data
 }
 
-export const getTest = async ()=>{
-    const data = await axios.get(`http://localhost:3000/api/product/test`);
+export const getProductOnCollectionAdmin = async (ssr:boolean,category:string,search:string)=>{
+    const data = category === '' && search === ''
+        ? await axios.get(`${ssr ? process.env.URL : ''}/api/product`)
+        : await axios.get(`${ssr ? process.env.URL : ''}/api/product/collection/${category}/${search}`)
     return data.data
 }
 
