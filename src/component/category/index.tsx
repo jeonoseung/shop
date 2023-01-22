@@ -3,7 +3,7 @@ import public_styles from '../../../styles/public.module.css'
 import styles from '../../../styles/management/category.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
-import {ChangeValue} from "../../../store/product/management/ProductAdd";
+import {ChangeValue} from "../../../store/product/admin/ProductAdd";
 import {useQuery} from "react-query";
 import {getCategory} from "../../function/api/get/api";
 

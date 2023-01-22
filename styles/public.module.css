@@ -3,6 +3,7 @@
     margin:auto;
     padding:1.5rem 0;
 }
+
 .checkbox{
     display:flex;
     align-items:center;
@@ -70,7 +71,18 @@
 .textarea:focus{
     outline:none;
 }
+.public-button{
+    height:35px;
+    padding:0 1rem;
+    color:white;
+    background:#0d6efd;
+    box-sizing: border-box;
+    border:1px solid #0d6efd;
+    border-radius:0.25rem;
+}
+.outline-button{
 
+}
 .button{
     width:100%;
     color:#0d6efd;

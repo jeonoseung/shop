@@ -2,7 +2,7 @@ import styles from "./product-add.module.css";
 import publicStyles from "../../../../../styles/public.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../../store/store";
-import {ProductInputChange} from "../../../../../store/product/management/product-add/reducer";
+import {ProductInputChange} from "../../../../../store/product/admin/product-add/reducer";
 
 
 export default function StorageAndDelivery(){

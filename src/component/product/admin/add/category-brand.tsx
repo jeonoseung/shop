@@ -5,7 +5,7 @@ import {useQuery} from "react-query";
 import {getCategory} from "../../../../function/api/get/api";
 import {category} from "../../../../@types/database-type";
 import {useDispatch, useSelector} from "react-redux";
-import {ProductInputChange} from "../../../../../store/product/management/product-add/reducer";
+import {ProductInputChange} from "../../../../../store/product/admin/product-add/reducer";
 import {RootState} from "../../../../../store/store";
 
 export default function CategoryAndBrand(){

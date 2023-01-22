@@ -10,7 +10,7 @@ import Image from "next/image";
 import Spinner from "../../src/component/public/spinner";
 import ProductData from "../../src/component/product/product-info/product-data";
 import ProductOption from "../../src/component/product/product-info/product-option";
-import {ProductInfoProps} from "../../src/@types/product-info";
+import {ProductInfoProps} from "../../src/@types/product/product-info";
 import ProductTotalPrice from "../../src/component/product/product-info/product-total";
 import PutInCart from "../../src/component/product/product-info/put-in-cart";
 

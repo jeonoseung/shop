@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../../store/store";
 import publicStyles from "../../../../../styles/public.module.css"
 import styles from "./product-add.module.css"
-import {OptionInputChange, PlusOption, RemoveOption} from "../../../../../store/product/management/product-add/reducer";
+import {OptionInputChange, PlusOption, RemoveOption} from "../../../../../store/product/admin/product-add/reducer";
 import {CSSProperties} from "react";
 import Image from "next/image";
 

@@ -2,7 +2,7 @@ import {CSSProperties} from "react";
 import {setPrice} from "../../../function/public/price";
 import {useQuery} from "react-query";
 import {getProductInfo} from "../../../function/api/get/api";
-import {ProductInfoProps} from "../../../@types/product-info";
+import {ProductInfoProps} from "../../../@types/product/product-info";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../store/store";
 

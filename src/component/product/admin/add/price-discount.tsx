@@ -1,7 +1,7 @@
 import styles from "./product-add.module.css";
 import publicStyles from "../../../../../styles/public.module.css";
 import {useDispatch, useSelector} from "react-redux";
-import {ProductInputChange} from "../../../../../store/product/management/product-add/reducer";
+import {ProductInputChange} from "../../../../../store/product/admin/product-add/reducer";
 import {RootState} from "../../../../../store/store";
 
 export default function PriceAndDiscount(){
