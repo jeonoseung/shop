@@ -4,21 +4,22 @@ interface props{
     title:string
 }
 
-export default function Title({title}:props){
+export default function SubTitle({title}:props){
     const div:CSSProperties = {
         width:'100%',
         textAlign:'center',
-        fontWeight: '600',
-        fontSize:'28px',
-        color:'rgb(51, 51, 51)'
+        padding:'0',
+        fontWeight: '500',
+        fontSize:'16px',
+        lineHeight:'1.15',
     }
     const h:CSSProperties = {
         margin:'auto',
-
+        color:'rgb(153, 153, 153)'
     }
     return(
         <div style={div}>
-            <span style={h}>{title}</span>
+            <div style={h}>{title}</div>
         </div>
     )
 }

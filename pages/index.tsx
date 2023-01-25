@@ -1,13 +1,19 @@
-
 import ImageSlider from "../src/component/home/ImageSlider";
 import styles from "../styles/Home.module.css"
 import SuggestionProducts from "../src/component/home/SuggestionProduct";
 import EventBanner from "../src/component/home/EventBanner";
 import SuggestionCategory from "../src/component/home/SuggestionCategory";
 import LimitedOffer from "../src/component/home/LimitedOffer";
+import RecommendProduct from "../src/component/home/recommend-product";
+import publicStyles from '../styles/public.module.css'
+import {GetServerSideProps} from "next";
+import {dehydrate, QueryClient, useQuery} from "react-query";
+import {getCategory, getCollection, getProduct, getProductOnCollectionAdmin} from "../src/function/api/get/api";
+import RecommendCollection from "../src/component/home/recommend-collection";
 
 export default function Home() {
-
+    const recommendProduct = useQuery('product',()=>getProduct(false))
+    const collection = useQuery('collection',()=>getCollection(false)).data
     const load_images = [
         {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
         {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
@@ -18,6 +24,17 @@ export default function Home() {
         {src:'/image/image3.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
         {src:'/image/image4.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
         {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image3.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image4.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image3.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image4.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
+        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
         {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
         {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
     ]
@@ -36,7 +53,9 @@ export default function Home() {
   return (
     <div>
         <ImageSlider/>
-        <div className={styles.home}>
+        <div className={publicStyles.content}>
+            <RecommendProduct data={recommendProduct.data}/>
+            <RecommendCollection collection={collection.collection} data={collection.product}/>
             <SuggestionProducts images={load_images}/>
             <EventBanner images={banner}/>
             <SuggestionCategory main={main} list={list}/>
@@ -44,6 +63,16 @@ export default function Home() {
         </div>
     </div>
   )
+}
+export const getServerSideProps:GetServerSideProps = async (context)=>{
+    const queryClient = new QueryClient()
+    await queryClient.prefetchQuery('product',()=>getProduct(true))
+    await queryClient.prefetchQuery('collection',()=>getCollection(true))
+    return {
+        props:{
+            dehydratedState: dehydrate(queryClient),
+        }
+    }
 }
 
 

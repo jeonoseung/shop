@@ -52,7 +52,7 @@ async function handler(req:NextApiRequest,res:NextApiResponse){
     switch (req.method)
     {
         case "GET":
-            const sql = 'SELECT product_id,product_name,product_img,brand_name,category_id FROM products'
+            const sql = 'SELECT product_id,product_name,product_img,brand_name,category_id,product_price,discount_rate FROM products'
             const [rows] = await database.promise().query(sql);
             return res.status(200).send(rows)
         case "POST":

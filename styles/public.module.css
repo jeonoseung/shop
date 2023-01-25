@@ -162,3 +162,21 @@
     left:50%;
     transform: translate(-50%,-50%);
 }
+.title{
+    font-size:28px;
+    font-weight:600;
+    font-family: "Noto Sans Light", "malgun gothic", AppleGothic, dotum, sans-serif;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.title a{
+    display:flex;
+    align-items: center;
+}
+
+.sub-title{
+    font-size:16px;
+    font-family: "Noto Sans Light", "malgun gothic", AppleGothic, dotum, sans-serif;
+    color:rgb(153, 153, 153)
+}

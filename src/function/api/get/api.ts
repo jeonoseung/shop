@@ -27,4 +27,11 @@ export const getProductOnCollectionAdmin = async (ssr:boolean)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/product`)
     return data.data
 }
+/**
+ * count === 0 일때 전체 데이터
+ *  */
+export const getCollection=async (ssr:boolean)=>{
+    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/collection/17`)
+    return data.data
+}
 
