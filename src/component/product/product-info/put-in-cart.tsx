@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import {ProductInfoProps} from "../../../@types/product/product-info";
 import {PutCart} from "../../../function/public/put-in-cart";
 import {RootState} from "../../../../store/store";
+import {setCookie} from "cookies-next";
 
 export default function PutInCart({pid}:ProductInfoProps){
     const count = useSelector((state:RootState)=>state.ProductInfo.count)

@@ -1,4 +1,4 @@
-import styles from "../../collection-add.module.css";
+import styles from "../collection-add.module.css";
 import {ProductListType} from "../../../../@types/product/product-list";
 import Image from "next/image";
 import {useSelector} from "react-redux";

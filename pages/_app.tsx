@@ -12,7 +12,15 @@ interface props extends AppProps{
     user:any
 }
 export default function App({Component, pageProps}: props) {
-    const [query] = useState(()=>new QueryClient());
+    const [query] = useState(()=>new QueryClient({
+        defaultOptions:{
+            queries:{
+                refetchOnWindowFocus:false,
+                refetchOnMount:false,
+                retry:false
+            }
+        }
+    }));
     return (
         <div>
             <Head>

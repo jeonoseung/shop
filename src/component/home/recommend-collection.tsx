@@ -1,12 +1,12 @@
 import {CSSProperties, useState} from "react";
 import Image from "next/image";
 import styles from "./event-form.module.css";
-import {CollectionInProduct, CollectionType} from "../../@types/collection/collection";
+import {RecommendProductInCollection, CollectionType} from "../../@types/collection/collection";
 import publicStyle from '../../../styles/public.module.css'
 import Link from "next/link";
 import {setPrice} from "../../function/public/price";
 
-export default function RecommendCollection({collection,data}:{collection:CollectionType,data:CollectionInProduct[]}){
+export default function RecommendCollection({collection,data}:{collection:CollectionType,data:RecommendProductInCollection[]}){
     /** content width */
     const width = 1024;
     /** 이미지 표시 수 */

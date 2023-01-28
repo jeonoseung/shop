@@ -8,6 +8,7 @@ import overlap from "./member/overlap-check";
 import info from "./product/product-info/reducer";
 import product_add from "./product/admin/product-add/reducer";
 import collectionAdd from "./collection/collection-add";
+import collection from "./collection/collection";
 // 리덕스 store 생성함수
 const makeStore = () => {
     // 미들웨어 추가(필요 없을 경우 생략)
@@ -23,7 +24,8 @@ const makeStore = () => {
             counter: counterSlice.reducer,
             ProductInfo:info.reducer,
             ProductAdd:product_add.reducer,
-            collectionAdd:collectionAdd.reducer
+            collectionAdd:collectionAdd.reducer,
+            collection:collection.reducer
         },
         middleware, // 미들웨어 불필요시 생략
         // middleware: [...getDefaultMiddleware(), logger]

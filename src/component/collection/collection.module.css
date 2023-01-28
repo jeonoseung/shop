@@ -1,0 +1,110 @@
+.collection{
+    display:grid;
+    grid-template-columns:2fr 6fr;
+}
+.collection .product-sort{
+    display:flex;
+    justify-content: space-between;
+}
+.collection .product-sort .sort-list{
+    display:flex;
+    align-items:center;
+}
+.collection .product-sort .sort{
+
+}
+.collection .product-sort .sort span{
+    color:#ddd;
+    font-size:0.85rem;
+    font-weight:600;
+}
+.collection .product-sort .sort input[type='radio']{
+    display:none;
+}
+.collection .product-sort .sort input[type='radio']:checked + span{
+    color:rgb(51,51,51);
+}
+.collection .product-list{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:1rem;
+    row-gap:3rem;
+}
+.collection .product-list img{
+    width:100%;
+    height:300px;
+}
+.collection .product-list .delivery{
+    font-size:0.85rem;
+    color:rgb(181,181,181);
+    margin:0.25rem 0 0 0;
+}
+.collection .product-list .name{
+    font-size:0.9rem;
+    margin:0.25rem 0 0 0;
+}
+.collection .product-list .title{
+    color:rgb(181,181,181);
+    font-size:0.75rem;
+    margin:0.25rem 0 0 0;
+}
+.collection .product-list .discount{
+    font-weight:800;
+    font-size:1rem;
+    color:rgb(250,98,47);
+}
+.collection .product-list .price{
+    font-weight:800;
+    font-size:1rem;
+}
+.collection .product-list .line-through{
+    color:rgb(181,181,181);
+    font-size:0.9rem;
+    text-decoration: line-through;
+}
+.collection .filter .category-list{
+
+}
+.collection .filter .category-list .list{
+    display:flex;
+    align-items:center;
+    margin:0.75rem 0;
+}
+.collection .filter .category-list .list *{
+    line-height:18px;
+}
+.collection .filter .category-list .list .category-name{
+    font-size:0.9rem;
+    margin-right:0.25rem;
+}
+.collection .filter .category-list .list .category-name:hover{
+    color:#0d6efd;
+}
+.collection .filter .category-list .list .category-length{
+    font-size:0.75rem;
+    color:#ddd;
+}
+.collection .filter .category-list .list input[type=checkbox]{
+    display:none;
+}
+.collection .filter .category-list .list .check-circle{
+    border-radius:9px;
+    width:18px;
+    height:18px;
+    border:1px solid #ddd;
+    position:relative;
+    margin-right:0.5rem;
+}
+.collection .filter .category-list .list .check-circle svg{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    fill:#ddd;
+}
+.collection .filter .category-list .list input[type=checkbox]:checked + .check-circle{
+    border:1px solid #0d6efd;
+}
+.collection .filter .category-list .list input[type=checkbox]:checked + .check-circle svg{
+    fill:#0d6efd;
+}

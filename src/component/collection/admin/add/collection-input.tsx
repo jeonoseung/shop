@@ -1,4 +1,4 @@
-import styles from "../../collection-add.module.css";
+import styles from "../collection-add.module.css";
 import publicStyles from "../../../../../styles/public.module.css";
 import {ChangeCollectionInput} from "../../../../../store/collection/collection-add";
 import {useDispatch, useSelector} from "react-redux";
