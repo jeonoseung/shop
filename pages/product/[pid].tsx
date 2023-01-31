@@ -13,6 +13,7 @@ import ProductOption from "../../src/component/product/product-info/product-opti
 import {ProductInfoProps} from "../../src/@types/product/product-info";
 import ProductTotalPrice from "../../src/component/product/product-info/product-total";
 import PutInCart from "../../src/component/product/product-info/put-in-cart";
+import SetCart from "../../src/function/public/set-cart";
 
 
 export default function ProductInfoPage({pid}:ProductInfoProps){

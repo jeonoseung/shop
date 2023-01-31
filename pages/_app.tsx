@@ -16,7 +16,6 @@ export default function App({Component, pageProps}: props) {
         defaultOptions:{
             queries:{
                 refetchOnWindowFocus:false,
-                refetchOnMount:false,
                 retry:false
             }
         }

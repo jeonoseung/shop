@@ -17,7 +17,7 @@ export default function ProductList({router,params}:collectionProps){
         <div className={styles['product-list']}>
             {
                 data.map((item:ProductListInCollectionPage)=>(
-                    <Link key={item.product_id} href={`/product/${item.product_id}`}>
+                    <Link key={item.product_id} href={`/product/${item.product_id}`} scroll={true}>
                         <Image src={item.product_img} alt={'상품 이미지'} width={200} height={299} priority={true}/>
                         <div><p className={styles['delivery']}>{item.delivery_type}</p></div>
                         <div className={styles['name']}>

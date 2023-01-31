@@ -66,7 +66,7 @@ export default function LimitedOffer(){
                 <span>망설이면 늦는다</span>
             </div>
             <div className={styles.hlo_product}>
-                <Image className={styles.hlo_product_img} src={'/image/image1.jpg'} alt='lo' width={100} height={100}/>
+                <Image className={styles.hlo_product_img} src={'/image/image1.jpg'} alt='lo' width={100} height={100} priority={true}/>
                 <span className={styles.product_subname}>부담없이 전하는 아보카도의 풍미</span>
                 <span className={styles.product_name}>에니오 아보카도 오일 세트(250ml X 2병)</span>
                 <span>price</span>

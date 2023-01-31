@@ -182,3 +182,20 @@
     font-family: "Noto Sans Light", "malgun gothic", AppleGothic, dotum, sans-serif;
     color:rgb(153, 153, 153)
 }
+.result-count{
+    width:100%;
+    border:1px solid #ddd;
+    border-radius:0.25rem;
+    display:grid;
+    grid-template-columns:30% 40% 30%;
+    align-items:center;
+    text-align:center;
+    padding:0.125rem;
+}
+.result-count *{
+    background:none;
+    border:0;
+    width:100%;
+    font-size:16px;
+    text-align:center;
+}

@@ -49,12 +49,12 @@
     margin:0.25rem 0 0 0;
 }
 .collection .product-list .discount{
-    font-weight:800;
+    font-weight:600;
     font-size:1rem;
     color:rgb(250,98,47);
 }
 .collection .product-list .price{
-    font-weight:800;
+    font-weight:600;
     font-size:1rem;
 }
 .collection .product-list .line-through{

@@ -25,7 +25,7 @@ export default function CategoryAndBrand(){
                     }
                 </select>
                 <button>
-                    <Image src={'/image/plus-lg.svg'} alt={'+'} width={16} height={16}/>
+                    <Image src={'/image/plus-lg.svg'} alt={'+'} width={16} height={16} priority={true}/>
                 </button>
             </div>
             <input type={'text'}

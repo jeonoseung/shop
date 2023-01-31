@@ -76,7 +76,7 @@ export default function RecommendCollection({collection,data}:{collection:Collec
                 <div className={publicStyle['title']}>
                     <Link href={`/collection/${collection.collection_router_name}`}>
                         <span className={publicStyle['title']}>{collection.collection_name}</span>
-                        <Image src={'/image/view-more.svg'} alt={'더보기'} width={32} height={32}/>
+                        <Image src={'/image/view-more.svg'} alt={'더보기'} width={32} height={32} priority={true}/>
                     </Link>
                 </div>
                 <div style={{margin:'0.5rem 0'}}>
@@ -124,7 +124,9 @@ export default function RecommendCollection({collection,data}:{collection:Collec
                                 <Image style={{margin:"auto"}} src={'/image/chevron-right-normal.svg'}
                                        alt={'전체 보기'}
                                        width={36}
-                                       height={36}/>
+                                       height={36}
+                                       priority={true}
+                                />
                             </div>
                             <div style={{marginTop:"1rem"}}>
                                 <span>전체보기</span>

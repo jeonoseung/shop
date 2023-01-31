@@ -6,12 +6,11 @@ import {getCategoryListInCollection, getProductListInCollection} from "../../src
 import ProductFilter from "../../src/component/collection/product-filter";
 import ProductList from "../../src/component/collection/product-list";
 import ProductSort from "../../src/component/collection/product-sort";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/store";
-import {collectionProps, params, router} from "../../src/@types/collection/collection";
+import {collectionProps} from "../../src/@types/collection/collection";
 import {addFilter, resetFilter} from "../../store/collection/collection";
-import {getCookie, deleteCookie, setCookie} from "cookies-next";
 
 export default function ProductListInCollection({router,params}:collectionProps){
 
@@ -32,7 +31,6 @@ export default function ProductListInCollection({router,params}:collectionProps)
         {
             dispatch(resetFilter())
         }
-
     },[])
     return(
         <div className={publicStyles['content']}>
@@ -55,8 +53,6 @@ export const getServerSideProps:GetServerSideProps = async (context)=>{
         filter: typeof filter === "string" ? filter : 'all',
         sort: typeof sort === "string" ? sort : '1'
     }
-
-    console.log(context.req.cookies['cart'])
 
     const queryClient = new QueryClient()
     await queryClient.prefetchQuery('product-li-collection',()=>getProductListInCollection(true,router,params))

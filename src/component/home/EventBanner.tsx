@@ -6,7 +6,7 @@ interface props{
 export default function EventBanner({images}:props){
     return(
         <div className={styles.home_form}>
-            <Image src={images} className={styles.home_banner_img} width={100} height={50} alt='banner'/>
+            <Image src={images} className={styles.home_banner_img} width={100} height={50} alt='banner' priority={true}/>
         </div>
     )
 }

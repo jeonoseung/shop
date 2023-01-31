@@ -53,7 +53,7 @@ export default function ProductOption(){
                             <button style={button} className={styles['remove-option']} onClick={()=>{
                                 dispatch(RemoveOption(index))}}
                             >
-                                <Image src={'/image/x-circle.svg'} alt={'close'} width={20} height={20}/>
+                                <Image src={'/image/x-circle.svg'} alt={'close'} width={20} height={20} priority={true}/>
                             </button>
                         </div>
                     </div>

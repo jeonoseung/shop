@@ -1,6 +1,7 @@
 import axios from "axios";
 import {params, router} from "../../../@types/collection/collection";
 import {type} from "os";
+import {CookieValueTypes, getCookie} from "cookies-next";
 
 
 type ssr = boolean
@@ -54,4 +55,24 @@ export const getProductListInCollection = async (ssr:ssr,router:router,set:param
 export const getCategoryListInCollection = async (ssr:boolean,router:string|string[]|undefined)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/collection/category/${router}`)
     return data.data
+}
+
+export const getCartList = async (ssr:boolean,list:CookieValueTypes)=>{
+    if(list)
+    {
+        const data = await axios.get(`${ssr ? process.env.URL : ''}/api/cart/${list}`)
+        return data.data
+    }
+    return []
+}
+export const getCartCookie = async (ssr:boolean,li?:any)=>{
+    if(ssr)
+    {
+        return li ? JSON.parse(li) : []
+    }
+    else
+    {
+        const co = getCookie('cart')
+        return co ? JSON.parse(co as string) : []
+    }
 }
