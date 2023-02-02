@@ -38,7 +38,7 @@ const post = async(req:NextApiRequest,res:NextApiResponse)=>{
             option.length-1 === index ? sql2 += ';' : sql2 += ','
         })
         database.query(sql2)
-        return res.status(200).send({msg:'success'})
+
     })
 }
 const saveFile = async (file:any)=>{
@@ -57,13 +57,13 @@ async function handler(req:NextApiRequest,res:NextApiResponse){
             return res.status(200).send(rows)
         case "POST":
             await post(req,res)
-            break;
+            return res.status(201).send({msg:'success'})
         case "PUT":
             res.status(405)
             break;
         case "DELETE":
             break;
     }
-    return res.status(400).send('incorrect method')
+    return res.status(405).send('incorrect method')
 }
 export default handler

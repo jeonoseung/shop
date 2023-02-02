@@ -1,23 +1,28 @@
-import styles from "../../../styles/Header.module.css";
-import {ChangeEventHandler, CSSProperties, useState} from "react";
+import styles from './header.module.css'
+import {ChangeEventHandler, CSSProperties, useEffect, useState} from "react";
 import Link from "next/link";
 import {dehydrate, QueryClient, useQuery} from "react-query";
 import {getProductInfo, getSession} from "../../function/api/get/api";
 import {GetServerSideProps} from "next";
 
-export default function HeaderTop() {
+export default function HeaderTop(){
     const [Search,setSearch] = useState('');
     const {data,isLoading} =useQuery('user',()=>getSession(false))
+    const [isLoginHover,setIsLoginHover] = useState<boolean>(false);
 
-    const InputSearch:ChangeEventHandler<HTMLInputElement> = (e) =>{
-        setSearch(e.target.value)
-    }
-    const ValueReset = () =>{
-        setSearch('')
-    }
     const ResetButton:CSSProperties = {
         visibility:Search === '' ? 'hidden' : 'visible'
     }
+    const [userMenu,setUserMenu]=useState<CSSProperties>({
+        display:'none'
+    })
+
+    const isLoginMouseOver = () =>{
+
+    }
+    useEffect(()=>{
+        isLoginHover ? setUserMenu({...userMenu,display:'block'}) :  setUserMenu({...userMenu,display:'none'})
+    },[isLoginHover])
     return(
         <div className={styles.header_top}>
             <div>
@@ -26,16 +31,16 @@ export default function HeaderTop() {
                 </Link>
             </div>
             <label className={styles.search}>
-                <input type='text' onChange={InputSearch} value={Search} placeholder={'검색어를 입력해주세요'}/>
+                <input type='text' onChange={(e)=>setSearch(e.target.value)} value={Search} placeholder={'검색어를 입력해주세요'}/>
                 <div className={styles.option}>
-                    <button style={ResetButton} onClick={ValueReset}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-circle" viewBox="0 0 16 16">
+                    <button style={ResetButton} onClick={()=>setSearch('')}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" className="bi bi-x-circle" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                         </svg>
                     </button>
                     <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0d6efd" className="bi bi-search" viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                         </svg>
                     </button>
@@ -47,12 +52,31 @@ export default function HeaderTop() {
                         {
                             !isLoading && data !== ''
                                 ?
-                                <div>
-                                    <Link href={'/my-page'}>
-                                        <span>
+                                <div className={styles['is-login']}
+                                     onMouseOver={()=>setIsLoginHover(true)}
+                                     onMouseLeave={()=>setIsLoginHover(false)}>
+                                    <Link href={'/my-page/order'}>
+                                        <span style={{padding:'0 0.25rem'}}>
                                             {data.name} 님
                                         </span>
                                     </Link>
+                                    <div style={userMenu} className={styles['user-menu']}>
+                                        <div className={styles['menu']}>
+                                            주문 내역
+                                        </div>
+                                        <div className={styles['menu']}>
+                                            배송지 관리
+                                        </div>
+                                        <div className={styles['menu']}>
+                                            개인 정보 수정
+                                        </div>
+                                        <div className={styles['menu']}>
+                                            주문 내역
+                                        </div>
+                                        <div className={styles['menu']}>
+                                            로그 아웃
+                                        </div>
+                                    </div>
                                 </div>
                                 :
                                 <Link href={'/member/login'}>

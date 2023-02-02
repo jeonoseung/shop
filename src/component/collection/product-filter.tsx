@@ -24,11 +24,15 @@ export default function ProductFilter({router,params,refetch}:{router:router,ref
         if(filter.length !== 0 && state)
         {
             const set = 'category%'+filter.join('%');
-            route.push({query: {...route.query, filter:set}})
+            route.push({query: {...route.query, filter:set}},'',{
+                scroll:false
+            })
         }
         if(filter.length === 0 && state)
         {
-            route.push({query: {...route.query, filter:''}})
+            route.push({query: {...route.query, filter:''}},'',{
+            scroll:false
+        })
         }
         setState(true)
     },[filter])

@@ -2,6 +2,9 @@ import axios from "axios";
 import {params, router} from "../../../@types/collection/collection";
 import {type} from "os";
 import {CookieValueTypes, getCookie} from "cookies-next";
+import {withIronSessionApiRoute} from "iron-session/next";
+import {IronSessionOption} from "../iron-session/options";
+import {GetServerSidePropsContext, NextApiRequest, NextApiResponse} from "next";
 
 
 type ssr = boolean
@@ -76,3 +79,8 @@ export const getCartCookie = async (ssr:boolean,li?:any)=>{
         return co ? JSON.parse(co as string) : []
     }
 }
+export const checkUser = async (req:NextApiRequest,res:NextApiResponse)=>{
+    const user = req.session.user
+    return user ? user : null
+}
+

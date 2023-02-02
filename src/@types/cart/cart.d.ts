@@ -8,3 +8,7 @@ export interface ProductListInCart{
     discount_rate:number
     brand_name:string
 }
+export interface CartCookie{
+    product:number
+    count:number
+}

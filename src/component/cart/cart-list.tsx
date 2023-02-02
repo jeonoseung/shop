@@ -10,12 +10,12 @@ import {RootState} from "../../../store/store";
 import {setCheck, setCounttest, setFetch} from "../../../store/cart/cart";
 import {useQuery} from "react-query";
 import {getCartCookie} from "../../function/api/get/api";
-import {ProductListInCart} from "../../@types/cart/cart";
+import {CartCookie, ProductListInCart} from "../../@types/cart/cart";
 
 export default function CartList({item}:{item:ProductListInCart}){
     const cart = useQuery('cart-cookie',()=>getCartCookie(false))
-    const [count,setCount] = useState<number>(cart.data.filter((li:{product:number,count:number})=>li.product === item.product_id)[0].count)
-    const index = cart.data.indexOf(cart.data.filter((li:{product:number,count:number})=>li.product === item.product_id)[0])
+    const [count,setCount] = useState<number>(cart.data.filter((li:CartCookie)=>li.product === item.product_id)[0].count)
+    const index = cart.data.indexOf(cart.data.filter((li:CartCookie)=>li.product === item.product_id)[0])
     const state = useSelector((state:RootState)=>state.cart)
     const dispatch = useDispatch()
     const CountMinus = () =>{
@@ -37,7 +37,7 @@ export default function CartList({item}:{item:ProductListInCart}){
         const cookie = getCookie('cart');
         if(!cookie || typeof cookie !== "string") return false;
         const parse = JSON.parse(cookie as string);
-        const result = parse.filter((list:any)=>list.product !== pid)
+        const result = parse.filter((list:CartCookie)=>list.product !== pid)
         result.length === 0 ? deleteCookie('cart') : setCookie('cart',JSON.stringify(result))
         dispatch(setCheck({checked:false,value:pid}))
         dispatch(setFetch(1))
@@ -84,7 +84,7 @@ export default function CartList({item}:{item:ProductListInCart}){
                         : setPrice(item.product_price*count)}원
                 </span>
                 {item.discount_rate !== 0
-                    ? <span className={styles['discount']}>{setPrice(item.product_price)}원</span> : null}
+                    ? <span className={styles['discount']}>{setPrice(item.product_price*count)}원</span> : null}
             </div>
             <div className={styles['delete']}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" onClick={RemoveList}

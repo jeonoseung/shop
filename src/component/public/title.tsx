@@ -8,9 +8,10 @@ export default function Title({title}:props){
     const div:CSSProperties = {
         width:'100%',
         textAlign:'center',
-        fontWeight: '600',
+        fontWeight: '500',
         fontSize:'28px',
-        color:'rgb(51, 51, 51)'
+        color:'rgb(51, 51, 51)',
+        padding:'3rem 0'
     }
     const h:CSSProperties = {
         margin:'auto',

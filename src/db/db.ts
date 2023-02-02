@@ -9,7 +9,7 @@ export const database = mysql.createPool({
     database: process.env.DB,
     multipleStatements:true,
     waitForConnections: true,
-    connectionLimit:10,
+    connectionLimit:20,
     queueLimit: 0
 });
 // try{

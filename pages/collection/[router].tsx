@@ -6,14 +6,14 @@ import {getCategoryListInCollection, getProductListInCollection} from "../../src
 import ProductFilter from "../../src/component/collection/product-filter";
 import ProductList from "../../src/component/collection/product-list";
 import ProductSort from "../../src/component/collection/product-sort";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import {collectionProps} from "../../src/@types/collection/collection";
 import {addFilter, resetFilter} from "../../store/collection/collection";
+import {useRouter} from "next/router";
 
 export default function ProductListInCollection({router,params}:collectionProps){
-
     const filter = useSelector((state:RootState)=>state.collection.filter)
     const {data, refetch} = useQuery('product-li-collection',()=>getProductListInCollection(false,router,params))
     const dispatch = useDispatch()
@@ -31,9 +31,16 @@ export default function ProductListInCollection({router,params}:collectionProps)
         {
             dispatch(resetFilter())
         }
+
+        const scroll = sessionStorage.getItem('scroll');
+        window.scrollTo(0,scroll ? parseInt(scroll)-150 : 0)
+        sessionStorage.removeItem('scroll')
     },[])
     return(
-        <div className={publicStyles['content']}>
+        <div className={publicStyles['content']} onClick={(e)=>{
+            const {scrollY} = window;
+            sessionStorage.setItem('scroll',String(scrollY))
+        }}>
             <div className={styles['collection']}>
                 <ProductFilter router={router} params={params} refetch={refetch}/>
                 <div>

@@ -1,4 +1,4 @@
-import styles from "../../../styles/Header.module.css";
+import styles from './header.module.css'
 import Link from "next/link";
 
 export default function HeaderBottom(){
@@ -30,7 +30,7 @@ export default function HeaderBottom(){
                 </div>
             </div>
             <div className={styles.cart}>
-                <Link href={'/cart/test'}>
+                <Link href={'/cart'}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                          className="bi bi-cart" viewBox="0 0 16 16">
                         <path
