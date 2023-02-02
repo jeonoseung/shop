@@ -71,9 +71,6 @@ export default function HeaderTop(){
                                             개인 정보 수정
                                         </div>
                                         <div className={styles['menu']}>
-                                            주문 내역
-                                        </div>
-                                        <div className={styles['menu']}>
                                             로그 아웃
                                         </div>
                                     </div>

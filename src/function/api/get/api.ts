@@ -79,8 +79,9 @@ export const getCartCookie = async (ssr:boolean,li?:any)=>{
         return co ? JSON.parse(co as string) : []
     }
 }
-export const checkUser = async (req:NextApiRequest,res:NextApiResponse)=>{
-    const user = req.session.user
-    return user ? user : null
+
+export const getOrderList = async (ssr:boolean)=>{
+    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/order`)
+    return data.data
 }
 

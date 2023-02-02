@@ -3,7 +3,7 @@ import styles from '../../src/component/cart/cart.module.css'
 import Title from "../../src/component/public/title";
 import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useQuery} from "react-query";
-import {checkUser, getCartCookie, getCartList, getCategory} from "../../src/function/api/get/api";
+import {getCartCookie, getCartList, getCategory} from "../../src/function/api/get/api";
 import {getCookie} from "cookies-next";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/store";
