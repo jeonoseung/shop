@@ -7,6 +7,7 @@ import store from "../store/store";
 import {QueryClient, QueryClientProvider, Hydrate} from "react-query";
 import {ReactQueryDevtools} from "react-query/devtools";
 import {useEffect, useState} from "react";
+import CartModal from "../src/component/modal/cart/cart-modal";
 
 interface props extends AppProps{
     user:any
@@ -26,6 +27,7 @@ export default function App({Component, pageProps}: props) {
                 <Provider store={store}>
                     <Header/>
                     <Component {...pageProps}/>
+                    <CartModal />
                 </Provider>
             </Hydrate>
             <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />

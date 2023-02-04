@@ -80,8 +80,28 @@ export const getCartCookie = async (ssr:boolean,li?:any)=>{
     }
 }
 
-export const getOrderList = async (ssr:boolean)=>{
-    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/order`)
-    return data.data
+export const getOrderList = async (ssr:boolean,user?:number)=>{
+    if(user)
+    {
+        const data = await axios.get(`${ssr ? process.env.URL : ''}/api/order?user=${user}`)
+        return data.data
+    }
+    else
+    {
+        const data = await axios.get(`${ssr ? process.env.URL : ''}/api/order`)
+        return data.data
+    }
+}
+export const getOrderDetail = async (ssr:boolean,params:string|null,user?:number)=>{
+    if(user)
+    {
+        const data = await axios.get(`${ssr ? process.env.URL : ''}/api/order/${params}?user=${user}`)
+        return data.data
+    }
+    else
+    {
+        const data = await axios.get(`${ssr ? process.env.URL : ''}/api/order/${params}`)
+        return data.data
+    }
 }
 

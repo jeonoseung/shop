@@ -166,8 +166,7 @@
 }
 .title{
     font-size:28px;
-    font-weight:600;
-    font-family: "Noto Sans Light", "malgun gothic", AppleGothic, dotum, sans-serif;
+    font-weight:500;
     display:flex;
     align-items: center;
     justify-content: center;
@@ -213,3 +212,9 @@
     border:1px solid #ddd;
 }
 
+.cart-modal-out{
+    position:absolute;
+    top:0;
+    left:0;
+    background:rgba(0,0,0,0.5);
+}

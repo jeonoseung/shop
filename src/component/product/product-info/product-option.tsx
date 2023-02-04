@@ -3,9 +3,10 @@ import {setPrice} from "../../../function/public/price";
 import {useQuery} from "react-query";
 import {getProductInfo} from "../../../function/api/get/api";
 import {useDispatch, useSelector} from "react-redux";
-import {setCount} from "../../../../store/product/product-info/reducer";
+import {resetCount, setCount} from "../../../../store/product/product-info/reducer";
 import {ProductInfoProps, ProductOptionType} from "../../../@types/product/product-info";
 import {RootState} from "../../../../store/store";
+import {useEffect} from "react";
 
 export default function ProductOption({pid}:ProductInfoProps){
     const dispatch = useDispatch();
@@ -18,6 +19,9 @@ export default function ProductOption({pid}:ProductInfoProps){
         {name:'판매자',content:data.info.user_name,described:''},
         {name:'포장',content:data.info.storage_type,described:text2},
     ]
+    useEffect(()=>{
+        dispatch(resetCount())
+    },[])
     return(
         <div className={styles['product-options']}>
             {

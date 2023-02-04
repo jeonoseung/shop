@@ -8,7 +8,7 @@ import SetCart from "../../../function/public/set-cart";
 export default function PutInCart({pid}:ProductInfoProps){
     const count = useSelector((state:RootState)=>state.ProductInfo.count)
     const addList = () =>{
-        const result = SetCart(count,parseInt(pid));
+        const result:any = SetCart(count,parseInt(pid));
         result.state ? alert(result.msg) : alert(result.err)
     }
     const button:CSSProperties = {

@@ -7,6 +7,11 @@ interface cookie{
 }
 
 export default function SetCart(count:number,pid:number){
+    if(pid===0)
+    {
+        alert('올바르지않은 경로')
+        return false;
+    }
     const option = {
         maxAge:60*60*24
     }

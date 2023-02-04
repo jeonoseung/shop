@@ -12,23 +12,20 @@ interface postList{
 }
 
 const get = async (req:NextApiRequest,res:NextApiResponse) =>{
-    // if(!req.session.user)
-    // {
-    //     return res.status(403).send({msg:'need login'})
-    // }
     try{
-        const sql = `SELECT phg.phg_id,phg.price,order_date,phg.length,
+        const sql = `SELECT phg.phg_id,phg.price,order_date,phg.length,phg.user_id,
                     (SELECT p.product_name FROM products as p INNER JOIN purchase_history as ph ON p.product_id = ph.product_id WHERE phg_id = phg.phg_id limit 1) AS product_name,
                     (SELECT p.product_img FROM products as p INNER JOIN purchase_history as ph ON p.product_id = ph.product_id WHERE phg_id = phg.phg_id limit 1) AS product_img,
                     (SELECT p.brand_name FROM products as p INNER JOIN purchase_history as ph ON p.product_id = ph.product_id WHERE phg_id = phg.phg_id limit 1) AS brand_name
                     FROM purchase_history_group as phg
                     INNER JOIN purchase_history as ph
                     ON phg.phg_id = ph.phg_id
-                    WHERE phg.user_id = ${req.session.user.id}
+                    WHERE phg.user_id = ${req.query.user ? req.query.user : req.session.user.id}
                     GROUP BY phg.phg_id`;
         const [rows] = await database.promise().query(sql)
         return rows
     }catch (err){
+        console.log(err)
         return false;
     }
 }
@@ -53,7 +50,10 @@ const post = async (req:NextApiRequest,res:NextApiResponse) =>{
 }
 export default withIronSessionApiRoute(
     async function handler(req:NextApiRequest,res:NextApiResponse){
-        console.log(1)
+        if(!req.session.user && !req.query.user)
+        {
+            return res.status(403).send('need login')
+        }
         switch (req.method)
         {
             case "GET":

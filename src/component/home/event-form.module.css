@@ -50,6 +50,9 @@
     transform:translate(-50%,-50%);
     text-align:center;
 }
+.img-div{
+    position: relative;
+}
 .all-view-btn{
     width:60px;
     height:60px;
@@ -63,12 +66,12 @@
     background:#ddd;
 }
 .discount{
-    font-weight:800;
+    font-weight:500;
     font-size:16px;
     color:rgb(250,98,47);
 }
 .price{
-    font-weight:800;
+    font-weight:500;
     font-size:16px;
 }
 .line-through{

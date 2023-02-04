@@ -43,20 +43,34 @@
     justify-content:space-between;
     align-items:center;
     width:100%;
+    padding-bottom:0.5rem
 }
 .my-page .pages-list .list{
     border-top:2px solid black;
+    padding:0 1.5rem;
+}
+.my-page .pages-list .list .order-list{
+    margin:0.5rem 0;
 }
 .my-page .pages-list .list .order-list .order{
     display:grid;
-    grid-template-columns:0.75fr 6fr 1fr;
+    grid-template-columns:0.5fr 6fr 1fr;
     align-items:center;
     gap:0.75rem;
+    padding:0.5rem 0;
 }
 .my-page .pages-list .list .order-list .order-title{
     display:flex;
     align-items:center;
     justify-content: space-between;
+    border-bottom:1px solid #ddd;
+    padding:0.5rem 0;
+}
+.my-page .pages-list .list .order-list .order-title .order-date{
+    font-weight:500;
+}
+.my-page .pages-list .list .order-list .order-title .view-detail{
+    font-size:0.75rem;
 }
 .my-page .pages-list .list .order-list .order img{
     margin:auto;
@@ -70,7 +84,50 @@
     font-size:0.75rem;
 }
 .my-page .pages-list .list .order-list .order .info .info-value{
-    font-size:0.9rem;
+    font-size:0.85rem;
     font-weight:500;
 }
 
+.my-page .pages-list .list .order-detail-list{
+    display:grid;
+    grid-template-columns:0.5fr 6fr 1.5fr;
+    padding:1rem 0.5rem;
+    gap:1rem;
+    align-items:center;
+    border-bottom:1px solid #ddd;
+}
+.my-page .pages-list .list .order-detail-list .info .name{
+    font-weight:500;
+    font-size:0.95rem;
+}
+.my-page .pages-list .list .order-detail-list .info .price-count{
+    display:flex;
+    align-items:center;
+}
+.my-page .profile{
+    font-size:28px;
+    font-weight:500;
+}
+.my-page .title-div{
+    height:75px;
+    display:flex;
+    align-items:center;
+}
+.my-page .pages-list .title{
+    font-size:24px;
+    font-weight:500;
+}
+.my-page .pages-list .title-sub{
+    font-size:20px;
+    font-weight:500;
+}
+.info .price-count .price{
+    font-weight:500;
+    font-size:0.9rem;
+}
+.info .price-count .line-through{
+    text-decoration: line-through;
+    color:rgb(153, 153, 153);
+    margin-left:0.25rem;
+    font-size:0.85rem;
+}

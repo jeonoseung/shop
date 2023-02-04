@@ -11,13 +11,13 @@ export default function MenuList(){
     const router = useRouter()
     return(
         <div className={styles['my-profile']}>
-            <h1>
-                프로필
-            </h1>
+            <div className={styles['title-div']}>
+                <span className={styles['profile']}>프로필</span>
+            </div>
             <div className={styles['menu-list']}>
                 {
                     menu.map((li:any)=>(
-                        <Link href={`/my-page/${li.router}`} key={li.name} className={styles[router.pathname === `/my-page/${li.router}` ? 'menu-active' : 'menu']}>
+                        <Link href={`/my-page/${li.router}`} key={li.name} className={styles[router.pathname.includes(`/my-page/${li.router}`) ? 'menu-active' : 'menu']}>
                             <span>{li.name}</span>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

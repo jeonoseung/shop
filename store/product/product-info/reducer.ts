@@ -20,12 +20,15 @@ export const info = createSlice({
     reducers: {
         setCount:(state:StateType,action:PayloadAction<number>)=>{
             state.count += action.payload
+        },
+        resetCount:(state:StateType)=>{
+            state.count = 1;
         }
     }
 });
 
 // 액션을 export 해준다.
-export const { setCount } = info.actions;
+export const { setCount,resetCount } = info.actions;
 
 // 슬라이스를 export 해준다.
 export default info;

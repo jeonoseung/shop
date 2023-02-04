@@ -10,6 +10,7 @@ import product_add from "./product/admin/product-add/reducer";
 import collectionAdd from "./collection/collection-add";
 import collection from "./collection/collection";
 import cart from "./cart/cart";
+import cartModal from "./modal/cart-modal";
 // 리덕스 store 생성함수
 const makeStore = () => {
     // 미들웨어 추가(필요 없을 경우 생략)
@@ -27,7 +28,8 @@ const makeStore = () => {
             ProductAdd:product_add.reducer,
             collectionAdd:collectionAdd.reducer,
             collection:collection.reducer,
-            cart:cart.reducer
+            cart:cart.reducer,
+            cartModal:cartModal.reducer
         },
         middleware, // 미들웨어 불필요시 생략
         // middleware: [...getDefaultMiddleware(), logger]

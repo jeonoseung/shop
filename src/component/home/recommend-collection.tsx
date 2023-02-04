@@ -5,6 +5,7 @@ import {RecommendProductInCollection, CollectionType} from "../../@types/collect
 import publicStyle from '../../../styles/public.module.css'
 import Link from "next/link";
 import {setPrice} from "../../function/public/price";
+import CartButton from "../modal/cart/cart-btn";
 
 export default function RecommendCollection({collection,data}:{collection:CollectionType,data:RecommendProductInCollection[]}){
     /** content width */
@@ -18,7 +19,7 @@ export default function RecommendCollection({collection,data}:{collection:Collec
      *  */
     const dataLength = 20;
     /**
-     * 실직적 데이터
+     * 슬라이드에 표시되는 상품
      * */
     const product = data.length > dataLength ? data.slice(0,dataLength) : data
     /** 현재 인덱스 */
@@ -88,32 +89,41 @@ export default function RecommendCollection({collection,data}:{collection:Collec
                 <div style={slider}>
                     {
                         product.map((item,index:number)=>(
-                            <Link key={index} href={`/product/${item.product_id}`} style={{marginRight:`${gap}px`,display:'block'}}>
-                                <Image src={item.product_img} alt={'img'} width={imgWidth} height={imgHeight} priority={true}/>
-                                <div style={{marginTop:'0.5rem'}}>
-                                    {
-                                        item.brand_name !== '' ? <span>[{item.brand_name}] </span> : null
-                                    }
-                                    <span>{item.product_name}</span>
-                                </div>
-                                <div style={{marginTop:'0.5rem'}}>
-                                    {
-                                        item.discount_rate !== 0
-                                            ?
-                                            <div>
-                                                <span className={styles['discount']}>{item.discount_rate}% </span>
-                                                <span className={styles['price']}>{setPrice(item.product_price * (item.discount_rate * 0.01))}원</span>
+                            <div key={index} className={styles['img-div']} >
+                                <Link href={`/product/${item.product_id}`} style={{marginRight:`${gap}px`,display:'block'}}>
+                                    <div className={styles['img-div']}>
+                                        <Image src={item.product_img} alt={'img'} width={imgWidth} height={imgHeight} priority={true}/>
+                                    </div>
+                                    <div style={{marginTop:'0.5rem'}}>
+                                        {
+                                            item.brand_name !== '' ? <span>[{item.brand_name}] </span> : null
+                                        }
+                                        <span>{item.product_name}</span>
+                                    </div>
+                                    <div style={{marginTop:'0.5rem'}}>
+                                        {
+                                            item.discount_rate !== 0
+                                                ?
                                                 <div>
-                                                    <span className={styles['line-through']}>{setPrice(item.product_price)}원</span>
+                                                    <span className={styles['discount']}>{item.discount_rate}% </span>
+                                                    <span className={styles['price']}>{setPrice(item.product_price * (1-item.discount_rate * 0.01))}원</span>
+                                                    <div>
+                                                        <span className={styles['line-through']}>{setPrice(item.product_price)}원</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            :
-                                            <div>
-                                                <span className={styles['price']}>{setPrice(item.product_price)}원</span>
-                                            </div>
-                                    }
-                                </div>
-                            </Link>
+                                                :
+                                                <div>
+                                                    <span className={styles['price']}>{setPrice(item.product_price)}원</span>
+                                                </div>
+                                        }
+                                    </div>
+                                </Link>
+                                <CartButton pid={item.product_id}
+                                            name={item.product_name}
+                                            brand={item.brand_name}
+                                            price={item.product_price}
+                                            discount={item.discount_rate}/>
+                            </div>
                         ))
                     }
                     <div style={{marginRight:`${gap}px`,height:`${imgHeight}px`}}>
