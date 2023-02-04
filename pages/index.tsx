@@ -10,6 +10,7 @@ import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useQuery} from "react-query";
 import {getCategory, getCollection, getProduct, getProductOnCollectionAdmin} from "../src/function/api/get/api";
 import RecommendCollection from "../src/component/home/recommend-collection";
+import HeaderBottom from "../src/component/header/HeaderBottom";
 
 export default function Home() {
     const recommendProduct = useQuery('product',()=>getProduct(false))

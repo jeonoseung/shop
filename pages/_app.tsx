@@ -8,11 +8,9 @@ import {QueryClient, QueryClientProvider, Hydrate} from "react-query";
 import {ReactQueryDevtools} from "react-query/devtools";
 import {useEffect, useState} from "react";
 import CartModal from "../src/component/modal/cart/cart-modal";
+import StickyHeader from "../src/component/header/sticky-header";
 
-interface props extends AppProps{
-    user:any
-}
-export default function App({Component, pageProps}: props) {
+export default function App({Component, pageProps}: AppProps) {
     const [query] = useState(()=>new QueryClient({
         defaultOptions:{
             queries:{
@@ -26,6 +24,7 @@ export default function App({Component, pageProps}: props) {
             <Hydrate state={pageProps.dehydratedState}>
                 <Provider store={store}>
                     <Header/>
+                    <StickyHeader />
                     <Component {...pageProps}/>
                     <CartModal />
                 </Provider>

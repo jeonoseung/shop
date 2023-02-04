@@ -11,6 +11,7 @@ import collectionAdd from "./collection/collection-add";
 import collection from "./collection/collection";
 import cart from "./cart/cart";
 import cartModal from "./modal/cart-modal";
+
 // 리덕스 store 생성함수
 const makeStore = () => {
     // 미들웨어 추가(필요 없을 경우 생략)
