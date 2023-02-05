@@ -1,5 +1,5 @@
 import styles from './cart-modal.module.css'
-import CartIcon from "../../public/cart-icon";
+import CartIcon from "../../public/icon/cart-icon";
 import {useDispatch} from "react-redux";
 import {setDisplay, setProductInfo} from "../../../../store/modal/cart-modal";
 

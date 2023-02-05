@@ -55,10 +55,12 @@ export default function Home() {
     <div>
         <ImageSlider/>
         <div className={publicStyles.content}>
-            <RecommendProduct data={recommendProduct.data}/>
-            <RecommendCollection collection={collection.collection} data={collection.product}/>
-            <SuggestionProducts images={load_images}/>
-            <EventBanner images={banner}/>
+            {
+                recommendProduct.isLoading ? null : <RecommendProduct data={recommendProduct.data}/>
+            }
+            {
+                collection.isLoading ? null : <RecommendCollection collection={collection.collection} data={collection.product}/>
+            }
             <SuggestionCategory main={main} list={list}/>
             <LimitedOffer />
         </div>

@@ -2,7 +2,7 @@ import {useQuery} from "react-query";
 import {getCategoryListInCollection, getProductListInCollection} from "../../function/api/get/api";
 import styles from './collection.module.css'
 import Image from "next/image";
-import CheckIcon from "../public/check-icon";
+import CheckIcon from "../public/icon/check-icon";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import {ChangeEvent, useEffect, useState} from "react";
@@ -12,7 +12,7 @@ import {router} from "../../@types/collection/collection";
 export default function ProductFilter({router,params,refetch}:{router:router,refetch:any,params:any}){
     const [state,setState] = useState(false)
     const route = useRouter()
-    const {data} = useQuery('category-li-collection',()=>getCategoryListInCollection(false,router))
+    const {data} = useQuery('category-li',()=>getCategoryListInCollection(false,router))
     const filter = useSelector((state:RootState)=>state.collection.filter)
     const dispatch = useDispatch()
     const setFilter = async (e:ChangeEvent<HTMLInputElement>) =>{

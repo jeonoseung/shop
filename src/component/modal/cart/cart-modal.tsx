@@ -5,19 +5,18 @@ import styles from './cart-modal.module.css'
 import {setDisplay, setModalCount} from "../../../../store/modal/cart-modal";
 import setProductName from "../../../function/public/product-name";
 import {setPrice, totalPrice} from "../../../function/public/price";
-import MinusIcon from "../../public/minus-icon";
-import PlusIcon from "../../public/plus-icon";
+import MinusIcon from "../../public/icon/minus-icon";
+import PlusIcon from "../../public/icon/plus-icon";
 import SetCart from "../../../function/public/set-cart";
 
 export default function CartModal(){
     const dispatch = useDispatch()
     const state = useSelector((state:RootState)=>state.cartModal)
     const [out,setOut] = useState<CSSProperties>({
-        display:'none'
+        display:'none',
     })
     useEffect(()=>{
-        if(state.checked)
-        {
+        if(state.checked) {
             setOut({...out,display:'block'})
             dispatch(setModalCount(1))
         }

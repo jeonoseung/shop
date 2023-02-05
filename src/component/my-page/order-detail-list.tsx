@@ -9,10 +9,16 @@ import {useRouter} from "next/router";
 import {useQuery} from "react-query";
 import {getOrderDetail} from "../../function/api/get/api";
 import setProductName from "../../function/public/product-name";
+import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../../store/store";
+import {setDisplay, setProductInfo} from "../../../store/modal/cart-modal";
 
 export default function OrderDetailList(){
     const route = useRouter()
     const {data} = useQuery('order-detail-li',()=>getOrderDetail(false,route.query.phg_id as string))
+    const dispatch = useDispatch()
+    const modal = useSelector((state:RootState)=>state.cartModal)
     return(
         <div className={styles['pages-list']}>
             <div className={styles['title-div']}>
@@ -38,7 +44,10 @@ export default function OrderDetailList(){
                                 </div>
                             </div>
                             <div>
-                                <button className={publicStyles['button']}>
+                                <button className={publicStyles['button']} onClick={()=>{
+                                    dispatch(setDisplay(true))
+                                    dispatch(setProductInfo({id:li.product_id,name:li.product_name,brand:li.brand_name,price:li.product_price,discount:li.discount_rate}))
+                                }}>
                                     장바구니 담기
                                 </button>
                             </div>

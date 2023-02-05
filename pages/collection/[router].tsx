@@ -15,7 +15,7 @@ import {useRouter} from "next/router";
 
 export default function ProductListInCollection({router,params}:collectionProps){
     const filter = useSelector((state:RootState)=>state.collection.filter)
-    const {data, refetch} = useQuery('product-li-collection',()=>getProductListInCollection(false,router,params))
+    const {data, refetch} = useQuery('product-li',()=>getProductListInCollection(false,router,params))
     const dispatch = useDispatch()
     useEffect(()=>{
         if(params.filter !== 'all' && filter.length === 0)
@@ -31,16 +31,9 @@ export default function ProductListInCollection({router,params}:collectionProps)
         {
             dispatch(resetFilter())
         }
-
-        const scroll = sessionStorage.getItem('scroll');
-        window.scrollTo(0,scroll ? parseInt(scroll)-150 : 0)
-        sessionStorage.removeItem('scroll')
     },[])
     return(
-        <div className={publicStyles['content']} onClick={(e)=>{
-            const {scrollY} = window;
-            sessionStorage.setItem('scroll',String(scrollY))
-        }}>
+        <div className={publicStyles['content']}>
             <div className={styles['collection']}>
                 <ProductFilter router={router} params={params} refetch={refetch}/>
                 <div>
@@ -62,8 +55,8 @@ export const getServerSideProps:GetServerSideProps = async (context)=>{
     }
 
     const queryClient = new QueryClient()
-    await queryClient.prefetchQuery('product-li-collection',()=>getProductListInCollection(true,router,params))
-    await queryClient.prefetchQuery('category-li-collection',()=>getCategoryListInCollection(true,router))
+    await queryClient.prefetchQuery('product-li',()=>getProductListInCollection(true,router,params))
+    await queryClient.prefetchQuery('category-li',()=>getCategoryListInCollection(true,router))
     return {
         props:{
             router:router,

@@ -8,7 +8,6 @@ export default function StickyHeader(){
         window.addEventListener('scroll',(e)=>{
             const {scrollY} = window;
             setScroll(scrollY)
-            console.log(scrollY)
         })
     },[])
 
