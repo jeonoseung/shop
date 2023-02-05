@@ -9,10 +9,7 @@ import Link from "next/link";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 
-export default function ProductList({router,params}:collectionProps){
-    const {data} = useQuery('product-li',()=>getProductListInCollection(false,router,params))
-    const filter = useSelector((state:RootState)=>state.collection.filter)
-    // const re = filter.length === 0 ? data : data.filter((product:ProductListInCollectionPage)=>filter.includes(product.category_id))
+export default function ProductList({data}:any){
     return(
         <div className={styles['product-list']}>
             {
@@ -33,7 +30,7 @@ export default function ProductList({router,params}:collectionProps){
                                     ?
                                     <div>
                                         <span className={styles['discount']}>{item.discount_rate}% </span>
-                                        <span className={styles['price']}>{setPrice(item.product_price * (item.discount_rate * 0.01))}원</span>
+                                        <span className={styles['price']}>{setPrice(item.product_price * (1-item.discount_rate * 0.01))}원</span>
                                         <div>
                                             <span className={styles['line-through']}>{setPrice(item.product_price)}원</span>
                                         </div>

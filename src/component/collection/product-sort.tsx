@@ -6,12 +6,11 @@ import {useRouter} from "next/router";
 import {ChangeEvent} from "react";
 
 export default function ProductSort({length,params,refetch}:{length:number,params:any,refetch:any}){
-    const route = useRouter()
+    const router = useRouter()
     const imsi = (e:ChangeEvent<HTMLInputElement>) =>{
-        route.push({
-            query:{...route.query,sort:e.target.value}
+        router.push({
+            query:{...router.query,sort:e.target.value}
         })
-        refetch()
     }
     const set = [
         {name:'신상품순',value:'1'},

@@ -2,21 +2,33 @@ import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useQuery} from "react-query";
 import publicStyles from '../../styles/public.module.css'
 import styles from '../../src/component/collection/collection.module.css'
-import {getCategoryListInCollection, getProductListInCollection} from "../../src/function/api/get/api";
+import {
+    getCategoryListInCollection,
+    getCollectionInfo,
+    getProductListInCollection
+} from "../../src/function/api/get/api";
 import ProductFilter from "../../src/component/collection/product-filter";
 import ProductList from "../../src/component/collection/product-list";
 import ProductSort from "../../src/component/collection/product-sort";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import {collectionProps} from "../../src/@types/collection/collection";
 import {addFilter, resetFilter} from "../../store/collection/collection";
-import {useRouter} from "next/router";
+import Title from "../../src/component/public/title";
+import ProductPagination from "../../src/component/collection/product-pagination";
 
 export default function ProductListInCollection({router,params}:collectionProps){
+    const listLength = 2;
     const filter = useSelector((state:RootState)=>state.collection.filter)
-    const {data, refetch} = useQuery('product-li',()=>getProductListInCollection(false,router,params))
+    const collection = useQuery('collection',()=>getCollectionInfo(false,router,params))
+    const product = useQuery('product-li',()=>getProductListInCollection(false,router,params))
+    const category = useQuery('category-li',()=>getCategoryListInCollection(false,router))
     const dispatch = useDispatch()
+    /**
+     * parameter이 all이 아니고 filter가 없으면 filter 셋팅
+     * parameter이 all이면 리셋
+     * */
     useEffect(()=>{
         if(params.filter !== 'all' && filter.length === 0)
         {
@@ -34,12 +46,22 @@ export default function ProductListInCollection({router,params}:collectionProps)
     },[])
     return(
         <div className={publicStyles['content']}>
+            <div>
+                {collection.isLoading ? null : <Title title={collection.data.collection_name}/>}
+            </div>
             <div className={styles['collection']}>
-                <ProductFilter router={router} params={params} refetch={refetch}/>
-                <div>
-                    <ProductSort length={data.length} params={params} refetch={refetch}/>
-                    <ProductList router={router} params={params}/>
-                </div>
+                {
+                    category.isLoading ? null : <ProductFilter data={category.data}/>
+                }
+                {
+                    product.isLoading ? null
+                        :
+                        <div>
+                            <ProductSort length={collection.data.list_count} params={params} refetch={product.refetch}/>
+                            <ProductList data = {product.data}/>
+                            <ProductPagination length={collection.data.list_count} listLength={listLength}/>
+                        </div>
+                }
             </div>
         </div>
     )
@@ -48,13 +70,16 @@ export const getServerSideProps:GetServerSideProps = async (context)=>{
     const { router } = context.query;
     const filter = context.query['filter']
     const sort = context.query['sort']
+    const page = context.query['page']
 
     const params = {
         filter: typeof filter === "string" ? filter : 'all',
-        sort: typeof sort === "string" ? sort : '1'
+        sort: typeof sort === "string" ? sort : '1',
+        page: typeof page === "string" ? page : '1'
     }
-
     const queryClient = new QueryClient()
+
+    await queryClient.prefetchQuery('collection',()=>getCollectionInfo(true,router,params))
     await queryClient.prefetchQuery('product-li',()=>getProductListInCollection(true,router,params))
     await queryClient.prefetchQuery('category-li',()=>getCategoryListInCollection(true,router))
     return {

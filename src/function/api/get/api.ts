@@ -44,17 +44,24 @@ export const getCollection=async (ssr:boolean)=>{
     return data.data
 }
 
+export const getCollectionInfo=async (ssr:boolean,router:router,set:params)=>{
+    const filter = set.filter;
+    const first = (filter !== '' ? filter.split('%').splice(1,filter.split('%').length) : filter)
+    const url = `${ssr ? process.env.URL : ''}/api/collection/info/${router}?filter=${first.length === 0 ? 'all' : first}`
+    const data = await axios.get(url)
+    return data.data
+}
 export const getProductListInCollection = async (ssr:ssr,router:router,set:params) =>{
     const filter = set.filter;
     const sort = set.sort;
+    const page = set.page
     if(Array.isArray(filter)) return false
     const first = (filter !== '' ? filter.split('%').splice(1,filter.split('%').length) : filter)
-    const url = `${ssr ? process.env.URL : ''}/api/collection/product/${router}/${first.length === 0 ? 'all' : first}/${sort}`
+    const url = `${ssr ? process.env.URL : ''}/api/collection/product/${router}/${first.length === 0 ? 'all' : first}/${sort}/${page}`
     const data = await axios.get(url)
 
     return data.data
 }
-
 export const getCategoryListInCollection = async (ssr:boolean,router:string|string[]|undefined)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/collection/category/${router}`)
     return data.data

@@ -1,18 +1,16 @@
-import {useQuery} from "react-query";
-import {getCategoryListInCollection, getProductListInCollection} from "../../function/api/get/api";
 import styles from './collection.module.css'
-import Image from "next/image";
 import CheckIcon from "../public/icon/check-icon";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import {ChangeEvent, useEffect, useState} from "react";
-import {addFilter, removeFilter} from "../../../store/collection/collection";
+import {addFilter, removeFilter, resetFilter} from "../../../store/collection/collection";
 import {useRouter} from "next/router";
-import {router} from "../../@types/collection/collection";
-export default function ProductFilter({router,params,refetch}:{router:router,refetch:any,params:any}){
+import RefreshIcon from "../public/icon/refresh-icon";
+import {FilterCategoryType} from "../../@types/category/category";
+import Link from "next/link";
+export default function ProductFilter({data}:{data:FilterCategoryType[]}){
     const [state,setState] = useState(false)
-    const route = useRouter()
-    const {data} = useQuery('category-li',()=>getCategoryListInCollection(false,router))
+    const router = useRouter()
     const filter = useSelector((state:RootState)=>state.collection.filter)
     const dispatch = useDispatch()
     const setFilter = async (e:ChangeEvent<HTMLInputElement>) =>{
@@ -20,30 +18,37 @@ export default function ProductFilter({router,params,refetch}:{router:router,ref
             ? dispatch(addFilter(parseInt(e.target.value)))
             : dispatch(removeFilter(parseInt(e.target.value)))
     }
+    const routerOption = {scroll:false}
     useEffect(()=>{
         if(filter.length !== 0 && state)
         {
             const set = 'category%'+filter.join('%');
-            route.push({query: {...route.query, filter:set}},'',{
-                scroll:false
-            })
+            router.push({query: {...router.query, filter:set}},'',routerOption)
         }
         if(filter.length === 0 && state)
         {
-            route.push({query: {...route.query, filter:''}},'',{
-            scroll:false
-        })
+            router.push({query: {...router.query, filter:''}},'',routerOption)
         }
         setState(true)
     },[filter])
     return(
         <div className={styles['filter']}>
-            <div>
-
+            <div className={styles['filter-reset']}>
+                <div>
+                    <span>필터</span>
+                </div>
+                <div className={styles[router.query.filter ? 'reset-btn-active' : 'reset-btn']} onClick={()=>{
+                    /** 필터 리셋 */
+                    dispatch(resetFilter())
+                    router.push({query:{...router.query,filter:''}})
+                }}>
+                    <RefreshIcon/>
+                    <span>초기화</span>
+                </div>
             </div>
             <div className={styles['category-list']}>
                 {
-                    data.map((item:any)=>(
+                    data.map((item)=>(
                         <label key={item.category_id} className={styles['list']}>
                             <input type={'checkbox'}
                                    value={item.category_id}

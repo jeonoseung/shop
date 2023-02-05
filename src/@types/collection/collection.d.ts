@@ -28,6 +28,7 @@ type router = string | string[] | undefined
 interface params{
     filter:string
     sort:string
+    page:string
 }
 interface collectionProps{
     router:router
