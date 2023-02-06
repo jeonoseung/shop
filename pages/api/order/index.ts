@@ -21,7 +21,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                     INNER JOIN purchase_history as ph
                     ON phg.phg_id = ph.phg_id
                     WHERE phg.user_id = ${req.query.user ? req.query.user : req.session.user.id}
-                    GROUP BY phg.phg_id`;
+                    GROUP BY phg.phg_id ORDER BY order_date desc`;
         const [rows] = await database.promise().query(sql)
         return rows
     }catch (err){

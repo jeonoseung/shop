@@ -19,7 +19,6 @@ import Title from "../../src/component/public/title";
 import ProductPagination from "../../src/component/collection/product-pagination";
 
 export default function ProductListInCollection({router,params}:collectionProps){
-    const listLength = 2;
     const filter = useSelector((state:RootState)=>state.collection.filter)
     const collection = useQuery('collection',()=>getCollectionInfo(false,router,params))
     const product = useQuery('product-li',()=>getProductListInCollection(false,router,params))
@@ -59,7 +58,7 @@ export default function ProductListInCollection({router,params}:collectionProps)
                         <div>
                             <ProductSort length={collection.data.list_count} params={params} refetch={product.refetch}/>
                             <ProductList data = {product.data}/>
-                            <ProductPagination length={collection.data.list_count} listLength={listLength}/>
+                            <ProductPagination length={collection.data.list_count} listLength={params.listLength}/>
                         </div>
                 }
             </div>
@@ -75,7 +74,8 @@ export const getServerSideProps:GetServerSideProps = async (context)=>{
     const params = {
         filter: typeof filter === "string" ? filter : 'all',
         sort: typeof sort === "string" ? sort : '1',
-        page: typeof page === "string" ? page : '1'
+        page: typeof page === "string" ? page : '1',
+        listLength: 12
     }
     const queryClient = new QueryClient()
 

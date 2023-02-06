@@ -29,6 +29,7 @@ interface params{
     filter:string
     sort:string
     page:string
+    listLength:number
 }
 interface collectionProps{
     router:router

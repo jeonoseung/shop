@@ -3,12 +3,12 @@ import {database} from "../../../../src/db/db";
 
 const get = async (req:NextApiRequest,res:NextApiResponse) =>{
     try{
-        const query:any = req.query.set
-        const router = query[0]
-        const filter = query[1]
-        const sort = query[2]
-        const page = query[3]
-        const listLength = query[4];
+        const query = req.query
+        const router = query.router
+        const filter = query.filter
+        const sort = query.sort
+        const page = parseInt(query.page as string)
+        const listLength = parseInt(query.list as string);
         const sql = `SELECT p.product_id,product_name,brand_name,product_price,product_img,discount_rate,delivery_type,product_title,p.category_id
                          FROM collection_product as cp
                          INNER JOIN collections as c ON cp.collection_id = c.collection_id

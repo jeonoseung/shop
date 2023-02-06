@@ -23,11 +23,11 @@ export default function ProductFilter({data}:{data:FilterCategoryType[]}){
         if(filter.length !== 0 && state)
         {
             const set = 'category%'+filter.join('%');
-            router.push({query: {...router.query, filter:set}},'',routerOption)
+            router.push({query: {...router.query, filter:set,page:1}},'',routerOption)
         }
         if(filter.length === 0 && state)
         {
-            router.push({query: {...router.query, filter:''}},'',routerOption)
+            router.push({query: {...router.query, filter:'',page:1}},'',routerOption)
         }
         setState(true)
     },[filter])

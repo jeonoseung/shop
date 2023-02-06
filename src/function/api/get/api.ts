@@ -54,10 +54,11 @@ export const getCollectionInfo=async (ssr:boolean,router:router,set:params)=>{
 export const getProductListInCollection = async (ssr:ssr,router:router,set:params) =>{
     const filter = set.filter;
     const sort = set.sort;
-    const page = set.page
+    const page = set.page;
+    const listLength = set.listLength
     if(Array.isArray(filter)) return false
     const first = (filter !== '' ? filter.split('%').splice(1,filter.split('%').length) : filter)
-    const url = `${ssr ? process.env.URL : ''}/api/collection/product/${router}/${first.length === 0 ? 'all' : first}/${sort}/${page}`
+    const url = `${ssr ? process.env.URL : ''}/api/collection/product/${router}?filter=${first.length === 0 ? 'all' : first}&sort=${sort}&page=${page}&list=${listLength}`
     const data = await axios.get(url)
 
     return data.data

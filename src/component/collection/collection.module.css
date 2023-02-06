@@ -149,8 +149,21 @@
 .pagination{
     display:flex;
     margin:4rem auto;
+    border-left:1px solid #ddd;
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
 }
 .page-btn{
-    border:1px solid black;
-    padding:0.25rem 0.5rem;
+    padding:0.25rem 0.75rem;
+    background:none;
+    border-right:1px solid #ddd;
+}
+.page-btn:hover{
+    background:rgb(247, 247, 247);
+}
+.page-btn-active{
+    padding:0.25rem 0.75rem;
+    color:#0d6efd;
+    background:rgb(247, 247, 247);
+    border-right:1px solid #ddd;
 }

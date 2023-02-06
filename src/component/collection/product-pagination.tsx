@@ -6,17 +6,37 @@ import {useRouter} from "next/router";
 export default function ProductPagination({length,listLength}:{length:number,listLength:number}){
     const router = useRouter();
     const page = Math.ceil(length / listLength);
-    const [btn,setBtn] = useState([]);
+    const [btn,setBtn] = useState<{value:number}[]>([]);
     const [index,setIndex] = useState(1)
     useEffect(()=>{
-        let copy:any = [];
-        for(let i=0;i<page;i++)
-        {
-            copy = [...copy,{value:i+1}];
+        const current = router.query.page ? parseInt(router.query.page as string) : 1;
+        if(current <= page){
+            const repeat = page > 7 ? 7 : page;
+            let copy:{value:number}[] = [];
+            let j = 1;
+            copy = [...copy,{value:current}];
+            let remain = 0;
+            while(j <= Math.floor(repeat/2)){
+                current+j > page
+                    ? remain += 1
+                    : copy = [...copy,{value:current+j}];
+                j += 1;
+            }
+            j = 1;
+            while(j <= Math.floor(repeat/2)){
+                current-j <= 0
+                    ? copy.push({value:copy[copy.length-1].value+1})
+                    : copy.unshift({value:current-j})
+                j += 1;
+            }
+            for(let i =1;i<=remain;i++) {
+                copy.unshift({value:copy[0].value-1})
+            }
+            setBtn(copy)
         }
-        setBtn(copy)
-    },[length])
-    const IndexSet = (value:number) =>{
+        setIndex(1)
+    },[length,router.query.page])
+    const IndexSet = (value:number)=>{
         setIndex(index+value)
     }
     return(
@@ -26,10 +46,10 @@ export default function ProductPagination({length,listLength}:{length:number,lis
                     {'<'}
                 </Link>
                 {
-                    btn.map((li:any)=>(
+                    btn.map((li:{value:any})=>(
                         li.value === index
                             ?
-                            <div key={li.value} className={styles['page-btn']}>
+                            <div key={li.value} className={styles['page-btn-active']}>
                                 {li.value}
                             </div>
                             :
