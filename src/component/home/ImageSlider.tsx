@@ -16,8 +16,7 @@ function ImageSlider(){
         {src:'/image/image1.jpg'},
     ]
     const time:any = useRef();
-    const Previous = useRef<HTMLButtonElement>(null)
-    const Next = useRef<HTMLButtonElement>(null)
+
     const [Index,setIndex] = useState<number>(0)
     const [PClick, setPClick] = useState<number>(0)
     const [NClick, setNClick] = useState<number>(0)
@@ -29,7 +28,7 @@ function ImageSlider(){
         const value = Index - 1;
         if(value < 0)
         {
-            setSliderStyle(a=>({...a, transition:`transform 0s`,transform:`translate(-${(Images.length-1) * 100}vw)`}))
+            setSliderStyle(a=>({...a, transition:`all 0s`,transform:`translate(-${(Images.length-1) * 100}vw)`}))
             setIndex(Images.length-1)
         }
         else
@@ -43,7 +42,7 @@ function ImageSlider(){
         const value = Index + 1;
         if(Index === Images.length-1)
         {
-            setSliderStyle(a=>({...a, transition:`transform 0s`,transform:`translate(0vw)`}))
+            setSliderStyle(a=>({...a, transition:`all 0s`,transform:`translate(0vw)`}))
             setIndex(0)
         }
         else
@@ -56,8 +55,8 @@ function ImageSlider(){
     useEffect(()=>{setImages(load_images)},[])
     useEffect(()=>{
         time.current = setInterval(()=>{
-            Next.current?.click()
-        },10000)
+            NextImage()
+        },1000)
         return ()=>{
             clearInterval(time.current)
         }
@@ -84,8 +83,8 @@ function ImageSlider(){
                     <Image key={index} src={item.src} alt='이미지' width={100} height={100} priority={true}/>
                 ))}
             </div>
-            <button onClick={PreviousImage} ref={Previous} className={styles.pre_btn}>뒤로</button>
-            <button onClick={NextImage} ref={Next} className={styles.next_btn}>다음</button>
+            <button onClick={PreviousImage} className={styles.pre_btn}>뒤로</button>
+            <button onClick={NextImage} className={styles.next_btn}>다음</button>
         </div>
     )
 }

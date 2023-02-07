@@ -1,7 +1,6 @@
 import ImageSlider from "../src/component/home/ImageSlider";
 import styles from "../styles/Home.module.css"
 import SuggestionProducts from "../src/component/home/SuggestionProduct";
-import EventBanner from "../src/component/home/EventBanner";
 import SuggestionCategory from "../src/component/home/SuggestionCategory";
 import LimitedOffer from "../src/component/home/LimitedOffer";
 import RecommendProduct from "../src/component/home/recommend-product";
@@ -55,12 +54,8 @@ export default function Home() {
     <div>
         <ImageSlider/>
         <div className={publicStyles.content}>
-            {
-                recommendProduct.isLoading ? null : <RecommendProduct data={recommendProduct.data}/>
-            }
-            {
-                collection.isLoading ? null : <RecommendCollection collection={collection.collection} data={collection.product}/>
-            }
+            {recommendProduct.isLoading ? null : <RecommendProduct data={recommendProduct.data}/>}
+            {collection.isLoading ? null : <RecommendCollection collection={collection.collection} data={collection.product}/>}
             <SuggestionCategory main={main} list={list}/>
             <LimitedOffer />
         </div>

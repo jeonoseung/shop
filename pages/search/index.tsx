@@ -24,7 +24,7 @@ export default function SearchPage(){
         filter: router.query.filter ? router.query.filter as string : 'all',
         sort: router.query.sort ? router.query.sort as string : '1',
         page: router.query.page ? router.query.page as string : '1',
-        listLength: 2
+        listLength: 12
     }
     const category = useQuery('search-category',()=>getSearchCategory(false,keyword))
     const product = useQuery('search-product',()=>getSearchProduct(false,keyword,params))
@@ -59,31 +59,45 @@ export default function SearchPage(){
     return(
         <div className={publicStyles['content']}>
             <div style={{display:"flex"}}>
-                <h2 style={{margin:'auto'}}>{`'${router.query.keyword}'에 대한 검색 결과`}</h2>
+                <div className={styles['result-title']}>
+                    {`'`}<span className={styles['keyword']}>{router.query.keyword}</span>{`'에 대한 검색 결과`}
+                </div>
             </div>
-            <div className={styles['collection']}>
-                {
-                    category.isLoading || category.data === false
-                        ? null
-                        : <ProductFilter data={category.data}/>
-                }
-                {
-                    product.isLoading || product.data === false || category.isLoading || category.data === false
-                        ? null
-                        :
-                        <div>
-                            <ProductSort length={10} params={params} refetch={product.refetch}/>
-                            <ProductList data = {product.data}/>
-                            <ProductPagination
-                                length={
-                                    category.data.reduce((result:number,{counting}:any)=>{
-                                    return result+counting
-                                },0)
-                                }
-                                listLength={params.listLength}/>
-                        </div>
-                }
-            </div>
+            {
+                product.data === false || product.data.length === 0
+                    ?
+                    <div className={styles['result-is-null']}>
+                        <span>검색된 상품이 없습니다.</span>
+                    </div>
+                    :
+                    <div className={styles['collection']}>
+                        {
+                            category.isLoading || category.data === false
+                                ? null
+                                : <ProductFilter data={category.data}/>
+                        }
+                        {
+                            product.isLoading || product.data === false || category.isLoading || category.data === false
+                                ? null
+                                :
+                                <div>
+                                    <ProductSort length={
+                                        category.data.reduce((result:number,{counting}:any)=>{
+                                            return result+counting
+                                        },0)
+                                    } params={params} refetch={product.refetch}/>
+                                    <ProductList data = {product.data}/>
+                                    <ProductPagination
+                                        length={
+                                            category.data.reduce((result:number,{counting}:any)=>{
+                                                return result+counting
+                                            },0)
+                                        }
+                                        listLength={params.listLength}/>
+                                </div>
+                        }
+                    </div>
+            }
         </div>
     )
 }

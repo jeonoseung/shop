@@ -3,6 +3,26 @@
     grid-template-columns:1.5fr 6fr;
     gap:3rem;
 }
+.result-title{
+    font-size:28px;
+    margin:3rem auto;
+    font-weight:500;
+}
+.result-title .keyword{
+    color:#0d6efd;
+}
+.result-is-null{
+    position:relative;
+    width:100%;
+    min-height:500px;
+}
+.result-is-null span{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    color:rgb(151,151,151)
+}
 .product-sort{
     display:flex;
     justify-content: space-between;
