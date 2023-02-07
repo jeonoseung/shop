@@ -31,7 +31,7 @@ export const database = mysql.createPool({
     database: process.env.DB,
     multipleStatements:true,
     waitForConnections: true,
-    connectionLimit:20,
+    connectionLimit:151,
     queueLimit: 0,
     timezone : "+09:00",
     dateStrings:true

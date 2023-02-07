@@ -7,7 +7,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
         const router = query.router
         const filter = query.filter
         const sort = query.sort
-        const page = parseInt(query.page as string)
+        const page = query.page ? parseInt(query.page as string) : 1
         const listLength = parseInt(query.list as string);
         const sql = `SELECT p.product_id,product_name,brand_name,product_price,product_img,discount_rate,delivery_type,product_title,p.category_id
                          FROM collection_product as cp
@@ -28,7 +28,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                         : sort === '4'
                             ? 'order by (p.product_price * (1-p.discount_rate * 0.01)) desc '
                             : ' ';
-        const pagination = `LIMIT ${listLength} OFFSET ${(listLength*(page-1))}`;
+        const pagination = `LIMIT ${listLength} OFFSET ${(listLength*((page < 1 ? 1 : page)-1))}`;
         const [rows] = await database.promise().query(sql+sqlFilter+groupby+sqlSort+pagination)
         if(rows.length === 0)
         {

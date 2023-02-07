@@ -1,11 +1,14 @@
 import styles from './header.module.css'
-import {ChangeEventHandler, CSSProperties, useEffect, useState} from "react";
+import {ChangeEventHandler, CSSProperties, KeyboardEventHandler, useEffect, useState} from "react";
 import Link from "next/link";
 import {dehydrate, QueryClient, useQuery} from "react-query";
 import {getProductInfo, getSession} from "../../function/api/get/api";
 import {GetServerSideProps} from "next";
+import {useRouter} from "next/router";
+import {query} from "express";
 
 export default function HeaderTop(){
+    const router = useRouter()
     const [Search,setSearch] = useState('');
     const {data,isLoading} =useQuery('user',()=>getSession(false))
     const [isLoginHover,setIsLoginHover] = useState<boolean>(false);
@@ -20,6 +23,9 @@ export default function HeaderTop(){
     const isLoginMouseOver = () =>{
 
     }
+    const searchStart:KeyboardEventHandler<HTMLInputElement> = (e) =>{
+        e.code === "Enter" ? router.push({pathname:`/search`,query:{keyword:Search}}) : null
+    }
     useEffect(()=>{
         isLoginHover ? setUserMenu({...userMenu,display:'block'}) :  setUserMenu({...userMenu,display:'none'})
     },[isLoginHover])
@@ -31,7 +37,7 @@ export default function HeaderTop(){
                 </Link>
             </div>
             <label className={styles.search}>
-                <input type='text' onChange={(e)=>setSearch(e.target.value)} value={Search} placeholder={'검색어를 입력해주세요'}/>
+                <input type='text' onChange={(e)=>setSearch(e.target.value)} onKeyUp={searchStart} value={Search} placeholder={'검색어를 입력해주세요'}/>
                 <div className={styles.option}>
                     <button style={ResetButton} onClick={()=>setSearch('')}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" className="bi bi-x-circle" viewBox="0 0 16 16">

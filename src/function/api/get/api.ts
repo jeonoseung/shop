@@ -113,3 +113,21 @@ export const getOrderDetail = async (ssr:boolean,params:string|null,user?:number
     }
 }
 
+export const getSearchCategory = async (ssr:boolean,keyword:string|null)=>{
+    if(keyword === '') return false
+    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/search/category/${keyword}`)
+    return data.data
+}
+export const getSearchProduct = async (ssr:boolean,keyword:string|null,params:params)=>{
+    if(keyword === '') return false
+    const filter = params.filter;
+    const sort = params.sort;
+    const page = params.page;
+    const listLength = params.listLength
+    if(Array.isArray(filter)) return false
+    const first = (filter !== '' ? filter.split('%').splice(1,filter.split('%').length) : filter)
+    const url = `${ssr ? process.env.URL : ''}/api/search/product/${keyword}?filter=${first.length === 0 ? 'all' : first}&sort=${sort}&page=${page}&list=${listLength}`;
+    const data = await axios.get(url)
+    return data.data
+}
+
