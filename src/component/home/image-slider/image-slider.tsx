@@ -14,7 +14,7 @@ export default function ImageSlider({images}:{images:{src:string}[]}){
         transitionDuration:`0s`,
     })
     const previousImage = () =>{
-        if(sliderCSS.transitionDuration !== '0s') return
+        if(sliderCSS.transitionDuration !== '0s') return;
         const current = Index - 1;
         if(current < 0)
         {
@@ -30,16 +30,17 @@ export default function ImageSlider({images}:{images:{src:string}[]}){
     const nextImage = () =>{
         if(sliderCSS.transitionDuration !== '0s') return
         const current = Index + 1;
+        const value = Index === length-1 ? 0 : current
         if(Index === length-1)
         {
             setSliderCSS({...sliderCSS,transitionDuration:`0s`,transform:`translate3d(0vw,0,0)`})
-            setOverIndex(overIndex <= 1 ? overIndex+1 : 1)
+            setOverIndex(overIndex >= 1 ? overIndex+1 : 1)
         }
         else
         {
             setSliderCSS({...sliderCSS,transitionDuration:`0.3s`,transform:`translate3d(-${current * 100}vw,0,0)`})
         }
-        setIndex(Index === length-1 ? 0 : current)
+        setIndex(value)
     }
     const time:any = useRef();
     useEffect(()=>{
@@ -53,7 +54,8 @@ export default function ImageSlider({images}:{images:{src:string}[]}){
         overIndex < 0
             ? previousImage()
             : overIndex > 0
-                ? nextImage() : null
+                ? nextImage()
+                : null
     },[overIndex])
     return(
         <div className={styles['image-slider']} onMouseOver={()=>setHover(true)} onMouseLeave={()=>setHover(false)}>
