@@ -2,13 +2,13 @@
     overflow:hidden;
     position: relative;
 }
-/*.slider{*/
-/*    transition:transform 0.5s;*/
-/*}*/
+.slider{
+    display:flex;
+}
 .slider img{
     width:100vw;
-    height:400px;
-    float:left;
+    height:450px;
+    flex-shrink:0;
 }
 .pre_btn{
     position: absolute;

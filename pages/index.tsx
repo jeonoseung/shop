@@ -1,4 +1,4 @@
-import ImageSlider from "../src/component/home/ImageSlider";
+
 import styles from "../styles/Home.module.css"
 import SuggestionProducts from "../src/component/home/SuggestionProduct";
 import SuggestionCategory from "../src/component/home/SuggestionCategory";
@@ -10,10 +10,11 @@ import {dehydrate, QueryClient, useQuery} from "react-query";
 import {getCategory, getCollection, getProduct, getProductOnCollectionAdmin} from "../src/function/api/get/api";
 import RecommendCollection from "../src/component/home/recommend-collection";
 import HeaderBottom from "../src/component/header/HeaderBottom";
+import ImageSlider from "../src/component/home/image-slider/image-slider";
 
 export default function Home() {
     const recommendProduct = useQuery('product',()=>getProduct(false))
-    const collection = useQuery('collection',()=>getCollection(false)).data
+    const collection = useQuery('collection',()=>getCollection(false))
     const load_images = [
         {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
         {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
@@ -50,12 +51,18 @@ export default function Home() {
         {id:3,src:'/image/image3.jpg',title:'포드 소국',price:'36900',kind:'농부의 꽃'},
         {id:4,src:'/image/image4.jpg',title:'홀릭 소국 5대',price:'36900',kind:'농부의 꽃'}
     ]
+    const load_images1= [
+        {src:'/image/image1.jpg'},
+        {src:'/image/image2.jpg'},
+        {src:'/image/image3.jpg'},
+        {src:'/image/image4.jpg'},
+    ]
   return (
     <div>
-        <ImageSlider/>
+        <ImageSlider images={load_images1}/>
         <div className={publicStyles.content}>
-            {recommendProduct.isLoading ? null : <RecommendProduct data={recommendProduct.data}/>}
-            {collection.isLoading ? null : <RecommendCollection collection={collection.collection} data={collection.product}/>}
+            {recommendProduct.isLoading || recommendProduct.status === 'error' ? null : <RecommendProduct data={recommendProduct.data}/>}
+            {collection.isLoading || collection.status === 'error' ? null : <RecommendCollection collection={collection.data.collection} data={collection.data.product}/>}
             <SuggestionCategory main={main} list={list}/>
             <LimitedOffer />
         </div>

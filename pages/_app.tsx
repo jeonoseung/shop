@@ -29,7 +29,7 @@ export default function App({Component, pageProps}: AppProps) {
                     <CartModal />
                 </Provider>
             </Hydrate>
-            <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
+            {/*<ReactQueryDevtools initialIsOpen={false} position='bottom-right' />*/}
         </QueryClientProvider>
     )
 }

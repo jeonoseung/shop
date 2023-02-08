@@ -84,7 +84,6 @@ export default function RecommendCollection({collection,data}:{collection:Collec
                     <span className={publicStyle['sub-title']}>{collection.collection_title}</span>
                 </div>
             </div>
-
             <div style={{overflow:'hidden'}}>
                 <div style={slider}>
                     {
@@ -118,11 +117,7 @@ export default function RecommendCollection({collection,data}:{collection:Collec
                                         }
                                     </div>
                                 </Link>
-                                <CartButton pid={item.product_id}
-                                            name={item.product_name}
-                                            brand={item.brand_name}
-                                            price={item.product_price}
-                                            discount={item.discount_rate}/>
+                                <CartButton pid={item.product_id} name={item.product_name} brand={item.brand_name} price={item.product_price} discount={item.discount_rate}/>
                             </div>
                         ))
                     }
