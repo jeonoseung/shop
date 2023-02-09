@@ -39,7 +39,7 @@
 .product-sort .sort span{
     color:#ddd;
     font-size:0.85rem;
-    font-weight:600;
+    font-weight:500;
 }
 .filter .filter-reset{
     display:flex;
@@ -122,29 +122,30 @@
 .filter .category-list{
 
 }
-.filter .category-list .list{
+.list{
     display:flex;
     align-items:center;
     margin:0.75rem 0;
 }
-.filter .category-list .list *{
+.list *{
+    display:block;
     line-height:18px;
 }
-.filter .category-list .list .category-name{
+.list .category-name{
     font-size:0.9rem;
     margin-right:0.25rem;
 }
-.filter .category-list .list .category-name:hover{
+.list .category-name:hover{
     color:#0d6efd;
 }
-.filter .category-list .list .category-length{
+.list .category-length{
     font-size:0.75rem;
     color:#ddd;
 }
-.filter .category-list .list input[type=checkbox]{
+.list input[type=checkbox]{
     display:none;
 }
-.filter .category-list .list .check-circle{
+.list .check-circle{
     border-radius:9px;
     width:18px;
     height:18px;
@@ -152,17 +153,17 @@
     position:relative;
     margin-right:0.5rem;
 }
-.filter .category-list .list .check-circle svg{
+.list .check-circle svg{
     position:absolute;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
     fill:#ddd;
 }
-.filter .category-list .list input[type=checkbox]:checked + .check-circle{
+.list input[type=checkbox]:checked + .check-circle{
     border:1px solid #0d6efd;
 }
-.filter .category-list .list input[type=checkbox]:checked + .check-circle svg{
+.list input[type=checkbox]:checked + .check-circle svg{
     fill:#0d6efd;
 }
 

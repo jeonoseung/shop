@@ -16,6 +16,13 @@
 .product-option-div{
     margin:1rem 0;
 }
+.product-options{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+}
+.product-options span{
+    font-size:0.8rem;
+}
 .product-input-half{
     display:grid;
     grid-template-columns:1fr 1fr;

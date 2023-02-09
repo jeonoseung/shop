@@ -41,8 +41,8 @@ export default function ProductAddPage({user}:props){
             headers:{
                 "Content-Type":"multipart/form-data"
             }
-        })
-        console.log(result)
+        }).catch((res)=>console.log(res))
+        result?.status === 201 ? alert('저장 되었습니다') : null
     }
 
     return(

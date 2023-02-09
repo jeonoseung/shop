@@ -58,7 +58,7 @@ export default function ProductFilter({data}:{data:FilterCategoryType[]}){
                             <div className={styles['check-circle']}>
                                 <CheckIcon />
                             </div>
-                            <div>
+                            <div style={{display:"flex"}}>
                                 <span className={styles['category-name']}>{item.category_name}</span>
                                 <span className={styles['category-length']}>{item.counting}</span>
                             </div>

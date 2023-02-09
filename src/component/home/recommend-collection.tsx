@@ -22,6 +22,7 @@ export default function RecommendCollection({collection,data}:{collection:Collec
      * 슬라이드에 표시되는 상품
      * */
     const product = data.length > dataLength ? data.slice(0,dataLength) : data
+
     /** 현재 인덱스 */
     const [index,setIndex] = useState<number>(0)
     /**
@@ -71,6 +72,7 @@ export default function RecommendCollection({collection,data}:{collection:Collec
             : setSlider(c => ({...c,transform:`translate(-${translate}px)`}))
         setIndex(index + 1)
     }
+
     return(
         <div style={div}>
             <div style={{textAlign:'center'}}>

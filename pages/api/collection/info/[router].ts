@@ -1,8 +1,9 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {database} from "../../../../src/db/db";
+import {con} from "../../../../src/db/db";
 import {ErrorHandler} from "next/dist/client/components/react-dev-overlay/internal/helpers/use-error-handler";
 
 const get = async (req:NextApiRequest,res:NextApiResponse)=>{
+    const connection = await con()
     try{
         const router = req.query.router;
         const filter = req.query.filter;
@@ -13,11 +14,12 @@ const get = async (req:NextApiRequest,res:NextApiResponse)=>{
                          WHERE c.collection_router_name = '${router}'`;
         const sqlFilter = (filter !== 'all' && filter !== undefined ? 'AND p.category_id IN ('+filter+') ':' ');
         const groupBy = 'GROUP BY c.collection_name '
-        const [rows] = await database.promise().query(sql+sqlFilter+groupBy).catch((err:ErrorHandler)=>console.log(err))
+        const [rows] = await connection.query(sql+sqlFilter+groupBy).catch((err:ErrorHandler)=>console.log(err))
+        connection.release()
         return res.status(200).send(rows[0])
     }catch (err){
-        console.log(err)
-        return res.status(409).end()
+        connection.release()
+        return res.status(500).end()
     }
 }
 

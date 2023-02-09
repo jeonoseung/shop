@@ -21,7 +21,7 @@ export default function SuggestionCategory({main, list}:props){
         <div className={styles.suggestion_category}>
             <div className={styles.main}>
                 <div className={styles.image}>
-                    <Image src={main.src} width={100} height={100} alt='main' priority={true}/>
+                    <Image src={main.src} width={1280} height={500} alt='main' priority={true}/>
                 </div>
                 <div className={styles.text}>
                     <h2 className={styles.title}>{main.title}</h2>
@@ -31,7 +31,7 @@ export default function SuggestionCategory({main, list}:props){
             <div className={styles.list}>
                 {list.map((item)=>(
                     <div key={item.id} className={styles.products}>
-                        <Image className={styles.list_img} src={item.src} width={50} height={25} alt='list' priority={true}/>
+                        <Image className={styles.list_img} src={item.src} width={768} height={300} alt='list' priority={true}/>
                         <div className={styles.content}>
                             <div>[{item.kind}]{item.title}</div>
                             <div>{item.price}원</div>

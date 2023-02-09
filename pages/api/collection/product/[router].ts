@@ -1,7 +1,8 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {database} from "../../../../src/db/db";
+import {con} from "../../../../src/db/db";
 
 const get = async (req:NextApiRequest,res:NextApiResponse) =>{
+    const connection = await con()
     try{
         const query = req.query
         const router = query.router
@@ -29,15 +30,16 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                             ? 'order by (p.product_price * (1-p.discount_rate * 0.01)) desc '
                             : ' ';
         const pagination = `LIMIT ${listLength} OFFSET ${(listLength*((page < 1 ? 1 : page)-1))}`;
-        const [rows] = await database.promise().query(sql+sqlFilter+groupby+sqlSort+pagination)
+        const [rows] = await connection.query(sql+sqlFilter+groupby+sqlSort+pagination)
         if(rows.length === 0)
         {
-            const [rows] = await database.promise().query(sql+groupby+sqlSort+pagination)
+            const [rows] = await connection.query(sql+groupby+sqlSort+pagination)
+            connection.release()
             return res.status(200).send(rows)
         }
+        connection.release()
         return res.status(200).send(rows)
     }catch (err){
-        console.log(err)
         return res.status(500).end()
     }
 }
@@ -47,5 +49,5 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse){
         case "GET":
             await get(req,res)
     }
-    return res.status(405).end
+    return res.status(405).end()
 }

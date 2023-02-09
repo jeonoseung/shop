@@ -82,14 +82,14 @@ export default function SearchPage(){
                                 :
                                 <div>
                                     <ProductSort length={
-                                        category.data.reduce((result:number,{counting}:any)=>{
+                                        category.data.reduce((result:number,{counting}:{counting:number})=>{
                                             return result+counting
                                         },0)
                                     } params={params} refetch={product.refetch}/>
                                     <ProductList data = {product.data}/>
                                     <ProductPagination
                                         length={
-                                            category.data.reduce((result:number,{counting}:any)=>{
+                                            category.data.reduce((result:number,{counting}:{counting:number})=>{
                                                 return result+counting
                                             },0)
                                         }

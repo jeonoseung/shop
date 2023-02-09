@@ -2,20 +2,27 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {ErrorHandler} from "next/dist/client/components/react-dev-overlay/internal/helpers/use-error-handler";
 import {RowDataPacket} from "mysql2";
-import {database} from "../../../../../src/db/db";
+import {con} from "../../../../../src/db/db";
 
-
-
-export default function handler(req:NextApiRequest,res:NextApiResponse) {
-    if(req.method === "GET")
-    {
+const get = async (req:NextApiRequest,res:NextApiResponse)=>{
+    const connection = await con()
+    try {
         const sql = `SELECT user_login_id FROM user WHERE user_login_id = '${req.query.id}'`
-        database.query(sql, async (err:ErrorHandler, result:RowDataPacket)=>{
-            if(result.length !== 0)
-                return res.status(200).json({overlap:true})
-            else
-                return res.status(200).json({overlap:false})
-        })
+        const [rows] = await connection.query(sql)
+        connection.release()
+        if(rows.length !== 0) return res.status(200).json({overlap:true})
+        else return res.status(200).json({overlap:false})
+    }catch (err){
+        connection.release()
+        return res.status(500).send('get-try-catch')
+    }
+}
+
+
+export default async function handler(req:NextApiRequest,res:NextApiResponse) {
+    switch (req.method){
+        case "GET":
+            await get(req,res)
     }
 }
 

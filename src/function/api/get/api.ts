@@ -21,6 +21,12 @@ export const getSession = async (ssr:boolean)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/session/user`)
     return data.data
 }
+
+export const getProductRand = async (ssr:boolean)=>{
+    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/product/random`)
+    return data.data
+}
+
 export const getProduct = async (ssr:boolean)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/product`)
     return data.data
@@ -51,6 +57,7 @@ export const getCollectionInfo=async (ssr:boolean,router:router,set:params)=>{
     const data = await axios.get(url)
     return data.data
 }
+
 export const getProductListInCollection = async (ssr:ssr,router:router,set:params) =>{
     const filter = set.filter;
     const sort = set.sort;
@@ -63,6 +70,7 @@ export const getProductListInCollection = async (ssr:ssr,router:router,set:param
 
     return data.data
 }
+
 export const getCategoryListInCollection = async (ssr:boolean,router:string|string[]|undefined)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/collection/category/${router}`)
     return data.data
@@ -76,6 +84,7 @@ export const getCartList = async (ssr:boolean,list:CookieValueTypes)=>{
     }
     return []
 }
+
 export const getCartCookie = async (ssr:boolean,li?:any)=>{
     if(ssr)
     {
@@ -128,6 +137,11 @@ export const getSearchProduct = async (ssr:boolean,keyword:string|null,params:pa
     const first = (filter !== '' ? filter.split('%').splice(1,filter.split('%').length) : filter)
     const url = `${ssr ? process.env.URL : ''}/api/search/product/${keyword}?filter=${first.length === 0 ? 'all' : first}&sort=${sort}&page=${page}&list=${listLength}`;
     const data = await axios.get(url)
+    return data.data
+}
+
+export const getHomeForm = async (ssr:boolean)=>{
+    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/form/home`)
     return data.data
 }
 

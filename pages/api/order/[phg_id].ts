@@ -1,9 +1,10 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {database} from "../../../src/db/db";
+import {con} from "../../../src/db/db";
 import {withIronSessionApiRoute} from "iron-session/next";
 import {IronSessionOption} from '../../../src/function/api/iron-session/options'
 
 export const get = async (req:NextApiRequest,res:NextApiResponse) =>{
+    const connection = await con()
     try{
         const user = req.query.user ? req.query.user : req.session.user.id;
         const sql = `SELECT ph.product_id,p.product_name,p.brand_name,p.product_img,p.product_price,p.discount_rate,ph.count,ph.phg_id
@@ -11,11 +12,10 @@ export const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                 INNER JOIN products as p ON p.product_id = ph.product_id
                 WHERE ph.phg_id = ${req.query.phg_id}
                 AND ph.user_id = ${user}`
-        const [rows] = await database.promise().query(sql)
-        return rows
+        const [rows] = await connection.query(sql)
+        return res.status(200).send(rows)
     }catch (err){
-        console.log(err)
-        return false;
+        return res.status(500).send('get-try-catch')
     }
 }
 
@@ -28,7 +28,7 @@ export default withIronSessionApiRoute(
         switch (req.method)
         {
             case "GET":
-                return res.status(200).send(await get(req,res))
+                await get(req,res)
         }
         return res.status(405).end()
     },

@@ -13,7 +13,6 @@ import {ProductListInCart} from "../../@types/cart/cart";
 
 export default function ListByType({list, type}:{list:ProductListInCart[],type:string}){
     const [fold,setFold] = useState<boolean>(true)
-
     return (
         <div className={styles['list-by-type']}>
             <div className={styles['type-title']}>
@@ -29,7 +28,7 @@ export default function ListByType({list, type}:{list:ProductListInCart[],type:s
             {
                 fold
                     ?
-                    list.map((item:any)=>(
+                    list.map((item)=>(
                         <CartList
                             item={item}
                             key={item.product_id}

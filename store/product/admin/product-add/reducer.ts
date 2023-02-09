@@ -14,6 +14,7 @@ type StateType = {
     }
     option:{
         [name:string]:string | number
+        id:number
         title:string
         content:string
     }[]
@@ -42,12 +43,7 @@ const initialState: StateType = {
         storage_type:'',
         delivery_type:'',
     },
-    option:[
-        {
-            title:'',
-            content:''
-        },
-    ]
+    option:[]
 }
 export const product_add = createSlice({
     name: 'product',
@@ -56,20 +52,28 @@ export const product_add = createSlice({
         ProductInputChange:(state:StateType,action:PayloadAction<parameter>)=>{
             state.data[action.payload.key] = action.payload.value
         },
-        PlusOption:(state:StateType)=>{
-            state.option[state.option.length] = {title:'',content:''}
-        },
-        RemoveOption:(state:StateType,action:PayloadAction<number>)=>{
+        RemoveOptionInList:(state:StateType,action:PayloadAction<number>)=>{
             state.option.splice(action.payload,1)
         },
         OptionInputChange:(state:StateType,action:PayloadAction<OptionParameter>)=>{
             state.option[action.payload.index][action.payload.key] = action.payload.value
+        },
+        PlusOption:(state:StateType,action:PayloadAction<{id:number,title:string}>)=>{
+            state.option = [...state.option,{id:action.payload.id,title:action.payload.title,content:''}]
+            state.option.sort((a,b):number=>{
+                if(a.id > b.id) return 1;
+                if(a.id < b.id) return -1
+                return 0
+            })
+        },
+        RemoveOption:(state:StateType,action:PayloadAction<number>)=>{
+            state.option = state.option.filter((li)=>li.id !== action.payload);
         }
     }
 });
 
 // 액션을 export 해준다.
-export const { ProductInputChange,PlusOption,OptionInputChange,RemoveOption } = product_add.actions;
+export const { ProductInputChange,RemoveOptionInList,OptionInputChange,PlusOption,RemoveOption } = product_add.actions;
 
 // 슬라이스를 export 해준다.
 export default product_add;

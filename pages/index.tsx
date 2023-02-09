@@ -1,45 +1,17 @@
-
-import styles from "../styles/Home.module.css"
-import SuggestionProducts from "../src/component/home/SuggestionProduct";
 import SuggestionCategory from "../src/component/home/SuggestionCategory";
 import LimitedOffer from "../src/component/home/LimitedOffer";
 import RecommendProduct from "../src/component/home/recommend-product";
 import publicStyles from '../styles/public.module.css'
 import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useQuery} from "react-query";
-import {getCategory, getCollection, getProduct, getProductOnCollectionAdmin} from "../src/function/api/get/api";
+import {getHomeForm, getProductRand} from "../src/function/api/get/api";
 import RecommendCollection from "../src/component/home/recommend-collection";
-import HeaderBottom from "../src/component/header/HeaderBottom";
 import ImageSlider from "../src/component/home/image-slider/image-slider";
 
 export default function Home() {
-    const recommendProduct = useQuery('product',()=>getProduct(false))
-    const collection = useQuery('collection',()=>getCollection(false))
-    const load_images = [
-        {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image3.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image4.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image3.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image4.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image3.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image4.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image3.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image4.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image1.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-        {src:'/image/image2.jpg',kind:'아토앤오투',name:'프리미엄 세탁세제 2종', price:17000},
-    ]
-    const banner = '/image/image1.jpg';
+    const recommendProduct = useQuery('rec-product',()=>getProductRand(false))
+    const form = useQuery('form',()=>getHomeForm(false))
+
     const main = {
         src:'/image/image1.jpg',
         title:'모두에게 사랑 받는 선물',
@@ -57,12 +29,21 @@ export default function Home() {
         {src:'/image/image3.jpg'},
         {src:'/image/image4.jpg'},
     ]
+
   return (
     <div>
         <ImageSlider images={load_images1}/>
         <div className={publicStyles.content}>
             {recommendProduct.isLoading || recommendProduct.status === 'error' ? null : <RecommendProduct data={recommendProduct.data}/>}
-            {collection.isLoading || collection.status === 'error' ? null : <RecommendCollection collection={collection.data.collection} data={collection.data.product}/>}
+            {
+                form.isLoading || recommendProduct.status === 'error'
+                    ? null
+                    : form.data.map((li:any,index:number)=>(
+                        li.collection.hdf_kind === 'sug_product'
+                            ? <RecommendCollection key={index} collection={li.collection} data={li.product}/>
+                            : null
+                    ))
+            }
             <SuggestionCategory main={main} list={list}/>
             <LimitedOffer />
         </div>
@@ -71,11 +52,11 @@ export default function Home() {
 }
 export const getServerSideProps:GetServerSideProps = async (context)=>{
     const queryClient = new QueryClient()
-    await queryClient.prefetchQuery('product',()=>getProduct(true))
-    await queryClient.prefetchQuery('collection',()=>getCollection(true))
+    await queryClient.prefetchQuery('rec-product',()=>getProductRand(true))
+    await queryClient.prefetchQuery('form',()=>getHomeForm(true))
     return {
         props:{
-            dehydratedState: dehydrate(queryClient),
+            dehydratedState: dehydrate(queryClient)
         }
     }
 }

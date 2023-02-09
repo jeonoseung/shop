@@ -7,7 +7,6 @@ import OrderList from "../../../src/component/my-page/order-list";
 import {withIronSessionApiRoute, withIronSessionSsr} from "iron-session/next";
 import {IronSessionOption} from "../../../src/function/api/iron-session/options";
 import {getCategory, getOrderList} from "../../../src/function/api/get/api";
-import {database} from "../../../src/db/db";
 
 export default function MyOrder(){
     return(

@@ -1,12 +1,18 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {database} from "../../../src/db/db";
+import {con} from "../../../src/db/db";
+
+const get = async (req:NextApiRequest,res:NextApiResponse)=>{
+    const connection = await con()
+    const [rows] = await connection.query("SELECT * FROM category")
+    connection.release();
+    res.status(200).send(rows)
+}
 
 export default async function handler(req:NextApiRequest,res:NextApiResponse) {
     switch (req.method)
     {
         case "GET":
-            const [rows] = await database.promise().query("SELECT * FROM category")
-            res.status(200).send(rows)
-            break;
+            await get(req,res)
     }
+    return res.status(405).end()
 }
