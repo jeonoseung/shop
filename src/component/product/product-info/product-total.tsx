@@ -2,14 +2,10 @@ import {CSSProperties} from "react";
 import {setPrice} from "../../../function/public/price";
 import {useQuery} from "react-query";
 import {getProductInfo} from "../../../function/api/get/api";
-import {ProductInfoProps} from "../../../@types/product/product-info";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../store/store";
 
-interface props{
-    price:number
-}
-export default function ProductTotalPrice({pid}:ProductInfoProps){
+export default function ProductTotalPrice({pid}:{pid:string}){
     const {isLoading, data} = useQuery('product-info',()=>getProductInfo(false,pid))
     const count = useSelector((state:RootState)=>state.ProductInfo.count)
     const div:CSSProperties = {

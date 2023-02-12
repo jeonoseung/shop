@@ -4,11 +4,11 @@ import {useQuery} from "react-query";
 import {getProductInfo} from "../../../function/api/get/api";
 import {useDispatch, useSelector} from "react-redux";
 import {resetCount, setCount} from "../../../../store/product/product-info/reducer";
-import {ProductInfoProps, ProductOptionType} from "../../../@types/product/product-info";
 import {RootState} from "../../../../store/store";
 import {useEffect} from "react";
+import {ProductOptionType} from "product-type";
 
-export default function ProductOption({pid}:ProductInfoProps){
+export default function ProductOption({pid}:{pid:string}){
     const dispatch = useDispatch();
     const count = useSelector((state:RootState)=>state.ProductInfo.count)
     const {isLoading, data} = useQuery('product-info',()=>getProductInfo(false,pid))

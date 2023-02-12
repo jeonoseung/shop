@@ -13,12 +13,12 @@ import ProductSort from "../../src/component/collection/product-sort";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/store";
-import {collectionProps} from "../../src/@types/collection/collection";
 import {addFilter, resetFilter} from "../../store/collection/collection";
 import Title from "../../src/component/public/title";
 import ProductPagination from "../../src/component/collection/product-pagination";
+import {params,router} from "collection-type";
 
-export default function ProductListInCollection({router,params}:collectionProps){
+export default function ProductListInCollection({router,params}:{router:router,params:params}){
     const filter = useSelector((state:RootState)=>state.collection.filter)
     const collection = useQuery('collection',()=>getCollectionInfo(false,router,params))
     const product = useQuery('product-li',()=>getProductListInCollection(false,router,params))

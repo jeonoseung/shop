@@ -1,5 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {PostType} from "../../../src/@types/collection/collection-add";
+import {PostType} from "collection-type";
+
 import {con} from "../../../src/db/db";
 
 

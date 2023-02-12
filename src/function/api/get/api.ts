@@ -1,10 +1,6 @@
 import axios from "axios";
-import {params, router} from "../../../@types/collection/collection";
-import {type} from "os";
+import {params,router} from "collection-type";
 import {CookieValueTypes, getCookie} from "cookies-next";
-import {withIronSessionApiRoute} from "iron-session/next";
-import {IronSessionOption} from "../iron-session/options";
-import {GetServerSidePropsContext, NextApiRequest, NextApiResponse} from "next";
 
 
 type ssr = boolean
@@ -121,12 +117,13 @@ export const getOrderDetail = async (ssr:boolean,params:string|null,user?:number
         return data.data
     }
 }
-
+/** 검색 페이지 상품의 카테고리 목록 불러오기 */
 export const getSearchCategory = async (ssr:boolean,keyword:string|null)=>{
     if(keyword === '') return false
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/search/category/${keyword}`)
     return data.data
 }
+/** 검색 페이지 상품 목록 불러오기 */
 export const getSearchProduct = async (ssr:boolean,keyword:string|null,params:params)=>{
     if(keyword === '') return false
     const filter = params.filter;
@@ -139,9 +136,16 @@ export const getSearchProduct = async (ssr:boolean,keyword:string|null,params:pa
     const data = await axios.get(url)
     return data.data
 }
-
+/** 설정 된 홈페이지의 form 목록 + 관련 상품 목록 불러오기 */
 export const getHomeForm = async (ssr:boolean)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/form/home`)
     return data.data
 }
+/** 설정 된 홈 페이지의  from 목록 불러오기 */
+export const getHomeDisplayForm = async (ssr:boolean)=>{
+    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/form/admin/set`)
+    return data.data;
+}
+
+
 

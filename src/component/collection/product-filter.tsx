@@ -6,8 +6,8 @@ import {ChangeEvent, useEffect, useState} from "react";
 import {addFilter, removeFilter, resetFilter} from "../../../store/collection/collection";
 import {useRouter} from "next/router";
 import RefreshIcon from "../public/icon/refresh-icon";
-import {FilterCategoryType} from "../../@types/category/category";
-import Link from "next/link";
+import {FilterCategoryType} from "category";
+
 export default function ProductFilter({data}:{data:FilterCategoryType[]}){
     const [state,setState] = useState(false)
     const router = useRouter()

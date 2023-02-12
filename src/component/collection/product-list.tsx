@@ -1,13 +1,8 @@
-import publicStyles from '../../../styles/public.module.css'
 import styles from './collection.module.css'
-import {useQuery} from "react-query";
-import {getProductListInCollection} from "../../function/api/get/api";
 import Image from "next/image";
 import {setPrice} from "../../function/public/price";
-import {collectionProps, ProductListInCollectionPage} from "../../@types/collection/collection";
+import {ProductListInCollectionPage} from "collection-type";
 import Link from "next/link";
-import {useSelector} from "react-redux";
-import {RootState} from "../../../store/store";
 
 export default function ProductList({data}:any){
     return(

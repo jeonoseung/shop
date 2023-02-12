@@ -2,7 +2,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 import {con} from "../../../src/db/db";
 import fs from 'fs';
 import * as formidable from "formidable";
-import DateTimeNow from "../../../src/function/public/date-time-now";
+import {DateTimeNow} from "../../../src/function/public/date";
 
 
 export const config = {

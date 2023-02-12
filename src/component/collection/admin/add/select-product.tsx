@@ -1,11 +1,11 @@
 import styles from "../collection-add.module.css";
-import {ProductListType} from "../../../../@types/product/product-list";
 import {RemoveSelectedProduct, SelectProduct} from "../../../../../store/collection/collection-add";
 import Image from "next/image";
 import {useQuery} from "react-query";
 import {getProductOnCollectionAdmin} from "../../../../function/api/get/api";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../../store/store";
+import {ProductListType} from "product-type";
 
 /**
  * 카테고리 선택 및 검색을 통해 받아온 데이터 필터링

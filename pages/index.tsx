@@ -1,5 +1,4 @@
-import SuggestionCategory from "../src/component/home/SuggestionCategory";
-import LimitedOffer from "../src/component/home/LimitedOffer";
+import LimitedOffer from "../src/component/home/limited-offer/LimitedOffer";
 import RecommendProduct from "../src/component/home/recommend-product";
 import publicStyles from '../styles/public.module.css'
 import {GetServerSideProps} from "next";
@@ -7,22 +6,13 @@ import {dehydrate, QueryClient, useQuery} from "react-query";
 import {getHomeForm, getProductRand} from "../src/function/api/get/api";
 import RecommendCollection from "../src/component/home/recommend-collection";
 import ImageSlider from "../src/component/home/image-slider/image-slider";
+import RecommendTopic from "../src/component/home/recommend-topic/recommend-topic";
+import {ProductListType} from "product-type";
 
 export default function Home() {
     const recommendProduct = useQuery('rec-product',()=>getProductRand(false))
     const form = useQuery('form',()=>getHomeForm(false))
 
-    const main = {
-        src:'/image/image1.jpg',
-        title:'모두에게 사랑 받는 선물',
-        content:'보기만 해도 기분 좋아지는 꽃다발과 함께 사랑이 넘치는 연말을 준비하세요!'
-    }
-    const list = [
-        {id:1,src:'/image/image1.jpg',title:'프리저브드 유칼립투스',price:'36900',kind:'포켓플라워'},
-        {id:2,src:'/image/image2.jpg',title:'오로라 장미 테이블 플라워',price:'36900',kind:'포켓플라워'},
-        {id:3,src:'/image/image3.jpg',title:'포드 소국',price:'36900',kind:'농부의 꽃'},
-        {id:4,src:'/image/image4.jpg',title:'홀릭 소국 5대',price:'36900',kind:'농부의 꽃'}
-    ]
     const load_images1= [
         {src:'/image/image1.jpg'},
         {src:'/image/image2.jpg'},
@@ -36,16 +26,18 @@ export default function Home() {
         <div className={publicStyles.content}>
             {recommendProduct.isLoading || recommendProduct.status === 'error' ? null : <RecommendProduct data={recommendProduct.data}/>}
             {
-                form.isLoading || recommendProduct.status === 'error'
+                form.isLoading || form.status === 'error'
                     ? null
-                    : form.data.map((li:any,index:number)=>(
-                        li.collection.hdf_kind === 'sug_product'
-                            ? <RecommendCollection key={index} collection={li.collection} data={li.product}/>
-                            : null
+                    : form.data.map((li:{component:any,product:ProductListType[]},index:number)=>(
+                        li !== null && li.component.ui_kind === 'recommend_collection'
+                            ? <RecommendCollection key={index} collection={li.component} data={li.product}/>
+                            : li !== null && li.component.ui_kind === 'recommend_topic'
+                                ? <RecommendTopic key={index} component={li.component} product={li.product}/>
+                                : li !== null && li.component.ui_kind === 'limited_offer'
+                                    ? <LimitedOffer key={index} component={li.component} product={li.product}/>
+                                    : null
                     ))
             }
-            <SuggestionCategory main={main} list={list}/>
-            <LimitedOffer />
         </div>
     </div>
   )

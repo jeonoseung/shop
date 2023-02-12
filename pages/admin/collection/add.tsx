@@ -3,18 +3,9 @@ import styles from '../../../src/component/collection/admin/collection-add.modul
 import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useQuery} from "react-query";
 import {getCategory, getProductOnCollectionAdmin} from "../../../src/function/api/get/api";
-import {CSSProperties, useEffect, useState} from "react";
-import Image from "next/image";
-import {ProductListType} from "../../../src/@types/product/product-list";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
-import {
-    ChangeCollectionInput,
-    Filtering,
-    RemoveSelectedProduct,
-    SelectProduct
-} from "../../../store/collection/collection-add";
 import CollectionAddInput from "../../../src/component/collection/admin/add/collection-input";
 import SelectedProduct from "../../../src/component/collection/admin/add/selected-product";
 import SelectFilter from "../../../src/component/collection/admin/add/select-filter";

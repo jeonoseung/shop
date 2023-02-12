@@ -2,7 +2,7 @@ import CartList from "./cart-list";
 import {useState} from "react";
 import styles from './cart.module.css'
 import Image from "next/image";
-import {ProductListInCart} from "../../@types/cart/cart";
+import {ProductListInCart} from "cart-type";
 
 /**
  * 냉장,냉동,상온별로 리스트 표시

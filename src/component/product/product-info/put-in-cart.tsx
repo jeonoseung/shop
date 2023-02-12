@@ -1,11 +1,10 @@
 import publicStyle from '../../../../styles/public.module.css'
 import {CSSProperties, useEffect} from "react";
 import {useSelector} from "react-redux";
-import {ProductInfoProps} from "../../../@types/product/product-info";
 import {RootState} from "../../../../store/store";
 import SetCart from "../../../function/public/set-cart";
 
-export default function PutInCart({pid}:ProductInfoProps){
+export default function PutInCart({pid}:{pid:string}){
     const count = useSelector((state:RootState)=>state.ProductInfo.count)
     const addList = () =>{
         const result:any = SetCart(count,parseInt(pid));

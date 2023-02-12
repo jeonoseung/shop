@@ -7,7 +7,7 @@ import {RootState} from "../../../store/store";
 import {useQuery} from "react-query";
 import {getCartList} from "../../function/api/get/api";
 import {deleteCookie, getCookie, setCookie} from "cookies-next";
-import {CartCookie, ProductListInCart} from "../../@types/cart/cart";
+import {CartCookie,ProductListInCart} from "cart-type";
 
 export default function CartListController(){
     const dispatch = useDispatch()

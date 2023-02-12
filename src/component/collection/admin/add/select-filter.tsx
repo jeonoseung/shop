@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../../store/store";
 import {useQuery} from "react-query";
 import {getCategory} from "../../../../function/api/get/api";
-import {CategoryType} from "../../../../@types/category/category";
+import {CategoryType} from "category";
 
 export default function SelectFilter(){
     const filter = useSelector((state:RootState)=>state.collectionAdd.filter)

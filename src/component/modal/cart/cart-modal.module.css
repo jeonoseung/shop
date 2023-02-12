@@ -113,8 +113,8 @@
     background:rgba(13,110,253,0.75);
     border-radius:24px;
     position:absolute;
-    top:54%;
-    left:68.5%;
+    bottom:20px;
+    right:20px;
     border:0;
     z-index:1000;
 }

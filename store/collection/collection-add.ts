@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {ProductListType} from "../../src/@types/product/product-list";
-import accepts from "accepts";
+import {ProductListType} from "product-type";
 
 
 interface initialStateType{

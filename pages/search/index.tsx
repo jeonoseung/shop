@@ -1,10 +1,7 @@
 import publicStyles from '../../styles/public.module.css'
 import styles from '../../src/component/collection/collection.module.css'
-import Title from "../../src/component/public/title";
-import {GetServerSideProps} from "next";
-import {dehydrate, QueryClient, useQuery} from "react-query";
-import {getProductInfo, getSearchCategory, getSearchProduct} from "../../src/function/api/get/api";
-import {params} from "../../src/@types/collection/collection";
+import {useQuery} from "react-query";
+import {getSearchCategory, getSearchProduct} from "../../src/function/api/get/api";
 import ProductFilter from "../../src/component/collection/product-filter";
 import ProductSort from "../../src/component/collection/product-sort";
 import ProductList from "../../src/component/collection/product-list";
@@ -14,8 +11,6 @@ import {useEffect} from "react";
 import {addFilter, resetFilter} from "../../store/collection/collection";
 import {RootState} from "../../store/store";
 import {useRouter} from "next/router";
-import {CartCookie, ProductListInCart} from "../../src/@types/cart/cart";
-// {keyword,params}:{keyword:string,params:params}
 export default function SearchPage(){
     const filter = useSelector((state:RootState)=>state.collection.filter)
     const router = useRouter();

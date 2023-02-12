@@ -11,11 +11,10 @@ import {useEffect, useMemo} from "react";
 import {allCheck} from "../../store/cart/cart";
 import ListByType from "../../src/component/cart/list-by-type";
 import CartListController from "../../src/component/cart/list-controller";
-import {CartCookie, ProductListInCart} from "../../src/@types/cart/cart";
+import {CartCookie,ProductListInCart} from "cart-type";
+
 import {setPrice} from "../../src/function/public/price";
-import axios, {Axios, AxiosResponse} from "axios";
-import {withIronSessionApiRoute} from "iron-session/next";
-import {IronSessionOption} from "../../src/function/api/iron-session/options";
+import axios from "axios";
 
 export default function TestCart(){
     const {data,refetch} = useQuery('cart-li',()=>getCartList(false,getCookie('cart')))

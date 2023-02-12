@@ -8,6 +8,8 @@ export default function CartButton({pid,name,brand,price,discount}:{pid:number,n
 
     return(
         <button className={styles['cart-btn']} onClick={(e)=>{
+            e.preventDefault();
+            e.stopPropagation();
             dispatch(setProductInfo({id:pid,price:price,brand:brand,name:name,discount:discount}))
             dispatch(setDisplay(true))
         }}>

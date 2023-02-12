@@ -2,9 +2,8 @@ import styles from "./product-info.module.css";
 import {useQuery} from "react-query";
 import {getProductInfo} from "../../../function/api/get/api";
 import ProductPrice from "../../public/product-price";
-import {ProductInfoProps} from "../../../@types/product/product-info";
 
-export default function ProductData({pid}:ProductInfoProps){
+export default function ProductData({pid}:{pid:string}){
 
     const {isLoading, data} = useQuery('product-info',()=>getProductInfo(false,pid))
     return(

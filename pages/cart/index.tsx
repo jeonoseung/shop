@@ -11,9 +11,9 @@ import {useEffect, useMemo} from "react";
 import {allCheck} from "../../store/cart/cart";
 import ListByType from "../../src/component/cart/list-by-type";
 import CartListController from "../../src/component/cart/list-controller";
-import {CartCookie, ProductListInCart} from "../../src/@types/cart/cart";
+import {CartCookie,ProductListInCart} from "cart-type";
 import {setPrice} from "../../src/function/public/price";
-import axios, {Axios, AxiosResponse} from "axios";
+import axios from "axios";
 
 export default function Cart(){
     const {data,refetch} = useQuery('cart-li',()=>getCartList(false,getCookie('cart')))

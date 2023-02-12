@@ -1,0 +1,96 @@
+.limited-offer{
+    display:grid;
+    gap:1rem;
+}
+.text{
+
+}
+.colon{
+    font-size:26px;
+    font-weight:700;
+    margin:0.125rem;
+}
+.timer{
+    display:flex;
+    align-items:center;
+    margin:2rem 0
+}
+.time{
+    font-size:2rem;
+    font-weight:700;
+}
+.hour{
+
+}
+.title{
+    display:block;
+    font-size:1.75rem;
+    font-weight:500;
+}
+.subtitle{
+    color:rgb(154,154,154)
+}
+.content{
+    color:#ddd;
+}
+.product-li{
+    display:flex;
+    gap:1rem;
+    font-size:16px;
+}
+.product-li-3{
+    display:flex;
+    gap:1rem;
+    font-size:14px;
+}
+.product{
+    width:100%;
+    font-size:inherit;
+}
+.img-div{
+    position: relative;
+}
+.product img{
+    width:100%;
+    height:auto;
+    max-height:450px;
+}
+.product-title{
+    display:block;
+    color:rgb(154,154,154);
+    font-size:14px;
+    margin:0.5rem 0;
+}
+.product-name{
+    display:block;
+    margin:0.5rem 0;
+    font-size:16px;
+}
+.price{
+    display:flex;
+    align-items:center;
+    margin:0.5rem 0;
+}
+.discount-rate{
+    display:block;
+    color:rgb(250, 98, 47);
+    font-weight: 700;
+    font-size:1.2em;
+    margin-right:0.5rem;
+}
+.total-price{
+    font-weight: 700;
+    font-size:1.2em;
+}
+.discount-price{
+    text-decoration:line-through;
+    color:#ddd;
+    font-size:0.95em;
+    margin-left:0.5rem;
+}
+.discount-price-3{
+    text-decoration:line-through;
+    color:#ddd;
+    font-size:0.95rem;
+    margin-left:0.5rem;
+}

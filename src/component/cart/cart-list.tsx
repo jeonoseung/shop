@@ -10,7 +10,7 @@ import {RootState} from "../../../store/store";
 import {setCheck, setCounttest, setFetch} from "../../../store/cart/cart";
 import {useQuery} from "react-query";
 import {getCartCookie} from "../../function/api/get/api";
-import {CartCookie, ProductListInCart} from "../../@types/cart/cart";
+import {CartCookie,ProductListInCart} from "cart-type";
 
 export default function CartList({item}:{item:ProductListInCart}){
     const cart = useQuery('cart-cookie',()=>getCartCookie(false))
@@ -42,6 +42,7 @@ export default function CartList({item}:{item:ProductListInCart}){
         dispatch(setCheck({checked:false,value:pid}))
         dispatch(setFetch(1))
     }
+
     return(
         <div className={styles['cart-li']}>
             <label className={public_style.checkbox}>

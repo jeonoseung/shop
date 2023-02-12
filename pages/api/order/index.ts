@@ -2,7 +2,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 import {con} from "../../../src/db/db";
 import {withIronSessionApiRoute} from "iron-session/next";
 import {IronSessionOption} from '../../../src/function/api/iron-session/options'
-import DateTimeNow from "../../../src/function/public/date-time-now";
+import {DateTimeNow} from "../../../src/function/public/date";
 
 interface postList{
     product_id:number
