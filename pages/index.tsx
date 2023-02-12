@@ -20,27 +20,27 @@ export default function Home() {
         {src:'/image/image4.jpg'},
     ]
 
-  return (
-    <div>
-        <ImageSlider images={load_images1}/>
-        <div className={publicStyles.content}>
-            {recommendProduct.isLoading || recommendProduct.status === 'error' ? null : <RecommendProduct data={recommendProduct.data}/>}
-            {
-                form.isLoading || form.status === 'error'
-                    ? null
-                    : form.data.map((li:{component:any,product:ProductListType[]},index:number)=>(
-                        li !== null && li.component.ui_kind === 'recommend_collection'
-                            ? <RecommendCollection key={index} collection={li.component} data={li.product}/>
-                            : li !== null && li.component.ui_kind === 'recommend_topic'
-                                ? <RecommendTopic key={index} component={li.component} product={li.product}/>
-                                : li !== null && li.component.ui_kind === 'limited_offer'
-                                    ? <LimitedOffer key={index} component={li.component} product={li.product}/>
-                                    : null
-                    ))
-            }
+    return (
+        <div>
+            <ImageSlider images={load_images1}/>
+            <div className={publicStyles.content}>
+                {recommendProduct.isLoading || recommendProduct.status === 'error' ? null : <RecommendProduct data={recommendProduct.data}/>}
+                {
+                    form.isLoading || form.status === 'error'
+                        ? null
+                        : form.data.map((li:{component:any,product:ProductListType[]},index:number)=>(
+                            li !== null && li.component.ui_kind === 'recommend_collection'
+                                ? <RecommendCollection key={index} collection={li.component} data={li.product}/>
+                                : li !== null && li.component.ui_kind === 'recommend_topic'
+                                    ? <RecommendTopic key={index} component={li.component} product={li.product}/>
+                                    : li !== null && li.component.ui_kind === 'limited_offer'
+                                        ? <LimitedOffer key={index} component={li.component} product={li.product}/>
+                                        : null
+                        ))
+                }
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 export const getServerSideProps:GetServerSideProps = async (context)=>{
     const queryClient = new QueryClient()
