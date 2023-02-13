@@ -37,9 +37,15 @@ pre{
     margin:0;
     white-space:pre-wrap;
 }
+select{
+    font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
+}
 textarea{
     font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
     font-weight:normal;
+}
+input{
+    font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
 }
 button:focus{
     outline:none;
@@ -63,8 +69,5 @@ button:hover{
     cursor:pointer;
 }
 .dragging{
-    background: #0d6efd;
-}
-.drag-over{
-    background-color: purple;
+    background:rgba(0,0,0,0.25);
 }

@@ -32,12 +32,6 @@
     border:0;
     background:none;
 }
-@media(max-width:1024px)
-{
-    /*.header{*/
-    /*    width:100%;*/
-    /*}*/
-}
 .header_top{
     display:grid;
     grid-template-columns:1fr 1.5fr 1fr;
@@ -110,9 +104,6 @@
 .is-login .user-menu .menu{
     margin:0.5rem 0;
 }
-.is-logout{
-
-}
 
 .header-fixed{
     position:fixed;
@@ -125,4 +116,14 @@
 .header-fixed .area{
     width:1024px;
     margin:auto;
+}
+
+@media(max-width:1024px)
+{
+    .header_bottom{
+        width:100%;
+    }
+    .header_top{
+        width:100%;
+    }
 }

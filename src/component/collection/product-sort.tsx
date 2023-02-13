@@ -12,12 +12,6 @@ export default function ProductSort({length,params,refetch}:{length:number,param
             query:{...router.query,sort:e.target.value}
         })
     }
-    const set = [
-        {name:'신상품순',value:'1'},
-        {name:'판매량순',value:'2'},
-        {name:'낮은 가격순',value:'3'},
-        {name:'높은 가격순',value:'4'}
-    ]
     return(
         <div className={styles['product-sort']}>
             <div>

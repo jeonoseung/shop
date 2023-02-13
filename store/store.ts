@@ -11,6 +11,7 @@ import collectionAdd from "./collection/collection-add";
 import collection from "./collection/collection";
 import cart from "./cart/cart";
 import cartModal from "./modal/cart-modal";
+import setForm from "./form/admin/reducer";
 
 // 리덕스 store 생성함수
 const makeStore = () => {
@@ -30,7 +31,8 @@ const makeStore = () => {
             collectionAdd:collectionAdd.reducer,
             collection:collection.reducer,
             cart:cart.reducer,
-            cartModal:cartModal.reducer
+            cartModal:cartModal.reducer,
+            setForm:setForm.reducer
         },
         middleware, // 미들웨어 불필요시 생략
         // middleware: [...getDefaultMiddleware(), logger]

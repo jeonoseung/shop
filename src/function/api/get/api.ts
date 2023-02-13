@@ -38,13 +38,6 @@ export const getProductOnCollectionAdmin = async (ssr:boolean)=>{
     return data.data
 }
 
-/**
- * count === 0 일때 전체 데이터
- *  */
-export const getCollection=async (ssr:boolean)=>{
-    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/collection/17`)
-    return data.data
-}
 
 export const getCollectionInfo=async (ssr:boolean,router:router,set:params)=>{
     const filter = set.filter;
@@ -143,9 +136,13 @@ export const getHomeForm = async (ssr:boolean)=>{
 }
 /** 설정 된 홈 페이지의  from 목록 불러오기 */
 export const getHomeDisplayForm = async (ssr:boolean)=>{
-    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/form/admin/set`)
+    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/form/admin`)
     return data.data;
 }
-
+/** 컬렉션 목록 가져오기 */
+export const getCollections = async (ssr?:boolean)=>{
+    const data = await axios.get(`${ssr?process.env.URL : ''}/api/collection`)
+    return data.data
+}
 
 

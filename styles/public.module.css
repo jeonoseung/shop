@@ -3,7 +3,12 @@
     margin:auto;
     padding:1.5rem 0;
 }
-
+@media(max-width:1024px){
+    .content{
+        width:100%;
+        padding:1.5rem 1rem;
+    }
+}
 .checkbox{
     display:flex;
     align-items:center;
@@ -217,8 +222,4 @@
     top:0;
     left:0;
     background:rgba(0,0,0,0.5);
-}
-
-.test{
-    border:1px solid black;
 }

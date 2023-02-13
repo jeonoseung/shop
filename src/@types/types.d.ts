@@ -26,10 +26,38 @@ declare module "ui-form-type"{
     }
     interface MainUserInterface{
         ui_id:number
-        ui_order:number
         ui_use:number
         ui_kind:string
         ui_name:string
+    }
+    interface UICollection{
+        collection_id:number
+        collection_name:string
+        rec_id:number
+    }
+    interface UIForm{
+        ui_id?:number
+        ui_use:number
+        ui_kind:string
+        ui_name:string
+    }
+    interface UITopic{
+        collection_id:number
+        collection_name:string
+        rec_id:number
+    }
+    interface UILimited{
+        lo_id:number
+        lo_title:string
+        lo_subtitle:string
+        lo_start:string
+        lo_end:string
+    }
+    interface UiListType{
+        collection:UICollection[],
+        form:UIForm[],
+        topic:UITopic[],
+        limited:UILimited
     }
 }
 /** 상품 */

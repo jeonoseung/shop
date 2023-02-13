@@ -3,6 +3,18 @@ import {PostType} from "collection-type";
 
 import {con} from "../../../src/db/db";
 
+const get = async (req:NextApiRequest,res:NextApiResponse)=>{
+    const connection = await con()
+    try{
+        const sql = `SELECT collection_id,collection_name FROM collections`
+        const [rows] = await connection.query(sql)
+        return res.status(200).send(rows)
+    }catch (err){
+        console.log(err)
+        connection.release()
+        return res.status(500).end()
+    }
+}
 
 const post = async (body:PostType,req:NextApiRequest,res:NextApiResponse) =>{
     const connection = await con()
@@ -26,8 +38,12 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse){
     try{
         switch (req.method)
         {
+            case "GET":
+                await get(req,res)
+                break;
             case "POST":
                 await post(req.body,req,res)
+                break;
         }
         return res.status(405).end()
     }catch (err)

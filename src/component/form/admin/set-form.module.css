@@ -1,0 +1,15 @@
+.ui-set{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+}
+.ui-form-ul{
+    border-bottom:1px solid #ddd;
+}
+.ui-form-li{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    width:100%;
+    border-top:1px solid #ddd;
+    padding:.5rem;
+}
