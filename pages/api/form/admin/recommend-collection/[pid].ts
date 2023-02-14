@@ -1,17 +1,13 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {con} from "../../../../../src/db/db";
-import fs from "fs";
 
 const Delete = async (req:NextApiRequest,res:NextApiResponse)=>{
     const connection = await con()
     try {
-        const table = 'recommend_topic'
+        const table = 'recommend_collection'
         const {pid} = req.query;
-        const [rows] = await connection.query(`SELECT rec_image FROM ${table} WHERE rec_id = ${pid}`)
-        await fs.unlink(`./public${rows[0].rec_image}`,(err)=>{
-            if(err) throw err
-        })
-        const sql = `DELETE FROM ${table} WHERE rec_id=${pid};`
+
+        const sql = `DELETE FROM ${table} WHERE rec_id = ${pid};`
         const remove = `DELETE FROM main_user_interface
                         WHERE ui_id = 
                         (SELECT C.ui_id 
@@ -33,5 +29,6 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse){
             await Delete(req,res)
             break;
     }
+
     return res.status(405).end()
 }

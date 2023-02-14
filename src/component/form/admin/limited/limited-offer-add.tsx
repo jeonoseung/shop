@@ -2,9 +2,11 @@ import React, {useState} from "react";
 import {useQuery, useQueryClient} from "react-query";
 import {getHomeDisplayForm} from "../../../../function/api/get/api";
 import {UILimited, UiListType} from "ui-form-type";
+import LimitedFormManagement from "./limited-form-management";
 
 export default function AddLimitedOffer(){
     const queryClient = useQueryClient();
+    const [setting,setSetting] = useState<boolean>(false)
     const [name,setName] = useState<string>('')
     const [use,setUse] = useState<string>('')
     const ui = useQuery('ui-li',()=>getHomeDisplayForm(false))
@@ -40,8 +42,16 @@ export default function AddLimitedOffer(){
                         ))
                     }
                 </select>
-                <span>설정</span>
+                <label>
+                    <input type={'checkbox'} checked={setting} onChange={(e)=>setSetting(e.target.checked)}/>
+                    <span>설정</span>
+                </label>
                 <button onClick={InsertUI}>UI 추가</button>
+            </div>
+            <div>
+                {
+                    setting ? <LimitedFormManagement/> : null
+                }
             </div>
         </div>
     )

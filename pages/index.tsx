@@ -34,7 +34,9 @@ export default function Home() {
                                 : li !== null && li.component.ui_kind === 'recommend_topic'
                                     ? <RecommendTopic key={index} component={li.component} product={li.product}/>
                                     : li !== null && li.component.ui_kind === 'limited_offer'
-                                        ? <LimitedOffer key={index} component={li.component} product={li.product}/>
+                                        ? li.component.lo_state === 1
+                                            ? <LimitedOffer key={index} component={li.component} product={li.product}/>
+                                            : null
                                         : null
                         ))
                 }

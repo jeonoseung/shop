@@ -33,7 +33,7 @@ export default function AddRecommendTopic(){
                 <input type={'text'} placeholder={'UI 명'} value={name} onChange={(e)=>setName(e.target.value)}/>
             </div>
             <div>
-                <span>추천 토픽</span>
+                <span>추천 주제</span>
                 <select onChange={(e)=>setUse(e.target.value)} value={use}>
                     <option value={''}>선택</option>
                     {

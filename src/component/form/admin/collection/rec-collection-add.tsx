@@ -2,25 +2,11 @@ import React, {useEffect, useState} from "react";
 import {UICollection, UiListType} from "ui-form-type";
 import {useQuery, useQueryClient} from "react-query";
 import {getHomeDisplayForm} from "../../../../function/api/get/api";
-
-export const useGet = (datas?:any) =>{
-    return useQuery('ui-li',()=>getHomeDisplayForm(false),{
-        select:(data)=>{
-            if(!datas){
-                return data
-            }
-            else {
-                const copy = [...data.form]
-                copy[copy.length] = datas
-                data.form = copy
-                return data
-            }
-        }
-    })
-}
+import CollectionFormManagement from "./collection-form-management";
 
 export default function AddRecommendCollection(){
     const queryClient = useQueryClient();
+    const [setting,setSetting] = useState<boolean>(false);
     const [name,setName] = useState<string>('')
     const [use,setUse] = useState<string>('')
     const ui = useQuery('ui-li',()=>getHomeDisplayForm(false))
@@ -56,8 +42,16 @@ export default function AddRecommendCollection(){
                         ))
                     }
                 </select>
-                <span>설정</span>
+                <label>
+                    <input type={'checkbox'} checked={setting} onChange={(e)=>setSetting(e.target.checked)}/>
+                    <span>설정</span>
+                </label>
                 <button onClick={InsertUI}>UI 추가</button>
+                {
+                    setting
+                        ? <CollectionFormManagement/>
+                        : null
+                }
             </div>
         </div>
     )

@@ -42,7 +42,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
             return {component:rows[0][0],product:rows[1]}
         }
         else if(li.ui_kind === 'limited_offer'){
-            const sql_component = `SELECT ui.ui_kind,lo.lo_title,lo.lo_subtitle,lo_subtitle,lo_start,lo_end
+            const sql_component = `SELECT ui.ui_kind,lo.lo_title,lo.lo_subtitle,lo_subtitle,lo_start,lo_end,lo_state
                                    FROM ${li.ui_kind} as lo
                                    INNER JOIN main_user_interface as ui on ui.ui_use = lo.lo_id
                                    INNER JOIN limited_offer_product as lop on lop.lo_id = lo.lo_id

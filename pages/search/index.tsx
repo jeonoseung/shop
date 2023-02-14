@@ -59,39 +59,42 @@ export default function SearchPage(){
                 </div>
             </div>
             {
-                product.data === false || product.data.length === 0
-                    ?
-                    <div className={styles['result-is-null']}>
-                        <span>검색된 상품이 없습니다.</span>
-                    </div>
+                product.isLoading
+                    ? null 
                     :
-                    <div className={styles['collection']}>
-                        {
-                            category.isLoading || category.data === false
-                                ? null
-                                : <ProductFilter data={category.data}/>
-                        }
-                        {
-                            product.isLoading || product.data === false || category.isLoading || category.data === false
-                                ? null
-                                :
-                                <div>
-                                    <ProductSort length={
-                                        category.data.reduce((result:number,{counting}:{counting:number})=>{
-                                            return result+counting
-                                        },0)
-                                    } params={params} refetch={product.refetch}/>
-                                    <ProductList data = {product.data}/>
-                                    <ProductPagination
-                                        length={
+                    product.data === false || product.data.length === 0
+                        ?
+                        <div className={styles['result-is-null']}>
+                            <span>검색된 상품이 없습니다.</span>
+                        </div>
+                        :
+                        <div className={styles['collection']}>
+                            {
+                                category.isLoading || category.data === false
+                                    ? null
+                                    : <ProductFilter data={category.data}/>
+                            }
+                            {
+                                product.isLoading || product.data === false || category.isLoading || category.data === false
+                                    ? null
+                                    :
+                                    <div>
+                                        <ProductSort length={
                                             category.data.reduce((result:number,{counting}:{counting:number})=>{
                                                 return result+counting
                                             },0)
-                                        }
-                                        listLength={params.listLength}/>
-                                </div>
-                        }
-                    </div>
+                                        } params={params} refetch={product.refetch}/>
+                                        <ProductList data = {product.data}/>
+                                        <ProductPagination
+                                            length={
+                                                category.data.reduce((result:number,{counting}:{counting:number})=>{
+                                                    return result+counting
+                                                },0)
+                                            }
+                                            listLength={params.listLength}/>
+                                    </div>
+                            }
+                        </div>
             }
         </div>
     )

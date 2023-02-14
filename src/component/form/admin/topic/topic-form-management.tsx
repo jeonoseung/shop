@@ -45,22 +45,22 @@ export default function TopicFormManagement(){
     }
     return(
         <div style={{position:'relative',border:'1px solid black'}}>
-            {
-                isLoading
-                    ? <div><Spinner/></div>
-                    :
-                    <div>
-                        <button onClick={saveTopic}>추가</button>
-                        <div>
-                            <span>주제 내용</span>
-                            <textarea onChange={(e)=>setContent(e.target.value)} value={content}></textarea>
-                        </div>
-                        <label>
-                            <span>주제 이미지</span>
-                            <input type={'file'} onChange={SelectImage}/>
-                        </label>
-                        <div>
-                            <span>적용 컬렉션</span>
+            <div>
+                <button onClick={saveTopic}>추천 주제 추가</button>
+                <div>
+                    <span>주제 내용</span>
+                    <textarea onChange={(e)=>setContent(e.target.value)} value={content}></textarea>
+                </div>
+                <label>
+                    <span>주제 이미지</span>
+                    <input type={'file'} onChange={SelectImage}/>
+                </label>
+                <div>
+                    <span>적용 컬렉션</span>
+                    {
+                        isLoading
+                            ? <Spinner/>
+                            :
                             <select onChange={(e)=>setCollection(e.target.value)}>
                                 <option value={''}>선택</option>
                                 {
@@ -69,12 +69,12 @@ export default function TopicFormManagement(){
                                     ))
                                 }
                             </select>
-                        </div>
-                        <div>
-                            <TopicListManagement/>
-                        </div>
-                    </div>
-            }
+                    }
+                </div>
+                <div>
+                    <TopicListManagement/>
+                </div>
+            </div>
         </div>
     )
 }
