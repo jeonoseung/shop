@@ -11,7 +11,7 @@ export default function Spinner(){
     }
     return(
         <div style={div}>
-            <Image src={'/image/spinner.svg'} alt={'loading...'} priority={true} width={50} height={50}/>
+            <Image src={'/image/spinner.svg'} alt={'loading...'} priority={true} width={25} height={25}/>
         </div>
     )
 }

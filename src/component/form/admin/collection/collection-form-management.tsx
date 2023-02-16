@@ -2,9 +2,8 @@ import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getCollections} from "../../../../function/api/get/api";
 import {UICollection} from "ui-form-type";
 import {useState} from "react";
-import Spinner from "../../../public/spinner";
 import axios from "axios";
-import CollectionFormListManagement from "./collection-list-management";
+import styles from "../set-form.module.css";
 
 export default function CollectionFormManagement(){
     const queryClient = useQueryClient()
@@ -20,13 +19,13 @@ export default function CollectionFormManagement(){
         }
     })
     return(
-        <div style={{position:'relative',border:'1px solid black'}}>
+        <div className={styles['ui-form-add']}>
             <button onClick={()=>saveForm.mutate(collection)}>추천 컬렉션 추가</button>
             <div>
                 <span>적용 컬렉션</span>
                 {
                     isLoading
-                        ? <Spinner/>
+                        ? null
                         :
                         <select onChange={(e)=>setCollection(e.target.value)}>
                             <option value={''}>선택</option>
@@ -37,9 +36,6 @@ export default function CollectionFormManagement(){
                             }
                         </select>
                 }
-            </div>
-            <div>
-                <CollectionFormListManagement/>
             </div>
         </div>
     )

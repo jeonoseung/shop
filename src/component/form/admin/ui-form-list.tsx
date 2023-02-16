@@ -3,6 +3,7 @@ import {getHomeDisplayForm} from "../../../function/api/get/api";
 import React, {useRef, useState} from "react";
 import {MainUserInterface, UiListType} from "ui-form-type";
 import styles from './set-form.module.css'
+import DeleteIcon from "../../public/icon/delete-icon";
 interface useGetParams{
     index:number
     li:MainUserInterface
@@ -61,10 +62,10 @@ export default function UIFormList(){
     }
     const queryClient = useQueryClient();
     /** 리스트 삭제 클라이언트 데이터 상에서만 삭제하고 저장 버튼 누를 시 변경된 리스트로 저장 */
-    const removeList = async (pid:number) =>{
+    const removeList = async (index:number) =>{
         queryClient.setQueryData('ui-li',(data)=>{
             const copy:UiListType = data as any
-            copy.form = copy.form.filter((li)=>li.ui_id !== pid);
+            copy.form.splice(index,1)
             return copy
         })
     }
@@ -80,7 +81,9 @@ export default function UIFormList(){
                          onDragEnter={(e)=>dragEnter(e,index,li)}
                          onDragOver={(e)=>dragOver(e)}>
                         <span>{li.ui_name}</span>
-                        <button onClick={()=>removeList(li.ui_id)}>X</button>
+                        <button className={styles['ui-delete-li']} onClick={()=>removeList(index)}>
+                            <DeleteIcon/>
+                        </button>
                     </div>
                 ))
             }

@@ -59,6 +59,12 @@ declare module "ui-form-type"{
         topic:UITopic[],
         limited:UILimited
     }
+    interface LimitedChecked{
+        product_img:string
+        product_id:number
+        discount_rate:number
+        set_discount:number
+    }
 }
 /** 상품 */
 declare module "product-type"{

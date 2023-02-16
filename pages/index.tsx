@@ -19,7 +19,6 @@ export default function Home() {
         {src:'/image/image3.jpg'},
         {src:'/image/image4.jpg'},
     ]
-
     return (
         <div>
             <ImageSlider images={load_images1}/>

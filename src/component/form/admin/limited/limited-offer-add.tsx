@@ -1,21 +1,24 @@
 import React, {useState} from "react";
-import {useQuery, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getHomeDisplayForm} from "../../../../function/api/get/api";
 import {UILimited, UiListType} from "ui-form-type";
 import LimitedFormManagement from "./limited-form-management";
+import styles from '../set-form.module.css'
+import DeleteIcon from "../../../public/icon/delete-icon";
+import axios from "axios";
 
 export default function AddLimitedOffer(){
     const queryClient = useQueryClient();
     const [setting,setSetting] = useState<boolean>(false)
     const [name,setName] = useState<string>('')
-    const [use,setUse] = useState<string>('')
+    const [use,setUse] = useState<number | null>(null)
     const ui = useQuery('ui-li',()=>getHomeDisplayForm(false))
     const InsertUI = () =>{
         if(name===''){
             alert('이름을 입력 해주세요');
             return
         }
-        if(use===''){
+        if(!use){
             alert('추천 목록을 선택해주세요')
             return
         }
@@ -23,35 +26,57 @@ export default function AddLimitedOffer(){
         queryClient.setQueryData('ui-li',(data)=>{
             if(!data) return false
             const copy:UiListType = data as any;
-            copy.form = [...copy.form,{ui_use:parseInt(use),ui_kind:'limited_offer',ui_name:name}];
+            copy.form = [...copy.form,{ui_use:use,ui_kind:'limited_offer',ui_name:name}];
             return copy
         })
     }
+    const removeLimited = useMutation((pid:number)=>axios.delete(`/api/form/admin/limited-offer/${pid}`),{
+        onSuccess:()=>{
+            alert('삭제 완료')
+            queryClient.invalidateQueries('ui-li')
+        },
+        onError:()=>{
+            alert('삭제 실패')
+        }
+    })
     return(
         <div>
             <div>
-                <input type={'text'} placeholder={'UI 명'} value={name} onChange={(e)=>setName(e.target.value)}/>
-            </div>
-            <div>
                 <span>한정 판매</span>
-                <select onChange={(e)=>setUse(e.target.value)} value={use}>
-                    <option value={''}>선택</option>
-                    {
-                        ui.data.limited.map((li:UILimited)=>(
-                            <option key={li.lo_id} value={li.lo_id}>{li.lo_title}</option>
-                        ))
-                    }
-                </select>
-                <label>
-                    <input type={'checkbox'} checked={setting} onChange={(e)=>setSetting(e.target.checked)}/>
-                    <span>설정</span>
-                </label>
-                <button onClick={InsertUI}>UI 추가</button>
             </div>
             <div>
-                {
-                    setting ? <LimitedFormManagement/> : null
-                }
+                <div className={styles['ui-setting']}>
+                    <div className={styles['form-add']}>
+                        <input type={'text'} placeholder={'UI 명'} value={name} onChange={(e)=>setName(e.target.value)}/>
+                        <button onClick={InsertUI}>UI 추가</button>
+                    </div>
+                    <div className={styles['ui-add']}>
+                        <label>
+                            <input type={'checkbox'} checked={setting} onChange={(e)=>setSetting(e.target.checked)}/>
+                            <span>추가</span>
+                        </label>
+                        {
+                            setting ? <LimitedFormManagement/> : null
+                        }
+                    </div>
+                </div>
+                <div>
+                    <div className={styles['ui-management-ul']}>
+                        {
+                            ui.data.limited.map((li:UILimited)=>(
+                                <div key={li.lo_id} className={styles['ui-management-li']}>
+                                    <label className={styles['ui-management-li-label']}>
+                                        <input type={'radio'} value={li.lo_id} name={'lo'} onChange={(e)=>setUse(parseInt(e.target.value))}/>
+                                        <span>{li.lo_title}</span>
+                                    </label>
+                                    <button className={styles['ui-delete-li']} onClick={()=>removeLimited.mutate(li.lo_id)}>
+                                        <DeleteIcon />
+                                    </button>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     )

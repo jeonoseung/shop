@@ -1,11 +1,11 @@
 import {ChangeEvent, useState} from "react";
 import {useMutation, useQuery, useQueryClient} from "react-query";
-import {getCollections, getHomeDisplayForm} from "../../../../function/api/get/api";
+import {getCollections} from "../../../../function/api/get/api";
 import Spinner from "../../../public/spinner";
 import {File} from "next/dist/compiled/@edge-runtime/primitives/fetch";
 import axios from "axios";
-import TopicListManagement from "./topic-list-management";
 import {UITopic} from "ui-form-type";
+import styles from '../set-form.module.css'
 
 export default function TopicFormManagement(){
     const queryClient = useQueryClient()
@@ -30,6 +30,14 @@ export default function TopicFormManagement(){
             alert('이미지를 선택해주세요')
             return
         }
+        else if(collection === ''){
+            alert('적용 컬렉션을 선택 해주세요')
+            return
+        }
+        else if(content === ''){
+            alert('주제 내용을 입력 해주세요')
+            return
+        }
         const info = {
             pid:collection,
             content:content
@@ -44,36 +52,31 @@ export default function TopicFormManagement(){
         setFile(e.target.files[0])
     }
     return(
-        <div style={{position:'relative',border:'1px solid black'}}>
+        <div className={styles['ui-form-add']}>
+            <button onClick={saveTopic}>추천 주제 추가</button>
             <div>
-                <button onClick={saveTopic}>추천 주제 추가</button>
-                <div>
-                    <span>주제 내용</span>
-                    <textarea onChange={(e)=>setContent(e.target.value)} value={content}></textarea>
-                </div>
-                <label>
-                    <span>주제 이미지</span>
-                    <input type={'file'} onChange={SelectImage}/>
-                </label>
-                <div>
-                    <span>적용 컬렉션</span>
-                    {
-                        isLoading
-                            ? <Spinner/>
-                            :
-                            <select onChange={(e)=>setCollection(e.target.value)}>
-                                <option value={''}>선택</option>
-                                {
-                                    data.map((li:UITopic)=>(
-                                        <option key={li.collection_id} value={li.collection_id}>{li.collection_name}</option>
-                                    ))
-                                }
-                            </select>
-                    }
-                </div>
-                <div>
-                    <TopicListManagement/>
-                </div>
+                <span>주제 내용</span>
+                <textarea onChange={(e)=>setContent(e.target.value)} value={content}></textarea>
+            </div>
+            <label>
+                <span>주제 이미지</span>
+                <input type={'file'} onChange={SelectImage}/>
+            </label>
+            <div>
+                <span>적용 컬렉션</span>
+                {
+                    isLoading
+                        ? <Spinner/>
+                        :
+                        <select onChange={(e)=>setCollection(e.target.value)}>
+                            <option value={''}>선택</option>
+                            {
+                                data.map((li:UITopic)=>(
+                                    <option key={li.collection_id} value={li.collection_id}>{li.collection_name}</option>
+                                ))
+                            }
+                        </select>
+                }
             </div>
         </div>
     )

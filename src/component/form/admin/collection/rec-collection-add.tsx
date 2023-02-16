@@ -1,21 +1,24 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {UICollection, UiListType} from "ui-form-type";
-import {useQuery, useQueryClient} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getHomeDisplayForm} from "../../../../function/api/get/api";
 import CollectionFormManagement from "./collection-form-management";
+import styles from "../set-form.module.css";
+import DeleteIcon from "../../../public/icon/delete-icon";
+import axios from "axios";
 
 export default function AddRecommendCollection(){
     const queryClient = useQueryClient();
     const [setting,setSetting] = useState<boolean>(false);
     const [name,setName] = useState<string>('')
-    const [use,setUse] = useState<string>('')
+    const [use,setUse] = useState<number | null>(null)
     const ui = useQuery('ui-li',()=>getHomeDisplayForm(false))
     const InsertUI = () =>{
         if(name===''){
             alert('이름을 입력 해주세요');
             return
         }
-        if(use===''){
+        if(!use){
             alert('추천 목록을 선택해주세요')
             return
         }
@@ -23,35 +26,57 @@ export default function AddRecommendCollection(){
         queryClient.setQueryData('ui-li',(data)=>{
             if(!data) return false
             const copy:UiListType = data as any;
-            copy.form = [...copy.form,{ui_use:parseInt(use),ui_kind:'recommend_collection',ui_name:name}];
+            copy.form = [...copy.form,{ui_use:use,ui_kind:'recommend_collection',ui_name:name}];
             return copy
         })
     }
+    const removeForm = useMutation((pid:number)=>axios.delete(`/api/form/admin/recommend-collection/${pid}`),{
+        onSuccess:()=>{
+            alert('삭제되었습니다')
+            queryClient.invalidateQueries('ui-li')
+        },
+        onError:()=>{
+            alert('삭제 실패')
+        }
+    })
     return(
         <div>
             <div>
-                <input type={'text'} placeholder={'UI 명'} value={name} onChange={(e)=>setName(e.target.value)}/>
+                <span>추천 컬렉션</span>
             </div>
             <div>
-                <span>추천 컬렉션</span>
-                <select onChange={(e)=>setUse(e.target.value)} value={use}>
-                    <option value={''}>선택</option>
-                    {
-                        ui.data.collection.map((li:UICollection)=>(
-                            <option key={li.rec_id} value={li.rec_id}>{li.collection_name}</option>
-                        ))
-                    }
-                </select>
-                <label>
-                    <input type={'checkbox'} checked={setting} onChange={(e)=>setSetting(e.target.checked)}/>
-                    <span>설정</span>
-                </label>
-                <button onClick={InsertUI}>UI 추가</button>
-                {
-                    setting
-                        ? <CollectionFormManagement/>
-                        : null
-                }
+                <div className={styles['ui-setting']}>
+                    <div className={styles['form-add']}>
+                        <input type={'text'} placeholder={'UI 명'} value={name} onChange={(e)=>setName(e.target.value)}/>
+                        <button onClick={InsertUI}>UI 추가</button>
+                    </div>
+                    <div className={styles['ui-add']}>
+                        <label>
+                            <input type={'checkbox'} checked={setting} onChange={(e)=>setSetting(e.target.checked)}/>
+                            <span>추가</span>
+                        </label>
+                        {
+                            setting ? <CollectionFormManagement/> : null
+                        }
+                    </div>
+                </div>
+                <div>
+                    <div className={styles['ui-management-ul']}>
+                        {
+                            ui.data.collection.map((li:UICollection)=>(
+                                <div key={li.rec_id} className={styles['ui-management-li']}>
+                                    <label className={styles['ui-management-li-label']}>
+                                        <input type={'radio'} value={li.rec_id} name={'lo'} onChange={(e)=>setUse(parseInt(e.target.value))}/>
+                                        <span>{li.collection_name}</span>
+                                    </label>
+                                    <button className={styles['ui-delete-li']} onClick={()=>removeForm.mutate(li.rec_id)}>
+                                        <DeleteIcon />
+                                    </button>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     )
