@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^13.1.6",
     "@next/font": "13.1.1",
     "@reduxjs/toolkit": "^1.9.1",
     "@types/bcrypt": "^5.0.0",
@@ -20,9 +21,11 @@
     "@types/react-daum-postcode": "^1.6.1",
     "@types/react-dom": "18.0.10",
     "@types/redux-logger": "^3.0.9",
+    "@zeit/next-bundle-analyzer": "^0.1.2",
     "axios": "^1.2.2",
     "bcrypt": "^5.1.0",
     "cookies-next": "^2.1.1",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "eslint": "8.30.0",
     "eslint-config-next": "13.1.1",

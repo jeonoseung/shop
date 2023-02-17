@@ -1,31 +1,31 @@
 @font-face {
     font-family:"Noto Sans";
-    src: url("../styles/font/Noto_Sans_KR/NotoSansKR-Thin.otf") format('truetype');
+    src: url("../styles/font/noto/NotoSansKR-Thin.woff2") format('woff2');
     font-weight:100;
 }
 @font-face {
     font-family:"Noto Sans";
-    src: url("../styles/font/Noto_Sans_KR/NotoSansKR-Light.otf") format('truetype');
+    src: url("../styles/font/noto/NotoSansKR-Light.woff2") format('woff2');
     font-weight:300;
 }
 @font-face {
     font-family:"Noto Sans";
-    src: url("../styles/font/Noto_Sans_KR/NotoSansKR-Regular.otf") format('truetype');
+    src: url("../styles/font/noto/NotoSansKR-Regular.woff2") format('woff2');
     font-weight:400;
 }
 @font-face {
     font-family:"Noto Sans";
-    src: url("../styles/font/Noto_Sans_KR/NotoSansKR-Medium.otf") format('truetype');
+    src: url("../styles/font/noto/NotoSansKR-Medium.woff2") format('woff2');
     font-weight:500;
 }
 @font-face {
     font-family:"Noto Sans";
-    src: url("../styles/font/Noto_Sans_KR/NotoSansKR-Bold.otf") format('truetype');
+    src: url("../styles/font/noto/NotoSansKR-Bold.woff2") format('woff2');
     font-weight:700;
 }
 @font-face {
     font-family:"Noto Sans";
-    src: url("../styles/font/Noto_Sans_KR/NotoSansKR-Black.otf") format('truetype');
+    src: url("../styles/font/noto/NotoSansKR-Black.woff2") format('woff2');
     font-weight:900;
 }
 body{
