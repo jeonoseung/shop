@@ -5,8 +5,11 @@ import {totalPrice} from "../../../../function/public/price";
 import DeleteProductBtn from "./delete-product-btn";
 import Link from "next/link";
 import {ProductListType} from "product-type";
+import {router} from "next/client";
+import {useRouter} from "next/router";
 
 export default function ProductManagementList({item}:{item:ProductListType}){
+    const router = useRouter()
     return(
         <Link href={`/product/${item.product_id}`} key={item.product_id} className={styles['product-li']}>
             <Image src={item.product_img} alt={'상품 이미지'} width={100} height={125} priority={true}/>
@@ -23,9 +26,10 @@ export default function ProductManagementList({item}:{item:ProductListType}){
                 <ProductListNameTagInAdmin name={'제목'} content={item.product_title}/>
             </div>
             <div>
-                <Link href={`/admin/product/update/${item.product_id}`}>
-                    <button>수정</button>
-                </Link>
+                <button onClick={(e)=>{
+                    e.preventDefault()
+                    router.push({pathname:`/admin/product/update/${item.product_id}`})
+                }}>수정</button>
             </div>
             <DeleteProductBtn pid={item.product_id}/>
         </Link>
