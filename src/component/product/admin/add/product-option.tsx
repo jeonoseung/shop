@@ -27,6 +27,7 @@ export default function ProductOption(){
         {title:'알레르기정보'},
         {title:'유통기한(또는 소비기한)정보'},
         {title:'축산물 이력정보'},
+        {title:'당도'},
         {title:'안내사항'}
     ]
     const setOptionList = (e:ChangeEvent<HTMLInputElement>,item:{id:number,title:string}) =>{

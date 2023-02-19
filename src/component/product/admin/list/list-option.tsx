@@ -22,7 +22,7 @@ export default function ProductListManagementOption({fetchNextPage}:props){
                 <Link href={'/admin/product/add'} className={publicStyles['normal-btn']} onClick={()=>fetchNextPage()}>추가</Link>
             </div>
             <div>
-                <input type={'text'} value={search} onChange={(e)=>setSearch(e.target.value)}/>
+                <input type={'text'} value={search} onKeyUp={(e)=>e.key === "Enter" ? startSearch() : null} onChange={(e)=>setSearch(e.target.value)}/>
                 <button onClick={startSearch}>
                     검색
                 </button>

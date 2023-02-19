@@ -1,7 +1,6 @@
 .product{
-    display:grid;
-    grid-template-columns:4.5fr 5.5fr;
-    gap:2rem;
+    display:flex;
+    gap:1rem;
 }
 .product *{
 
@@ -29,15 +28,12 @@
     grid-auto-flow:column;
     grid-gap:1rem;
 }
-.product-img-label{
-
+.product-img-label:hover{
+    cursor:pointer;
 }
+
 .product-img-label input[type=file]{
     display:none;
-}
-.product-img-label img{
-    width:100%;
-    height:450px;
 }
 .product-option{
     display:grid;

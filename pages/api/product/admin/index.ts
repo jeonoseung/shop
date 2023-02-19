@@ -8,8 +8,9 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
         const sql = `SELECT product_id,product_name,brand_name,product_price,discount_rate,product_title,product_img
                      FROM products `
         const like = `WHERE (product_name LIKE '%${search}%' or brand_name LIKE '%${search}%') `
-        const limit = `LIMIT ${10} OFFSET ${(parseInt(page as string)-1)*10}`
-        const [rows] = await connection.query(search ? (sql+like+limit) : (sql+limit))
+        const limit = `LIMIT ${10} OFFSET ${(parseInt(page as string)-1)*10} `
+        const order = `ORDER BY product_id desc `
+        const [rows] = await connection.query(search ? (sql+like+order+limit) : (sql+order+limit))
         return res.status(200).send(rows)
     }catch (err){
         console.log(err)

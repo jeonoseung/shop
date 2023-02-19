@@ -86,12 +86,33 @@ declare module "product-type"{
         product_price:number
         product_img:string
         discount_rate:number
+        storage_type:string
+        delivery_type:string
+        category_id:number
     }
     interface ProductOptionType{
         po_id:number
         po_name:string
         po_content:string
         product_id:number
+        po_order:number
+    }
+    interface AdminProductType{
+        [name:string]:string | number
+        name:string
+        title:string
+        price:number
+        sale:number
+        category:number
+        brand:string
+        storage_type:string
+        delivery_type:string
+    }
+    interface AdminProductOptionType{
+        [name:string]:string | number
+        id:number
+        title:string
+        content:string
     }
 }
 /** 컬렉션 */

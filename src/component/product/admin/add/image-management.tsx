@@ -4,12 +4,12 @@ import {ChangeEvent, Dispatch, SetStateAction, useState} from "react";
 import {File} from "next/dist/compiled/@edge-runtime/primitives/fetch";
 
 interface props{
-    file:File
-    setFile:Dispatch<SetStateAction<File>>
+    img:string
+    setFile:Dispatch<SetStateAction<File | undefined>>
 }
 
-export default function ImageManagement({file,setFile}:any){
-    const [src, setSrc] = useState<string>('/image/null-image.svg')
+export default function ImageManagement({img,setFile}:props){
+    const [src, setSrc] = useState<string>(img)
 
     const ImageChange = async (e:ChangeEvent<HTMLInputElement>) =>{
         if(!e.target.files) return false;
@@ -23,7 +23,7 @@ export default function ImageManagement({file,setFile}:any){
     return(
         <label className={styles['product-img-label']}>
             <input type={'file'} onChange={ImageChange}/>
-            <Image src={src} alt={'상품 이미지'} width={350} height={449} priority={true}/>
+            <Image src={src} alt={'상품 이미지'} width={450} height={500} priority={true}/>
         </label>
     )
 }

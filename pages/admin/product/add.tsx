@@ -7,15 +7,16 @@ import NameAndTitle from "../../../src/component/product/admin/add/name-title";
 import PriceAndDiscount from "../../../src/component/product/admin/add/price-discount";
 import StorageAndDelivery from "../../../src/component/product/admin/add/storage-delivery";
 import ImageManagement from "../../../src/component/product/admin/add/image-management";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {File} from "next/dist/compiled/@edge-runtime/primitives/fetch";
 import FormData from "form-data";
-import {dehydrate, QueryClient, useQuery} from "react-query";
-import {getCategory, getProductInfo} from "../../../src/function/api/get/api";
-import {Provider, useSelector} from "react-redux";
+import {dehydrate, QueryClient} from "react-query";
+import {getCategory} from "../../../src/function/api/get/api";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import ProductOption from "../../../src/component/product/admin/add/product-option";
 import axios from "axios";
+import {ResetProductData} from "../../../store/product/admin/product-add/reducer";
 
 interface props{
     user:number
@@ -23,13 +24,14 @@ interface props{
 
 export default function ProductAddPage({user}:props){
     const [file,setFile] = useState<File>()
+    const dispatch = useDispatch()
+    useEffect(()=>{
+        dispatch(ResetProductData())
+    },[])
     const value = useSelector((state:RootState)=>state.ProductAdd.data)
     const option = useSelector((state:RootState)=>state.ProductAdd.option)
-
     const SaveProduct = async () =>{
-
         const form:FormData = new FormData()
-
         if(!file) {alert("선택된 이미지가 없습니다");return false}
 
         form.append('file',file)
@@ -49,7 +51,7 @@ export default function ProductAddPage({user}:props){
         <div className={publicStyles.content}>
             <div className={styles['product']}>
                 <div className={styles['product-image-div']}>
-                    <ImageManagement file={file} setFile={setFile}/>
+                    <ImageManagement img={'/image/null-image.svg'} setFile={setFile}/>
                 </div>
                 <div>
                     <div className={styles['product-data-div']}>
