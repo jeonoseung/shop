@@ -14,7 +14,7 @@ export const config = {
 const get = async (req:NextApiRequest,res:NextApiResponse)=>{
     const connection = await con();
     try{
-        const sql = 'SELECT product_id,product_name,product_img,brand_name,category_id,product_price,discount_rate FROM products'
+        const sql = 'SELECT product_id,product_name,product_img,brand_name,category_id,product_price,discount_rate,product_title FROM products'
         const [rows] = await connection.query(sql);
         connection.release()
         return res.status(200).send(rows)
