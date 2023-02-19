@@ -1,0 +1,29 @@
+.product-ul{
+    margin:1rem 0;
+    display:grid;
+    row-gap:0.5rem;
+}
+.product-li{
+    display:grid;
+    grid-template-columns:0.5fr 1fr 0.75fr 1fr 0.5fr 0.5fr;
+    gap:0.5rem;
+}
+.name-tag{
+    padding:0.25rem;
+    line-height:20px;
+}
+.name-tag-name{
+    font-size:0.9rem;
+    font-weight:500;
+}
+.name-tag-colon{
+    font-size:0.9rem;
+    margin:0 0.25rem;
+}
+.name-tag-content{
+    font-size:0.85rem;
+}
+.list-option{
+    display:flex;
+    justify-content: space-between;
+}

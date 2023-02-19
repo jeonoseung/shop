@@ -223,3 +223,11 @@
     left:0;
     background:rgba(0,0,0,0.5);
 }
+.normal-btn{
+    background:#0d6efd;
+    border:1px solid #0d6efd;
+    border-radius:0.25rem;
+    padding:0.25rem 1rem;
+    color:white;
+    font-size:0.9rem;
+}
