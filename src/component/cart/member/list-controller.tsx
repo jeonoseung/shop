@@ -1,32 +1,33 @@
-import styles from "./cart.module.css";
-import public_style from "../../../styles/public.module.css";
-import {allCheck, setFetch} from "../../../store/cart/cart";
-import publicStyles from "../../../styles/public.module.css";
+import styles from "../cart.module.css";
+import publicStyles from "../../../../styles/public.module.css";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../store/store";
-import {useQuery} from "react-query";
-import {getCartList} from "../../function/api/get/api";
-import {deleteCookie, getCookie, setCookie} from "cookies-next";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import {CartCookie,CartListType} from "cart-type";
+import {allCheck, setFetch} from "../../../../store/cart/cart";
+import {RootState} from "../../../../store/store";
+import {getCartList} from "../../../function/api/get/api";
+import axios from "axios";
 
-export default function CartListController(){
+export default function CartListControllerMember(){
+    const queryClient = useQueryClient()
     const dispatch = useDispatch()
     const state = useSelector((state:RootState)=>state.cart)
     const {data} = useQuery('cart-li',()=>getCartList(false))
-    const RemoveCartList = () =>{
-        const check = [...state.check];
-        const cookie = getCookie('cart');
-        if(!cookie || typeof cookie !== "string") return false;
-        const parse = JSON.parse(cookie as string);
-        const result = parse.filter((list:CartCookie)=>!check.includes(list.product))
-        result.length === 0 ? deleteCookie('cart') : setCookie('cart',JSON.stringify(result))
-        dispatch(allCheck({checked:false,list:[]}))
-        dispatch(setFetch(1))
-    }
+    const removeCart = useMutation(()=>axios.delete(`/api/cart/list/${state.check}`),{
+        onSuccess:()=>{
+            alert('삭제되었습니다')
+            dispatch(allCheck({checked:false,list:[]}))
+            queryClient.invalidateQueries('cart-li')
+        },
+        onError:()=>{
+            alert('삭제 실패')
+        }
+    })
+
     return(
         <div className={styles['list-controller']}>
             <label className={styles['all-check']}>
-                <label className={public_style.checkbox}>
+                <label className={publicStyles.checkbox}>
                     <input type={"checkbox"}
                            checked={state.check.length === data.length && data.length !== 0}
                            onChange={(e)=>dispatch(allCheck({checked:e.target.checked,list:data.map((item:CartListType)=>item.product_id)}))}/>
@@ -41,7 +42,7 @@ export default function CartListController(){
                 </div>
             </label>
             <span style={{margin:'0 0.75rem'}} className={publicStyles['sign_or']}>|</span>
-            <span onClick={RemoveCartList} className={styles['controller']}>선택삭제</span>
+            <span onClick={()=>removeCart.mutate()} className={styles['controller']}>선택삭제</span>
         </div>
     )
 }

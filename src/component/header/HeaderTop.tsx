@@ -16,19 +16,10 @@ export default function HeaderTop(){
     const ResetButton:CSSProperties = {
         visibility:Search === '' ? 'hidden' : 'visible'
     }
-    const [userMenu,setUserMenu]=useState<CSSProperties>({
-        display:'none'
-    })
 
-    const isLoginMouseOver = () =>{
-
-    }
     const searchStart:KeyboardEventHandler<HTMLInputElement> = (e) =>{
         e.code === "Enter" ? router.push({pathname:`/search`,query:{keyword:Search}}) : null
     }
-    useEffect(()=>{
-        isLoginHover ? setUserMenu({...userMenu,display:'block'}) :  setUserMenu({...userMenu,display:'none'})
-    },[isLoginHover])
     return(
         <div className={styles.header_top}>
             <div>
@@ -59,27 +50,32 @@ export default function HeaderTop(){
                             !isLoading && data !== ''
                                 ?
                                 <div className={styles['is-login']}
-                                     onMouseOver={()=>setIsLoginHover(true)}
+                                     onMouseOver={(e)=>setIsLoginHover(true)}
                                      onMouseLeave={()=>setIsLoginHover(false)}>
                                     <Link href={'/my-page/order'}>
                                         <span style={{padding:'0 0.25rem'}}>
                                             {data.name} 님
                                         </span>
                                     </Link>
-                                    <div style={userMenu} className={styles['user-menu']}>
-                                        <div className={styles['menu']}>
-                                            <Link href={'/my-page/order'}>주문 내역</Link>
-                                        </div>
-                                        <div className={styles['menu']}>
-                                            배송지 관리
-                                        </div>
-                                        <div className={styles['menu']}>
-                                            개인 정보 수정
-                                        </div>
-                                        <div className={styles['menu']}>
-                                            <Link href={'/member/logout'}>로그 아웃</Link>
-                                        </div>
-                                    </div>
+                                    {
+                                        isLoginHover
+                                            ?
+                                            <div className={styles['user-menu']}>
+                                                <div className={styles['menu']}>
+                                                    <Link href={'/my-page/order'}>주문 내역</Link>
+                                                </div>
+                                                <div className={styles['menu']}>
+                                                    배송지 관리
+                                                </div>
+                                                <div className={styles['menu']}>
+                                                    개인 정보 수정
+                                                </div>
+                                                <div className={styles['menu']}>
+                                                    <Link href={'/member/logout'}>로그 아웃</Link>
+                                                </div>
+                                            </div>
+                                            : null
+                                    }
                                 </div>
                                 :
                                 <Link href={'/member/login'}>

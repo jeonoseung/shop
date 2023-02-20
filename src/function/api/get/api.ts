@@ -65,13 +65,9 @@ export const getCategoryListInCollection = async (ssr:boolean,router:string|stri
     return data.data
 }
 
-export const getCartList = async (ssr:boolean,list:CookieValueTypes)=>{
-    if(list)
-    {
-        const data = await axios.get(`${ssr ? process.env.URL : ''}/api/cart/${list}`)
-        return data.data
-    }
-    return []
+export const getCartList = async (ssr:boolean)=>{
+    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/cart`)
+    return data.data
 }
 
 export const getCartCookie = async (ssr:boolean,li?:any)=>{

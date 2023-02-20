@@ -1,6 +1,7 @@
 /** 카트 타입 관리 */
 declare module "cart-type"{
-    interface ProductListInCart{
+    interface CartListTypeMember{
+        cart_id:number
         product_id:number
         product_img:string
         product_name:string
@@ -9,6 +10,18 @@ declare module "cart-type"{
         storage_type:string
         discount_rate:number
         brand_name:string
+        count:number
+    }
+    interface CartListType{
+        product_id:number
+        product_img:string
+        product_name:string
+        product_price:number
+        product_title:string
+        storage_type:string
+        discount_rate:number
+        brand_name:string
+        count:number
     }
     interface CartCookie{
         product:number

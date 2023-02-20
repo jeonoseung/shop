@@ -1,57 +1,56 @@
-import publicStyles from '../../../styles/public.module.css'
-import styles from './cart.module.css'
+import publicStyles from '../../../../styles/public.module.css'
+import styles from '../cart.module.css'
 import Image from "next/image";
-import public_style from "../../../styles/public.module.css";
-import {setPrice} from "../../function/public/price";
-import {deleteCookie, getCookie, setCookie} from "cookies-next";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../store/store";
-import {setCheck,setFetch} from "../../../store/cart/cart";
-import {useQuery, useQueryClient} from "react-query";
-import {CartCookie,CartListType} from "cart-type";
-import {getCartList} from "../../function/api/get/api";
-import DeleteIcon from "../public/icon/delete-icon";
+import {useMutation, useQueryClient} from "react-query";
+import {CartListType} from "cart-type";
+import {setCheck} from "../../../../store/cart/cart";
+import {RootState} from "../../../../store/store";
+import {setPrice} from "../../../function/public/price";
+import DeleteIcon from "../../public/icon/delete-icon";
+import axios from "axios";
 
-export default function CartList({item}:{item:CartListType}){
-    const {data,isLoading} = useQuery('cart-li',()=>getCartList(false))
-    const [where] = isLoading ? null : data.filter((li:CartListType)=>li.product_id === item.product_id);
-    const index = isLoading ? null : data.indexOf(where);
+export default function CartListMember({item}:{item:CartListType}){
     const queryClient = useQueryClient()
     const state = useSelector((state:RootState)=>state.cart)
     const dispatch = useDispatch()
+    const minusProduct = useMutation((pid:number)=>axios.delete(`/api/cart/count/${pid}`),{
+        onSuccess:()=>{
+            queryClient.invalidateQueries('cart-li')
+        },
+        onError:()=>{
+            alert('error')
+        }
+    })
+    const plusProduct = useMutation((pid:number)=>axios.post(`/api/cart/count/${pid}`),{
+        onSuccess:()=>{
+            queryClient.invalidateQueries('cart-li')
+        },
+        onError:()=>{
+            alert('error')
+        }
+    })
     const CountMinus = () =>{
         if(item.count === 1) return false;
-        const copy:CartListType[] = [...data]
-        copy[index].count-=1;
-        const result = copy.map((li)=>{
-            return {product:li.product_id,count:li.count}
-        })
-        setCookie('cart',JSON.stringify(result))
-        queryClient.invalidateQueries('cart-li')
-        dispatch(setFetch(1))
+        minusProduct.mutate(item.product_id)
     }
     const CountPlus = () =>{
         if(item.count === 99) return false;
-        const copy:CartListType[] = [...data]
-        copy[index].count+=1;
-        const result = copy.map((li)=>{
-            return {product:li.product_id,count:li.count}
-        })
-        setCookie('cart',JSON.stringify(result))
-        queryClient.invalidateQueries('cart-li')
-        dispatch(setFetch(1))
+        plusProduct.mutate(item.product_id)
     }
-    const RemoveList = (pid:number) =>{
-        const cookie = getCookie('cart');
-        const parse = JSON.parse(cookie as string);
-        const result = parse.filter((list:CartCookie)=>list.product !== pid)
-        result.length === 0 ? deleteCookie('cart') : setCookie('cart',JSON.stringify(result))
-        dispatch(setCheck({checked:false,value:pid}))
-        queryClient.invalidateQueries('cart-li')
-    }
+    const removeCart = useMutation((pid:number)=>axios.delete(`/api/cart/${pid}`),{
+        onSuccess:()=>{
+            alert('삭제되었습니다')
+            dispatch(setCheck({checked:false,value:item.product_id}))
+            queryClient.invalidateQueries('cart-li')
+        },
+        onError:()=>{
+            alert('삭제 실패')
+        }
+    })
     return(
         <div className={styles['cart-li']}>
-            <label className={public_style.checkbox}>
+            <label className={publicStyles.checkbox}>
                 <input type={'checkbox'}
                        checked={state.check.includes(item.product_id)}
                        onChange={(e)=>dispatch(setCheck({checked:e.target.checked,value:item.product_id}))}/>
@@ -93,7 +92,7 @@ export default function CartList({item}:{item:CartListType}){
                     ? <span className={styles['discount']}>{setPrice(item.product_price*item.count)}원</span> : null}
             </div>
             <div className={styles['delete']}>
-                <span onClick={()=>RemoveList(item.product_id)}>
+                <span onClick={()=>removeCart.mutate(item.product_id)}>
                     <DeleteIcon/>
                 </span>
             </div>

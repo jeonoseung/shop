@@ -1,8 +1,9 @@
-import CartList from "./cart-list";
+
 import {useState} from "react";
-import styles from './cart.module.css'
+import styles from '../cart.module.css'
 import Image from "next/image";
 import {CartListType} from "cart-type";
+import CartListMember from "./cart-list";
 
 /**
  * 냉장,냉동,상온별로 리스트 표시
@@ -11,7 +12,7 @@ import {CartListType} from "cart-type";
  * type - 보관 타입
  *  */
 
-export default function ListByType({list, type}:{list:CartListType[],type:string}){
+export default function ListByTypeMember({list, type}:{list:CartListType[],type:string}){
     const [fold,setFold] = useState<boolean>(true)
     return (
         <div className={styles['list-by-type']}>
@@ -29,7 +30,7 @@ export default function ListByType({list, type}:{list:CartListType[],type:string
                 fold
                     ?
                     list.map((item)=>(
-                        <CartList
+                        <CartListMember
                             item={item}
                             key={item.product_id}
                         />

@@ -12,7 +12,6 @@ import {ProductListType} from "product-type";
 export default function Home() {
     const recommendProduct = useQuery('rec-product',()=>getProductRand(false))
     const form = useQuery('form',()=>getHomeForm(false))
-
     const load_images1= [
         {src:'/image/image1.jpg'},
         {src:'/image/image2.jpg'},

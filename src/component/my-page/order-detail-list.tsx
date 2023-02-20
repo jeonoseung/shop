@@ -32,10 +32,10 @@ export default function OrderDetailList(){
                                     <span className={styles['name']}>{setProductName(li.brand_name ? li.brand_name : '',li.product_name)}</span>
                                 </div>
                                 {
-                                    li.product_price && li.discount_rate
+                                    li.product_price
                                         ?
                                         <div className={styles['price-count']}>
-                                            <span className={styles['price']}>{setPrice(totalPrice(li.product_price,li.discount_rate))}원</span>
+                                            <span className={styles['price']}>{setPrice(totalPrice(li.product_price,li.discount_rate as number))}원</span>
                                             {li.discount_rate !== 0 ? <span className={styles['line-through']}>{li.product_price}원</span> : null}
                                             <span className={publicStyles['sign_or']}>|</span>
                                             <span>{li.count}개</span>

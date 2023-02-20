@@ -3,13 +3,8 @@ import {con} from "../../../src/db/db";
 import {withIronSessionApiRoute} from "iron-session/next";
 import {IronSessionOption} from '../../../src/function/api/iron-session/options'
 import {DateTimeNow} from "../../../src/function/public/date";
+import {CartListType} from "cart-type";
 
-interface postList{
-    product_id:number
-    count:number
-    price:number
-    discount_price:number
-}
 
 const get = async (req:NextApiRequest,res:NextApiResponse) =>{
     const connection = await con()
@@ -39,15 +34,16 @@ const post = async (req:NextApiRequest,res:NextApiResponse) =>{
         const user = req.session.user
         let sqlGroup = `INSERT INTO purchase_history_group(price,order_date,length,user_id) VALUE(${total.total},'${DateTimeNow()}',${list.length},${user.id})`
         const [rows] = await connection.query(sqlGroup)
-        let sql = `INSERT INTO purchase_history(product_id,user_id,count,price,discount_price,phg_id) VALUES`
-        const values = list.reduce((query:string,li:postList,index:number)=>{
-            query += `(${li.product_id},${req.session.user.id},${li.count},${li.price},${li.discount_price},${rows.insertId})` + (list.length-1 === index ? `;` : ',')
+        let sql = `INSERT INTO purchase_history(product_id,user_id,count,price,discount_price,phg_id,product_name) VALUES`
+        const values = list.reduce((query:string,li:CartListType,index:number)=>{
+            query += `(${li.product_id},${req.session.user.id},${li.count},${li.product_price},${(li.product_price*(li.discount_rate === 0 ? 0 : li.discount_rate * 0.01))},${rows.insertId},'${li.product_name}')` + (list.length-1 === index ? `;` : ',')
             return query
         },``)
         await connection.query(sql+values)
         connection.release()
         return res.status(201).end();
     }catch (err){
+        console.log(err)
         connection.release()
         return res.status(500).send('post-try-catch');
     }
