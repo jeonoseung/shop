@@ -178,3 +178,25 @@ declare module "category"{
         counting:number
     }
 }
+declare module "order-list"{
+    interface orderListType{
+        brand_name:string
+        length:number
+        order_date:string
+        phg_id:number
+        price:number
+        product_img:string
+        product_name:string
+        user_id:number
+    }
+    interface orderDetailType{
+        product_name:string
+        brand_name:string | null
+        count:number
+        product_img:string | null
+        product_price:number | null
+        product_id:number
+        phg_id:number
+        discount_rate:number | null
+    }
+}

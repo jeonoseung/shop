@@ -68,7 +68,7 @@ export default function HeaderTop(){
                                     </Link>
                                     <div style={userMenu} className={styles['user-menu']}>
                                         <div className={styles['menu']}>
-                                            주문 내역
+                                            <Link href={'/my-page/order'}>주문 내역</Link>
                                         </div>
                                         <div className={styles['menu']}>
                                             배송지 관리
@@ -77,7 +77,7 @@ export default function HeaderTop(){
                                             개인 정보 수정
                                         </div>
                                         <div className={styles['menu']}>
-                                            로그 아웃
+                                            <Link href={'/member/logout'}>로그 아웃</Link>
                                         </div>
                                     </div>
                                 </div>

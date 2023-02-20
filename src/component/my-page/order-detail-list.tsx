@@ -8,12 +8,12 @@ import {getOrderDetail} from "../../function/api/get/api";
 import setProductName from "../../function/public/product-name";
 import {useDispatch} from "react-redux";
 import {setDisplay, setProductInfo} from "../../../store/modal/cart-modal";
+import {orderDetailType} from "order-list";
 
 export default function OrderDetailList(){
     const route = useRouter()
     const {data} = useQuery('order-detail-li',()=>getOrderDetail(false,route.query.phg_id as string))
     const dispatch = useDispatch()
-    console.log(data)
     return(
         <div className={styles['pages-list']}>
             <div className={styles['title-div']}>
@@ -24,15 +24,15 @@ export default function OrderDetailList(){
             </div>
             <div className={styles['list']}>
                 {
-                    data.map((li:any)=>(
+                    data.map((li:orderDetailType)=>(
                         <div className={styles['order-detail-list']} key={li.product_id}>
                             <Image src={li.product_img ? li.product_img : '/image/null-image.svg'} alt={'상품 이미지'} width={60} height={85} priority={true}/>
                             <div className={styles['info']}>
                                 <div>
-                                    <span className={styles['name']}>{li.product_name ? setProductName(li.brand_name,li.product_name) : '삭제된 상품입니다'}</span>
+                                    <span className={styles['name']}>{setProductName(li.brand_name ? li.brand_name : '',li.product_name)}</span>
                                 </div>
                                 {
-                                    li.product_price
+                                    li.product_price && li.discount_rate
                                         ?
                                         <div className={styles['price-count']}>
                                             <span className={styles['price']}>{setPrice(totalPrice(li.product_price,li.discount_rate))}원</span>
@@ -40,16 +40,16 @@ export default function OrderDetailList(){
                                             <span className={publicStyles['sign_or']}>|</span>
                                             <span>{li.count}개</span>
                                         </div>
-                                        : <div>-</div>
+                                        : <div>삭제된 상품입니다</div>
                                 }
                             </div>
                             <div>
                                 {
-                                    li.product_name
+                                    li.product_price && li.brand_name && li.product_price && li.discount_rate
                                         ?
                                         <button className={publicStyles['button']} onClick={()=>{
                                             dispatch(setDisplay(true))
-                                            dispatch(setProductInfo({id:li.product_id,name:li.product_name,brand:li.brand_name,price:li.product_price,discount:li.discount_rate}))
+                                            dispatch(setProductInfo({id:li.product_id,name:li.product_name,brand:li.brand_name as string,price:li.product_price as number,discount:li.discount_rate as number}))
                                         }}>
                                             장바구니 담기
                                         </button>

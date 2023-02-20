@@ -1,6 +1,5 @@
 import styles from './my-page.module.css'
 import publicStyles from '../../../styles/public.module.css'
-import SelectBox from "../public/select-box";
 import Image from "next/image";
 import {useQuery} from "react-query";
 import {getOrderList} from "../../function/api/get/api";
@@ -8,6 +7,7 @@ import Spinner from "../public/spinner";
 import Link from "next/link";
 import {setDateOnOrderList} from "../../function/public/order-list-date";
 import {setPrice} from "../../function/public/price";
+import {orderListType} from "order-list";
 
 export default function OrderList(){
     const {data,isLoading} = useQuery('order-li',()=>getOrderList(false))
@@ -22,7 +22,7 @@ export default function OrderList(){
                         ?
                         <Spinner />
                         :
-                        data.map((li:any)=>(
+                        data.map((li:orderListType)=>(
                             <div className={styles['order-list']} key={li.phg_id}>
                                 <div className={styles['order-title']}>
                                     <span className={styles['order-date']}>{setDateOnOrderList(li.order_date)}</span>
