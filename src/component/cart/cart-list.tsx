@@ -14,28 +14,36 @@ import DeleteIcon from "../public/icon/delete-icon";
 
 export default function CartList({item}:{item:CartListType}){
     const {data,isLoading} = useQuery('cart-li',()=>getCartList(false))
-    const [where] = isLoading ? null : data.filter((li:CartListType)=>li.product_id === item.product_id);
-    const index = isLoading ? null : data.indexOf(where);
     const queryClient = useQueryClient()
     const state = useSelector((state:RootState)=>state.cart)
     const dispatch = useDispatch()
+    /** 상품 개수 빼기 */
     const CountMinus = () =>{
         if(item.count === 1) return false;
-        const copy:CartListType[] = [...data]
-        copy[index].count-=1;
-        const result = copy.map((li)=>{
-            return {product:li.product_id,count:li.count}
+        /** 장바구니 목록에서 이벤트를 실행 시킨 상품 리스트의 개수를 1을 빼고 다시 쿠키에 저장 */
+        const result = data.map((li:CartListType)=>{
+            if(li.product_id === item.product_id){
+                return {product:li.product_id,count:li.count-1}
+            }
+            else{
+                return {product:li.product_id,count:li.count}
+            }
         })
         setCookie('cart',JSON.stringify(result))
         queryClient.invalidateQueries('cart-li')
         dispatch(setFetch(1))
     }
+    /** 상품 개수 더하기 */
     const CountPlus = () =>{
         if(item.count === 99) return false;
-        const copy:CartListType[] = [...data]
-        copy[index].count+=1;
-        const result = copy.map((li)=>{
-            return {product:li.product_id,count:li.count}
+        /** 장바구니 목록에서 이벤트를 실행 시킨 상품 리스트의 개수를 1을 더하고 다시 쿠키에 저장 */
+        const result = data.map((li:CartListType)=>{
+            if(li.product_id === item.product_id){
+                return {product:li.product_id,count:li.count+1}
+            }
+            else{
+                return {product:li.product_id,count:li.count}
+            }
         })
         setCookie('cart',JSON.stringify(result))
         queryClient.invalidateQueries('cart-li')
