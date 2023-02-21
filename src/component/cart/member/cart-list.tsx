@@ -2,9 +2,9 @@ import publicStyles from '../../../../styles/public.module.css'
 import styles from '../cart.module.css'
 import Image from "next/image";
 import {useDispatch, useSelector} from "react-redux";
-import {useMutation, useQueryClient} from "react-query";
+import {useMutation,useQueryClient} from "react-query";
 import {CartListType} from "cart-type";
-import {setCheck} from "../../../../store/cart/cart";
+import {setCheck, setFetch} from "../../../../store/cart/cart";
 import {RootState} from "../../../../store/store";
 import {setPrice} from "../../../function/public/price";
 import DeleteIcon from "../../public/icon/delete-icon";
@@ -13,30 +13,47 @@ import axios from "axios";
 export default function CartListMember({item}:{item:CartListType}){
     const queryClient = useQueryClient()
     const state = useSelector((state:RootState)=>state.cart)
+
     const dispatch = useDispatch()
     const minusProduct = useMutation((pid:number)=>axios.delete(`/api/cart/count/${pid}`),{
         onSuccess:()=>{
-            queryClient.invalidateQueries('cart-li')
+            queryClient.setQueryData('cart-li',(data:any)=>{
+                const copy:CartListType[] = [...data]
+                return copy.map((li) => {
+                    const c = {...li}
+                    li.product_id === item.product_id ? c.count -= 1 : null
+                    return c
+                })
+            })
         },
         onError:()=>{
             alert('error')
         }
     })
     const plusProduct = useMutation((pid:number)=>axios.post(`/api/cart/count/${pid}`),{
-        onSuccess:()=>{
-            queryClient.invalidateQueries('cart-li')
+        onSuccess: async ()=>{
+            queryClient.setQueryData('cart-li', (data: any) => {
+                const copy: CartListType[] = [...data]
+                return copy.map((li) => {
+                    const c = {...li}
+                    li.product_id === item.product_id ? c.count += 1 : null
+                    return c
+                })
+            })
         },
         onError:()=>{
             alert('error')
         }
     })
-    const CountMinus = () =>{
+    const CountMinus = async () =>{
         if(item.count === 1) return false;
-        minusProduct.mutate(item.product_id)
+        await minusProduct.mutate(item.product_id)
+        dispatch(setFetch(1))
     }
-    const CountPlus = () =>{
+    const CountPlus = async () =>{
         if(item.count === 99) return false;
-        plusProduct.mutate(item.product_id)
+        await plusProduct.mutate(item.product_id)
+        dispatch(setFetch(1))
     }
     const removeCart = useMutation((pid:number)=>axios.delete(`/api/cart/${pid}`),{
         onSuccess:()=>{

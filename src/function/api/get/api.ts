@@ -17,7 +17,10 @@ export const getSession = async (ssr:boolean)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/session/user`)
     return data.data
 }
-
+export const LoginCheck = async ()=>{
+    const data = await axios.get(`/api/session`)
+    return data.data
+}
 export const getProductRand = async (ssr:boolean)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/product/random`)
     return data.data
@@ -56,7 +59,6 @@ export const getProductListInCollection = async (ssr:ssr,router:router,set:param
     const first = (filter !== '' ? filter.split('%').splice(1,filter.split('%').length) : filter)
     const url = `${ssr ? process.env.URL : ''}/api/collection/product/${router}?filter=${first.length === 0 ? 'all' : first}&sort=${sort}&page=${page}&list=${listLength}`
     const data = await axios.get(url)
-
     return data.data
 }
 

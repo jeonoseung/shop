@@ -5,15 +5,17 @@ import ListByType from "./list-by-type";
 import {useEffect} from "react";
 import {allCheck} from "../../../store/cart/cart";
 import {useDispatch} from "react-redux";
+import {useRouter} from "next/router";
 
 export default function ProductListBox({data}:{data:CartListType[]}){
     const cold = data.filter((li:CartListType)=>li.storage_type === "냉장")
     const frozen = data.filter((li:CartListType)=>li.storage_type === "냉동")
     const normal = data.filter((li:CartListType)=>li.storage_type === "상온")
     const dispatch = useDispatch()
+    const router =useRouter();
     useEffect(()=>{
         dispatch(allCheck({checked:true,list:data.map((li:CartListType)=>li.product_id)}))
-    },[])
+    },[router.pathname])
     return(
         <div>
             <CartListController />

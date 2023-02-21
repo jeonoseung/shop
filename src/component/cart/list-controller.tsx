@@ -4,13 +4,14 @@ import {allCheck, setFetch} from "../../../store/cart/cart";
 import publicStyles from "../../../styles/public.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
-import {useQuery} from "react-query";
+import {useQuery, useQueryClient} from "react-query";
 import {getCartList} from "../../function/api/get/api";
 import {deleteCookie, getCookie, setCookie} from "cookies-next";
 import {CartCookie,CartListType} from "cart-type";
 
 export default function CartListController(){
     const dispatch = useDispatch()
+    const queryClient = useQueryClient()
     const state = useSelector((state:RootState)=>state.cart)
     const {data} = useQuery('cart-li',()=>getCartList(false))
     const RemoveCartList = () =>{
@@ -22,6 +23,8 @@ export default function CartListController(){
         result.length === 0 ? deleteCookie('cart') : setCookie('cart',JSON.stringify(result))
         dispatch(allCheck({checked:false,list:[]}))
         dispatch(setFetch(1))
+        alert('삭제되었습니다')
+        queryClient.invalidateQueries('cart-li')
     }
     return(
         <div className={styles['list-controller']}>

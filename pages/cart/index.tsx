@@ -1,5 +1,5 @@
-import publicStyles from '../../styles/public.module.css'
-import styles from '../../src/component/cart/cart.module.css'
+import publicStyles from '../../styles/public.module.css';
+import styles from '../../src/component/cart/cart.module.css';
 import Title from "../../src/component/public/title";
 import {useQuery, useQueryClient} from "react-query";
 import {getCartList} from "../../src/function/api/get/api";
@@ -8,9 +8,20 @@ import CartOrderBar from "../../src/component/cart/order-bar";
 import {withIronSessionSsr} from "iron-session/next";
 import {IronSessionOption} from "../../src/function/api/iron-session/options";
 import ProductListBoxMember from "../../src/component/cart/member/product-list-box";
+import {useEffect} from "react";
+import {allCheck} from "../../store/cart/cart";
+import {CartListType} from "cart-type";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../store/store";
 
 export default function Cart({isLogin}:{isLogin:boolean}){
-    const {data,isLoading} = useQuery('cart-li',()=>getCartList(false))
+    const {data,isLoading,isFetching} = useQuery('cart-li',()=>getCartList(false))
+    const dispatch = useDispatch()
+    useEffect(()=>{
+        if(!isFetching&&!isLoading){
+            dispatch(allCheck({checked:true,list:data.map((li:CartListType)=>li.product_id)}))
+        }
+    },[isFetching])
     return(
         <div className={publicStyles.content}>
             <div>

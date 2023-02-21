@@ -40,11 +40,38 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
     }
 }
 
+const post = async (req:NextApiRequest,res:NextApiResponse)=>{
+    const connection = await con()
+    try{
+        /** 상품 식별 번호,개수 */
+        const {pid,count} = req.body
+        /** 유저 식별 번호 */
+        const {id} = req.session.user;
+
+        const insert = `INSERT INTO cart(product_id,user_id) VALUES`
+        /** insert sql values 설정 */
+        let values = ''
+        for(let i=0;i<count;i++){
+            values += `(${pid},${id})` + (i===count-1 ? ';' : ',')
+        }
+        await connection.query(insert+values)
+        connection.release()
+        return res.status(201).end()
+    }catch (err){
+        console.log(err)
+        connection.release()
+        return res.status(500).end()
+    }
+}
+
 export default withIronSessionApiRoute(
     async function handler(req,res){
         switch (req.method){
             case "GET":
                 await get(req,res)
+                break;
+            case "POST":
+                await post(req,res)
                 break;
         }
         return res.status(405).end()

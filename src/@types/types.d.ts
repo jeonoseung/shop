@@ -27,6 +27,11 @@ declare module "cart-type"{
         product:number
         count:number
     }
+    interface OrderTotalPriceType{
+        price:number
+        discount:number
+        total:number
+    }
 }
 /** UI 양식 타입 관리 */
 declare module "ui-form-type"{

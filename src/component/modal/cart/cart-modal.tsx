@@ -8,13 +8,18 @@ import {setPrice, totalPrice} from "../../../function/public/price";
 import MinusIcon from "../../public/icon/minus-icon";
 import PlusIcon from "../../public/icon/plus-icon";
 import SetCart from "../../../function/public/set-cart";
+import {useMutation, useQuery} from "react-query";
+import {LoginCheck} from "../../../function/api/get/api";
+import axios from "axios";
 
 export default function CartModal(){
     const dispatch = useDispatch()
     const state = useSelector((state:RootState)=>state.cartModal)
+    const login = useQuery('is-login',LoginCheck)
     const [out,setOut] = useState<CSSProperties>({
         display:'none',
     })
+    const addCart = useMutation((data:{pid:number,count:number})=>axios.post(`/api/cart`,data))
     useEffect(()=>{
         if(state.checked) {
             setOut({...out,display:'block'})
@@ -56,7 +61,12 @@ export default function CartModal(){
                         <button className={styles['cancel-btn']} onClick={()=>dispatch(setDisplay(false))}>취소</button>
                         <button className={styles['in-cart-btn']} onClick={()=>{
                             dispatch(setDisplay(false))
-                            SetCart(state.product.count,state.product.id)
+                            if(login.data){
+                                addCart.mutate({pid:state.product.id,count:state.product.count})
+                            }
+                            else{
+                                SetCart(state.product.count,state.product.id)
+                            }
                         }}>담기</button>
                     </div>
                 </div>

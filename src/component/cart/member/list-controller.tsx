@@ -2,8 +2,8 @@ import styles from "../cart.module.css";
 import publicStyles from "../../../../styles/public.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {useMutation, useQuery, useQueryClient} from "react-query";
-import {CartCookie,CartListType} from "cart-type";
-import {allCheck, setFetch} from "../../../../store/cart/cart";
+import {CartListType} from "cart-type";
+import {allCheck} from "../../../../store/cart/cart";
 import {RootState} from "../../../../store/store";
 import {getCartList} from "../../../function/api/get/api";
 import axios from "axios";
@@ -42,7 +42,7 @@ export default function CartListControllerMember(){
                 </div>
             </label>
             <span style={{margin:'0 0.75rem'}} className={publicStyles['sign_or']}>|</span>
-            <span onClick={()=>removeCart.mutate()} className={styles['controller']}>선택삭제</span>
+            <span onClick={()=>state.check.length === 0 ? null : removeCart.mutate()} className={styles['controller']}>선택삭제</span>
         </div>
     )
 }

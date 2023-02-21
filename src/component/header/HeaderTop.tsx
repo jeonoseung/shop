@@ -1,11 +1,9 @@
 import styles from './header.module.css'
 import {ChangeEventHandler, CSSProperties, KeyboardEventHandler, useEffect, useState} from "react";
 import Link from "next/link";
-import {dehydrate, QueryClient, useQuery} from "react-query";
-import {getProductInfo, getSession} from "../../function/api/get/api";
-import {GetServerSideProps} from "next";
+import {useQuery} from "react-query";
+import {getSession} from "../../function/api/get/api";
 import {useRouter} from "next/router";
-import {query} from "express";
 
 export default function HeaderTop(){
     const router = useRouter()

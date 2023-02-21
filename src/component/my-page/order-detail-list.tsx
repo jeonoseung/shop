@@ -45,7 +45,7 @@ export default function OrderDetailList(){
                             </div>
                             <div>
                                 {
-                                    li.product_price && li.brand_name && li.product_price && li.discount_rate
+                                    li.product_price
                                         ?
                                         <button className={publicStyles['button']} onClick={()=>{
                                             dispatch(setDisplay(true))

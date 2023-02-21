@@ -1,8 +1,5 @@
 import styles from "../cart.module.css";
 import {CartListType} from "cart-type";
-import {useEffect} from "react";
-import {useDispatch} from "react-redux";
-import {allCheck} from "../../../../store/cart/cart";
 import ListByTypeMember from "./list-by-type";
 import CartListControllerMember from "./list-controller";
 
@@ -10,10 +7,6 @@ export default function ProductListBoxMember({data}:{data:CartListType[]}){
     const cold = data.filter((li:CartListType)=>li.storage_type === "냉장")
     const frozen = data.filter((li:CartListType)=>li.storage_type === "냉동")
     const normal = data.filter((li:CartListType)=>li.storage_type === "상온")
-    const dispatch = useDispatch()
-    useEffect(()=>{
-        dispatch(allCheck({checked:true,list:data.map((li:CartListType)=>li.product_id)}))
-    },[])
     return(
         <div>
             <CartListControllerMember />

@@ -32,6 +32,7 @@ const post = async (req:NextApiRequest,res:NextApiResponse) =>{
         const list = req.body.list
         const total = req.body.total
         const user = req.session.user
+        const pidLi = list.map(({product_id}:CartListType)=>product_id)
         let sqlGroup = `INSERT INTO purchase_history_group(price,order_date,length,user_id) VALUE(${total.total},'${DateTimeNow()}',${list.length},${user.id})`
         const [rows] = await connection.query(sqlGroup)
         let sql = `INSERT INTO purchase_history(product_id,user_id,count,price,discount_price,phg_id,product_name) VALUES`
@@ -40,6 +41,8 @@ const post = async (req:NextApiRequest,res:NextApiResponse) =>{
             return query
         },``)
         await connection.query(sql+values)
+        const remove = `DELETE c FROM cart c INNER JOIN(SELECT cart_id FROM cart WHERE product_id IN (${String(pidLi)}) AND user_id = ${user.id}) temp ON temp.cart_id = c.cart_id`
+        await connection.query(remove)
         connection.release()
         return res.status(201).end();
     }catch (err){

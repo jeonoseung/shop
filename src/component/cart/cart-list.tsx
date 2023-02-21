@@ -47,6 +47,7 @@ export default function CartList({item}:{item:CartListType}){
         const result = parse.filter((list:CartCookie)=>list.product !== pid)
         result.length === 0 ? deleteCookie('cart') : setCookie('cart',JSON.stringify(result))
         dispatch(setCheck({checked:false,value:pid}))
+        alert('삭제되었습니다')
         queryClient.invalidateQueries('cart-li')
     }
     return(
