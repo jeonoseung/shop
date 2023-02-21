@@ -1,6 +1,6 @@
 import axios from "axios";
 import {params,router} from "collection-type";
-import {CookieValueTypes, getCookie} from "cookies-next";
+import {getCookie} from "cookies-next";
 
 
 type ssr = boolean

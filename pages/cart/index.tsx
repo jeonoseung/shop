@@ -12,7 +12,6 @@ import {useEffect} from "react";
 import {allCheck} from "../../store/cart/cart";
 import {CartListType} from "cart-type";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../store/store";
 
 export default function Cart({isLogin}:{isLogin:boolean}){
     const {data,isLoading,isFetching} = useQuery('cart-li',()=>getCartList(false))

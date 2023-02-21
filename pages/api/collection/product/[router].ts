@@ -10,7 +10,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
         const sort = query.sort
         const page = query.page ? parseInt(query.page as string) : 1
         const listLength = parseInt(query.list as string);
-        const sql = `SELECT p.product_id,product_name,brand_name,product_price,product_img,discount_rate,delivery_type,product_title,p.category_id
+        const sql = `SELECT p.product_id,p.product_name,brand_name,product_price,product_img,discount_rate,delivery_type,product_title,p.category_id
                          FROM collection_product as cp
                          INNER JOIN collections as c ON cp.collection_id = c.collection_id
                          INNER JOIN products as p ON cp.product_id = p.product_id
@@ -40,6 +40,8 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
         connection.release()
         return res.status(200).send(rows)
     }catch (err){
+        console.log(err)
+        connection.release()
         return res.status(500).end()
     }
 }
