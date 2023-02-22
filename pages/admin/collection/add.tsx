@@ -1,5 +1,5 @@
 import publicStyles from '../../../styles/public.module.css'
-import styles from '../../../src/component/collection/admin/collection-add.module.css'
+import styles from '../../../src/component/collection/admin/add/collection-add.module.css'
 import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useQuery} from "react-query";
 import {getCategory, getProductOnCollectionAdmin} from "../../../src/function/api/get/api";

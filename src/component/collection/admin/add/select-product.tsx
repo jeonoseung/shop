@@ -1,4 +1,4 @@
-import styles from "../collection-add.module.css";
+import styles from "./collection-add.module.css";
 import {RemoveSelectedProduct, SelectProduct} from "../../../../../store/collection/collection-add";
 import Image from "next/image";
 import {useQuery} from "react-query";
