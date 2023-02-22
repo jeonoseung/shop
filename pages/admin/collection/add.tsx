@@ -4,7 +4,7 @@ import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useQuery} from "react-query";
 import {getCategory, getProductOnCollectionAdmin} from "../../../src/function/api/get/api";
 import axios from "axios";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import CollectionAddInput from "../../../src/component/collection/admin/add/collection-input";
 import SelectedProduct from "../../../src/component/collection/admin/add/selected-product";

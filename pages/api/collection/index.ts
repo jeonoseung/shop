@@ -1,6 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {PostType} from "collection-type";
-
 import {con} from "../../../src/db/db";
 
 const get = async (req:NextApiRequest,res:NextApiResponse)=>{
