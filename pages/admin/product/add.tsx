@@ -10,13 +10,14 @@ import ImageManagement from "../../../src/component/product/admin/add/image-mana
 import {useEffect, useState} from "react";
 import {File} from "next/dist/compiled/@edge-runtime/primitives/fetch";
 import FormData from "form-data";
-import {dehydrate, QueryClient} from "react-query";
+import {dehydrate, QueryClient, useMutation} from "react-query";
 import {getCategory} from "../../../src/function/api/get/api";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import ProductOption from "../../../src/component/product/admin/add/product-option";
 import axios from "axios";
 import {ResetProductData} from "../../../store/product/admin/product-add/reducer";
+import {checkNullObject} from "../../../src/function/public/check";
 
 interface props{
     user:number
@@ -30,21 +31,35 @@ export default function ProductAddPage({user}:props){
     },[])
     const value = useSelector((state:RootState)=>state.ProductAdd.data)
     const option = useSelector((state:RootState)=>state.ProductAdd.option)
+    const insertProduct = useMutation((form:FormData)=>axios.post('/api/product',form,{
+        headers:{
+            "Content-Type":"multipart/form-data"
+        }}),{
+        onSuccess:()=>{
+            alert('저장되었습니다')
+        },
+        onError:()=>{
+            alert('저장 오류 발생')
+        }
+        }
+    )
     const SaveProduct = async () =>{
         const form:FormData = new FormData()
         if(!file) {alert("선택된 이미지가 없습니다");return false}
-
+        const check:any = checkNullObject({
+            '상품명':value.name,'가격':value.price,'할인률':value.sale,
+            '상품 분류':value.category,'배송 분류':value.storage_type,
+            '보관 분류':value.delivery_type
+        })
+        if(check.isNull){
+            alert(`필수 입력란이 미입력 상태입니다(${check.where})`)
+            return
+        }
         form.append('file',file)
         form.append('data',JSON.stringify(value))
         form.append('option',JSON.stringify(option))
         form.append('user',user)
-
-        const result = await axios.post('/api/product',form,{
-            headers:{
-                "Content-Type":"multipart/form-data"
-            }
-        }).catch((res)=>console.log(res))
-        result?.status === 201 ? alert('저장 되었습니다') : null
+        insertProduct.mutate(form)
     }
 
     return(

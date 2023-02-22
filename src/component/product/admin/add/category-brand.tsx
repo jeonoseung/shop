@@ -15,7 +15,7 @@ export default function CategoryAndBrand(){
     return(
         <div className={styles['product-input-half']}>
             <div className={publicStyles['select-div']}>
-                <select onChange={(e)=>dispatch(ProductInputChange({value:e.target.value,key:'category'}))}
+                <select onChange={(e)=>dispatch(ProductInputChange({...value,category:e.target.value}))}
                         value={value.category}
                 >
                     <option value={''}>상품 분류 선택</option>
@@ -37,7 +37,7 @@ export default function CategoryAndBrand(){
                    value={value.brand}
                    onChange={(e)=>
                    {
-                       dispatch(ProductInputChange({value:e.target.value,key:'brand'}))
+                       dispatch(ProductInputChange({...value,brand:(e.target.value)}))
                    }
             }
             />

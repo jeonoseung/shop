@@ -56,6 +56,7 @@ const post = async(req:NextApiRequest,res:NextApiResponse)=>{
         connection.release()
         return res.status(201).end()
     }catch (err){
+        console.log(err)
         connection.release()
         return res.status(500).send('get-try-catch')
     }

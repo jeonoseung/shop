@@ -1,14 +1,9 @@
 import axios from "axios";
 import {params,router} from "collection-type";
-import {getCookie} from "cookies-next";
 
 
 type ssr = boolean
 
-export const getData = async (url:string) =>{
-    const data = await axios.get(url)
-    return data.data
-}
 export const getCategory= async (ssr:boolean)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/category`)
     return data.data
@@ -72,18 +67,6 @@ export const getCartList = async (ssr:boolean)=>{
     return data.data
 }
 
-export const getCartCookie = async (ssr:boolean,li?:any)=>{
-    if(ssr)
-    {
-        return li ? JSON.parse(li) : []
-    }
-    else
-    {
-        const co = getCookie('cart')
-        return co ? JSON.parse(co as string) : []
-    }
-}
-
 export const getOrderList = async (ssr:boolean,user?:number)=>{
     if(user)
     {
@@ -120,7 +103,7 @@ export const getSearchProduct = async (ssr:boolean,keyword:string|null,params:pa
     const filter = params.filter;
     const sort = params.sort;
     const page = params.page;
-    const listLength = params.listLength
+    const listLength = params.listLength;
     if(Array.isArray(filter)) return false
     const first = (filter !== '' ? filter.split('%').splice(1,filter.split('%').length) : filter)
     const url = `${ssr ? process.env.URL : ''}/api/search/product/${keyword}?filter=${first.length === 0 ? 'all' : first}&sort=${sort}&page=${page}&list=${listLength}`;

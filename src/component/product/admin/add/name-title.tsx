@@ -17,13 +17,13 @@ export default function NameAndTitle(){
                    className={publicStyles['input-text']}
                    placeholder={'상품 명'}
                    value={value.name}
-                   onChange={(e)=>dispatch(ProductInputChange({value:e.target.value,key:'name'}))}
+                   onChange={(e)=>dispatch(ProductInputChange({...value,name:e.target.value}))}
             />
             <input type={'text'}
                    className={publicStyles['input-text']}
                    placeholder={'상품 제목'}
                    value={value.title}
-                   onChange={(e)=>dispatch(ProductInputChange({value:e.target.value,key:'title'}))}
+                   onChange={(e)=>dispatch(ProductInputChange({...value,title:e.target.value}))}
             />
         </div>
     )

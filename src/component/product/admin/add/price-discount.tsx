@@ -17,7 +17,7 @@ export default function PriceAndDiscount(){
                        onChange={(e)=>{
                            e.target.value = e.target.value.replace(/[^0-9]/g, '')
                            e.target.value = e.target.value.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                           dispatch(ProductInputChange({value:e.target.value,key:'price'}))
+                           dispatch(ProductInputChange({...value,price:e.target.value}))
                        }}
                 />
                 <span>원</span>
@@ -29,7 +29,7 @@ export default function PriceAndDiscount(){
                        maxLength={2}
                        onChange={(e)=>{
                            e.target.value = e.target.value.replace(/[^0-9]/g, '')
-                           dispatch(ProductInputChange({value:e.target.value,key:'sale'}))
+                           dispatch(ProductInputChange({...value,sale:parseInt(e.target.value)}))
                        }}
                 />
                 <span>%</span>

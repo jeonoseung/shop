@@ -6,26 +6,17 @@ type StateType = {
     data:AdminProductType
     option:AdminProductOptionType[]
 };
-interface parameter{
-    value:string
-    key:string
-}
-interface Option{
-    title:string
-    content:string
-}
 interface OptionParameter{
     index:number
     value:string
-    key:string
 }
 const initialState: StateType = {
     data:{
         name:'',
         title:'',
-        price:0,
+        price:'',
         sale:0,
-        category:0,
+        category:'',
         brand:'',
         storage_type:'',
         delivery_type:'',
@@ -36,14 +27,14 @@ export const product_add = createSlice({
     name: 'product',
     initialState,
     reducers: {
-        ProductInputChange:(state:StateType,action:PayloadAction<parameter>)=>{
-            state.data[action.payload.key] = action.payload.value
+        ProductInputChange:(state:StateType,action:PayloadAction<AdminProductType>)=>{
+            state.data = action.payload
         },
         RemoveOptionInList:(state:StateType,action:PayloadAction<number>)=>{
             state.option.splice(action.payload,1)
         },
         OptionInputChange:(state:StateType,action:PayloadAction<OptionParameter>)=>{
-            state.option[action.payload.index][action.payload.key] = action.payload.value
+            state.option[action.payload.index]['content'] = action.payload.value
         },
         PlusOption:(state:StateType,action:PayloadAction<{id:number,title:string}>)=>{
             state.option = [...state.option,{id:action.payload.id,title:action.payload.title,content:''}]
@@ -60,9 +51,9 @@ export const product_add = createSlice({
             state.data = {
                 name:'',
                 title:'',
-                price:0,
+                price:'',
                 sale:0,
-                category:0,
+                category:'',
                 brand:'',
                 storage_type:'',
                 delivery_type:'',
@@ -74,10 +65,10 @@ export const product_add = createSlice({
             state.data = {
                 name:product_name,
                 brand:brand_name,
-                price:product_price,
+                price:String(product_price),
                 sale:discount_rate,
                 title:product_title,
-                category:category_id,
+                category:String(category_id),
                 storage_type:storage_type,
                 delivery_type:delivery_type
             };

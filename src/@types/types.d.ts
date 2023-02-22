@@ -116,18 +116,16 @@ declare module "product-type"{
         po_order:number
     }
     interface AdminProductType{
-        [name:string]:string | number
         name:string
         title:string
-        price:number
+        price:string
         sale:number
-        category:number
+        category:string
         brand:string
         storage_type:string
         delivery_type:string
     }
     interface AdminProductOptionType{
-        [name:string]:string | number
         id:number
         title:string
         content:string

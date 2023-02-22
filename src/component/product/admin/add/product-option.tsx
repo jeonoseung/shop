@@ -66,7 +66,7 @@ export default function ProductOption(){
                                 spellCheck={'false'}
                                 maxLength={400}
                                 onChange={(e)=>{
-                                    dispatch(OptionInputChange({index:index,value:e.target.value,key:'content'}))
+                                    dispatch(OptionInputChange({index:index,value:e.target.value}))
                                 }}
                             >
                             </textarea>
