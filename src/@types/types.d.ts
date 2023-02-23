@@ -165,22 +165,32 @@ declare module "collection-type"{
         page:string
         listLength:number
     }
+    interface AdminCollectionInfo{
+        name:string
+        router:string
+        title:string
+    }
+    interface AdminProductFilterInCollection{
+        category:string
+        search:string
+    }
+    interface SelectProductList{
+        product_id:number
+        product_name:string
+        product_img:string
+        brand_name:string
+    }
     interface PostType{
-        set:{
-            name:string
-            router:string
-            title:string
-        },
-        product: {
-            product_price: number
-            discount_rate:number
-            product_id:number
-            product_name:string
-            brand_name:string
-            product_img:string
-            category_id:number
-            product_title:string
-        }[]
+        set:CollectionInfo,
+        product:SelectProductList[]
+    }
+    interface AdminCollectionListType{
+        collection_id:number
+        collection_name:string
+        collection_router_name:string
+        collection_title:string
+        count:number
+        isUse:number
     }
 }
 declare module "category"{

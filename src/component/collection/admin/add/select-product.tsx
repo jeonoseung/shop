@@ -27,15 +27,18 @@ export default function SelectProductInList(){
         <div className={styles['product-list']}>
             <div className={styles['select-list']}>
                 {
-                    product.data.map((item:ProductListType)=>(
-                        <label key={item.product_id} className={styles['list-label']}>
+                    product.data.map(({product_id,product_name,brand_name,product_img}:ProductListType)=>(
+                        <label key={product_id} className={styles['list-label']}>
                             <input type={'checkbox'}
-                                   value={item.product_id}
-                                   checked={collection.product.find(check => check.product_id === item.product_id) !== undefined}
-                                   onChange={(e)=>{e.target.checked ? dispatch(SelectProduct(item)) : dispatch(RemoveSelectedProduct(item.product_id))}}/>
+                                   value={product_id}
+                                   checked={collection.product.find(check => check.product_id === product_id) !== undefined}
+                                   onChange={(e)=>{
+                                       e.target.checked
+                                           ? dispatch(SelectProduct({product_id,product_name,product_img,brand_name}))
+                                           : dispatch(RemoveSelectedProduct(product_id))}}/>
                             <div></div>
-                            <Image src={item.product_img} alt={'img'} width={150} height={199} priority={true}/>
-                            <div>{item.brand_name !== '' ? <span>[{item.brand_name}]</span> : null}{item.product_name}</div>
+                            <Image src={product_img} alt={'img'} width={150} height={199} priority={true}/>
+                            <div>{brand_name !== '' ? <span>[{brand_name}]</span> : null}{product_name}</div>
                         </label>
                     ))
                 }

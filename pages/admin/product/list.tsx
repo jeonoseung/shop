@@ -1,37 +1,22 @@
 import publicStyles from '../../../styles/public.module.css'
 import styles from '../../../src/component/product/admin/list/product-list.module.css'
-import {useInfiniteQuery} from "react-query";
+import {dehydrate, QueryClient, useInfiniteQuery} from "react-query";
 import {ProductListType} from "product-type";
-import axios from "axios";
 import Spinner from "../../../src/component/public/spinner";
-import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import ProductListManagementOption from "../../../src/component/product/admin/list/list-option";
 import ProductManagementList from "../../../src/component/product/admin/list/product-li";
 import SetInViewProductManagement from "../../../src/component/product/admin/list/set-in-view";
+import {getProductListAdmin} from "../../../src/function/api/get/api";
+import {GetServerSideProps} from "next";
 
 export default function ProductListManagement(){
     const router = useRouter();
-    const [ready,setReady] = useState(false)
-    const {data,error,isLoading,fetchNextPage,hasNextPage,refetch,remove} =
-        useInfiniteQuery('product-li',({pageParam=1})=>fetchProjects(pageParam),{
+    const {data,error,isLoading,fetchNextPage,hasNextPage} =
+        useInfiniteQuery('product-li',({pageParam=1})=>
+            getProductListAdmin(pageParam,router.query.search ? router.query.search as string : '',false),{
         getNextPageParam:(lastPage)=>lastPage.nextPage
     })
-    const fetchProjects = async (pageParam:number) =>{
-        const {search} = router.query;
-        const url = `/api/product/admin?page=${pageParam}`+(search ? `&search=${search}` : '')
-        const res = await axios.get(url)
-        return {products:res.data,nextPage:res.data.length < 10 ? undefined : pageParam+1}
-    }
-    useEffect(()=>{
-        if(!isLoading && ready){
-            remove()
-            refetch()
-        }
-        else{
-            setReady(true)
-        }
-    },[router.query.search])
     return(
         <div className={publicStyles['content']}>
             <ProductListManagementOption fetchNextPage={fetchNextPage}/>
@@ -49,4 +34,15 @@ export default function ProductListManagement(){
             <SetInViewProductManagement hasNextPage={hasNextPage} fetchNextPage={fetchNextPage}/>
         </div>
     )
+}
+export const getServerSideProps:GetServerSideProps = async (context) =>{
+    const queryClient = new QueryClient()
+    const {search} = context.query
+    await queryClient.prefetchInfiniteQuery('product-li',
+        ()=>getProductListAdmin(1,search ? search as string : '',true))
+    return {
+        props:{
+            dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient)))
+        }
+    }
 }

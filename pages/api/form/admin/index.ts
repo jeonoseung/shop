@@ -6,10 +6,17 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
     const connection = await con();
     try{
         const ui = `SELECT ui_id,ui_use,ui_kind,ui_name FROM main_user_interface ORDER BY ui_order;`
-        const collection = `SELECT c.collection_id,c.collection_name,rc.rec_id FROM recommend_collection as rc 
-                        INNER JOIN collections as c on rc.collection_id = c.collection_id;`
-        const topic = `SELECT c.collection_id,c.collection_name,rt.rec_id FROM recommend_topic as rt 
-                   INNER JOIN collections as c on rt.collection_id = c.collection_id;`
+        const collection = `SELECT c.collection_id,c.collection_name,rec.rec_id 
+                            FROM recommend_collection as rec 
+                            INNER JOIN collections as c on rec.collection_id = c.collection_id
+                            LEFT JOIN recommend_collection_topic as rct ON rec.rec_id = rct.rec_id
+                            WHERE rct.topic_id IS NULL;`
+
+        const topic = `SELECT c.collection_id,c.collection_name,rec.rec_id
+                       FROM recommend_collection as rec
+                       INNER JOIN recommend_collection_topic as rct ON rec.rec_id = rct.rec_id 
+                       INNER JOIN collections as c on rec.collection_id = c.collection_id;`
+
         const limited = `SELECT * FROM limited_offer as lo`
         const [rows] = await connection.query(ui+collection+topic+limited);
         connection.release()

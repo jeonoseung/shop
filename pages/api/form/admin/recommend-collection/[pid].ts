@@ -4,16 +4,12 @@ import {con} from "../../../../../src/db/db";
 const Delete = async (req:NextApiRequest,res:NextApiResponse)=>{
     const connection = await con()
     try {
-        const table = 'recommend_collection'
         const {pid} = req.query;
-
-        const sql = `DELETE FROM ${table} WHERE rec_id = ${pid};`
-        const remove = `DELETE FROM main_user_interface
-                        WHERE ui_id = 
-                        (SELECT C.ui_id 
-                        FROM (SELECT ui_id FROM main_user_interface WHERE ui_use = ${pid} AND ui_kind = '${table}')
-                        AS C)`;
-        await connection.query(sql+remove)
+        const delete_rec = `DELETE FROM recommend_collection WHERE rec_id = ${pid};`
+        const delete_ui = `DELETE ui FROM main_user_interface ui
+                           INNER JOIN(SELECT ui_id FROM main_user_interface WHERE ui_use = ${pid} AND ui_kind = 'recommend_collection') temp
+                           ON temp.ui_id = ui.ui_id;`
+        await connection.query(delete_rec+delete_ui)
         connection.release()
         return res.status(201).end()
     }catch (err){

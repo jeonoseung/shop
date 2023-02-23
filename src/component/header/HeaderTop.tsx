@@ -4,6 +4,7 @@ import Link from "next/link";
 import {useQuery} from "react-query";
 import {getSession} from "../../function/api/get/api";
 import {useRouter} from "next/router";
+import UserMenu from "./user-menu";
 
 export default function HeaderTop(){
     const router = useRouter()
@@ -57,21 +58,7 @@ export default function HeaderTop(){
                                     </Link>
                                     {
                                         isLoginHover
-                                            ?
-                                            <div className={styles['user-menu']}>
-                                                <div className={styles['menu']}>
-                                                    <Link href={'/my-page/order'}>주문 내역</Link>
-                                                </div>
-                                                <div className={styles['menu']}>
-                                                    배송지 관리
-                                                </div>
-                                                <div className={styles['menu']}>
-                                                    개인 정보 수정
-                                                </div>
-                                                <div className={styles['menu']}>
-                                                    <Link href={'/member/logout'}>로그 아웃</Link>
-                                                </div>
-                                            </div>
+                                            ? <UserMenu auth={data.auth}/>
                                             : null
                                     }
                                 </div>

@@ -1,19 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {ProductListType} from "product-type";
+import {AdminCollectionInfo, AdminProductFilterInCollection, SelectProductList} from "collection-type";
 
 
 interface initialStateType{
-    data:{
-        [key:string]:string
-    }
-    product:ProductListType[]
-    filter:{
-        [key:string]:string
-    },
-}
-interface InputType{
-    value:string
-    key:string
+    data:AdminCollectionInfo
+    product:SelectProductList[]
+    filter:AdminProductFilterInCollection,
 }
 const initialState:initialStateType = {
     data:{
@@ -32,17 +24,17 @@ export const collectionAdd = createSlice({
     name:'collection-add',
     initialState,
     reducers:{
-        ChangeCollectionInput:(state:initialStateType, action:PayloadAction<InputType>)=>{
-            state.data[action.payload.key] = action.payload.value
+        ChangeCollectionInput:(state:initialStateType, action:PayloadAction<AdminCollectionInfo>)=>{
+            state.data = action.payload
         },
-        SelectProduct:(state:initialStateType,action:PayloadAction<ProductListType>)=>{
+        SelectProduct:(state:initialStateType,action:PayloadAction<SelectProductList>)=>{
             state.product = [...state.product,action.payload]
         },
         RemoveSelectedProduct:(state:initialStateType, action:PayloadAction<number>)=>{
             state.product = state.product.filter((product)=>product.product_id !== action.payload)
         },
-        Filtering:(state:initialStateType,action:PayloadAction<InputType>)=>{
-            state.filter[action.payload.key] = action.payload.value
+        Filtering:(state:initialStateType,action:PayloadAction<AdminProductFilterInCollection>)=>{
+            state.filter = action.payload
         }
     }
 })

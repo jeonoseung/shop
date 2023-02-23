@@ -9,13 +9,15 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
     const data = await Promise.all(list.map(async (li:{ui_use:number,ui_kind:string}) => {
         if (li.ui_kind === 'recommend_collection') {
             const sql_component = `SELECT  ui.ui_kind,c.collection_id,c.collection_name,c.collection_router_name,c.collection_title
-                            FROM ${li.ui_kind} as rec
+                            FROM recommend_collection as rec
                             INNER JOIN main_user_interface as ui on ui.ui_use = rec.rec_id
                             INNER JOIN collections as c on c.collection_id = rec.collection_id
-                            WHERE rec.rec_id = ${li.ui_use} 
-                            AND ui.ui_kind = '${li.ui_kind}';`;
+                            LEFT JOIN recommend_collection_topic as rct ON rec.rec_id = rct.rec_id
+                            WHERE rct.topic_id IS NULL
+                            AND rec.rec_id = ${li.ui_use} 
+                            AND ui.ui_kind = 'recommend_collection';`;
             const sql_list = `SELECT p.product_id,p.product_name,p.product_price,p.brand_name,p.discount_rate,p.product_img
-                            FROM ${li.ui_kind} as rec
+                            FROM recommend_collection as rec
                             INNER JOIN collections as c ON c.collection_id = rec.collection_id
                             INNER JOIN collection_product as cp ON c.collection_id = cp.collection_id
                             INNER JOIN products as p ON cp.product_id = p.product_id
@@ -25,14 +27,15 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
             return {component:rows[0][0],product:rows[1]}
         }
         else if(li.ui_kind === 'recommend_topic'){
-            const sql_component = `SELECT ui.ui_kind,c.collection_name,c.collection_router_name,rec.rec_image,rec.rec_content
-                                    FROM ${li.ui_kind} as rec
-                                    INNER JOIN main_user_interface as ui on ui.ui_use = rec.rec_id
-                                    INNER JOIN collections as c on c.collection_id = rec.collection_id
+            const sql_component = `SELECT ui.ui_kind,c.collection_name,c.collection_router_name,topic_img,topic_content
+                                    FROM recommend_collection as rec
+                                    INNER JOIN main_user_interface as ui ON ui.ui_use = rec.rec_id
+                                    INNER JOIN recommend_collection_topic as rct ON rec.rec_id = rct.rec_id
+                                    INNER JOIN collections as c ON c.collection_id = rec.collection_id
                                     WHERE rec.rec_id = ${li.ui_use} 
                                     AND ui.ui_kind = '${li.ui_kind}';`
             const sql_list = `SELECT p.product_id,p.product_name,p.product_price,p.brand_name,p.discount_rate,p.product_img
-                            FROM ${li.ui_kind} as rec
+                            FROM recommend_collection as rec
                             INNER JOIN collections as c ON c.collection_id = rec.collection_id
                             INNER JOIN collection_product as cp ON c.collection_id = cp.collection_id
                             INNER JOIN products as p ON cp.product_id = p.product_id

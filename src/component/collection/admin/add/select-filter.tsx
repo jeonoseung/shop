@@ -16,7 +16,7 @@ export default function SelectFilter(){
             <span>카테고리</span>
             <select className={publicStyles.select}
                     defaultValue={filter.category}
-                    onChange={(e)=>dispatch(Filtering({key:'category',value:e.target.value}))}
+                    onChange={(e)=>dispatch(Filtering({...filter,category:e.target.value}))}
             >
                 <option value={''}>전체</option>
                 {
@@ -29,7 +29,7 @@ export default function SelectFilter(){
             <input className={publicStyles['input-text']}
                    value={filter.search}
                    onChange={(e)=>{
-                       dispatch(Filtering({key:'search',value:e.target.value}))
+                       dispatch(Filtering({...filter,search:e.target.value}))
                    }}
             />
         </div>

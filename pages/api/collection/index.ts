@@ -19,6 +19,13 @@ const post = async (body:PostType,req:NextApiRequest,res:NextApiResponse) =>{
     const connection = await con()
     const set = body.set;
     const product = body.product
+    const duplication = `SELECT collection_id 
+                         FROM collections 
+                         WHERE collection_router_name = '${set.router.replace(' ', '-')}'`
+    const [[check]] = await connection.query(duplication)
+    if(check){
+        return res.status(400).send({msg:'router name',kind:'duplication'})
+    }
     const sql = `INSERT INTO collections(collection_name,collection_router_name,collection_title) 
                              VALUE('${set.name}','${set.router.replace(' ', '-')}','${set.title}')`
     const [insert] = await connection.query(sql)
@@ -30,7 +37,7 @@ const post = async (body:PostType,req:NextApiRequest,res:NextApiResponse) =>{
     })
     await connection.query(sql2)
     connection.release()
-    return res.status(204).end()
+    return res.status(201).end()
 }
 
 export default async function handler(req:NextApiRequest,res:NextApiResponse){

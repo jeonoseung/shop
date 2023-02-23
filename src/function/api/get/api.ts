@@ -1,5 +1,6 @@
 import axios from "axios";
 import {params,router} from "collection-type";
+import {useRouter} from "next/router";
 
 
 type ssr = boolean
@@ -120,9 +121,28 @@ export const getHomeDisplayForm = async (ssr:boolean)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/form/admin`)
     return data.data;
 }
-/** 컬렉션 목록 가져오기 */
+/**
+ * */
+export const getProductListAdmin = async (pageParam:number=1,search:string,ssr:boolean) =>{
+    const url = `${ssr ? process.env.URL : ''}/api/product/admin?page=${pageParam ? pageParam : 1}`+(search ? `&search=${search}` : '')
+    const res = await axios.get(url)
+    return {products:res.data,nextPage:res.data.length < 10 ? undefined : pageParam+1}
+}
+/**
+ * 컬렉션 목록 가져오기
+ * UI 관리용
+ * */
 export const getCollections = async (ssr?:boolean)=>{
     const data = await axios.get(`${ssr?process.env.URL : ''}/api/collection`)
+    return data.data
+}
+/**
+ * 컬렉션 관리 목록 가져오기
+ * 컬렉션 관리용
+ * */
+export const getCollectionAdmin = async (ssr:boolean,search:string)=>{
+    const url = `${ssr?process.env.URL : ''}/api/collection/admin?search=${search}`
+    const data = await axios.get(url)
     return data.data
 }
 

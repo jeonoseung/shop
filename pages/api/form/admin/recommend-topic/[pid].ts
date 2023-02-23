@@ -5,19 +5,20 @@ import fs from "fs";
 const Delete = async (req:NextApiRequest,res:NextApiResponse)=>{
     const connection = await con()
     try {
-        const table = 'recommend_topic'
         const {pid} = req.query;
-        const [rows] = await connection.query(`SELECT rec_image FROM ${table} WHERE rec_id = ${pid}`)
-        await fs.unlink(`./public${rows[0].rec_image}`,(err)=>{
+        const select = `SELECT topic_img 
+                        FROM recommend_collection as rec 
+                        INNER JOIN recommend_collection_topic as rct ON rec.rec_id = rct.rec_id 
+                        WHERE rec.rec_id = ${pid};`
+        const [[{topic_img}]] = await connection.query(select)
+        await fs.unlink(`./public${topic_img}`,(err)=>{
             if(err) throw err
         })
-        const sql = `DELETE FROM ${table} WHERE rec_id=${pid};`
-        const remove = `DELETE FROM main_user_interface
-                        WHERE ui_id = 
-                        (SELECT C.ui_id 
-                        FROM (SELECT ui_id FROM main_user_interface WHERE ui_use = ${pid} AND ui_kind = '${table}')
-                        AS C)`;
-        await connection.query(sql+remove)
+        const delete_rec = `DELETE FROM recommend_collection WHERE rec_id=${pid};`
+        const delete_ui = `DELETE ui FROM main_user_interface ui
+                           INNER JOIN(SELECT ui_id FROM main_user_interface WHERE ui_use = ${pid}) temp
+                           ON temp.ui_id = ui.ui_id;`
+        await connection.query(delete_rec+delete_ui)
         connection.release()
         return res.status(201).end()
     }catch (err){

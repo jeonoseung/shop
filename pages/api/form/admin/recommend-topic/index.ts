@@ -27,8 +27,10 @@ const post = async (req:NextApiRequest,res:NextApiResponse) =>{
         })
         const src = await saveFile(result.files.file)
         const {pid,content} = result.fields;
-        const sql = `INSERT INTO recommend_topic(rec_content,collection_id,rec_image) VALUE('${content}',${pid},'${src}')`
-        await connection.query(sql)
+        const sql = `INSERT INTO recommend_collection(collection_id) VALUE(${pid})`
+        const [{insertId}] = await connection.query(sql)
+        const topic = `INSERT INTO recommend_collection_topic(topic_content,topic_img,rec_id) VALUE('${content}','${src}',${insertId})`
+        await connection.query(topic)
         connection.release()
         return res.status(201).end()
     }catch (err){

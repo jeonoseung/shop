@@ -14,7 +14,7 @@ export default function CollectionAddInput(){
                 <input type={'text'}
                        className={publicStyles['input-text']}
                        value={collection.name}
-                       onChange={(e)=>dispatch(ChangeCollectionInput({key:'name',value:e.target.value}))}
+                       onChange={(e)=>dispatch(ChangeCollectionInput({...collection,name:e.target.value}))}
                 />
             </div>
             <div className={publicStyles['input-group']}>
@@ -22,7 +22,7 @@ export default function CollectionAddInput(){
                 <input type={'text'}
                        className={publicStyles['input-text']}
                        value={collection.router}
-                       onChange={(e)=>dispatch(ChangeCollectionInput({key:'router',value:e.target.value}))}
+                       onChange={(e)=>dispatch(ChangeCollectionInput({...collection,router:e.target.value}))}
                 />
             </div>
             <div>
@@ -30,7 +30,7 @@ export default function CollectionAddInput(){
                 <input type={'text'}
                        className={publicStyles['input-text']}
                        value={collection.title}
-                       onChange={(e)=>dispatch(ChangeCollectionInput({key:'title',value:e.target.value}))}
+                       onChange={(e)=>dispatch(ChangeCollectionInput({...collection,title:e.target.value}))}
                 />
             </div>
         </div>

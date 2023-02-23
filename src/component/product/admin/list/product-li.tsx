@@ -7,6 +7,7 @@ import Link from "next/link";
 import {ProductListType} from "product-type";
 import {router} from "next/client";
 import {useRouter} from "next/router";
+import AdminListNameTag from "../../../public/admin/list-name-tag";
 
 export default function ProductManagementList({item}:{item:ProductListType}){
     const router = useRouter()
@@ -14,16 +15,16 @@ export default function ProductManagementList({item}:{item:ProductListType}){
         <Link href={`/product/${item.product_id}`} key={item.product_id} className={styles['product-li']}>
             <Image src={item.product_img} alt={'상품 이미지'} width={100} height={125} priority={true}/>
             <div>
-                <ProductListNameTagInAdmin name={'브랜드명'} content={item.brand_name}/>
-                <ProductListNameTagInAdmin name={'상품명'} content={item.product_name}/>
+                <AdminListNameTag name={'브랜드명'} content={item.brand_name}/>
+                <AdminListNameTag name={'상품명'} content={item.product_name}/>
             </div>
             <div>
-                <ProductListNameTagInAdmin name={'할인률'} content={`${item.discount_rate}%`}/>
-                <ProductListNameTagInAdmin name={'가격'} content={`${item.product_price}원`}/>
-                <ProductListNameTagInAdmin name={'최종 가격'} content={`${totalPrice(item.product_price,item.discount_rate)}원`}/>
+                <AdminListNameTag name={'할인률'} content={`${item.discount_rate}%`}/>
+                <AdminListNameTag name={'가격'} content={`${item.product_price}원`}/>
+                <AdminListNameTag name={'최종 가격'} content={`${totalPrice(item.product_price,item.discount_rate)}원`}/>
             </div>
             <div>
-                <ProductListNameTagInAdmin name={'제목'} content={item.product_title}/>
+                <AdminListNameTag name={'제목'} content={item.product_title}/>
             </div>
             <div>
                 <button onClick={(e)=>{

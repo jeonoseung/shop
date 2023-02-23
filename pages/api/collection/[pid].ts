@@ -28,12 +28,14 @@ const Delete = async (req:NextApiRequest,res:NextApiResponse)=>{
     const connection = await con()
     try{
         const {pid} = req.query
-
-        // const sql = `SELECT rec_image FROM recommend_topic WHERE collection_id = ${pid}`
-        // const [rows] = await connection.query(sql)
-        // await rows.map(async ({rec_image}:{rec_image:string})=>{
-        //      await removeFile(rec_image)
-        // })
+        const sql = `SELECT topic_img
+                     FROM recommend_collection as rec
+                     INNER JOIN recommend_collection_topic as rct ON rec.rec_id = rct.rec_id
+                     WHERE rec.collection_id = ${pid}`
+        const [rows] = await connection.query(sql)
+        await rows.map(async ({rec_image}:{rec_image:string})=>{
+             await removeFile(rec_image)
+        })
         const call = `CALL collection_delete(${pid});`
         await connection.query(call)
         connection.release()
