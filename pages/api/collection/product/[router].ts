@@ -17,10 +17,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                          INNER JOIN products as p ON cp.product_id = p.product_id
                          LEFT JOIN purchase_history as ph ON ph.product_id = p.product_id
                          WHERE c.collection_router_name = '${router}' `;
-        const sqlFilter = (filter !== 'all' && filter !== undefined ? `AND p.product_id IN 
-                                                                        (SELECT p.product_id FROM products as p 
-                                                                        INNER JOIN category_product as ca_pr ON p.product_id = ca_pr.product_id
-                                                                        WHERE ca_pr.category_id IN (${filter})) `:' ');
+        const sqlFilter = (filter !== 'all' && filter !== undefined ? `AND p.category_id IN (${filter}) `:' ');
         const groupby = `GROUP BY p.product_id `;
         const sqlSort =
             sort === undefined || sort === '1'

@@ -8,8 +8,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                     FROM collection_product as cp
                     INNER JOIN collections as c ON cp.collection_id = c.collection_id
                     INNER JOIN products as p ON cp.product_id = p.product_id
-                    INNER JOIN category_product as ca_pr on ca_pr.product_id = p.product_id
-                    INNER JOIN category as ca ON ca.category_id = ca_pr.category_id
+                    INNER JOIN category as ca ON ca.category_id = p.category_id
                     WHERE c.collection_router_name = '${router}'
                     GROUP BY ca.category_id
                     ORDER BY category_name`;
