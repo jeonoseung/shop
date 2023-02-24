@@ -5,12 +5,8 @@ import {useState} from "react";
 import {useRouter} from "next/router";
 import {FetchNextPageOptions, InfiniteQueryObserverResult} from "react-query";
 
-interface props{
-    fetchNextPage:(options?: (FetchNextPageOptions | undefined)) =>
-        Promise<InfiniteQueryObserverResult<{products: any, nextPage: number | undefined}, unknown>>
-}
 
-export default function ProductListManagementOption({fetchNextPage}:props){
+export default function ProductListManagementOption(){
     const router = useRouter()
     const [search,setSearch] = useState<string>('')
     const startSearch = () =>{
@@ -19,7 +15,7 @@ export default function ProductListManagementOption({fetchNextPage}:props){
     return(
         <div className={styles['list-option']}>
             <div>
-                <Link href={'/admin/product/add'} className={publicStyles['normal-btn']} onClick={()=>fetchNextPage()}>추가</Link>
+                <Link href={'/admin/product/add'} className={publicStyles['normal-btn']}>추가</Link>
             </div>
             <div>
                 <input type={'text'} value={search} onKeyUp={(e)=>e.key === "Enter" ? startSearch() : null} onChange={(e)=>setSearch(e.target.value)}/>

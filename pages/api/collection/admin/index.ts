@@ -9,8 +9,9 @@ const get = async (req:NextApiRequest,res:NextApiResponse)=>{
                      FROM collections as c
                      LEFT JOIN recommend_collection as rec ON rec.collection_id = c.collection_id
                      INNER JOIN collection_product as cp ON cp.collection_id = c.collection_id
-                     WHERE (collection_name LIKE '%${search}%' or collection_router_name LIKE '%${search}%')
-                     GROUP BY cp.collection_id;`
+                     WHERE (collection_name LIKE '%${search ? search : ''}%' or collection_router_name LIKE '%${search ? search : ''}%')
+                     GROUP BY cp.collection_id
+                     LIMIT ${10} OFFSET ${(parseInt(page as string)-1) * 10};`
         const [rows] = await connection.query(sql)
         connection.release()
         return res.status(200).send(rows)

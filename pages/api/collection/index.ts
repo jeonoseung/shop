@@ -21,13 +21,13 @@ const post = async (body:PostType,req:NextApiRequest,res:NextApiResponse) =>{
     const product = body.product
     const duplication = `SELECT collection_id 
                          FROM collections 
-                         WHERE collection_router_name = '${set.router.replace(' ', '-')}'`
+                         WHERE collection_router_name = '${set.router.replaceAll(' ', '-')}'`
     const [[check]] = await connection.query(duplication)
     if(check){
         return res.status(400).send({msg:'router name',kind:'duplication'})
     }
     const sql = `INSERT INTO collections(collection_name,collection_router_name,collection_title) 
-                             VALUE('${set.name}','${set.router.replace(' ', '-')}','${set.title}')`
+                             VALUE('${set.name}','${set.router.replaceAll(' ', '-')}','${set.title}')`
     const [insert] = await connection.query(sql)
     let sql2 = `INSERT INTO collection_product(collection_id,product_id) `
     product.map((item,index)=>{
