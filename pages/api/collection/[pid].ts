@@ -1,6 +1,7 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {con} from "../../../src/db/db";
 import {removeFile} from "../../../src/function/public/file";
+import {AdminCollectionInfo, SelectProductList} from "collection-type";
 
 
 const get = async (req:NextApiRequest,res:NextApiResponse)=>{
@@ -50,16 +51,24 @@ const put = async (req:NextApiRequest,res:NextApiResponse)=>{
     const connection = await con()
     try{
         const {pid} = req.query;
-        const {collection,selected}:any = req.query;
-
-        const sql = `UPDATE collections SET collection_name = '${collection.name}',
-                                            collection_router_name = '${collection.router_name}'
-                                            collection_title = '${collection.title}'
+        const {collection,selected} = req.body;
+        const {collection_name,collection_router_name,collection_title} = collection;
+        const router_replace = collection_router_name.replaceAll(' ','-')
+        const [[check]] = await connection.query(`
+                                SELECT collection_id FROM collections 
+                                WHERE collection_router_name = '${router_replace}'
+                                AND collection_id != ${pid}`)
+        if(check){
+            return res.status(400).send({msg:'router name',kind:'duplication'})
+        }
+        const sql = `UPDATE collections SET collection_name = '${collection_name}',
+                                            collection_router_name = '${router_replace}',
+                                            collection_title = '${collection_title}'
                                             WHERE collection_id = ${pid};`
         const cp_reset = `DELETE cp FROM collection_product cp 
                           INNER JOIN(SELECT cp_id FROM collection_product WHERE collection_id=${pid}) temp ON temp.cp_id = cp.cp_id;`
         const cp_insert = `INSERT INTO collection_product(collection_id,product_id) VALUES`
-        const values = selected.reduce((sql:string,li:any,index:number)=>{
+        const values = selected.reduce((sql:string,li:SelectProductList,index:number)=>{
             sql += `(${pid},${li.product_id})`+(index === selected.length-1 ? '; ' : ', ')
             return sql
         },'')

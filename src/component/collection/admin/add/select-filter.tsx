@@ -4,12 +4,12 @@ import {Filtering} from "../../../../../store/collection/collection-add";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../../store/store";
 import {useQuery} from "react-query";
-import {getCategory} from "../../../../function/api/get/api";
+import {getCategory, getCollectionRequiredData} from "../../../../function/api/get/api";
 import {CategoryType} from "category";
 
 export default function SelectFilter(){
     const filter = useSelector((state:RootState)=>state.collectionAdd.filter)
-    const category = useQuery('category',()=>getCategory(false))
+    const {data,isLoading} = useQuery('collection-required-data',()=>getCollectionRequiredData(false))
     const dispatch = useDispatch()
     return(
         <div className={styles['filter']}>
@@ -20,9 +20,12 @@ export default function SelectFilter(){
             >
                 <option value={''}>전체</option>
                 {
-                    category.data.map((item:CategoryType)=>(
-                        <option key={item.category_id} value={item.category_id}>{item.category_name}</option>
-                    ))
+                    isLoading
+                        ? null
+                        :
+                        data.category.map((item:CategoryType)=>(
+                            <option key={item.category_id} value={item.category_id}>{item.category_name}</option>
+                        ))
                 }
             </select>
             <span>검색</span>

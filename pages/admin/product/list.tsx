@@ -6,8 +6,8 @@ import Spinner from "../../../src/component/public/spinner";
 import {useRouter} from "next/router";
 import ProductListManagementOption from "../../../src/component/product/admin/list/list-option";
 import ProductManagementList from "../../../src/component/product/admin/list/product-li";
-import SetInViewProductManagement from "../../../src/component/product/admin/list/set-in-view";
 import {getProductListAdmin} from "../../../src/function/api/get/api";
+import SetInView from "../../../src/component/public/list/set-in-view";
 
 export default function ProductListManagement(){
     const router = useRouter();
@@ -30,7 +30,7 @@ export default function ProductListManagement(){
                         ))
                 }
             </div>
-            <SetInViewProductManagement hasNextPage={hasNextPage} fetchNextPage={fetchNextPage}/>
+            <SetInView hasNextPage={hasNextPage} fetchNextPage={fetchNextPage}/>
         </div>
     )
 }

@@ -13,24 +13,24 @@ export default function CollectionAddInput(){
                 <h4>컬렉션 명</h4>
                 <input type={'text'}
                        className={publicStyles['input-text']}
-                       value={collection.name}
-                       onChange={(e)=>dispatch(ChangeCollectionInput({...collection,name:e.target.value}))}
+                       value={collection.collection_name}
+                       onChange={(e)=>dispatch(ChangeCollectionInput({...collection,collection_name:e.target.value}))}
                 />
             </div>
             <div className={publicStyles['input-group']}>
                 <h4>켈렉션 Router</h4>
                 <input type={'text'}
                        className={publicStyles['input-text']}
-                       value={collection.router}
-                       onChange={(e)=>dispatch(ChangeCollectionInput({...collection,router:e.target.value}))}
+                       value={collection.collection_router_name}
+                       onChange={(e)=>dispatch(ChangeCollectionInput({...collection,collection_router_name:e.target.value}))}
                 />
             </div>
             <div>
                 <h4>켈렉션 제목</h4>
                 <input type={'text'}
                        className={publicStyles['input-text']}
-                       value={collection.title}
-                       onChange={(e)=>dispatch(ChangeCollectionInput({...collection,title:e.target.value}))}
+                       value={collection.collection_title}
+                       onChange={(e)=>dispatch(ChangeCollectionInput({...collection,collection_title:e.target.value}))}
                 />
             </div>
         </div>

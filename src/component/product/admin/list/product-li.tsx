@@ -1,11 +1,9 @@
 import styles from "./product-list.module.css";
 import Image from "next/image";
-import ProductListNameTagInAdmin from "./product-li-nametag";
 import {totalPrice} from "../../../../function/public/price";
 import DeleteProductBtn from "./delete-product-btn";
 import Link from "next/link";
 import {ProductListType} from "product-type";
-import {router} from "next/client";
 import {useRouter} from "next/router";
 import AdminListNameTag from "../../../public/admin/list-name-tag";
 

@@ -166,9 +166,9 @@ declare module "collection-type"{
         listLength:number
     }
     interface AdminCollectionInfo{
-        name:string
-        router:string
-        title:string
+        collection_name:string
+        collection_router_name:string
+        collection_title:string
     }
     interface AdminProductFilterInCollection{
         category:string
@@ -181,8 +181,12 @@ declare module "collection-type"{
         brand_name:string
     }
     interface PostType{
-        set:CollectionInfo,
+        set:AdminCollectionInfo,
         product:SelectProductList[]
+    }
+    interface PutAxiosBodyType{
+        collection:AdminCollectionInfo
+        selected:SelectProductList[]
     }
     interface AdminCollectionListType{
         collection_id:number

@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {AdminCollectionInfo, AdminProductFilterInCollection, SelectProductList} from "collection-type";
 
-
 interface initialStateType{
     data:AdminCollectionInfo
     product:SelectProductList[]
@@ -9,9 +8,9 @@ interface initialStateType{
 }
 const initialState:initialStateType = {
     data:{
-        name:'',
-        router:'',
-        title:'',
+        collection_name:'',
+        collection_router_name:'',
+        collection_title:'',
     },
     product:[],
     filter:{
@@ -35,8 +34,14 @@ export const collectionAdd = createSlice({
         },
         Filtering:(state:initialStateType,action:PayloadAction<AdminProductFilterInCollection>)=>{
             state.filter = action.payload
-        }
+        },
+        SetCollectionInput:(state:initialStateType,action:PayloadAction<AdminCollectionInfo>)=>{
+            state.data = action.payload
+        },
+        SetSelectProduct:(state:initialStateType,action:PayloadAction<SelectProductList[]>)=>{
+            state.product = action.payload
+        },
     }
 })
-export const {ChangeCollectionInput,SelectProduct,RemoveSelectedProduct,Filtering} = collectionAdd.actions
+export const {ChangeCollectionInput,SelectProduct,RemoveSelectedProduct,Filtering,SetCollectionInput,SetSelectProduct} = collectionAdd.actions
 export default collectionAdd

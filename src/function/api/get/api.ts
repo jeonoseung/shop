@@ -125,8 +125,8 @@ export const getHomeDisplayForm = async (ssr:boolean)=>{
  * 상품 목록 가져오기
  * 상품 관리용
  * */
-export const getProductListAdmin = async (ssr:boolean,search:string,pageParam:number=1) =>{
-    const url = `${ssr ? process.env.URL : ''}/api/product/admin?page=${pageParam}`+(search ? `&search=${search}` : '')
+export const getProductListAdmin = async (ssr:boolean,search:string,pageParam:number=1,length:number=10) =>{
+    const url = `${ssr ? process.env.URL : ''}/api/product/admin?page=${pageParam}&search=${search ? search : ''}&length=${length}`
     const res = await axios.get(url)
     return {list:res.data,nextPage:res.data.length < 10 ? undefined : pageParam+1}
 }
@@ -142,10 +142,23 @@ export const getCollections = async (ssr?:boolean)=>{
  * 컬렉션 관리 목록 가져오기
  * 컬렉션 관리용
  * */
-export const getCollectionAdmin = async (ssr:boolean,search:string,pageParam:number)=>{
-    const url = `${ssr?process.env.URL : ''}/api/collection/admin?page=${pageParam ? pageParam : 1}?search=${search}`
+export const getCollectionAdmin = async (ssr:boolean,search:string,pageParam:number=1,length:number=20)=>{
+    const url = `${ssr?process.env.URL : ''}/api/collection/admin?page=${pageParam}&search=${search}&length=${length}`
     const data = await axios.get(url)
-    return {list:data.data,nextPage:data.data.length < 10 ? undefined : pageParam+1}
+    return {list:data.data,nextPage:data.data.length < length ? undefined : pageParam+1}
+}
+/**
+ * 컬렉션 필요 데이터
+ * */
+export const getCollectionRequiredData = async (ssr:boolean)=>{
+    const url = `${ssr?process.env.URL : ''}/api/collection/admin/re-data`
+    const data = await axios.get(url)
+    return data.data
+}
+export const getCollectionUpdate = async (ssr:boolean,pid:string)=>{
+    const url = `${ssr?process.env.URL : ''}/api/collection/admin/update/${pid}`
+    const data = await axios.get(url)
+    return data.data
 }
 
 

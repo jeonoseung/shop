@@ -2,7 +2,7 @@ import publicStyles from '../../../styles/public.module.css'
 import styles from '../../../src/component/collection/admin/add/collection-add.module.css'
 import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useMutation, useQuery} from "react-query";
-import {getCategory, getProductOnCollectionAdmin} from "../../../src/function/api/get/api";
+import {getCollectionRequiredData,} from "../../../src/function/api/get/api";
 import axios from "axios";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
@@ -10,13 +10,12 @@ import CollectionAddInput from "../../../src/component/collection/admin/add/coll
 import SelectedProduct from "../../../src/component/collection/admin/add/selected-product";
 import SelectFilter from "../../../src/component/collection/admin/add/select-filter";
 import SelectProductInList from "../../../src/component/collection/admin/add/select-product";
-import {AdminCollectionInfo, PostType} from "collection-type";
+import {PostType} from "collection-type";
 
 
 
 export default function CollectionAddPage(){
     const collection = useSelector((state:RootState)=>state.collectionAdd)
-
     const collectionSave = useMutation((body:PostType)=>axios.post('/api/collection',body),{
         onSuccess:()=>{
             alert('저장되었습니다')
@@ -57,8 +56,7 @@ export default function CollectionAddPage(){
 }
 export const getServerSideProps:GetServerSideProps = async (context)=>{
     const queryClient = new QueryClient()
-    await queryClient.prefetchQuery('product',()=>getProductOnCollectionAdmin(true))
-    await queryClient.prefetchQuery('category',()=>getCategory(true))
+    await queryClient.prefetchQuery('collection-required-data',()=>getCollectionRequiredData(true))
     return {
         props:{
             dehydratedState: dehydrate(queryClient),

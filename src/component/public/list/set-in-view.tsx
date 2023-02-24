@@ -1,7 +1,6 @@
 import {useInView} from "react-intersection-observer";
 import {useEffect} from "react";
 import {FetchNextPageOptions, InfiniteQueryObserverResult} from "react-query";
-import {useRouter} from "next/router";
 
 interface props{
     hasNextPage:boolean|undefined
@@ -9,15 +8,11 @@ interface props{
         Promise<InfiniteQueryObserverResult<{list:any, nextPage: number | undefined}, unknown>>
 }
 
-export default function SetInViewProductManagement({hasNextPage,fetchNextPage}:props){
+export default function SetInView({hasNextPage,fetchNextPage}:props){
     const {ref,inView} = useInView()
-    const router = useRouter()
-    const next = async ()=>{
-        await fetchNextPage()
-    }
     useEffect(()=>{
         inView
-            ? next()
+            ? fetchNextPage()
             : null
     },[inView])
     return(

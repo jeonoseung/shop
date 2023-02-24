@@ -1,7 +1,7 @@
-import {GetServerSideProps} from "next";
-import {dehydrate, QueryClient, useInfiniteQuery, useMutation, useQuery, useQueryClient} from "react-query";
+
+import {useInfiniteQuery, useMutation,useQueryClient} from "react-query";
 import axios from "axios";
-import {getCollectionAdmin, getProductListAdmin} from "../../../src/function/api/get/api";
+import {getCollectionAdmin} from "../../../src/function/api/get/api";
 import publicStyles from '../../../styles/public.module.css'
 import styles from '../../../src/component/collection/admin/list/collection-list.module.css'
 import Link from "next/link";
@@ -10,7 +10,8 @@ import DeleteIcon from "../../../src/component/public/icon/delete-icon";
 import AdminListNameTag from "../../../src/component/public/admin/list-name-tag";
 import {useRouter} from "next/router";
 import {useState} from "react";
-import SetInViewProductManagement from "../../../src/component/product/admin/list/set-in-view";
+import SetInView from "../../../src/component/public/list/set-in-view";
+
 
 export default function CollectionManagementList(){
     const queryClient = useQueryClient()
@@ -59,7 +60,7 @@ export default function CollectionManagementList(){
                                     <AdminListNameTag name={'제목'} content={li.collection_title}/>
                                     <AdminListNameTag name={'UI'} content={li.isUse === 1 ? '사용중인 컬렉션' : '미사용 컬렉션'}/>
                                     <AdminListNameTag name={'상품 개수'} content={String(li.count)}/>
-                                    <button>수정</button>
+                                    <Link href={`/admin/collection/update/${li.collection_id}`}>수정</Link>
                                     <span className={styles['delete-button']} onClick={()=>removeCollection.mutate(li.collection_id)}>
                                     <DeleteIcon/>
                                 </span>
@@ -67,7 +68,7 @@ export default function CollectionManagementList(){
                             ))
                         ))
                 }
-                <SetInViewProductManagement hasNextPage={hasNextPage} fetchNextPage={fetchNextPage}/>
+                <SetInView hasNextPage={hasNextPage} fetchNextPage={fetchNextPage}/>
             </div>
         </div>
     )
