@@ -4,6 +4,7 @@ import {con} from "../../../../src/db/db";
 const get = async (req:NextApiRequest,res:NextApiResponse) =>{
     const connection = await con()
     try{
+
         const query = req.query
         const router = query.router
         const filter = query.filter
@@ -15,9 +16,11 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                          INNER JOIN collections as c ON cp.collection_id = c.collection_id
                          INNER JOIN products as p ON cp.product_id = p.product_id
                          LEFT JOIN purchase_history as ph ON ph.product_id = p.product_id
-                         WHERE c.collection_router_name = '${router}'
-                         `;
-        const sqlFilter = (filter !== 'all' && filter !== undefined ? 'AND p.category_id IN ('+filter+') ':' ');
+                         WHERE c.collection_router_name = '${router}' `;
+        const sqlFilter = (filter !== 'all' && filter !== undefined ? `AND p.product_id IN 
+                                                                        (SELECT p.product_id FROM products as p 
+                                                                        INNER JOIN category_product as ca_pr ON p.product_id = ca_pr.product_id
+                                                                        WHERE ca_pr.category_id IN (${filter})) `:' ');
         const groupby = `GROUP BY p.product_id `;
         const sqlSort =
             sort === undefined || sort === '1'
@@ -50,6 +53,7 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse){
     switch(req.method){
         case "GET":
             await get(req,res)
+            break;
     }
     return res.status(405).end()
 }

@@ -4,13 +4,14 @@ import {con} from "../../../../src/db/db";
 const get = async (req:NextApiRequest,res:NextApiResponse) =>{
     const connection = await con()
     const {router} = req.query
-    const sql = `SELECT p.category_id,category_name,COUNT(category_name) as counting
+    const sql = `SELECT ca.category_id,category_name,COUNT(ca.category_id) as counting
                     FROM collection_product as cp
                     INNER JOIN collections as c ON cp.collection_id = c.collection_id
                     INNER JOIN products as p ON cp.product_id = p.product_id
-                    INNER JOIN category as ca ON ca.category_id = p.category_id
+                    INNER JOIN category_product as ca_pr on ca_pr.product_id = p.product_id
+                    INNER JOIN category as ca ON ca.category_id = ca_pr.category_id
                     WHERE c.collection_router_name = '${router}'
-                    GROUP BY p.category_id
+                    GROUP BY ca.category_id
                     ORDER BY category_name`;
     const [rows] = await connection.query(sql)
     connection.release()
