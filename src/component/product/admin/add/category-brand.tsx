@@ -34,6 +34,7 @@ export default function CategoryAndBrand(){
             <input type={'text'}
                    className={publicStyles['input-text']}
                    placeholder={'브랜드 명'}
+                   spellCheck={false}
                    value={value.brand}
                    onChange={(e)=>
                    {

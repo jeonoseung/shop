@@ -119,7 +119,7 @@ declare module "product-type"{
         name:string
         title:string
         price:string
-        sale:number
+        sale:number | string
         category:string
         brand:string
         storage_type:string

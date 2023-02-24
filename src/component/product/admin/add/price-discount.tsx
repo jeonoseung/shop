@@ -29,7 +29,7 @@ export default function PriceAndDiscount(){
                        maxLength={2}
                        onChange={(e)=>{
                            e.target.value = e.target.value.replace(/[^0-9]/g, '')
-                           dispatch(ProductInputChange({...value,sale:parseInt(e.target.value)}))
+                           dispatch(ProductInputChange({...value,sale:e.target.value}))
                        }}
                 />
                 <span>%</span>

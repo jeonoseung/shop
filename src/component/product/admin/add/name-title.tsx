@@ -17,12 +17,14 @@ export default function NameAndTitle(){
                    className={publicStyles['input-text']}
                    placeholder={'상품 명'}
                    value={value.name}
+                   spellCheck={false}
                    onChange={(e)=>dispatch(ProductInputChange({...value,name:e.target.value}))}
             />
             <input type={'text'}
                    className={publicStyles['input-text']}
                    placeholder={'상품 제목'}
                    value={value.title}
+                   spellCheck={false}
                    onChange={(e)=>dispatch(ProductInputChange({...value,title:e.target.value}))}
             />
         </div>

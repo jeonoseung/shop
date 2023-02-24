@@ -5,8 +5,8 @@ import {useRouter} from "next/router";
 export default function MenuList(){
     const menu = [
         {name:'주문 내역',router:'order'},
-        {name:'배송지 관리',router:'address'},
-        {name:'개인 정보 수정',router:'info'},
+        // {name:'배송지 관리',router:'address'},
+        // {name:'개인 정보 수정',router:'info'},
     ]
     const router = useRouter()
     return(

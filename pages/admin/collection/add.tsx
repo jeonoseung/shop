@@ -4,18 +4,21 @@ import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useMutation, useQuery} from "react-query";
 import {getCollectionRequiredData,} from "../../../src/function/api/get/api";
 import axios from "axios";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import CollectionAddInput from "../../../src/component/collection/admin/add/collection-input";
 import SelectedProduct from "../../../src/component/collection/admin/add/selected-product";
 import SelectFilter from "../../../src/component/collection/admin/add/select-filter";
 import SelectProductInList from "../../../src/component/collection/admin/add/select-product";
 import {PostType} from "collection-type";
+import {useEffect} from "react";
+import {ResetCollectionValue} from "../../../store/collection/collection-add";
 
 
 
 export default function CollectionAddPage(){
     const collection = useSelector((state:RootState)=>state.collectionAdd)
+    const dispatch = useDispatch()
     const collectionSave = useMutation((body:PostType)=>axios.post('/api/collection',body),{
         onSuccess:()=>{
             alert('저장되었습니다')
@@ -36,6 +39,9 @@ export default function CollectionAddPage(){
         }
         collectionSave.mutate(body)
     }
+    useEffect(()=>{
+        dispatch(ResetCollectionValue())
+    },[])
     return(
         <div className={publicStyles['content']}>
             <div className={styles['collection-add']}>

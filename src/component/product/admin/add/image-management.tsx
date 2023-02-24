@@ -12,7 +12,7 @@ export default function ImageManagement({img,setFile}:props){
     const [src, setSrc] = useState<string>(img)
 
     const ImageChange = async (e:ChangeEvent<HTMLInputElement>) =>{
-        if(!e.target.files) return false;
+        if(!e.target.files || e.target.files.length === 0) return false;
         setFile(e.target.files[0])
         const reader:any = new FileReader()
         reader.readAsDataURL(e.target.files[0])

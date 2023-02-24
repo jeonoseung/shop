@@ -32,7 +32,7 @@ export default function OrderList(){
                                     <Image src={li.product_img} alt={'상품 이미지'} width={60} height={85} priority={true}/>
                                     <div className={styles['info']}>
                                         <span className={styles['info-name']}>상품명</span>
-                                        <span className={styles['info-value']}>{li.brand_name === '' ? '' : `[${li.brand_name}]`} {li.product_name} {li.length === 1 ? '' : `외 ${li.length-1}건`}</span>
+                                        <span className={styles['info-value']}>{li.brand_name === '' ? '' : `[${li.brand_name}] `}{li.product_name} {li.length === 1 ? '' : `외 ${li.length-1}건`}</span>
                                         <span className={styles['info-name']}>주문번호</span>
                                         <span className={styles['info-value']}>{li.phg_id}</span>
                                         <span className={styles['info-name']}>결제금액</span>

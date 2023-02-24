@@ -6,7 +6,7 @@ interface initialStateType{
     product:SelectProductList[]
     filter:AdminProductFilterInCollection,
 }
-const initialState:initialStateType = {
+const data = {
     data:{
         collection_name:'',
         collection_router_name:'',
@@ -18,6 +18,7 @@ const initialState:initialStateType = {
         search:''
     },
 }
+const initialState:initialStateType = {...data}
 
 export const collectionAdd = createSlice({
     name:'collection-add',
@@ -35,6 +36,11 @@ export const collectionAdd = createSlice({
         Filtering:(state:initialStateType,action:PayloadAction<AdminProductFilterInCollection>)=>{
             state.filter = action.payload
         },
+        ResetCollectionValue:(state:initialStateType)=>{
+            state.data = data.data;
+            state.product = data.product;
+            state.filter = data.filter;
+        },
         SetCollectionInput:(state:initialStateType,action:PayloadAction<AdminCollectionInfo>)=>{
             state.data = action.payload
         },
@@ -43,5 +49,5 @@ export const collectionAdd = createSlice({
         },
     }
 })
-export const {ChangeCollectionInput,SelectProduct,RemoveSelectedProduct,Filtering,SetCollectionInput,SetSelectProduct} = collectionAdd.actions
+export const {ChangeCollectionInput,SelectProduct,RemoveSelectedProduct,Filtering,SetCollectionInput,SetSelectProduct,ResetCollectionValue} = collectionAdd.actions
 export default collectionAdd
