@@ -6,6 +6,7 @@ import TopicFormManagement from "./topic-form-management";
 import styles from "../set-form.module.css";
 import DeleteIcon from "../../../public/icon/delete-icon";
 import axios from "axios";
+import publicStyles from "../../../../../styles/public.module.css";
 
 export default function AddRecommendTopic(){
     const queryClient = useQueryClient();
@@ -19,7 +20,7 @@ export default function AddRecommendTopic(){
             return
         }
         if(!use){
-            alert('추천 목록을 선택해주세요')
+            alert('추천 주제 목록을 선택해주세요')
             return
         }
         /** 캐싱된 데이터 수정 */
@@ -47,12 +48,12 @@ export default function AddRecommendTopic(){
             <div>
                 <div className={styles['ui-setting']}>
                     <div className={styles['form-add']}>
-                        <input type={'text'} placeholder={'UI 명'} value={name} onChange={(e)=>setName(e.target.value)}/>
-                        <button onClick={InsertUI}>UI 추가</button>
+                        <input type={'text'} placeholder={'UI 명'} value={name} className={publicStyles['input-text']} onChange={(e)=>setName(e.target.value)}/>
+                        <button onClick={InsertUI} className={publicStyles['button']} style={{width:'80px',marginLeft:'0.5rem'}}>UI 추가</button>
                     </div>
                     <div className={styles['ui-add']}>
                         <label>
-                            <input type={'checkbox'} checked={setting} onChange={(e)=>setSetting(e.target.checked)}/>
+                            <input type={'checkbox'} className={publicStyles['chk-c']} checked={setting} onChange={(e)=>setSetting(e.target.checked)}/>
                             <span>추가</span>
                         </label>
                         {

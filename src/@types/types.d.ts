@@ -39,8 +39,8 @@ declare module "ui-form-type"{
         ui_kind:string
         collection_name:string
         collection_router_name:string
-        rec_image:string
-        rec_content:string
+        topic_img:string
+        topic_content:string
     }
     interface MainUserInterface{
         ui_id:number

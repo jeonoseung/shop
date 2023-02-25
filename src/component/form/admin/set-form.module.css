@@ -20,8 +20,12 @@
     align-items: center;
     justify-content: space-between;
 }
+.title-label{
+
+}
 .form-add{
     display:flex;
+    align-items:center;
 }
 .ui-add{
     position: relative;

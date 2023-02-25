@@ -10,7 +10,7 @@ interface props{
 
 export default function ImageManagement({img,setFile}:props){
     const [src, setSrc] = useState<string>(img)
-
+    /** 이미지 변경 시 미리보기 이미지 변경 */
     const ImageChange = async (e:ChangeEvent<HTMLInputElement>) =>{
         if(!e.target.files || e.target.files.length === 0) return false;
         setFile(e.target.files[0])

@@ -13,15 +13,17 @@ export default function Home() {
     const recommendProduct = useQuery('rec-product',()=>getProductRand(false))
     const form = useQuery('form',()=>getHomeForm(false))
     const load_images1= [
-        {src:'/image/image1.jpg'},
-        {src:'/image/image2.jpg'},
-        {src:'/image/image3.jpg'},
-        {src:'/image/image4.jpg'},
+        {src:'/image/slider1.jpg'},
+        {src:'/image/slider2.jpg'},
+        {src:'/image/slider3.jpg'},
+        {src:'/image/slider4.jpg'},
+        {src:'/image/slider5.jpg'},
+        {src:'/image/slider6.jpg'}
     ]
     return (
-        <div>
+        <div style={{minWidth:'1024px'}}>
             <ImageSlider images={load_images1}/>
-            <div className={publicStyles.content}>
+            <div className={publicStyles.home}>
                 {recommendProduct.isLoading || recommendProduct.status === 'error' ? null : <RecommendProduct data={recommendProduct.data}/>}
                 {
                     form.isLoading || form.status === 'error'

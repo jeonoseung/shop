@@ -10,6 +10,8 @@ import AddRecommendCollection from "../../../src/component/form/admin/collection
 import AddRecommendTopic from "../../../src/component/form/admin/topic/rec-topic-add";
 import {UIForm} from "ui-form-type";
 import AddLimitedOffer from "../../../src/component/form/admin/limited/limited-offer-add";
+import publicStyles from "../../../styles/public.module.css";
+import MainSliderImageAdd from "../../../src/component/form/admin/main-slider/image-add";
 export default function SetFormPage(){
     const ui = useQuery('ui-li',()=>getHomeDisplayForm(false))
     const saveUI = useMutation((form:UIForm)=>axios.put('/api/form/admin',form),{
@@ -27,12 +29,13 @@ export default function SetFormPage(){
         <div className={publicStyle['content']}>
             <div className={styles['ui-set']}>
                 <div>
+                    <MainSliderImageAdd/>
                     <AddRecommendCollection/>
                     <AddRecommendTopic/>
                     <AddLimitedOffer/>
                 </div>
                 <div>
-                    <button onClick={ui_save}>저장</button>
+                    <button onClick={ui_save} className={publicStyles['button']}>UI 저장</button>
                     <UIFormList />
                 </div>
             </div>

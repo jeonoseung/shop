@@ -61,9 +61,11 @@ export default function ImageSlider({images}:{images:{src:string}[]}){
         <div className={styles['image-slider']} onMouseOver={()=>setHover(true)} onMouseLeave={()=>setHover(false)}>
             <div className={styles['slider']} style={sliderCSS}>
                 {images.map((item, index)=>(
-                    <Image key={index} src={item.src} alt='이미지' width={1920} height={400} priority={true}/>
+                    <div key={index} className={styles['img']} style={{backgroundImage:`url(${item.src})`}}>
+                    </div>
                 ))}
-                <Image key={'copy-image'} src={images[0].src} alt='이미지' width={1920} height={400} priority={true}/>
+                <div className={styles['img']} style={{backgroundImage:`url(${images[0].src})`}}>
+                </div>
             </div>
             <div className={styles['slider-length']}>
                 {Index+1 === length ? 1 : Index+1}<span style={{margin:'0 0.25rem'}}>/</span>{length-1}

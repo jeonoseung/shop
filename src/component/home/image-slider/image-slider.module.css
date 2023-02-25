@@ -5,10 +5,14 @@
 .slider{
     display:flex;
 }
-.slider img{
+.slider .img{
+    min-width:1024px;
     width:100vw;
-    height:450px;
+    height:350px;
     flex-shrink:0;
+    background-repeat:no-repeat;
+    background-position: center;
+    background-size:cover;
 }
 .slider-length{
     display: flex;

@@ -3,6 +3,7 @@ import {UICollection, UiListType} from "ui-form-type";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getHomeDisplayForm} from "../../../../function/api/get/api";
 import CollectionFormManagement from "./collection-form-management";
+import publicStyles from '../../../../../styles/public.module.css'
 import styles from "../set-form.module.css";
 import DeleteIcon from "../../../public/icon/delete-icon";
 import axios from "axios";
@@ -19,7 +20,7 @@ export default function AddRecommendCollection(){
             return
         }
         if(!use){
-            alert('추천 목록을 선택해주세요')
+            alert('추천 컬렉션 목록을 선택해주세요')
             return
         }
         /** 캐싱된 데이터 수정 */
@@ -41,18 +42,18 @@ export default function AddRecommendCollection(){
     })
     return(
         <div>
-            <div>
+            <label className={styles['title-label']}>
                 <span>추천 컬렉션</span>
-            </div>
+            </label>
             <div>
                 <div className={styles['ui-setting']}>
                     <div className={styles['form-add']}>
-                        <input type={'text'} placeholder={'UI 명'} value={name} onChange={(e)=>setName(e.target.value)}/>
-                        <button onClick={InsertUI}>UI 추가</button>
+                        <input type={'text'} placeholder={'UI 명'} className={publicStyles['input-text']} value={name} onChange={(e)=>setName(e.target.value)}/>
+                        <button onClick={InsertUI} className={publicStyles['button']} style={{width:'80px',marginLeft:'0.5rem'}}>UI 추가</button>
                     </div>
                     <div className={styles['ui-add']}>
                         <label>
-                            <input type={'checkbox'} checked={setting} onChange={(e)=>setSetting(e.target.checked)}/>
+                            <input type={'checkbox'} className={publicStyles['chk-c']} checked={setting} onChange={(e)=>setSetting(e.target.checked)}/>
                             <span>추가</span>
                         </label>
                         {
