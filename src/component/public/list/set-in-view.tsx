@@ -10,6 +10,7 @@ interface props{
 
 export default function SetInView({hasNextPage,fetchNextPage}:props){
     const {ref,inView} = useInView()
+
     useEffect(()=>{
         inView
             ? fetchNextPage()

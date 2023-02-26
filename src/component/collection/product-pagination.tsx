@@ -1,14 +1,10 @@
 import styles from './collection.module.css'
 import {useEffect, useState} from "react";
-import Link from "next/link";
 import {useRouter} from "next/router";
-import ViewMoreIcon from "../public/icon/view-more";
 import RightIcon from "../public/icon/right-icon";
 import DoubleRightIcon from "../public/icon/double-right-icon";
 import LeftIcon from "../public/icon/left-icon";
 import DoubleLeftIcon from "../public/icon/double-left-icon";
-import {useSelector} from "react-redux";
-import {RootState} from "../../../store/store";
 import PageButton from "./page-btn";
 
 export default function ProductPagination({length,listLength}:{length:number,listLength:number}){

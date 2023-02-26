@@ -13,18 +13,22 @@ export default function App({Component, pageProps}: AppProps) {
         defaultOptions:{
             queries:{
                 refetchOnWindowFocus:false,
-                retry:false
+                retry:false,
+                staleTime:5*60*1000
             }
         }
     }));
     return (
+
         <QueryClientProvider client={query}>
             <Hydrate state={pageProps.dehydratedState}>
                 <Provider store={store}>
-                    <Header/>
-                    <StickyHeader />
-                    <Component {...pageProps}/>
-                    <CartModal />
+                    <div style={{overflow:"auto"}}>
+                        <Header/>
+                        <StickyHeader />
+                        <Component {...pageProps}/>
+                        <CartModal />
+                    </div>
                 </Provider>
             </Hydrate>
             {/*<ReactQueryDevtools initialIsOpen={false} position='bottom-right' />*/}

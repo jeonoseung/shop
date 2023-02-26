@@ -7,7 +7,6 @@
 }
 .slider .img{
     min-width:1024px;
-    width:100vw;
     height:350px;
     flex-shrink:0;
     background-repeat:no-repeat;

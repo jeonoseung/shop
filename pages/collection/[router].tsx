@@ -2,11 +2,7 @@ import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useQuery} from "react-query";
 import publicStyles from '../../styles/public.module.css'
 import styles from '../../src/component/collection/collection.module.css'
-import {
-    getCategoryListInCollection,
-    getCollectionInfo,
-    getProductListInCollection
-} from "../../src/function/api/get/api";
+import {getCategoryListInCollection, getCollectionInfo, getProductListInCollection} from "../../src/function/api/get/api";
 import ProductFilter from "../../src/component/collection/product-filter";
 import ProductList from "../../src/component/collection/product-list";
 import ProductSort from "../../src/component/collection/product-sort";
@@ -17,12 +13,13 @@ import {addFilter, resetFilter} from "../../store/collection/collection";
 import Title from "../../src/component/public/title";
 import ProductPagination from "../../src/component/collection/product-pagination";
 import {params,router} from "collection-type";
+import {checkUserAgent} from "../../src/function/public/public";
 
-export default function ProductListInCollection({router,params}:{router:router,params:params}){
+export default function ProductListInCollection({isMobile,router,params}:{isMobile:boolean,router:router,params:params}){
     const filter = useSelector((state:RootState)=>state.collection.filter)
     const collection = useQuery('collection',()=>getCollectionInfo(false,router,params))
-    const product = useQuery('product-li',()=>getProductListInCollection(false,router,params))
-    const category = useQuery('category-li',()=>getCategoryListInCollection(false,router))
+    const product = useQuery('collection-product-li',()=>getProductListInCollection(false,router,params))
+    const category = useQuery('collection-category-li',()=>getCategoryListInCollection(false,router))
     const dispatch = useDispatch()
     /**
      * parameter이 all이 아니고 filter가 없으면 filter 셋팅
@@ -71,6 +68,8 @@ export const getServerSideProps:GetServerSideProps = async (context)=>{
     const sort = context.query['sort']
     const page = context.query['page']
 
+    const isMobile = checkUserAgent(context.req.headers['user-agent'] as string);
+
     const params = {
         filter: typeof filter === "string" ? filter : 'all',
         sort: typeof sort === "string" ? sort : '1',
@@ -78,12 +77,12 @@ export const getServerSideProps:GetServerSideProps = async (context)=>{
         listLength: 12
     }
     const queryClient = new QueryClient()
-
     await queryClient.prefetchQuery('collection',()=>getCollectionInfo(true,router,params))
-    await queryClient.prefetchQuery('product-li',()=>getProductListInCollection(true,router,params))
-    await queryClient.prefetchQuery('category-li',()=>getCategoryListInCollection(true,router))
+    await queryClient.prefetchQuery('collection-product-li',()=>getProductListInCollection(true,router,params))
+    await queryClient.prefetchQuery('collection-category-li',()=>getCategoryListInCollection(true,router))
     return {
         props:{
+            isMobile:isMobile,
             router:router,
             params: params,
             dehydratedState: dehydrate(queryClient),

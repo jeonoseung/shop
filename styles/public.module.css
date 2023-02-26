@@ -8,12 +8,12 @@
     margin:auto;
     padding:1.5rem 0 10rem 0;
 }
-@media(max-width:1024px){
-    .content{
-        width:100%;
-        padding:1.5rem 1rem;
-    }
-}
+/*@media(max-width:1024px){*/
+/*    .content{*/
+/*        width:100%;*/
+/*        padding:1.5rem 1rem;*/
+/*    }*/
+/*}*/
 .checkbox{
     display:flex;
     align-items:center;

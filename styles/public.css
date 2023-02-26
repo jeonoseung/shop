@@ -29,6 +29,7 @@
     font-weight:900;
 }
 body{
+    overflow:auto;
     margin:0;
     font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
 }

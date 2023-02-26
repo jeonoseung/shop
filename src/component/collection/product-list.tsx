@@ -5,6 +5,7 @@ import {ProductListInCollectionPage} from "collection-type";
 import Link from "next/link";
 
 export default function ProductList({data}:any){
+
     return(
         <div className={styles['product-list']}>
             {
@@ -39,9 +40,6 @@ export default function ProductList({data}:any){
                     </Link>
                 ))
             }
-            <div>
-
-            </div>
         </div>
     )
 }

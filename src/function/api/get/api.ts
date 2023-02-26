@@ -125,8 +125,8 @@ export const getHomeDisplayForm = async (ssr:boolean)=>{
  * 상품 목록 가져오기
  * 상품 관리용
  * */
-export const getProductListAdmin = async (ssr:boolean,search:string,pageParam:number=1,length:number=10) =>{
-    const url = `${ssr ? process.env.URL : ''}/api/product/admin?page=${pageParam}&search=${search ? search : ''}&length=${length}`
+export const getProductListAdmin = async (ssr:boolean,search:string,pageParam:number,length:number=10) =>{
+    const url = `${ssr ? process.env.URL : ''}/api/product/admin?page=${pageParam ? pageParam:1}&search=${search ? search : ''}&length=${length}`
     const res = await axios.get(url)
     return {list:res.data,nextPage:res.data.length < 10 ? undefined : pageParam+1}
 }
