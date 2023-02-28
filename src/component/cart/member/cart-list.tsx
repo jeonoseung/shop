@@ -13,7 +13,6 @@ import axios from "axios";
 export default function CartListMember({item}:{item:CartListType}){
     const queryClient = useQueryClient()
     const state = useSelector((state:RootState)=>state.cart)
-
     const dispatch = useDispatch()
     const minusProduct = useMutation((pid:number)=>axios.delete(`/api/cart/count/${pid}`),{
         onSuccess:()=>{

@@ -1,7 +1,7 @@
 import publicStyles from '../../styles/public.module.css';
 import styles from '../../src/component/cart/cart.module.css';
 import Title from "../../src/component/public/title";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
 import {getCartList} from "../../src/function/api/get/api";
 import ProductListBox from "../../src/component/cart/product-list-box";
 import CartOrderBar from "../../src/component/cart/order-bar";
@@ -11,9 +11,10 @@ import ProductListBoxMember from "../../src/component/cart/member/product-list-b
 import {useEffect} from "react";
 import {allCheck} from "../../store/cart/cart";
 import {CartListType} from "cart-type";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
+import {checkUserAgent} from "../../src/function/public/public";
 
-export default function Cart({isLogin}:{isLogin:boolean}){
+export default function Cart({isLogin,isMobile}:{isLogin:boolean,isMobile:boolean}){
     const {data,isLoading,isFetching} = useQuery('cart-li',()=>getCartList(false))
     const dispatch = useDispatch()
     useEffect(()=>{
@@ -22,7 +23,7 @@ export default function Cart({isLogin}:{isLogin:boolean}){
         }
     },[isFetching])
     return(
-        <div className={publicStyles.content}>
+        <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
             <div>
                 <Title title={'장바구니'}/>
             </div>
@@ -30,7 +31,7 @@ export default function Cart({isLogin}:{isLogin:boolean}){
                 isLoading
                     ? null
                     :
-                    <div className={styles['cart']}>
+                    <div className={styles[isMobile ? 'cart-mobile' : 'cart']}>
                         {
                             isLogin
                                 ? <ProductListBoxMember data={data}/>
@@ -47,8 +48,10 @@ export default function Cart({isLogin}:{isLogin:boolean}){
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps(context){
         const user = !!context.req.session.user
+        const isMobile = checkUserAgent(context.req.headers['user-agent'] as string);
         return {
             props:{
+                isMobile:isMobile,
                 isLogin:user
             }
         };

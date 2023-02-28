@@ -1,6 +1,7 @@
 import {useInView} from "react-intersection-observer";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {FetchNextPageOptions, InfiniteQueryObserverResult} from "react-query";
+import Spinner from "../spinner";
 
 interface props{
     hasNextPage:boolean|undefined
@@ -10,17 +11,27 @@ interface props{
 
 export default function SetInView({hasNextPage,fetchNextPage}:props){
     const {ref,inView} = useInView()
-
+    const [icon,setIcon] = useState<boolean>(false)
     useEffect(()=>{
-        inView
-            ? fetchNextPage()
-            : null
+        if(inView){
+            setIcon(true)
+            setTimeout(()=>{
+                fetchNextPage()
+            },1000)
+        }else{
+            setIcon(false)
+        }
     },[inView])
     return(
-        <div>
-            {
-                hasNextPage ? <button ref={ref} onClick={()=>fetchNextPage()}>더보기</button> : null
-            }
-        </div>
+        hasNextPage
+            ?
+            <div ref={ref} style={{width:'100%',height:'100px',textAlign:'center',position:'relative'}}>
+                {
+                    icon
+                        ? <Spinner/>
+                        : null
+                }
+            </div>
+            : null
     )
 }

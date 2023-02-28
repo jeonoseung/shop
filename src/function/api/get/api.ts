@@ -46,16 +46,12 @@ export const getCollectionInfo=async (ssr:boolean,router:router,set:params)=>{
     return data.data
 }
 
-export const getProductListInCollection = async (ssr:ssr,router:router,set:params) =>{
-    const filter = set.filter;
-    const sort = set.sort;
-    const page = set.page;
-    const listLength = set.listLength
-    if(Array.isArray(filter)) return false
+export const getProductListInCollection = async (ssr:ssr,router:router,set:params,pageParam:number) =>{
+    const {filter,sort,listLength} = set
     const first = (filter !== '' ? filter.split('%').splice(1,filter.split('%').length) : filter)
-    const url = `${ssr ? process.env.URL : ''}/api/collection/product/${router}?filter=${first.length === 0 ? 'all' : first}&sort=${sort}&page=${page}&list=${listLength}`
+    const url = `${ssr ? process.env.URL : ''}/api/collection/product/${router}?filter=${first.length === 0 ? 'all' : first}&sort=${sort}&page=${pageParam}&list=${listLength}`
     const data = await axios.get(url)
-    return data.data
+    return {list:data.data,nextPage:data.data.length < listLength ? undefined : pageParam+1}
 }
 
 export const getCategoryListInCollection = async (ssr:boolean,router:string|string[]|undefined)=>{
@@ -103,11 +99,10 @@ export const getSearchProduct = async (ssr:boolean,keyword:string|null,params:pa
     if(keyword === '') return false
     const filter = params.filter;
     const sort = params.sort;
-    const page = params.page;
     const listLength = params.listLength;
     if(Array.isArray(filter)) return false
     const first = (filter !== '' ? filter.split('%').splice(1,filter.split('%').length) : filter)
-    const url = `${ssr ? process.env.URL : ''}/api/search/product/${keyword}?filter=${first.length === 0 ? 'all' : first}&sort=${sort}&page=${page}&list=${listLength}`;
+    const url = `${ssr ? process.env.URL : ''}/api/search/product/${keyword}?filter=${first.length === 0 ? 'all' : first}&sort=${sort}&page=${1}&list=${listLength}`;
     const data = await axios.get(url)
     return data.data
 }

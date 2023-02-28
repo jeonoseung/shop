@@ -12,9 +12,10 @@ import ProductData from "../../src/component/product/product-info/product-data";
 import ProductOption from "../../src/component/product/product-info/product-option";
 import ProductTotalPrice from "../../src/component/product/product-info/product-total";
 import PutInCart from "../../src/component/product/product-info/put-in-cart";
+import {checkUserAgent} from "../../src/function/public/public";
 
 
-export default function ProductInfoPage({pid}:{pid:string}){
+export default function ProductInfoPage({pid,isMobile}:{pid:string,isMobile:boolean}){
     const router = useRouter()
     const {isLoading, data} = useQuery('product-info',()=>getProductInfo(false,pid))
     useEffect(()=>{
@@ -26,14 +27,14 @@ export default function ProductInfoPage({pid}:{pid:string}){
     },[])
 
     return (
-        <div className={publicStyle.content}>
+        <div className={publicStyle[isMobile ? 'mobile-content' : 'content']}>
             {data.info
                 ? <NextSeo title={`${data.info.brand_name !== '' ? '['+data.info.brand_name+'] ' : ''} ${data.info.product_name}`}/>
                 : <NextSeo title={'존재하지 않는 상품'}/>
             }
             {data.info
-                ? <div className={styles['product-info']}>
-                    <div className={styles['product-info-img']}>
+                ? <div className={styles[isMobile ? 'product-info-mobile' : 'product-info']}>
+                    <div className={styles[`product-info-img`]}>
                         {!isLoading
                             ?
                             <Image
@@ -41,12 +42,12 @@ export default function ProductInfoPage({pid}:{pid:string}){
                                 src={data.info.product_img }
                                 alt={'상품 이미지'}
                                 priority={true}
-                                width={450} height={500}/>
+                                width={1200} height={1500}/>
                             :
                             <Spinner />
                         }
                     </div>
-                    <div className={styles['product-info-data']}>
+                    <div className={styles[`product-info-data${isMobile ? '-mobile' : ''}`]}>
                         <ProductData pid={pid}/>
                         <ProductOption pid={pid}/>
                         <ProductTotalPrice pid={pid}/>
@@ -66,6 +67,7 @@ export const getServerSideProps:GetServerSideProps = async (context)=>{
     return {
         props:{
             pid:pid,
+            isMobile:checkUserAgent(context.req.headers['user-agent'] as string),
             dehydratedState: dehydrate(queryClient),
         }
     }

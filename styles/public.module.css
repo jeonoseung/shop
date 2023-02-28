@@ -8,12 +8,11 @@
     margin:auto;
     padding:1.5rem 0 10rem 0;
 }
-/*@media(max-width:1024px){*/
-/*    .content{*/
-/*        width:100%;*/
-/*        padding:1.5rem 1rem;*/
-/*    }*/
-/*}*/
+.mobile-content{
+    min-width:320px;
+    width:100%;
+    padding:1.5rem 0.5rem 10rem 0.5rem;
+}
 .checkbox{
     display:flex;
     align-items:center;
@@ -194,7 +193,9 @@
     color:rgb(153, 153, 153)
 }
 .result-count{
+    min-width:75px;
     width:100%;
+    max-width:100px;
     border:1px solid #ddd;
     border-radius:0.25rem;
     display:grid;

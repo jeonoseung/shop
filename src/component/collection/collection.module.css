@@ -3,6 +3,11 @@
     grid-template-columns:1.5fr 6fr;
     gap:3rem;
 }
+.collection-mobile{
+    display:grid;
+    grid-template-columns:1fr;
+    position:relative;
+}
 .result-title{
     font-size:1.75rem;
     margin:3rem auto;
@@ -81,11 +86,17 @@
 .product-sort .sort input[type='radio']:checked + span{
     color:rgb(51,51,51);
 }
-.product-list{
+.collection .product-list{
     display:grid;
     grid-template-columns:1fr 1fr 1fr;
     gap:1rem;
     row-gap:3rem;
+}
+.collection-mobile .product-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0.5rem;
+    row-gap:1.5rem;
 }
 .product-list img{
     width:100%;
@@ -119,8 +130,16 @@
     font-size:0.9rem;
     text-decoration: line-through;
 }
-.filter .category-list{
-
+.filter-label{
+    display:flex;
+    align-items:center;
+}
+.filter-fold{
+    display:flex;
+    align-items:center;
+}
+.filter-fold input[type=checkbox]{
+    display:none;
 }
 .list{
     display:flex;

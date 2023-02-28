@@ -42,6 +42,7 @@
     border-radius:25px;
     border:0;
     transition: opacity 0.5s;
+    z-index:10;
 }
 .pre-btn svg{
     fill:white;
@@ -57,6 +58,7 @@
     border-radius:25px;
     border:0;
     transition: opacity 0.5s;
+    z-index:10;
 }
 .opacity{
     opacity:0;

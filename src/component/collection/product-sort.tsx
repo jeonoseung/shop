@@ -1,11 +1,10 @@
 import publicStyles from "../../../styles/public.module.css";
 import styles from "./collection.module.css";
-import {useQuery} from "react-query";
-import {getProductListInCollection} from "../../function/api/get/api";
 import {useRouter} from "next/router";
 import {ChangeEvent} from "react";
+import {params} from "collection-type";
 
-export default function ProductSort({length,params,refetch}:{length:number,params:any,refetch:any}){
+export default function ProductSort({length,params}:{length:number,params:params}){
     const router = useRouter()
     const imsi = (e:ChangeEvent<HTMLInputElement>) =>{
         router.push({

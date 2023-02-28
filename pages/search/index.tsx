@@ -83,7 +83,7 @@ export default function SearchPage(){
                                             category.data.reduce((result:number,{counting}:{counting:number})=>{
                                                 return result+counting
                                             },0)
-                                        } params={params} refetch={product.refetch}/>
+                                        } params={params}/>
                                         <ProductList data = {product.data}/>
                                         <ProductPagination
                                             length={

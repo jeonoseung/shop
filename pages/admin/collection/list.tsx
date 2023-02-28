@@ -62,8 +62,8 @@ export default function CollectionManagementList(){
                                     <AdminListNameTag name={'상품 개수'} content={String(li.count)}/>
                                     <Link href={`/admin/collection/update/${li.collection_id}`}>수정</Link>
                                     <span className={styles['delete-button']} onClick={()=>removeCollection.mutate(li.collection_id)}>
-                                    <DeleteIcon/>
-                                </span>
+                                        <DeleteIcon/>
+                                    </span>
                                 </div>
                             ))
                         ))

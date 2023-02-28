@@ -1,6 +1,11 @@
 .product-info{
-    display:flex;
+    display:grid;
+    grid-template-columns:5fr 6fr;
+    gap:4rem;
     justify-content:space-between;
+}
+.product-info-mobile{
+
 }
 .product-info-img{
     position:relative;
@@ -8,58 +13,63 @@
 .product-info-data{
     width:500px;
 }
+.product-info-data-mobile{
+    width:100%;
+    margin-top:1rem;
+}
 .product-info-img .product-img{
-
+    width:100%;
+    height:auto;
 }
 .sub-text{
     color:rgb(181, 181, 181);;
     font-size:14px;
 }
-.product-info .product-name{
+.product-name{
     font-weight:500;
     font-size: 24px;
     margin:0.5rem 0;
 }
-.product-info .product-name span{
+.product-name span{
     margin-right:0.25rem;
 }
-.product-info .product-price{
+.product-price{
     font-weight: 600;
     margin-top:0.75rem;
 }
-.product-info .product-price-value{
+.product-price-value{
     font-size: 30px;
     margin-right:0.25rem;
 }
-.product-info .product-price-won{
+.product-price-won{
     font-weight:500;
     font-size: 20px;
 }
-.product-info .product-data{
+.product-data{
     margin-bottom:1rem;
 }
-.product-info .product-options{
+.product-options{
     border-bottom:1px solid #ddd;;
 }
-.product-info .product-option{
+.product-option{
     border-top:1px solid #ddd;
     display:grid;
     grid-template-columns:20% 80%;
     padding:0.5rem 0;
 }
-.product-info .product-option .option-td{
+.product-option .option-td{
     margin:0.5rem 0;
 }
-.product-info .product-option .option-name{
+.product-option .option-name{
     color: rgb(102, 102, 102);
     font-size:14px;
     margin:0.5rem 0;
 }
-.product-info .product-option .option-content{
+.product-option .option-content{
     color: rgb(51, 51, 51);
     font-size:14px;
 }
-.product-info .product-option .option-described{
+.product-option .option-described{
     color: rgb(102, 102, 102);
     font-size:12px;
     margin:0.25rem 0;

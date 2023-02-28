@@ -1,6 +1,6 @@
 import publicStyles from '../../../styles/public.module.css'
 import styles from '../../../src/component/product/admin/list/product-list.module.css'
-import {dehydrate, QueryClient, useInfiniteQuery, useQueryClient} from "react-query";
+import {useInfiniteQuery} from "react-query";
 import {ProductListType} from "product-type";
 import Spinner from "../../../src/component/public/spinner";
 import {useRouter} from "next/router";

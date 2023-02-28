@@ -162,7 +162,6 @@ declare module "collection-type"{
     interface params{
         filter:string
         sort:string
-        page:string
         listLength:number
     }
     interface AdminCollectionInfo{
@@ -229,4 +228,8 @@ declare module "order-list"{
         phg_id:number
         discount_rate:number | null
     }
+}
+declare module 'react-query-custom-type'{
+    type pageParamsType = number[] | undefined[]
+    type nextPageType = number;
 }
