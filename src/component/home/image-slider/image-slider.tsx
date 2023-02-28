@@ -112,6 +112,7 @@ export default function ImageSlider({images}:{images:{src:string}[]}){
     const [move,setMove] = useState<number>(0)
     /** 슬라이드 클릭 */
     const mouseDown = (e:React.MouseEvent<HTMLDivElement>)=>{
+        if(sliderCSS.transitionDuration !== '0ms') return;
         //클릭 상태 값
         setDown(true)
         //클릭한 위치 저장
@@ -124,14 +125,14 @@ export default function ImageSlider({images}:{images:{src:string}[]}){
         if(down){
             setDown(false)
             //전체 너비의 3분의 1만큼 움직이면 해당하는 방향으로 다음 또는 이전 이벤트 실행
-            const half = width/3;
+            const half = Math.floor(width/3);
             //다음 이미지
             if(half < move){
                 nextImage()
                 return
             }
             //이전 이미지
-            if(half*-1 > move){
+            else if(half*-1 > move){
                 previousImage()
                 return
             }
