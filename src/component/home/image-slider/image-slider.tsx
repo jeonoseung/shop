@@ -1,4 +1,4 @@
-import React, {CSSProperties, useState, useRef, useEffect} from "react";
+import React, {CSSProperties, useState, useRef, useEffect, Ref} from "react";
 import styles from './image-slider.module.css'
 import LeftIcon from "../../public/icon/left-icon";
 import RightIcon from "../../public/icon/right-icon";
@@ -26,16 +26,15 @@ export default function ImageSlider({images}:{images:{src:string}[]}){
     //이벤트 리스너에서 사용하기 위해 사용
     const refIndex = useRef(Index)
     //setTimeout 저장
-    const time:any = useRef();
+    const time = useRef<any>();
     //기본 상태 설정
     useEffect(()=>{
-        const x = window.innerWidth > 1024 ? window.innerWidth : 1024
         //브라우저 창 조절 시
         const resizeWindow = () =>{
             //너비가 1024px 이상에서만 실행
             if(window.innerWidth > 1024){
                 setWidth(window.innerWidth)
-                setSliderCSS((prev)=>({...prev,transform:`translate3d(-${refIndex.current * x}px,0,0)`}))
+                setSliderCSS((prev)=>({...prev,transform:`translate3d(-${refIndex.current * window.innerWidth}px,0,0)`}))
             }
             //너비 조정시 이벤트 초기화
             clearInterval(time.current)
