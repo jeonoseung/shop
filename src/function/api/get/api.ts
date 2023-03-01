@@ -89,22 +89,20 @@ export const getOrderDetail = async (ssr:boolean,params:string|null,user?:number
     }
 }
 /** 검색 페이지 상품의 카테고리 목록 불러오기 */
-export const getSearchCategory = async (ssr:boolean,keyword:string|null)=>{
-    if(keyword === '') return false
-    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/search/category/${keyword}`)
+export const getSearchCategory = async (ssr:boolean,keyword:string)=>{
+    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/search/category?keyword=${keyword !== '' ? keyword : ''}`)
     return data.data
 }
 /** 검색 페이지 상품 목록 불러오기 */
-export const getSearchProduct = async (ssr:boolean,keyword:string|null,params:params)=>{
-    if(keyword === '') return false
+export const getSearchProduct = async (ssr:boolean,keyword:string,params:params,pageParam:number=1)=>{
+    if(keyword === '') return {list:[],nextPage:undefined}
     const filter = params.filter;
     const sort = params.sort;
     const listLength = params.listLength;
-    if(Array.isArray(filter)) return false
     const first = (filter !== '' ? filter.split('%').splice(1,filter.split('%').length) : filter)
-    const url = `${ssr ? process.env.URL : ''}/api/search/product/${keyword}?filter=${first.length === 0 ? 'all' : first}&sort=${sort}&page=${1}&list=${listLength}`;
+    const url = `${ssr ? process.env.URL : ''}/api/search/product?keyword=${keyword}&filter=${first.length === 0 ? 'all' : first}&sort=${sort}&page=${pageParam}&list=${listLength}`;
     const data = await axios.get(url)
-    return data.data
+    return {list:data.data,nextPage:data.data.length >=listLength ? pageParam+1 : undefined}
 }
 /** 설정 된 홈페이지의 form 목록 + 관련 상품 목록 불러오기 */
 export const getHomeForm = async (ssr:boolean)=>{

@@ -1,13 +1,11 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {con, database} from "../../../../src/db/db";
+import {con} from "../../../../src/db/db";
 
 const get = async (req:NextApiRequest,res:NextApiResponse)=>{
     const connection = await con()
     try{
         const query = req.query;
-        const keyword = query.keyword;
-        const filter = query.filter;
-        const sort = query.sort;
+        const {keyword,filter,sort} = query
         const page = query.page ? parseInt(query.page as string) : 1
         const listLength = parseInt(query.list as string);
 
@@ -28,7 +26,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse)=>{
                         : sort === '4'
                             ? 'order by (p.product_price * (1-p.discount_rate * 0.01)) desc '
                             : ' ';
-        const pagination = `LIMIT ${listLength} OFFSET ${(listLength*((page < 1 ? 1 : page)-1))}`;
+        const pagination = `LIMIT ${listLength} OFFSET ${listLength*(page-1)}`;
         const [rows] = await connection.query(sql+sqlFilter+groupby+sqlSort+pagination)
         connection.release()
         return res.status(200).send(rows)

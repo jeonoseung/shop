@@ -8,7 +8,7 @@ export default function ImageSlider({images}:{images:{src:string}[]}){
     //애니메이션 속도
     const ms = 300;
     //너비 기본 값
-    const [width,setWidth] = useState<number>(1920);
+    const [width,setWidth] = useState<number>(0);
     //이미지 슬라이드 hover 상태
     const [hover,setHover] = useState<boolean>(false)
     //다음 버튼 ref
@@ -29,17 +29,21 @@ export default function ImageSlider({images}:{images:{src:string}[]}){
     const time:any = useRef();
     //기본 상태 설정
     useEffect(()=>{
+        const x = window.innerWidth > 1024 ? window.innerWidth : 1024
+        //브라우저 창 조절 시
         const resizeWindow = () =>{
             //너비가 1024px 이상에서만 실행
             if(window.innerWidth > 1024){
                 setWidth(window.innerWidth)
-                setSliderCSS({...sliderCSS,transform:`translate3d(-${refIndex.current * window.innerWidth}px,0,0)`})
+                setSliderCSS((prev)=>({...prev,transform:`translate3d(-${refIndex.current * x}px,0,0)`}))
             }
             //너비 조정시 이벤트 초기화
             clearInterval(time.current)
             time.current = setInterval(()=>nextButton.current?.click(),4000)
         }
-        setSliderCSS({...sliderCSS,transform:`translate3d(-${Index * window.innerWidth}px,0,0)`})
+        setSliderCSS((prev)=>({
+            ...prev,transform:`translate3d(-${refIndex.current * window.innerWidth}px,0,0)`
+        }))
         setWidth(window.innerWidth > 1024 ? window.innerWidth : 1024)
         window.addEventListener('resize',resizeWindow)
     },[])
@@ -87,20 +91,19 @@ export default function ImageSlider({images}:{images:{src:string}[]}){
      * 이벤트 실행 후 애니메이션 효과 종료
      * */
     useEffect(()=>{
-        const {transitionDuration} = sliderCSS;
         //브라우저 창 크기 조절 시 부자연스러운 부분 연출을 없애기 위해 애니메이션 종료
-        if(transitionDuration !== '0ms'){
-            setTimeout(()=>setSliderCSS({...sliderCSS,transitionDuration:'0ms'}),ms)
+        if(sliderCSS.transitionDuration !== '0ms'){
+            setTimeout(()=>setSliderCSS((prev)=>({...prev,transitionDuration:'0ms'})),ms)
         }
     },[sliderCSS.transitionDuration])
     useEffect(()=>{
         //처음 이미지에서 끝 이미지로 이동
         if(overIndex < 0){
-            setTimeout(()=>setSliderCSS({...sliderCSS, transitionDuration:`0ms`,transform:`translate3d(-${(length) * width}px,0,0)`}),ms)
+            setTimeout(()=>setSliderCSS((prev)=>({...prev, transitionDuration:`0ms`,transform:`translate3d(-${(length) * width}px,0,0)`})),ms)
         }
         //끝 이미지에서 처음 이미지로 이동
         else if(overIndex > 0){
-            setTimeout(()=>setSliderCSS({...sliderCSS,transitionDuration:`0ms`,transform:`translate3d(-${window.innerWidth}px,0,0)`}),ms)
+            setTimeout(()=>setSliderCSS((prev)=>({...prev,transitionDuration:`0ms`,transform:`translate3d(-${width}px,0,0)`})),ms)
         }
     },[overIndex])
     /** 이미지 슬라이드 드래그 */
@@ -121,7 +124,7 @@ export default function ImageSlider({images}:{images:{src:string}[]}){
         clearInterval(time.current)
     }
     /** 슬라이드 마우스 UP */
-    const mouseUp = (e:React.MouseEvent<HTMLDivElement>)=>{
+    const mouseUp = ()=>{
         if(down){
             setDown(false)
             //전체 너비의 3분의 1만큼 움직이면 해당하는 방향으로 다음 또는 이전 이벤트 실행

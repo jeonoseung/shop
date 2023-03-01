@@ -1,17 +1,21 @@
 import publicStyles from '../../styles/public.module.css'
 import styles from '../../src/component/collection/collection.module.css'
-import {useQuery} from "react-query";
+import {dehydrate, QueryClient, useInfiniteQuery, useQuery, useQueryClient} from "react-query";
 import {getSearchCategory, getSearchProduct} from "../../src/function/api/get/api";
 import ProductFilter from "../../src/component/collection/product-filter";
 import ProductSort from "../../src/component/collection/product-sort";
 import ProductList from "../../src/component/collection/product-list";
-import ProductPagination from "../../src/component/collection/product-pagination";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {addFilter, resetFilter} from "../../store/collection/collection";
 import {RootState} from "../../store/store";
 import {useRouter} from "next/router";
-export default function SearchPage(){
+import {GetServerSideProps} from "next";
+import {checkUserAgent} from "../../src/function/public/public";
+import ProductFilterMobile from "../../src/component/collection/mobile/product-filter";
+import ProductSortMobile from "../../src/component/collection/mobile/product-sort";
+
+export default function SearchPage({isMobile}:{isMobile:boolean}){
     const filter = useSelector((state:RootState)=>state.collection.filter)
     const router = useRouter();
     const keyword = router.query.keyword ? router.query.keyword as string : ''
@@ -21,9 +25,10 @@ export default function SearchPage(){
         page: router.query.page ? router.query.page as string : '1',
         listLength: 12
     }
-    const category = useQuery('search-category',()=>getSearchCategory(false,keyword))
-    const product = useQuery('search-product',()=>getSearchProduct(false,keyword,params))
-
+    const category = useQuery('search-filter',()=>getSearchCategory(false,keyword))
+    const {data,isLoading,refetch}=useInfiniteQuery('search-product',()=>getSearchProduct(false,keyword,params),{
+        getNextPageParam:(lastPage)=>lastPage.nextPage
+    })
     const dispatch = useDispatch()
     /**
      * parameter이 all이 아니고 filter가 없으면 filter 셋팅
@@ -44,83 +49,64 @@ export default function SearchPage(){
             dispatch(resetFilter())
         }
     },[])
+    const length = category.isLoading
+        ? 0
+        : filter.length === 0
+            ? category.data.reduce((count:number,li:any)=>count+li.counting,0)
+            : category.data.reduce((count:number,li:any)=>filter.includes(li.category_id) ? count+li.counting : count,0)
     useEffect(()=>{
-        category.refetch()
-        product.refetch()
-    },[router.query.keyword])
-    useEffect(()=>{
-        product.refetch()
-    },[router.query.filter,router.query.page,router.query.sort])
+        if(!isLoading){
+            category.refetch()
+            refetch()
+        }
+    },[router.query.keyword,router.query.filter,router.query.sort])
     return(
-        <div className={publicStyles['content']}>
+        <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
             <div style={{display:"flex"}}>
                 <div className={styles['result-title']}>
                     {`'`}<span className={styles['keyword']}>{router.query.keyword}</span>{`'에 대한 검색 결과`}
                 </div>
             </div>
             {
-                product.isLoading
-                    ? null 
+                isLoading || category.isLoading
+                    ? null
                     :
-                    product.data === false || product.data.length === 0
+                    keyword === ''
                         ?
                         <div className={styles['result-is-null']}>
                             <span>검색된 상품이 없습니다.</span>
                         </div>
                         :
-                        <div className={styles['collection']}>
+                        <div className={styles[isMobile ? 'collection-mobile' : 'collection']}>
                             {
-                                category.isLoading || category.data === false
-                                    ? null
+                                isMobile
+                                    ? <ProductFilterMobile data={category.data}/>
                                     : <ProductFilter data={category.data}/>
                             }
                             {
-                                product.isLoading || product.data === false || category.isLoading || category.data === false
-                                    ? null
-                                    :
-                                    <div>
-                                        <ProductSort length={
-                                            category.data.reduce((result:number,{counting}:{counting:number})=>{
-                                                return result+counting
-                                            },0)
-                                        } params={params}/>
-                                        <ProductList data = {product.data}/>
-                                        <ProductPagination
-                                            length={
-                                                category.data.reduce((result:number,{counting}:{counting:number})=>{
-                                                    return result+counting
-                                                },0)
-                                            }
-                                            listLength={params.listLength}/>
-                                    </div>
+                                <div>
+                                    {
+                                        isMobile
+                                            ? <ProductSortMobile length={length} params={params}/>
+                                            : <ProductSort length={length} params={params}/>
+                                    }
+                                    <ProductList data = {data}/>
+                                </div>
                             }
                         </div>
             }
         </div>
     )
 }
-// export const getServerSideProps:GetServerSideProps = async (context)=>{
-//     const keyword = context.query.keyword ? context.query.keyword as string : '';
-//     const filter = context.query['filter']
-//     const sort = context.query['sort']
-//     const page = context.query['page']
-//
-//     const params = {
-//         filter: typeof filter === "string" ? filter : 'all',
-//         sort: typeof sort === "string" ? sort : '1',
-//         page: typeof page === "string" ? page : '1',
-//         listLength: 2
-//     }
-//
-//     const queryClient = new QueryClient()
-//     await queryClient.prefetchQuery('search-category',()=>getSearchCategory(true,keyword))
-//     await queryClient.prefetchQuery('search-product',()=>getSearchProduct(true,keyword,params))
-//
-//     return {
-//         props:{
-//             keyword:keyword,
-//             params:params,
-//             dehydratedState: dehydrate(queryClient)
-//         }
-//     }
-// }
+export const getServerSideProps:GetServerSideProps = async (context) =>{
+    const {keyword,sort,filter} = context.query;
+    const queryClient = new QueryClient()
+    await queryClient.prefetchQuery('search-filter',()=>getSearchCategory(true,keyword as string))
+
+    return {
+        props:{
+            isMobile : checkUserAgent(context.req.headers['user-agent'] as string),
+            dehydratedState: dehydrate(queryClient)
+        }
+    }
+}
