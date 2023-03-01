@@ -3,131 +3,171 @@
     grid-template-columns:1fr 4fr;
     gap:2rem;
 }
-.my-page .menu-list{
+.my-page-mobile{
+    display:grid;
+    row-gap:2rem;
+}
+.menu-list{
     border-left:1px solid #ddd;
     border-right:1px solid #ddd;
     border-bottom:2px solid #ddd;
 }
-.my-page .menu-list .menu{
+.menu-list .menu{
     border-top:1px solid #ddd;
     display:flex;
     align-items:center;
     justify-content:space-between;
 }
-.my-page .menu-list .menu-active{
+.menu-list .menu-active{
     border-top:1px solid #ddd;
     display:flex;
     align-items:center;
     justify-content:space-between;
     color:#0d6efd;
 }
-.my-page .menu-list .menu-active svg{
+.menu-list .menu-active svg{
     fill:#0d6efd;
 }
-.my-page .menu-list span{
+.menu-list span{
     color:inherit;
     padding:0.75rem;
     font-size:0.9rem;
 }
-.my-page .menu-list .menu span svg{
+.menu-list .menu span svg{
     color:inherit;
 }
-.my-page .menu-list .menu:hover {
+.menu-list .menu:hover {
     color:#0d6efd;
 }
-.my-page .menu-list .menu:hover svg{
+.menu-list .menu:hover svg{
     fill:#0d6efd;
 }
-.my-page .title-bar{
+.title-bar{
     display:flex;
     justify-content:space-between;
     align-items:center;
     width:100%;
     padding-bottom:0.5rem
 }
-.my-page .pages-list .list{
+.pages-list .list{
     border-top:2px solid black;
     padding:0 1.5rem;
 }
-.my-page .pages-list .list .order-list{
+.pages-list .list .order-list{
     margin:0.5rem 0;
 }
-.my-page .pages-list .list .order-list .order{
+.order{
     display:grid;
-    grid-template-columns:0.5fr 6fr 1fr;
-    align-items:center;
+    grid-template-columns:1fr 6fr 1fr;
     gap:0.75rem;
     padding:0.5rem 0;
 }
-.my-page .pages-list .list .order-list .order-title{
+.list img{
+    min-width:75px;
+    width:100%;
+    height:100%;
+}
+.order-mobile{
+    display:grid;
+    grid-template-columns:1fr 7fr;
+    gap:0.75rem;
+    padding:0.5rem 0;
+}
+.pages-list .list .order-list .order-title{
     display:flex;
     align-items:center;
     justify-content: space-between;
     border-bottom:1px solid #ddd;
     padding:0.5rem 0;
 }
-.my-page .pages-list .list .order-list .order-title .order-date{
+.pages-list .list .order-list .order-title .order-date{
     font-weight:500;
 }
-.my-page .pages-list .list .order-list .order-title .view-detail{
+.pages-list .list .order-list .order-title .view-detail{
     font-size:0.75rem;
 }
-.my-page .pages-list .list .order-list .order img{
-    margin:auto;
+.info-ui-mobile{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
-.my-page .pages-list .list .order-list .order .info{
+.info{
     display:grid;
-    grid-template-columns:1fr 6fr;
-    align-items:center;
+    grid-template-columns:60px 1fr;
+    margin-bottom:0.25rem;
 }
-.my-page .pages-list .list .order-list .order .info .info-name{
-    font-size:0.75rem;
+.info-name{
+    font-size:0.85rem;
 }
-.my-page .pages-list .list .order-list .order .info .info-value{
+.info-value{
     font-size:0.85rem;
     font-weight:500;
 }
-
-.my-page .pages-list .list .order-detail-list{
-    display:grid;
-    grid-template-columns:0.5fr 6fr 1.5fr;
-    padding:1rem 0.5rem;
-    gap:1rem;
+.detail-info{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.question{
+    display:flex;
     align-items:center;
+    width:100%;
+}
+.question-mobile{
+    width:100%;
+    max-width:150px
+}
+.order-detail-list{
+    display:grid;
+    grid-template-columns:0.75fr 6fr 1.5fr;
+    padding:1rem 0.5rem;
+    align-items:center;
+    gap:1rem;
     border-bottom:1px solid #ddd;
 }
-.my-page .pages-list .list .order-detail-list .info .name{
+.order-detail-list-mobile{
+    display:grid;
+    grid-template-columns:0.75fr 7fr;
+    padding:1rem 0.5rem;
+    gap:1rem;
+    border-bottom:1px solid #ddd;
+}
+.name{
     font-weight:500;
     font-size:0.95rem;
 }
-.my-page .pages-list .list .order-detail-list .info .price-count{
+.price-count{
     display:flex;
     align-items:center;
 }
-.my-page .profile{
+.profile{
     font-size:28px;
     font-weight:500;
 }
-.my-page .title-div{
+.title-div{
     height:75px;
     display:flex;
     align-items:center;
 }
-.my-page .pages-list .title{
+.pages-list .title{
     font-size:24px;
     font-weight:500;
 }
-.my-page .pages-list .title-sub{
+.pages-list .title-sub{
     font-size:20px;
     font-weight:500;
 }
-.info .price-count .price{
+.price-count .price{
     font-weight:500;
     font-size:0.9rem;
 }
-.info .price-count .line-through{
+.price-count .line-through{
     text-decoration: line-through;
     color:rgb(153, 153, 153);
     margin-left:0.25rem;
     font-size:0.85rem;
+}
+.add-cart{
+    width:100%;
+    max-width:150px;
 }

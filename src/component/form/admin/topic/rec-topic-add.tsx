@@ -49,7 +49,7 @@ export default function AddRecommendTopic(){
                 <div className={styles['ui-setting']}>
                     <div className={styles['form-add']}>
                         <input type={'text'} placeholder={'UI 명'} value={name} className={publicStyles['input-text']} onChange={(e)=>setName(e.target.value)}/>
-                        <button onClick={InsertUI} className={publicStyles['button']} style={{width:'80px',marginLeft:'0.5rem'}}>UI 추가</button>
+                        <button onClick={InsertUI} className={publicStyles['button']}>UI 추가</button>
                     </div>
                     <div className={styles['ui-add']}>
                         <label>

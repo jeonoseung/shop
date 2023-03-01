@@ -1,11 +1,14 @@
 .product{
-    display:flex;
+    display:grid;
     gap:1rem;
+    grid-template-columns:5fr 6fr;
 }
-.product *{
+.product-mobile{
 
 }
-.product-image-div{
+.product-image-div img{
+    width:100%;
+    height:auto;
 }
 .product-data-div{
     display:grid;

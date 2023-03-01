@@ -4,7 +4,6 @@ import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useMutation, useQuery} from "react-query";
 import {getProductInfo} from "../../../../src/function/api/get/api";
 import {useRouter} from "next/router";
-import Image from "next/image";
 import CategoryAndBrand from "../../../../src/component/product/admin/add/category-brand";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
@@ -19,8 +18,9 @@ import {File} from "next/dist/compiled/@edge-runtime/primitives/fetch";
 import FormData from "form-data";
 import {RootState} from "../../../../store/store";
 import axios from "axios";
+import {checkUserAgent} from "../../../../src/function/public/public";
 
-export default function ProductUpdatePage(){
+export default function ProductUpdatePage({isMobile}:{isMobile:boolean}){
     const [file,setFile] = useState<File>()
     const dispatch = useDispatch();
     const router = useRouter();
@@ -58,13 +58,13 @@ export default function ProductUpdatePage(){
         updateProduct.mutate(object)
     }
     return(
-        <div className={publicStyles['content']}>
+        <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
             {
                 isLoading
                     ? null
                     :
-                    <div className={styles['product']}>
-                        <div>
+                    <div className={styles[isMobile ? 'product-mobile' : 'product']}>
+                        <div className={styles['product-image-div']}>
                             <ImageManagement img={data.info.product_img} setFile={setFile}/>
                         </div>
                         <div>
@@ -89,6 +89,7 @@ export const getServerSideProps:GetServerSideProps = async (context)=>{
 
     return {
         props:{
+            isMobile:checkUserAgent(context.req.headers['user-agent'] as string),
             dehydratedState:dehydrate(queryClient)
         }
     }

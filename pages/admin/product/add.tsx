@@ -18,12 +18,14 @@ import ProductOption from "../../../src/component/product/admin/add/product-opti
 import axios from "axios";
 import {ResetProductData} from "../../../store/product/admin/product-add/reducer";
 import {checkNullObject} from "../../../src/function/public/check";
+import {checkUserAgent} from "../../../src/function/public/public";
 
 interface props{
-    user:number
+    user:number,
+    isMobile:boolean
 }
 
-export default function ProductAddPage({user}:props){
+export default function ProductAddPage({user,isMobile}:props){
     const [file,setFile] = useState<File>()
     const dispatch = useDispatch()
     useEffect(()=>{
@@ -63,8 +65,8 @@ export default function ProductAddPage({user}:props){
     }
 
     return(
-        <div className={publicStyles.content}>
-            <div className={styles['product']}>
+        <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
+            <div className={styles[isMobile ? 'product-mobile' : 'product']}>
                 <div className={styles['product-image-div']}>
                     <ImageManagement img={'/image/null-image.svg'} setFile={setFile}/>
                 </div>
@@ -99,7 +101,8 @@ export const getServerSideProps = withIronSessionSsr(
         return {
             props: {
                 dehydratedState: dehydrate(queryClient),
-                user:req.session.user.id
+                user:req.session.user.id,
+                isMobile:checkUserAgent(req.headers['user-agent'] as string)
             },
         };
     },

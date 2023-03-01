@@ -142,7 +142,9 @@
     display:none;
 }
 .list{
-    display:flex;
+    display:grid;
+    grid-template-columns:18px 3fr;
+    gap:0.5rem;
     align-items:center;
     margin:0.75rem 0;
 }

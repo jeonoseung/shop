@@ -1,6 +1,6 @@
 import publicStyles from '../../styles/public.module.css'
 import styles from '../../src/component/collection/collection.module.css'
-import {dehydrate, QueryClient, useInfiniteQuery, useQuery, useQueryClient} from "react-query";
+import {dehydrate, QueryClient, useInfiniteQuery, useQuery} from "react-query";
 import {getSearchCategory, getSearchProduct} from "../../src/function/api/get/api";
 import ProductFilter from "../../src/component/collection/product-filter";
 import ProductSort from "../../src/component/collection/product-sort";

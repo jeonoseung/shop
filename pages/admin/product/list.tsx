@@ -10,16 +10,24 @@ import {getProductListAdmin} from "../../../src/function/api/get/api";
 import SetInView from "../../../src/component/public/list/set-in-view";
 import {withIronSessionSsr} from "iron-session/next";
 import {IronSessionOption} from "../../../src/function/api/iron-session/options";
+import {checkUserAgent} from "../../../src/function/public/public";
+import ProductManagementListMobile from "../../../src/component/product/admin/list/mobile/product-li";
+import {useEffect} from "react";
 
-export default function ProductListManagement(){
+export default function ProductListManagement({isMobile}:{isMobile:boolean}){
     const router = useRouter();
-    const {data,error,isLoading,fetchNextPage,hasNextPage} =
+    const {data,error,isLoading,fetchNextPage,hasNextPage,refetch} =
         useInfiniteQuery('product-li',({pageParam=1})=>
             getProductListAdmin(false,router.query.search ? router.query.search as string : '',pageParam),{
         getNextPageParam:(lastPage)=>lastPage.nextPage,
     })
+    useEffect(()=>{
+        if(!isLoading){
+            refetch()
+        }
+    },[router.query.search])
     return(
-        <div className={publicStyles['content']}>
+        <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
             <ProductListManagementOption/>
             <div className={styles['product-ul']}>
                 {isLoading || error
@@ -27,7 +35,9 @@ export default function ProductListManagement(){
                         :
                         data?.pages.map((item)=>(
                             item.list.map((li:ProductListType)=>(
-                                <ProductManagementList key={li.product_id} item={li}/>
+                                isMobile
+                                    ? <ProductManagementListMobile key={li.product_id} item={li}/>
+                                    : <ProductManagementList key={li.product_id} item={li}/>
                             ))
                         ))
                 }
@@ -49,6 +59,7 @@ export const getServerSideProps = withIronSessionSsr(
         }
         return {
             props: {
+                isMobile:checkUserAgent(context.req.headers['user-agent'] as string)
             },
         };
     },

@@ -4,6 +4,8 @@ import React, {useRef, useState} from "react";
 import {MainUserInterface, UiListType} from "ui-form-type";
 import styles from './set-form.module.css'
 import DeleteIcon from "../../public/icon/delete-icon";
+import ArrowUpIcon from "../../public/icon/arrow-up";
+import ArrowDownIcon from "../../public/icon/arrow-down";
 interface useGetParams{
     index:number
     li:MainUserInterface
@@ -37,6 +39,9 @@ export default function UIFormList(){
         dragged.current.classList.add('dragging')
     }
     const dragEnd = (e:React.DragEvent<HTMLDivElement>)=>{
+        setEnter(null)
+        setDrag(null)
+        setIndexState(null)
         /** 드래그가 끝났을 때 dragging 클래스 삭제 */
         dragged.current.classList.remove('dragging')
         /** 이벤트를 위한 상태들 리셋 */
@@ -69,6 +74,22 @@ export default function UIFormList(){
             return copy
         })
     }
+    const setUpArray = (index:number) =>{
+        queryClient.setQueryData('ui-li',(data:any)=>{
+            const copy = [...data.form]
+            data.form[index-1] = copy[index]
+            data.form[index] = copy[index-1]
+            return data;
+        })
+    }
+    const setDownArray = (index:number) =>{
+        queryClient.setQueryData('ui-li',(data:any)=>{
+            const copy = [...data.form]
+            data.form.splice(index+2,0,copy[index])
+            data.form.splice(index,1)
+            return data;
+        })
+    }
     return(
         <div className={styles['ui-form-ul']}>
             {
@@ -81,6 +102,28 @@ export default function UIFormList(){
                          onDragEnter={(e)=>dragEnter(e,index,li)}
                          onDragOver={(e)=>dragOver(e)}>
                         <span>{li.ui_name}</span>
+                        <div className={styles['ui-form-li-controller']}>
+                            <div>
+                                {
+                                    index === 0
+                                        ? null
+                                        :
+                                        <button onClick={()=>setUpArray(index)} disabled={index === 0}>
+                                            <ArrowUpIcon/>
+                                        </button>
+                                }
+                            </div>
+                            <div>
+                                {
+                                    index === ui.data.form.length-1
+                                        ? null
+                                        :
+                                        <button onClick={()=>setDownArray(index)} disabled={index === ui.data.form.length-1}>
+                                            <ArrowDownIcon/>
+                                        </button>
+                                }
+                            </div>
+                        </div>
                         <button className={styles['ui-delete-li']} onClick={()=>removeList(index)}>
                             <DeleteIcon/>
                         </button>

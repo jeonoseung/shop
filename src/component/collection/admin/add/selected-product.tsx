@@ -5,11 +5,11 @@ import {RootState} from "../../../../../store/store";
 import DeleteIcon from "../../../public/icon/delete-icon";
 import {RemoveSelectedProduct} from "../../../../../store/collection/collection-add";
 
-export default function SelectedProduct(){
+export default function SelectedProduct({isMobile}:{isMobile:boolean}){
     const product = useSelector((state:RootState)=>state.collectionAdd.product)
     const dispatch = useDispatch()
     return(
-        <div className={styles['selected-product']}>
+        <div className={styles[isMobile ? 'select-product-mobile' : 'select-product']}>
             {
                 product
                     ?

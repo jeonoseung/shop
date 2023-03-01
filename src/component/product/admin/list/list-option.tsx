@@ -3,7 +3,6 @@ import Link from "next/link";
 import publicStyles from "../../../../../styles/public.module.css";
 import {useState} from "react";
 import {useRouter} from "next/router";
-import {FetchNextPageOptions, InfiniteQueryObserverResult} from "react-query";
 
 
 export default function ProductListManagementOption(){
@@ -14,12 +13,16 @@ export default function ProductListManagementOption(){
     }
     return(
         <div className={styles['list-option']}>
-            <div>
-                <Link href={'/admin/product/add'} className={publicStyles['normal-btn']}>추가</Link>
+            <div style={{width:'75px'}}>
+                <Link href={'/admin/product/add'} style={{width:'100%'}}>
+                    <button className={publicStyles['normal-btn']}>
+                        추가
+                    </button>
+                </Link>
             </div>
-            <div>
-                <input type={'text'} value={search} onKeyUp={(e)=>e.key === "Enter" ? startSearch() : null} onChange={(e)=>setSearch(e.target.value)}/>
-                <button onClick={startSearch}>
+            <div className={styles['search']}>
+                <input type={'text'} className={publicStyles['input-text']} value={search} onKeyUp={(e)=>e.key === "Enter" ? startSearch() : null} onChange={(e)=>setSearch(e.target.value)}/>
+                <button onClick={startSearch} className={publicStyles['normal-btn']}>
                     검색
                 </button>
             </div>

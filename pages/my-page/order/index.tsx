@@ -1,22 +1,27 @@
 import publicStyles from '../../../styles/public.module.css'
 import styles from '../../../src/component/my-page/my-page.module.css'
 import MenuList from "../../../src/component/my-page/menu-list";
-import {GetServerSideProps, GetServerSidePropsContext} from "next";
-import {dehydrate, QueryClient, useQuery} from "react-query";
+import {dehydrate, QueryClient} from "react-query";
 import OrderList from "../../../src/component/my-page/order-list";
-import {withIronSessionApiRoute, withIronSessionSsr} from "iron-session/next";
+import {withIronSessionSsr} from "iron-session/next";
 import {IronSessionOption} from "../../../src/function/api/iron-session/options";
-import {getCategory, getOrderList} from "../../../src/function/api/get/api";
+import {getOrderList} from "../../../src/function/api/get/api";
+import {checkUserAgent} from "../../../src/function/public/public";
+import OrderListMobile from "../../../src/component/my-page/order-list-mobile";
 
-export default function MyOrder(){
+export default function MyOrder({isMobile}:{isMobile:boolean}){
     return(
-        <div className={publicStyles['content']}>
-            <div className={styles['my-page']}>
+        <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
+            <div className={styles[isMobile ? 'my-page-mobile' : 'my-page']}>
                 <div>
                     <MenuList />
                 </div>
                 <div>
-                    <OrderList />
+                    {
+                        isMobile
+                            ? <OrderListMobile/>
+                            : <OrderList />
+                    }
                 </div>
             </div>
         </div>
@@ -32,12 +37,13 @@ export const getServerSideProps = withIronSessionSsr(
             return {
                 redirect: {
                     permanent:false,
-                    destination:`/member/login?redirect=/my-page/order`
+                    destination:`/member/login?redirect=${context.resolvedUrl}`
                 }
             }
         }
         return {
             props:{
+                isMobile:checkUserAgent(context.req.headers["user-agent"] as string),
                 dehydratedState: dehydrate(queryClient)
             }
         };

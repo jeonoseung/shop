@@ -27,7 +27,7 @@ export default function OrderDetailList(){
                     data.map((li:orderDetailType)=>(
                         <div className={styles['order-detail-list']} key={li.product_id}>
                             <Image src={li.product_img ? li.product_img : '/image/null-image.svg'} alt={'상품 이미지'} width={60} height={85} priority={true}/>
-                            <div className={styles['info']}>
+                            <div className={styles['detail-info']}>
                                 <div>
                                     <span className={styles['name']}>{setProductName(li.brand_name ? li.brand_name : '',li.product_name)}</span>
                                 </div>

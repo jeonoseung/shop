@@ -1,5 +1,6 @@
 import {useMutation, useQueryClient} from "react-query";
 import axios from "axios";
+import publicStyles from "../../../../../styles/public.module.css";
 
 export default function DeleteProductBtn({pid}:{pid:number}){
     const queryClient = useQueryClient()
@@ -13,11 +14,9 @@ export default function DeleteProductBtn({pid}:{pid:number}){
         }
     })
     return (
-        <div>
-            <button onClick={(e)=>{
-                e.preventDefault()
-                deleteProduct.mutate(pid)
-            }}>삭제</button>
-        </div>
+        <button className={publicStyles['button']} onClick={(e)=>{
+            e.preventDefault()
+            deleteProduct.mutate(pid)
+        }}>삭제</button>
     )
 }

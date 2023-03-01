@@ -51,7 +51,7 @@
     width:100%;
     box-sizing:border-box;
     border:1px solid #ddd;
-    border-radius:0.5rem;
+    border-radius:0.25rem;
     height:35px;
 }
 .input-text:focus{
@@ -62,7 +62,7 @@
     width:100%;
     box-sizing:border-box;
     border:1px solid #ddd;
-    border-radius:0.5rem;
+    border-radius:0.25rem;
     height:35px;
 }
 .select:focus{
@@ -72,7 +72,7 @@
     width:100%;
     box-sizing : border-box;
     border:1px solid #ddd;
-    border-radius:0.5rem;
+    border-radius:0.25rem;
     height:60px;
     padding:0.5rem;
     resize:none;
@@ -100,7 +100,7 @@
     border:1px solid #0d6efd;
     background: white;
     height:35px;
-    border-radius:0.5rem;
+    border-radius:0.25rem;
 }
 .button:hover{
     cursor:pointer;
@@ -126,7 +126,7 @@
     display:flex;
     align-items:center;
     height:35px;
-    border-radius:0.5rem;
+    border-radius:0.25rem;
 }
 .input-unit input{
     margin:0 0.25rem;
@@ -151,7 +151,7 @@
     display:flex;
     align-items:center;
     height:35px;
-    border-radius:0.5rem;
+    border-radius:0.25rem;
 }
 .select-div select{
     width:100%;
@@ -232,10 +232,11 @@
     background:rgba(0,0,0,0.5);
 }
 .normal-btn{
+    width:100%;
     background:#0d6efd;
     border:1px solid #0d6efd;
     border-radius:0.25rem;
-    padding:0.25rem 1rem;
+    height:35px;
     color:white;
     font-size:0.9rem;
 }

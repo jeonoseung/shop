@@ -6,6 +6,7 @@ import Link from "next/link";
 import {ProductListType} from "product-type";
 import {useRouter} from "next/router";
 import AdminListNameTag from "../../../public/admin/list-name-tag";
+import publicStyles from '../../../../../styles/public.module.css'
 
 export default function ProductManagementList({item}:{item:ProductListType}){
     const router = useRouter()
@@ -24,13 +25,13 @@ export default function ProductManagementList({item}:{item:ProductListType}){
             <div>
                 <AdminListNameTag name={'제목'} content={item.product_title}/>
             </div>
-            <div>
-                <button onClick={(e)=>{
+            <div className={styles['li-admin']}>
+                <button className={publicStyles['button']} onClick={(e)=>{
                     e.preventDefault()
                     router.push({pathname:`/admin/product/update/${item.product_id}`})
                 }}>수정</button>
+                <DeleteProductBtn pid={item.product_id}/>
             </div>
-            <DeleteProductBtn pid={item.product_id}/>
         </Link>
     )
 }

@@ -20,13 +20,13 @@ export const useGet = (category_set:string,value:string)=>{
     })
 }
 
-export default function SelectProductInList(){
+export default function SelectProductInList({isMobile}:{isMobile:boolean}){
     const collection = useSelector((state:RootState)=>state.collectionAdd)
     const {data,isLoading} = useGet(collection.filter.category,collection.filter.search)
     const dispatch = useDispatch()
     return(
         <div className={styles['product-list']}>
-            <div className={styles['select-list']}>
+            <div className={styles[isMobile ? 'select-product-mobile' : 'select-product']}>
                 {
                     isLoading
                         ? null

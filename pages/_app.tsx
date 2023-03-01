@@ -7,6 +7,8 @@ import {QueryClient, QueryClientProvider, Hydrate} from "react-query";
 import {useState} from "react";
 import CartModal from "../src/component/modal/cart/cart-modal";
 import StickyHeader from "../src/component/header/sticky-header";
+import {GetServerSideProps} from "next";
+import context from "react-redux/src/components/Context";
 
 export default function App({Component, pageProps}: AppProps) {
     const [query] = useState(()=>new QueryClient({

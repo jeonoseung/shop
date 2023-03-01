@@ -66,7 +66,7 @@ export default function TopicFormManagement(){
                 <span>적용 컬렉션</span>
                 {
                     isLoading
-                        ? <Spinner/>
+                        ? null
                         :
                         <select onChange={(e)=>setCollection(e.target.value)}>
                             <option value={''}>선택</option>

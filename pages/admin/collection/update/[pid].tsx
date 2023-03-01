@@ -1,12 +1,7 @@
 import publicStyles from '../../../../styles/public.module.css'
 import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useMutation, useQuery} from "react-query";
-import {
-    getCategory,
-    getCollectionRequiredData,
-    getCollectionUpdate,
-    getProductOnCollectionAdmin
-} from "../../../../src/function/api/get/api";
+import {getCollectionRequiredData, getCollectionUpdate,} from "../../../../src/function/api/get/api";
 import styles from "../../../../src/component/collection/admin/add/collection-add.module.css";
 import CollectionAddInput from "../../../../src/component/collection/admin/add/collection-input";
 import SelectedProduct from "../../../../src/component/collection/admin/add/selected-product";
@@ -16,11 +11,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../store/store";
 import {useRouter} from "next/router";
 import {useEffect} from "react";
-import {SelectProduct, SetCollectionInput, SetSelectProduct} from "../../../../store/collection/collection-add";
-import {AdminCollectionInfo, PutAxiosBodyType, SelectProductList} from "collection-type";
+import {SetCollectionInput, SetSelectProduct} from "../../../../store/collection/collection-add";
+import {PutAxiosBodyType} from "collection-type";
 import axios from "axios";
+import {checkUserAgent} from "../../../../src/function/public/public";
 
-export default function CollectionUpdatePage(){
+export default function CollectionUpdatePage({isMobile}:{isMobile:boolean}){
     const collection = useSelector((state:RootState)=>state.collectionAdd)
     const router = useRouter()
     const dispatch = useDispatch()
@@ -48,7 +44,7 @@ export default function CollectionUpdatePage(){
         }
     })
     return(
-        <div className={publicStyles['content']}>
+        <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
             <div className={styles['collection-add']}>
                 <CollectionAddInput />
                 <div className={styles['collection-product']}>
@@ -56,10 +52,10 @@ export default function CollectionUpdatePage(){
                         <h3>선택한 상품</h3>
                         <button className={publicStyles['public-button']} onClick={save}>저장</button>
                     </div>
-                    <SelectedProduct />
+                    <SelectedProduct isMobile={isMobile}/>
                     <h3>상품 선택</h3>
-                    <SelectFilter />
-                    <SelectProductInList />
+                    <SelectFilter isMobile={isMobile}/>
+                    <SelectProductInList isMobile={isMobile}/>
                 </div>
             </div>
         </div>
@@ -74,6 +70,7 @@ export const getServerSideProps:GetServerSideProps = async (context)=>{
     return {
         props:{
             dehydratedState: dehydrate(queryClient),
+            isMobile:checkUserAgent(context.req.headers['user-agent'] as string)
         }
     }
 }

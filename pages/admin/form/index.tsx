@@ -11,8 +11,8 @@ import AddRecommendTopic from "../../../src/component/form/admin/topic/rec-topic
 import {UIForm} from "ui-form-type";
 import AddLimitedOffer from "../../../src/component/form/admin/limited/limited-offer-add";
 import publicStyles from "../../../styles/public.module.css";
-import MainSliderImageAdd from "../../../src/component/form/admin/main-slider/image-add";
-export default function SetFormPage(){
+import {checkUserAgent} from "../../../src/function/public/public";
+export default function SetFormPage({isMobile}:{isMobile:boolean}){
     const ui = useQuery('ui-li',()=>getHomeDisplayForm(false))
     const saveUI = useMutation((form:UIForm)=>axios.put('/api/form/admin',form),{
         onSuccess:()=>{
@@ -26,17 +26,16 @@ export default function SetFormPage(){
         saveUI.mutate(ui.data.form)
     }
     return(
-        <div className={publicStyle['content']}>
-            <div className={styles['ui-set']}>
-                <div>
-                    <MainSliderImageAdd/>
-                    <AddRecommendCollection/>
-                    <AddRecommendTopic/>
-                    <AddLimitedOffer/>
-                </div>
+        <div className={publicStyle[isMobile ? 'mobile-content' : 'content']}>
+            <div className={styles[isMobile ? 'ui-set-mobile' : 'ui-set']}>
                 <div>
                     <button onClick={ui_save} className={publicStyles['button']}>UI 저장</button>
                     <UIFormList />
+                </div>
+                <div>
+                    <AddRecommendCollection/>
+                    <AddRecommendTopic/>
+                    <AddLimitedOffer/>
                 </div>
             </div>
         </div>
@@ -47,7 +46,8 @@ export const getServerSideProps:GetServerSideProps = async (context)=>{
     await queryClient.prefetchQuery('ui-li',()=>getHomeDisplayForm(true))
     return {
         props:{
-            dehydratedState: dehydrate(queryClient)
+            dehydratedState: dehydrate(queryClient),
+            isMobile:checkUserAgent(context.req.headers["user-agent"] as string)
         }
     }
 }

@@ -13,10 +13,11 @@ import SelectProductInList from "../../../src/component/collection/admin/add/sel
 import {PostType} from "collection-type";
 import {useEffect} from "react";
 import {ResetCollectionValue} from "../../../store/collection/collection-add";
+import {checkUserAgent} from "../../../src/function/public/public";
 
 
 
-export default function CollectionAddPage(){
+export default function CollectionAddPage({isMobile}:{isMobile:boolean}){
     const collection = useSelector((state:RootState)=>state.collectionAdd)
     const dispatch = useDispatch()
     const collectionSave = useMutation((body:PostType)=>axios.post('/api/collection',body),{
@@ -43,7 +44,7 @@ export default function CollectionAddPage(){
         dispatch(ResetCollectionValue())
     },[])
     return(
-        <div className={publicStyles['content']}>
+        <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
             <div className={styles['collection-add']}>
                 <CollectionAddInput />
                 <div className={styles['collection-product']}>
@@ -51,10 +52,10 @@ export default function CollectionAddPage(){
                         <h3>선택한 상품</h3>
                         <button className={publicStyles['public-button']} onClick={save}>저장</button>
                     </div>
-                    <SelectedProduct />
+                    <SelectedProduct isMobile={isMobile}/>
                     <h3>상품 선택</h3>
-                    <SelectFilter />
-                    <SelectProductInList />
+                    <SelectFilter isMobile={isMobile}/>
+                    <SelectProductInList isMobile={isMobile}/>
                 </div>
             </div>
         </div>
@@ -65,6 +66,7 @@ export const getServerSideProps:GetServerSideProps = async (context)=>{
     await queryClient.prefetchQuery('collection-required-data',()=>getCollectionRequiredData(true))
     return {
         props:{
+            isMobile:checkUserAgent(context.req.headers['user-agent'] as string),
             dehydratedState: dehydrate(queryClient),
         }
     }
