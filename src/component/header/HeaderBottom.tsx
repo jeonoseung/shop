@@ -1,19 +1,43 @@
 import styles from './header.module.css'
 import Link from "next/link";
+import {useState} from "react";
+import {useQuery} from "react-query";
+import {getCategory} from "../../function/api/get/api";
 
 export default function HeaderBottom(){
+    const [categoryMenu,setCategoryMenu] = useState<boolean>(false)
+    const {data,isLoading} = useQuery('category-li',()=>getCategory(false))
     return(
         <div className={styles.header_bottom}>
-            <div className={styles.category}>
-                <span>
+            <div className={styles['category']} onMouseOver={()=>setCategoryMenu(true)} onMouseLeave={()=>setCategoryMenu(false)}>
+                <div>
+                    <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          className="bi bi-list" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
                     </svg>
-                </span>
-                <span>
-                     카테고리
-                </span>
+                    </span>
+                    <span>
+                         카테고리
+                    </span>
+                </div>
+                {
+                    categoryMenu
+                        ?
+                        isLoading
+                            ? null
+                            :
+                            <ul className={styles['category-list']}>
+                                {
+                                    data.map((li:any)=>(
+                                        <li key={li.category_id}>
+                                            <Link href={'/'}>{li.category_name}</Link>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                        : null
+                }
             </div>
             <div className={styles.menu}>
                 <div>

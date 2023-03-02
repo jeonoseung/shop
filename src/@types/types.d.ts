@@ -229,7 +229,11 @@ declare module "order-list"{
         discount_rate:number | null
     }
 }
-declare module 'react-query-custom-type'{
-    type pageParamsType = number[] | undefined[]
-    type nextPageType = number;
+
+declare module 'header'{
+    interface MenuLinkType{
+        name:string
+        path:string
+        active:boolean
+    }
 }

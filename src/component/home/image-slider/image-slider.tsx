@@ -41,7 +41,7 @@ export default function ImageSlider({images}:{images:{src:string}[]}){
             time.current = setInterval(()=>nextButton.current?.click(),4000)
         }
         setSliderCSS((prev)=>({
-            ...prev,transform:`translate3d(-${refIndex.current * window.innerWidth}px,0,0)`
+            ...prev,transform:`translate3d(-${refIndex.current * (window.innerWidth > 1024 ? window.innerWidth : 1024)}px,0,0)`
         }))
         setWidth(window.innerWidth > 1024 ? window.innerWidth : 1024)
         window.addEventListener('resize',resizeWindow)
@@ -165,7 +165,11 @@ export default function ImageSlider({images}:{images:{src:string}[]}){
     }
     return(
         <div className={styles['image-slider']} onMouseOver={()=>setHover(true)} onMouseLeave={()=>setHover(false)}>
-            <div className={styles['slider']} style={sliderCSS} onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseUp} onMouseMove={mouseMove}>
+            <div className={styles['slider']} style={sliderCSS}
+                 onMouseDown={mouseDown}
+                 onMouseUp={mouseUp}
+                 onMouseLeave={mouseUp}
+                 onMouseMove={mouseMove}>
                 <div className={styles['img']} style={{backgroundImage:`url(${images[images.length-1].src})`,width:`${width}px`}}>
                 </div>
                 {images.map((item, index)=>(

@@ -14,7 +14,11 @@ export default function MyOrder({isMobile}:{isMobile:boolean}){
         <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
             <div className={styles[isMobile ? 'my-page-mobile' : 'my-page']}>
                 <div>
-                    <MenuList />
+                    {
+                        isMobile
+                            ? null
+                            : <MenuList />
+                    }
                 </div>
                 <div>
                     {

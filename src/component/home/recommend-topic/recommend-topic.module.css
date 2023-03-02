@@ -33,7 +33,6 @@
     grid-template-columns:74px 4fr 1.25fr;
     align-items:center;
     gap:1rem;
-    z-index:10;
     position: relative;
 }
 .product-li img{

@@ -5,18 +5,17 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
     const connection = await con()
     try{
         const query = req.query
-        const router = query.router
+        const pid = query.pid
         const filter = query.filter
         const sort = query.sort
         const page = query.page ? parseInt(query.page as string) : 1
         const listLength = parseInt(query.list as string);
-        const sql = `SELECT p.product_id,p.product_name,brand_name,product_price,product_img,discount_rate,delivery_type,product_title,p.category_id
-                         FROM collection_product as cp
-                         INNER JOIN collections as c ON cp.collection_id = c.collection_id
-                         INNER JOIN products as p ON cp.product_id = p.product_id
-                         LEFT JOIN purchase_history as ph ON ph.product_id = p.product_id
-                         WHERE c.collection_router_name = '${router}' `;
-        const sqlFilter = (filter !== 'all' && filter !== undefined ? `AND p.category_id IN (${filter}) `:' ');
+        const sql = `SELECT p.category_id,p.product_id,p.product_name,brand_name,product_price,product_img,discount_rate,delivery_type,product_title
+                        FROM category as c
+                        INNER JOIN products as p ON c.category_id = p.category_id
+                        LEFT JOIN purchase_history as ph ON ph.product_id = p.product_id
+                        WHERE c.category_id = ${pid} `;
+        const sqlFilter = (filter !== 'all' && filter !== undefined ? `AND p.brand_name IN (SELECT brand_name FROM products WHERE brand_name IN (${filter})) `:' ');
         const groupby = `GROUP BY p.product_id `;
         const sqlSort =
             sort === undefined || sort === '1'
@@ -32,7 +31,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
         const [rows] = await connection.query(sql+sqlFilter+groupby+sqlSort+pagination)
         if(rows.length === 0)
         {
-            const [rows] = await connection.query(sql+groupby+sqlSort+pagination)
+            const [rows] = await connection.query(sql+sqlSort+pagination)
             connection.release()
             return res.status(200).send(rows)
         }
@@ -46,7 +45,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
 }
 
 export default async function handler(req:NextApiRequest,res:NextApiResponse){
-    switch(req.method){
+    switch (req.method){
         case "GET":
             await get(req,res)
             break;
