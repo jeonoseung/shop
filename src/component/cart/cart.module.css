@@ -144,7 +144,7 @@
 }
 .payment .bar{
     position: sticky;
-    top:2rem;
+    top:4rem;
 }
 .payment .bar .total-price-div{
     display:grid;

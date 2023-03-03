@@ -23,6 +23,7 @@ export default function Login(){
             const {redirect} = router.query
             redirect ? router.push(redirect as string) : router.push('/')
             queryClient.invalidateQueries('user')
+            queryClient.invalidateQueries('cart-li')
             getCookie('cart') ? removeCookies('cart') : null
         },
         onError:()=>{

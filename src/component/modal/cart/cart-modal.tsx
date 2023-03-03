@@ -8,11 +8,12 @@ import {setPrice, totalPrice} from "../../../function/public/price";
 import MinusIcon from "../../public/icon/minus-icon";
 import PlusIcon from "../../public/icon/plus-icon";
 import SetCart from "../../../function/public/set-cart";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import {LoginCheck} from "../../../function/api/get/api";
 import axios from "axios";
 
 export default function CartModal(){
+    const queryClient = useQueryClient()
     const dispatch = useDispatch()
     const state = useSelector((state:RootState)=>state.cartModal)
     const login = useQuery('is-login',LoginCheck)
@@ -24,6 +25,7 @@ export default function CartModal(){
         if(state.checked) {
             setOut({...out,display:'block'})
             dispatch(setModalCount(1))
+            queryClient.invalidateQueries('cart-li')
         }
         else
         {
@@ -66,6 +68,7 @@ export default function CartModal(){
                             }
                             else{
                                 SetCart(state.product.count,state.product.id)
+                                queryClient.invalidateQueries('cart-li')
                             }
                         }}>담기</button>
                     </div>
