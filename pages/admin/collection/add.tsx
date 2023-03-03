@@ -1,7 +1,7 @@
 import publicStyles from '../../../styles/public.module.css'
 import styles from '../../../src/component/collection/admin/add/collection-add.module.css'
 import {GetServerSideProps} from "next";
-import {dehydrate, QueryClient, useMutation, useQuery} from "react-query";
+import {dehydrate, QueryClient, useMutation, useQuery, useQueryClient} from "react-query";
 import {getCollectionRequiredData,} from "../../../src/function/api/get/api";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
@@ -14,15 +14,20 @@ import {PostType} from "collection-type";
 import {useEffect} from "react";
 import {ResetCollectionValue} from "../../../store/collection/collection-add";
 import {checkUserAgent} from "../../../src/function/public/public";
+import {useRouter} from "next/router";
 
 
 
 export default function CollectionAddPage({isMobile}:{isMobile:boolean}){
+    const router = useRouter()
+    const queryClient = useQueryClient()
     const collection = useSelector((state:RootState)=>state.collectionAdd)
     const dispatch = useDispatch()
     const collectionSave = useMutation((body:PostType)=>axios.post('/api/collection',body),{
         onSuccess:()=>{
             alert('저장되었습니다')
+            queryClient.invalidateQueries('collection-li-admin')
+            router.push('/admin/collection/list')
         },
         onError:({response})=>{
             if(response.data.kind === 'duplication'){
@@ -34,6 +39,10 @@ export default function CollectionAddPage({isMobile}:{isMobile:boolean}){
         }
     })
     const save = async () =>{
+        if(collection.product.length < 4){
+            alert('상품 4개 이상 선택이 필요합니다')
+            return
+        }
         const body = {
             set:collection.data,
             product:collection.product

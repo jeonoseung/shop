@@ -1,6 +1,6 @@
 import publicStyles from '../../../../styles/public.module.css'
 import {GetServerSideProps} from "next";
-import {dehydrate, QueryClient, useMutation, useQuery} from "react-query";
+import {dehydrate, QueryClient, useMutation, useQuery, useQueryClient} from "react-query";
 import {getCollectionRequiredData, getCollectionUpdate,} from "../../../../src/function/api/get/api";
 import styles from "../../../../src/component/collection/admin/add/collection-add.module.css";
 import CollectionAddInput from "../../../../src/component/collection/admin/add/collection-input";
@@ -18,6 +18,7 @@ import {checkUserAgent} from "../../../../src/function/public/public";
 
 export default function CollectionUpdatePage({isMobile}:{isMobile:boolean}){
     const collection = useSelector((state:RootState)=>state.collectionAdd)
+    const queryClient = useQueryClient();
     const router = useRouter()
     const dispatch = useDispatch()
     const {data,isLoading} = useQuery('collection-update',()=>getCollectionUpdate(false,router.query.pid as string))
@@ -38,6 +39,8 @@ export default function CollectionUpdatePage({isMobile}:{isMobile:boolean}){
         axios.put(`/api/collection/${router.query.pid as string}`,obj),{
         onSuccess:()=>{
             alert('저장되었습니다')
+            queryClient.invalidateQueries('collection-li-admin')
+            router.push('/admin/collection/list')
         },
         onError:()=>{
             alert('저장 실패')

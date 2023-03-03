@@ -31,7 +31,7 @@ export default function HeaderBottom(){
                                 {
                                     data.map((li:any)=>(
                                         <li key={li.category_id}>
-                                            <Link href={'/'}>{li.category_name}</Link>
+                                            <Link href={`/category/${li.category_id}`}>{li.category_name}</Link>
                                         </li>
                                     ))
                                 }

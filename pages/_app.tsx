@@ -28,20 +28,18 @@ export default function App({Component, pageProps}: AppProps) {
         <QueryClientProvider client={query}>
             <Hydrate state={pageProps.dehydratedState}>
                 <Provider store={store}>
-                    <div style={{overflow:"auto",position:"relative"}}>
-                        {
-                            isMobile
-                                ? <MobileHeader/>
-                                : <Header/>
-                        }
-                        <Component {...pageProps}/>
-                        {
-                            isMobile
-                                ? <MobileMenuBar/>
-                                : null
-                        }
-                        <CartModal />
-                    </div>
+                    {
+                        isMobile
+                            ? <MobileHeader/>
+                            : <Header/>
+                    }
+                    <Component {...pageProps}/>
+                    {
+                        isMobile
+                            ? <MobileMenuBar/>
+                            : null
+                    }
+                    <CartModal />
                 </Provider>
             </Hydrate>
             {/*<ReactQueryDevtools initialIsOpen={false} position='bottom-right' />*/}

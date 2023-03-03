@@ -17,7 +17,7 @@ import {useEffect} from "react";
 export default function ProductListManagement({isMobile}:{isMobile:boolean}){
     const router = useRouter();
     const {data,error,isLoading,fetchNextPage,hasNextPage,refetch} =
-        useInfiniteQuery('product-li',({pageParam=1})=>
+        useInfiniteQuery('product-li-admin',({pageParam=1})=>
             getProductListAdmin(false,router.query.search ? router.query.search as string : '',pageParam),{
         getNextPageParam:(lastPage)=>lastPage.nextPage,
     })

@@ -17,7 +17,7 @@ import CollectionListMobile from "../../../src/component/collection/admin/list/c
 export default function CollectionManagementList({isMobile}:{isMobile:boolean}){
     const router = useRouter()
     const {data,error,isLoading,fetchNextPage,hasNextPage} =
-        useInfiniteQuery('collection-li',({pageParam=1})=>
+        useInfiniteQuery('collection-li-admin',({pageParam=1})=>
             getCollectionAdmin(false,router.query.search ? router.query.search as string : '',pageParam),{
             getNextPageParam:(lastPage)=>lastPage.nextPage
         })

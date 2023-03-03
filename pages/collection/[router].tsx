@@ -53,7 +53,7 @@ export default function ProductListInCollection({isMobile,params}:{isMobile:bool
         if(!isLoading){
             refetch()
         }
-    },[router.query.filter,router.query.sort])
+    },[router.query.filter,router.query.sort,router.query.router])
     return(
         <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
             <div>

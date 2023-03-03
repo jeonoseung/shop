@@ -6,16 +6,14 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
     try{
         const query = req.query
         const pid = query.pid
-        const filter = query.filter
         const sort = query.sort
         const page = query.page ? parseInt(query.page as string) : 1
-        const listLength = parseInt(query.list as string);
+        const listLength = parseInt(query.listLength as string);
         const sql = `SELECT p.category_id,p.product_id,p.product_name,brand_name,product_price,product_img,discount_rate,delivery_type,product_title
                         FROM category as c
                         INNER JOIN products as p ON c.category_id = p.category_id
                         LEFT JOIN purchase_history as ph ON ph.product_id = p.product_id
                         WHERE c.category_id = ${pid} `;
-        const sqlFilter = (filter !== 'all' && filter !== undefined ? `AND p.brand_name IN (SELECT brand_name FROM products WHERE brand_name IN (${filter})) `:' ');
         const groupby = `GROUP BY p.product_id `;
         const sqlSort =
             sort === undefined || sort === '1'
@@ -28,7 +26,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                             ? 'order by (p.product_price * (1-p.discount_rate * 0.01)) desc '
                             : ' ';
         const pagination = `LIMIT ${listLength} OFFSET ${(listLength*((page < 1 ? 1 : page)-1))}`;
-        const [rows] = await connection.query(sql+sqlFilter+groupby+sqlSort+pagination)
+        const [rows] = await connection.query(sql+groupby+sqlSort+pagination)
         if(rows.length === 0)
         {
             const [rows] = await connection.query(sql+sqlSort+pagination)

@@ -1,7 +1,7 @@
 import publicStyles from '../../../../styles/public.module.css'
 import styles from '../../../../src/component/product/admin/add/product-add.module.css'
 import {GetServerSideProps} from "next";
-import {dehydrate, QueryClient, useMutation, useQuery} from "react-query";
+import {dehydrate, QueryClient, useMutation, useQuery, useQueryClient} from "react-query";
 import {getProductInfo} from "../../../../src/function/api/get/api";
 import {useRouter} from "next/router";
 import CategoryAndBrand from "../../../../src/component/product/admin/add/category-brand";
@@ -23,6 +23,7 @@ import {checkUserAgent} from "../../../../src/function/public/public";
 export default function ProductUpdatePage({isMobile}:{isMobile:boolean}){
     const [file,setFile] = useState<File>()
     const dispatch = useDispatch();
+    const queryClient = useQueryClient()
     const router = useRouter();
     const {data,isLoading} = useQuery('product-info',()=>getProductInfo(false,router.query.pid))
     const state = useSelector((state:RootState)=>state.ProductAdd)
@@ -38,6 +39,8 @@ export default function ProductUpdatePage({isMobile}:{isMobile:boolean}){
     const updateProduct = useMutation((obj:{pid:number,form:FormData})=>axios.put(`/api/product/${obj.pid}`,obj.form),{
         onSuccess:()=>{
             alert('변경되었습니다')
+            queryClient.invalidateQueries('product-li-admin')
+            router.push('/admin/product/list')
         },
         onError:()=>{
             alert('변경 실패')

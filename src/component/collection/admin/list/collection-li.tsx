@@ -12,7 +12,7 @@ export default function CollectionList({item}:{item:AdminCollectionListType}){
     const removeCollection = useMutation((pid:number)=>axios.delete(`/api/collection/${pid}`),{
         onSuccess:()=>{
             alert('삭제되었습니다')
-            queryClient.invalidateQueries('collection-li')
+            queryClient.invalidateQueries('collection-li-admin')
         },
         onError:()=>{
             alert('삭제 실패')

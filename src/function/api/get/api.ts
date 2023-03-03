@@ -1,7 +1,5 @@
 import axios from "axios";
 import {params,router} from "collection-type";
-import {useRouter} from "next/router";
-
 
 type ssr = boolean
 
@@ -148,10 +146,22 @@ export const getCollectionRequiredData = async (ssr:boolean)=>{
     const data = await axios.get(url)
     return data.data
 }
+/** 데이터 수정에 필요한 데이터 */
 export const getCollectionUpdate = async (ssr:boolean,pid:string)=>{
     const url = `${ssr?process.env.URL : ''}/api/collection/admin/update/${pid}`
     const data = await axios.get(url)
     return data.data
 }
-
-
+/** 카테고리 정보 */
+export const getCategoryInfo = async (ssr:boolean,pid:string)=>{
+    const url = `${ssr ? process.env.URL : ''}/api/category/${pid}`
+    const data = await axios.get(url)
+    return data.data
+}
+/** 카테고리 상품 */
+export const getCategoryProduct = async (ssr:boolean,pid:string,pageParam:number=1,param:params)=>{
+    const {sort,listLength} = param
+    const url = `${ssr? process.env.URL : ''}/api/category/product/${pid}?sort=${sort}&listLength=${param.listLength}&page=${pageParam}`
+    const data = await axios.get(url)
+    return {list:data.data,nextPage:data.data.length > listLength-1 ? pageParam+1 : undefined}
+}

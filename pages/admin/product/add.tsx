@@ -10,7 +10,7 @@ import ImageManagement from "../../../src/component/product/admin/add/image-mana
 import {useEffect, useState} from "react";
 import {File} from "next/dist/compiled/@edge-runtime/primitives/fetch";
 import FormData from "form-data";
-import {dehydrate, QueryClient, useMutation} from "react-query";
+import {dehydrate, QueryClient, useMutation, useQueryClient} from "react-query";
 import {getCategory} from "../../../src/function/api/get/api";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
@@ -19,6 +19,7 @@ import axios from "axios";
 import {ResetProductData} from "../../../store/product/admin/product-add/reducer";
 import {checkNullObject} from "../../../src/function/public/check";
 import {checkUserAgent} from "../../../src/function/public/public";
+import {useRouter} from "next/router";
 
 interface props{
     user:number,
@@ -33,12 +34,16 @@ export default function ProductAddPage({user,isMobile}:props){
     },[])
     const value = useSelector((state:RootState)=>state.ProductAdd.data)
     const option = useSelector((state:RootState)=>state.ProductAdd.option)
+    const queryClient = useQueryClient()
+    const router = useRouter()
     const insertProduct = useMutation((form:FormData)=>axios.post('/api/product',form,{
         headers:{
             "Content-Type":"multipart/form-data"
         }}),{
         onSuccess:()=>{
             alert('저장되었습니다')
+            queryClient.invalidateQueries('product-li-admin')
+            router.push('/admin/product/list')
         },
         onError:()=>{
             alert('저장 오류 발생')

@@ -6,10 +6,10 @@ export default function MobileMenuBar(){
             <Link href={'/'} className={styles['menus']}>
                 홈
             </Link>
-            <Link href={'/'} className={styles['menus']}>
+            <Link href={'/category'} className={styles['menus']}>
                 카테고리
             </Link>
-            <Link href={'/'} className={styles['menus']}>
+            <Link href={'/search'} className={styles['menus']}>
                 검색
             </Link>
             <Link href={'/'} className={styles['menus']}>

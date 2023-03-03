@@ -98,6 +98,14 @@
     gap:0.5rem;
     row-gap:1.5rem;
 }
+.category .product-list{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+    gap:1rem;
+}
+.category-mobile .product-list{
+
+}
 .product-list img{
     width:100%;
     height:auto;
@@ -209,13 +217,6 @@
     background:rgb(247, 247, 247);
     border-right:1px solid #ddd;
 }
-
-/*@media(max-width:1024px){*/
-/*    .collection{*/
-/*        grid-template-columns:1fr;*/
-/*    }*/
-/*    .product-list{*/
-/*        grid-template-columns:1fr 1fr;*/
-/*        gap:0.5rem;*/
-/*    }*/
-/*}*/
+.img-div{
+    position:relative;
+}

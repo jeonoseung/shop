@@ -2,7 +2,6 @@
 // 슬라이스들을 통합한 store를 만들고, RootState를 정의해준다.
 
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
-import counterSlice from './counterSlice';
 import product from "./product/admin/ProductAdd";
 import overlap from "./member/overlap-check";
 import info from "./product/product-info/reducer";
@@ -25,7 +24,6 @@ const makeStore = () => {
         reducer: {
             product: product.reducer,
             overlap:overlap.reducer,
-            counter: counterSlice.reducer,
             ProductInfo:info.reducer,
             ProductAdd:product_add.reducer,
             collectionAdd:collectionAdd.reducer,

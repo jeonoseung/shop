@@ -3,6 +3,7 @@ import Image from "next/image";
 import {setPrice} from "../../function/public/price";
 import {ProductListInCollectionPage} from "collection-type";
 import Link from "next/link";
+import CartButton from "../modal/cart/cart-btn";
 
 interface props{
     data:{
@@ -20,7 +21,10 @@ export default function ProductList({data}:props){
                 data?.pages.map((page)=>(
                     page.list.map((item)=>(
                         <Link key={item.product_id} href={`/product/${item.product_id}`}>
-                            <Image src={item.product_img} alt={'상품 이미지'} width={200} height={299} priority={true}/>
+                            <div className={styles['img-div']}>
+                                <Image src={item.product_img} alt={'img'} width={200} height={300} priority={true}/>
+                                <CartButton pid={item.product_id} name={item.product_name} brand={item.brand_name} price={item.product_price} discount={item.discount_rate}/>
+                            </div>
                             <div><p className={styles['delivery']}>{item.delivery_type}</p></div>
                             <div className={styles['name']}>
                                 {

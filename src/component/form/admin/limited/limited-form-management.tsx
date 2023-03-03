@@ -12,7 +12,7 @@ export default function LimitedFormManagement(){
     const queryClient = useQueryClient()
     const [filter,setFilter] = useState<string>('');
     const [checked,setChecked] = useState<LimitedChecked[]>([]);
-    const {data,isLoading} = useQuery('product-li',()=>getProduct(false),{
+    const {data,isLoading} = useQuery('product-li-form-admin',()=>getProduct(false),{
         select:(product)=>{
             return product.filter(({product_name}:ProductListType)=>product_name.includes(filter))
         }

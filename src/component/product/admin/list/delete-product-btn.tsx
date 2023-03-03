@@ -7,7 +7,7 @@ export default function DeleteProductBtn({pid}:{pid:number}){
     const deleteProduct = useMutation((pid:number)=>axios.delete(`/api/product/${pid}`),{
         onSuccess:()=>{
             alert('삭제되었습니다')
-            queryClient.invalidateQueries('product-li')
+            queryClient.invalidateQueries('product-li-admin')
         },
         onError:()=>{
             alert('삭제 실패')
