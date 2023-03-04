@@ -1,7 +1,7 @@
-import styles from './event-form.module.css'
+import styles from '../event-form.module.css'
 import {CSSProperties, useState} from "react";
-import publicStyle from "../../../styles/public.module.css";
-import ProductListInHome from "./public/product-list";
+import publicStyle from "../../../../styles/public.module.css";
+import ProductListInHome from "../public/product-list";
 import {RecommendProductList} from "collection-type";
 
 export default function RecommendProduct({data}:{data:RecommendProductList[]}){
@@ -26,7 +26,6 @@ export default function RecommendProduct({data}:{data:RecommendProductList[]}){
      * space-between 형식으로 만들기 위한 계산식
      * */
     const imgWidth = (width/imgLength)-(gap-(gap / imgLength));
-    const imgHeight = 300;
     /** component style */
     const div:CSSProperties = {
         position:'relative',

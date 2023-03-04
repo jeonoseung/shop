@@ -11,7 +11,7 @@
 .mobile-content{
     min-width:320px;
     width:100%;
-    padding:1.5rem 0.5rem 10rem 0.5rem;
+    padding:1.5rem 1rem 10rem 1rem;
 }
 .checkbox{
     display:flex;
@@ -188,8 +188,6 @@
 }
 
 .sub-title{
-    font-size:16px;
-    font-family: "Noto Sans Light", "malgun gothic", AppleGothic, dotum, sans-serif;
     color:rgb(153, 153, 153)
 }
 .result-count{
@@ -252,4 +250,16 @@
 }
 .chk-c:checked + span{
     color:#0d6efd;
+}
+.mt1{
+    margin-top:0.25rem;
+}
+.mt2{
+    margin-top:0.5rem;
+}
+.mt3{
+    margin-top:0.75rem;
+}
+.mt4{
+    margin-top:1rem;
 }

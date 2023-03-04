@@ -5,7 +5,12 @@ import {ComponentTopic} from "ui-form-type";
 import {ProductListType} from "product-type";
 import Link from "next/link";
 
-export default function RecommendTopic({component,product}:{component:ComponentTopic,product:ProductListType[]}){
+interface props{
+    component:ComponentTopic
+    product:ProductListType[]
+}
+
+export default function RecommendTopic({component,product}:props){
     return(
         <div className={styles['recommend-topic']}>
             <Link href={`/collection/${component.collection_router_name}`} className={styles['topic']}>

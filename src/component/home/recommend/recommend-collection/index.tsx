@@ -1,12 +1,16 @@
+import {CollectionType, RecommendProductList} from "collection-type";
 import {CSSProperties, useState} from "react";
-import Image from "next/image";
-import styles from "./event-form.module.css";
-import {CollectionType,RecommendProductList} from "collection-type";
-import publicStyle from '../../../styles/public.module.css'
 import Link from "next/link";
-import ProductListInHome from "./public/product-list";
+import Image from "next/image";
+import ProductListInHome from "../../public/product-list";
+import css from '../css.module.css'
 
-export default function RecommendCollection({collection,data}:{collection:CollectionType,data:RecommendProductList[]}){
+interface props{
+    collection:CollectionType
+    data:RecommendProductList[]
+}
+
+export default function RecommendCollection({collection,data}:props){
     /** content width */
     const width = 1024;
     /** 이미지 표시 수 */
@@ -74,16 +78,14 @@ export default function RecommendCollection({collection,data}:{collection:Collec
 
     return(
         <div style={div}>
-            <div style={{textAlign:'center'}}>
-                <div className={publicStyle['title']}>
-                    <Link href={`/collection/${collection.collection_router_name}`}>
-                        <span className={publicStyle['title']}>{collection.collection_name}</span>
-                        <Image src={'/image/view-more.svg'} alt={'더보기'} width={32} height={32} priority={true}/>
-                    </Link>
-                </div>
-                <div style={{margin:'0.5rem 0'}}>
-                    <span className={publicStyle['sub-title']}>{collection.collection_title}</span>
-                </div>
+            <div className={css['title']}>
+                <Link href={`/collection/${collection.collection_router_name}`}>
+                    <span>{collection.collection_name}</span>
+                    <Image src={'/image/view-more.svg'} alt={'더보기'} width={32} height={32} priority={true}/>
+                </Link>
+            </div>
+            <div className={css['sub-title']}>
+                <span>{collection.collection_title}</span>
             </div>
             <div style={{overflow:'hidden'}}>
                 <div style={slider}>
@@ -94,9 +96,9 @@ export default function RecommendCollection({collection,data}:{collection:Collec
                     }
                     <div style={{marginRight:`${gap}px`,height:`${imgHeight}px`}}>
                         <Link href={`/collection/${collection.collection_router_name}`}
-                              className={styles['all-view']}
+                              className={css['all-view']}
                               style={{width:`${imgWidth}px`,position:"relative"}}>
-                            <div className={styles['all-view-btn']}>
+                            <div className={css['all-view-btn']}>
                                 <Image style={{margin:"auto"}} src={'/image/chevron-right-normal.svg'}
                                        alt={'전체 보기'}
                                        width={36}
@@ -111,11 +113,11 @@ export default function RecommendCollection({collection,data}:{collection:Collec
                     </div>
                 </div>
             </div>
-            <button style={preStyle} className={styles['slider-button']} onClick={previous} disabled={index === 0}>
-                <div className={styles.left}></div>
+            <button style={preStyle} className={css['slider-button']} onClick={previous} disabled={index === 0}>
+                <div className={css.left}></div>
             </button>
-            <button style={nextStyle} className={styles['slider-button']} onClick={next} disabled={index >= product.length/imgLength-(data.length > dataLength ? 0 : 1)}>
-                <div className={styles.right}></div>
+            <button style={nextStyle} className={css['slider-button']} onClick={next} disabled={index >= product.length/imgLength-(data.length > dataLength ? 0 : 1)}>
+                <div className={css.right}></div>
             </button>
         </div>
     )

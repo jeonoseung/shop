@@ -223,6 +223,7 @@
     justify-content: space-between;
     padding:0 1rem;
     background:white;
+    z-index:500;
 }
 .menus{
     padding:1rem
