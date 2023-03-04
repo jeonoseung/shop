@@ -1,14 +1,19 @@
 .title{
-    text-align:center;
-    border:1px solid black;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.title span{
+    font-size:1.75rem;
+    font-weight:500;
 }
 .sub-title{
     text-align:center;
     color:rgb(153, 153, 153);
-    border:1px solid black;
+    margin:0.25rem;
 }
 .slider-button{
-    top:200px;
+    top:210px;
     transform:translate(0, 0);
     width:50px;
     height:50px;

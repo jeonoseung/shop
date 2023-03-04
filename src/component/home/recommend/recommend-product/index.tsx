@@ -1,9 +1,7 @@
-import styles from '../event-form.module.css'
-import {CSSProperties, useState} from "react";
-import publicStyle from "../../../../styles/public.module.css";
-import ProductListInHome from "../public/product-list";
 import {RecommendProductList} from "collection-type";
-
+import {CSSProperties, useState} from "react";
+import ProductListInHome from "../../public/product-list";
+import css from '../css.module.css'
 export default function RecommendProduct({data}:{data:RecommendProductList[]}){
     /** content width */
     const width = 1024;
@@ -43,7 +41,6 @@ export default function RecommendProduct({data}:{data:RecommendProductList[]}){
     const preStyle:CSSProperties = {
         position:'absolute',
         left:'-25px',
-        display: index === 0 ? 'none' : 'block',
     }
     const nextStyle:CSSProperties = {
         position:'absolute',
@@ -68,29 +65,28 @@ export default function RecommendProduct({data}:{data:RecommendProductList[]}){
     }
     return(
         <div style={div}>
-            <div style={{textAlign:'center'}}>
-                <div className={publicStyle['title']}>
-                    이 상품 어때요?
-                </div>
+            <div className={css['title']}>
+                <span>이 상품 어때요?</span>
             </div>
             <div style={{overflow:'hidden'}}>
                 <div style={slider}>
                     {product.map((item)=>(
-                            <ProductListInHome key={item.product_id} item={item} width={imgWidth} gap={gap}/>
-                        ))
+                        <ProductListInHome key={item.product_id} item={item} width={imgWidth} gap={gap}/>
+                    ))
                     }
                 </div>
             </div>
             {index === 0
                 ? null
-                : <button style={preStyle} className={styles['slider-button']} onClick={previous} disabled={index === 0}>
-                    <div className={styles.left}></div>
+                : <button style={preStyle} className={css['slider-button']} onClick={previous} disabled={index === 0}>
+                    <div className={css.left}></div>
                 </button>
             }
             {index >= product.length/imgLength-1
                 ? null
-                : <button style={nextStyle} className={styles['slider-button']} onClick={next} disabled={index >= product.length/imgLength-1}>
-                    <div className={styles.right}></div>
+                :
+                <button style={nextStyle} className={css['slider-button']} onClick={next} disabled={index >= product.length/imgLength-1}>
+                    <div className={css.right}></div>
                 </button>
             }
         </div>

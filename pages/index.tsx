@@ -4,7 +4,6 @@ import publicStyles from '../styles/public.module.css'
 import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useQuery} from "react-query";
 import {getHomeForm, getProductRand} from "../src/function/api/get/api";
-import RecommendCollection from "../src/component/home/recommend/recommend-collection";
 import ImageSlider from "../src/component/home/image-slider/image-slider";
 import RecommendTopic from "../src/component/home/recommend-topic/recommend-topic";
 import {ProductListType} from "product-type";
@@ -12,6 +11,7 @@ import {checkUserAgent} from "../src/function/public/public";
 import RecommendTopicMobile from "../src/component/home/recommend-topic/mobile/recommend-topic";
 import MobileRecommendCollection from "../src/component/home/recommend/mobile/recommend-collection";
 import MobileRecommendProduct from "../src/component/home/recommend/mobile/recommend-product";
+import RecommendCollection from "../src/component/home/recommend/recommend-collection";
 
 export default function Home({isMobile}:{isMobile:boolean}) {
     const recommendProduct = useQuery('rec-product',()=>getProductRand(false))
@@ -26,12 +26,13 @@ export default function Home({isMobile}:{isMobile:boolean}) {
     ]
     return (
         <div style={isMobile ? {width:'100%'} : {minWidth:'1024px'}}>
+
             <ImageSlider images={load_images1}/>
             <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
                 {
                     recommendProduct.isLoading || recommendProduct.status === 'error'
-                    ? null
-                    : isMobile
+                        ? null
+                        : isMobile
                             ? <MobileRecommendProduct data={recommendProduct.data}/>
                             : <RecommendProduct data={recommendProduct.data}/>
                 }

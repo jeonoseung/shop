@@ -78,19 +78,17 @@ export default function RecommendCollection({collection,data}:props){
 
     return(
         <div style={div}>
-            <div className={css['title']}>
-                <Link href={`/collection/${collection.collection_router_name}`}>
-                    <span>{collection.collection_name}</span>
-                    <Image src={'/image/view-more.svg'} alt={'더보기'} width={32} height={32} priority={true}/>
-                </Link>
-            </div>
+            <Link href={`/collection/${collection.collection_router_name}`} className={css['title']}>
+                <span>{collection.collection_name}</span>
+                <Image src={'/image/view-more.svg'} alt={'더보기'} width={32} height={32} priority={true}/>
+            </Link>
             <div className={css['sub-title']}>
-                <span>{collection.collection_title}</span>
+                {collection.collection_title}
             </div>
             <div style={{overflow:'hidden'}}>
                 <div style={slider}>
                     {
-                        product.map((item,index:number)=>(
+                        product.map((item)=>(
                             <ProductListInHome key={item.product_id} item={item} width={imgWidth} gap={gap}/>
                         ))
                     }
