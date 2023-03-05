@@ -1,13 +1,19 @@
 .slider{
     width:100%;
-    overflow:auto;
-    display:grid;
-    grid-template-columns: repeat(20,calc(40vw));
+    display:flex;
     gap:0.5rem;
+    transition:transform 0.5s;
+    transition-property: transform;
+    overflow: hidden;
 }
 .test-img{
+    width:100px;
+    height:300px;
     background: #333333;
-    border:1px solid red
+    border:1px solid red;
+    transition-property:transform;
+    position:relative;
+    flex-shrink:0;
 }
 .product{
     display:block;
@@ -20,6 +26,7 @@
 }
 .img-div{
     position:relative;
+    overflow:hidden;
 }
 .discount{
     font-weight:500;

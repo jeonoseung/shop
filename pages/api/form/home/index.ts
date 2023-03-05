@@ -16,12 +16,14 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                             WHERE rct.topic_id IS NULL
                             AND rec.rec_id = ${li.ui_use} 
                             AND ui.ui_kind = 'recommend_collection';`;
-            const sql_list = `SELECT p.product_id,p.product_name,p.product_price,p.brand_name,p.discount_rate,p.product_img
+            const sql_list = `SELECT p.product_id,p.product_name,p.product_price,p.brand_name,p.discount_rate,p.product_img,COUNT(review_id) as review
                             FROM recommend_collection as rec
                             INNER JOIN collections as c ON c.collection_id = rec.collection_id
                             INNER JOIN collection_product as cp ON c.collection_id = cp.collection_id
                             INNER JOIN products as p ON cp.product_id = p.product_id
+                            LEFT JOIN review as r ON p.product_id = r.product_id
                             WHERE rec.rec_id = ${li.ui_use} 
+                            GROUP BY p.product_id
                             LIMIT 21;`
             const [rows] = await connection.query(sql_component+sql_list)
             return {component:rows[0][0],product:rows[1]}
@@ -50,11 +52,13 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                                    INNER JOIN main_user_interface as ui on ui.ui_use = lo.lo_id
                                    INNER JOIN limited_offer_product as lop on lop.lo_id = lo.lo_id
                                    WHERE lo.lo_id = ${li.ui_use} AND ui.ui_kind = '${li.ui_kind}';`
-            const sql_list = `SELECT p.product_id,p.product_name,p.product_price,p.brand_name,p.discount_rate,p.product_img,p.product_title
+            const sql_list = `SELECT p.product_id,p.product_name,p.product_price,p.brand_name,p.discount_rate,p.product_img,p.product_title,COUNT(review_id) as review
                               FROM ${li.ui_kind} as lo
                               INNER JOIN limited_offer_product as lop on lop.lo_id = lo.lo_id
                               INNER JOIN products as p on p.product_id = lop.product_id
-                              WHERE lo.lo_id = ${li.ui_use}`
+                              LEFT JOIN review as r on p.product_id = r.product_id
+                              WHERE lo.lo_id = ${li.ui_use}
+                              GROUP BY p.product_id;`
             const [rows] = await connection.query(sql_component+sql_list)
             return {component:rows[0][0],product:rows[1]}
         }

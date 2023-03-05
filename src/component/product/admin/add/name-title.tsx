@@ -15,14 +15,16 @@ export default function NameAndTitle(){
         <div style={div}>
             <input type={'text'}
                    className={publicStyles['input-text']}
-                   placeholder={'상품 명'}
+                   placeholder={'상품 명 - 최대 40자'}
+                   maxLength={40}
                    value={value.name}
                    spellCheck={false}
                    onChange={(e)=>dispatch(ProductInputChange({...value,name:e.target.value}))}
             />
             <input type={'text'}
                    className={publicStyles['input-text']}
-                   placeholder={'상품 제목'}
+                   placeholder={'상품 제목 - 최대 50자'}
+                   maxLength={50}
                    value={value.title}
                    spellCheck={false}
                    onChange={(e)=>dispatch(ProductInputChange({...value,title:e.target.value}))}

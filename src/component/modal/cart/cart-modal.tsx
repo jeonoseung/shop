@@ -17,24 +17,27 @@ export default function CartModal(){
     const dispatch = useDispatch()
     const state = useSelector((state:RootState)=>state.cartModal)
     const login = useQuery('is-login',LoginCheck)
-    const [out,setOut] = useState<CSSProperties>({
-        display:'none',
+    const addCart = useMutation((data:{pid:number,count:number})=>axios.post(`/api/cart`,data),{
+        onSuccess:()=>{
+            queryClient.invalidateQueries('user')
+        },
+        onError:()=>{
+            alert('장바구니 추가 실패')
+        }
     })
-    const addCart = useMutation((data:{pid:number,count:number})=>axios.post(`/api/cart`,data))
     useEffect(()=>{
-        if(state.checked) {
-            setOut({...out,display:'block'})
+        if(state.checked){
             dispatch(setModalCount(1))
             queryClient.invalidateQueries('cart-li')
         }
-        else
-        {
-            setOut({...out,display:'none'})
+        else {
+            dispatch(setDisplay(false))
         }
     },[state.checked])
-    return state.product.id === 0 ? null :
+    return state.product.id === 0 || !state.checked
+        ? null :
         (
-            <div className={styles['cart-modal-out']} style={out} onClick={(e)=>{
+            <div className={styles['cart-modal-out']} onClick={(e)=>{
                 e.target === e.currentTarget ? dispatch(setDisplay(false)) : null
             }}>
                 <div className={styles['cart-modal-in']}>

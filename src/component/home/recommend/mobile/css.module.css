@@ -1,7 +1,14 @@
+.recommend{
+    padding:1rem 0;
+    margin:1rem 0;
+}
 .title{
     display:flex;
     justify-content:space-between;
     align-items:center;
+}
+.title h2{
+    font-size:1.25rem;
 }
 .title a{
     font-weight:300;
@@ -31,6 +38,7 @@
 }
 .img-div{
     position:relative;
+    overflow:hidden;
 }
 .mobile-slider .name-area{
     width:100%;

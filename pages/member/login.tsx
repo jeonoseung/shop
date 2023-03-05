@@ -1,8 +1,7 @@
 import public_styles from '../../styles/public.module.css';
-import styles from '../../styles/member.module.css';
 import Login from "../../src/component/member/login";
-import {dehydrate, QueryClient, useQuery} from "react-query";
-import {getSession} from "../../src/function/api/get/api";
+import {withIronSessionSsr} from "iron-session/next";
+import {IronSessionOption} from "../../src/function/api/iron-session/options";
 
 export default function LoginPage(){
     return(
@@ -11,3 +10,22 @@ export default function LoginPage(){
         </div>
     )
 }
+export const getServerSideProps = withIronSessionSsr(
+    async function getServerSideProps({ req }){
+        const user = req.session.user;
+        if (user) {
+            return {
+                redirect: {
+                    permanent:false,
+                    destination:"/"
+                }
+            };
+        }
+        return {
+            props: {
+
+            },
+        };
+    },
+    IronSessionOption
+);

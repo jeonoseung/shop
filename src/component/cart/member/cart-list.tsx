@@ -59,6 +59,7 @@ export default function CartListMember({item}:{item:CartListType}){
             alert('삭제되었습니다')
             dispatch(setCheck({checked:false,value:item.product_id}))
             queryClient.invalidateQueries('cart-li')
+            queryClient.invalidateQueries('user')
         },
         onError:()=>{
             alert('삭제 실패')

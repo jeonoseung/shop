@@ -2,12 +2,12 @@ import publicStyles from '../../../styles/public.module.css'
 import styles from '../../../src/component/my-page/my-page.module.css'
 import MenuList from "../../../src/component/my-page/menu-list";
 import {dehydrate, QueryClient} from "react-query";
-import OrderList from "../../../src/component/my-page/order-list";
+import OrderList from "../../../src/component/my-page/order/order-list";
 import {withIronSessionSsr} from "iron-session/next";
 import {IronSessionOption} from "../../../src/function/api/iron-session/options";
 import {getOrderList} from "../../../src/function/api/get/api";
 import {checkUserAgent} from "../../../src/function/public/public";
-import OrderListMobile from "../../../src/component/my-page/order-list-mobile";
+import OrderListMobile from "../../../src/component/my-page/order/order-list-mobile";
 
 export default function MyOrder({isMobile}:{isMobile:boolean}){
     return(

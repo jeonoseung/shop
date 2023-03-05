@@ -219,6 +219,7 @@
 }
 .img-div{
     position:relative;
+    overflow:hidden;
 }
 
 

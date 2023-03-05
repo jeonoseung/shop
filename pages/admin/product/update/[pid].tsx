@@ -1,6 +1,5 @@
 import publicStyles from '../../../../styles/public.module.css'
 import styles from '../../../../src/component/product/admin/add/product-add.module.css'
-import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useMutation, useQuery, useQueryClient} from "react-query";
 import {getProductInfo} from "../../../../src/function/api/get/api";
 import {useRouter} from "next/router";
@@ -19,6 +18,8 @@ import FormData from "form-data";
 import {RootState} from "../../../../store/store";
 import axios from "axios";
 import {checkUserAgent} from "../../../../src/function/public/public";
+import {withIronSessionSsr} from "iron-session/next";
+import {IronSessionOption} from "../../../../src/function/api/iron-session/options";
 
 export default function ProductUpdatePage({isMobile}:{isMobile:boolean}){
     const [file,setFile] = useState<File>()
@@ -85,15 +86,27 @@ export default function ProductUpdatePage({isMobile}:{isMobile:boolean}){
         </div>
     )
 }
-export const getServerSideProps:GetServerSideProps = async (context)=>{
-    const { pid } = context.query;
-    const queryClient = new QueryClient()
-    await queryClient.prefetchQuery('product-info',()=>getProductInfo(true,pid))
+export const getServerSideProps = withIronSessionSsr(
+    async function getServerSideProps(context) {
+        const user = context.req.session.user;
+        const { pid } = context.query;
+        const queryClient = new QueryClient()
+        await queryClient.prefetchQuery('product-info',()=>getProductInfo(true,pid))
 
-    return {
-        props:{
-            isMobile:checkUserAgent(context.req.headers['user-agent'] as string),
-            dehydratedState:dehydrate(queryClient)
+        if (!user || user.auth !== 1) {
+            return {
+                redirect: {
+                    permanent:false,
+                    destination:"/"
+                }
+            };
         }
-    }
-}
+        return {
+            props: {
+                isMobile:checkUserAgent(context.req.headers['user-agent'] as string),
+                dehydratedState:dehydrate(queryClient)
+            },
+        };
+    },
+    IronSessionOption
+);

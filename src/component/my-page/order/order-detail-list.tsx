@@ -1,14 +1,14 @@
-import styles from "./my-page.module.css";
+import styles from "../my-page.module.css";
 import Image from "next/image";
-import {setPrice, totalPrice} from "../../function/public/price";
-import publicStyles from "../../../styles/public.module.css";
+import {setPrice, totalPrice} from "../../../function/public/price";
+import publicStyles from "../../../../styles/public.module.css";
 import {useRouter} from "next/router";
 import {useQuery} from "react-query";
-import {getOrderDetail} from "../../function/api/get/api";
-import setProductName from "../../function/public/product-name";
+import {getOrderDetail} from "../../../function/api/get/api";
+import setProductName from "../../../function/public/product-name";
 import {useDispatch} from "react-redux";
-import {setDisplay, setProductInfo} from "../../../store/modal/cart-modal";
-import {orderDetailType} from "order-list";
+import {setDisplay, setProductInfo} from "../../../../store/modal/cart-modal";
+import {orderDetailType} from "src/component/my-page/order/order-list";
 
 export default function OrderDetailList(){
     const route = useRouter()

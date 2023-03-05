@@ -1,19 +1,26 @@
 .limited-offer{
+    padding:1rem 0;
+    margin:1rem 0;
     display:grid;
     gap:1rem;
 }
-.text{
-
-}
 .colon{
-    font-size:26px;
+    font-size:1.75rem;
     font-weight:700;
     margin:0.125rem;
+}
+.time-area{
+    margin:1.5rem 0;
+}
+.test{
+    display:flex;
+    align-items:center;
+    margin-right:0.25rem;
 }
 .timer{
     display:flex;
     align-items:center;
-    margin:2rem 0
+    line-height:2rem;
 }
 .time{
     font-size:2rem;
@@ -49,6 +56,7 @@
 }
 .img-div{
     position: relative;
+    overflow:hidden;
 }
 .product img{
     width:100%;

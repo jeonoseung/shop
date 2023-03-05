@@ -1,5 +1,4 @@
 import publicStyles from '../../../../styles/public.module.css'
-import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useMutation, useQuery, useQueryClient} from "react-query";
 import {getCollectionRequiredData, getCollectionUpdate,} from "../../../../src/function/api/get/api";
 import styles from "../../../../src/component/collection/admin/add/collection-add.module.css";
@@ -15,6 +14,8 @@ import {SetCollectionInput, SetSelectProduct} from "../../../../store/collection
 import {PutAxiosBodyType} from "collection-type";
 import axios from "axios";
 import {checkUserAgent} from "../../../../src/function/public/public";
+import {withIronSessionSsr} from "iron-session/next";
+import {IronSessionOption} from "../../../../src/function/api/iron-session/options";
 
 export default function CollectionUpdatePage({isMobile}:{isMobile:boolean}){
     const collection = useSelector((state:RootState)=>state.collectionAdd)
@@ -64,16 +65,28 @@ export default function CollectionUpdatePage({isMobile}:{isMobile:boolean}){
         </div>
     )
 }
-export const getServerSideProps:GetServerSideProps = async (context)=>{
-    const queryClient = new QueryClient()
-    const {pid}=context.query
 
-    await queryClient.prefetchQuery('collection-update',()=>getCollectionUpdate(true,pid as string))
-    await queryClient.prefetchQuery('collection-required-data',()=>getCollectionRequiredData(true))
-    return {
-        props:{
-            dehydratedState: dehydrate(queryClient),
-            isMobile:checkUserAgent(context.req.headers['user-agent'] as string)
+export const getServerSideProps = withIronSessionSsr(
+    async function getServerSideProps(context ) {
+        const user = context.req.session.user;
+        if (!user || user.auth !== 1) {
+            return {
+                redirect: {
+                    permanent:false,
+                    destination:"/"
+                }
+            };
         }
-    }
-}
+        const queryClient = new QueryClient()
+        const {pid}=context.query
+        await queryClient.prefetchQuery('collection-update',()=>getCollectionUpdate(true,pid as string))
+        await queryClient.prefetchQuery('collection-required-data',()=>getCollectionRequiredData(true))
+        return {
+            props: {
+                dehydratedState: dehydrate(queryClient),
+                isMobile:checkUserAgent(context.req.headers['user-agent'] as string)
+            },
+        };
+    },
+    IronSessionOption
+);

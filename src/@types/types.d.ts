@@ -95,6 +95,7 @@ declare module "product-type"{
         product_img:string
         category_id:number
         product_title:string
+        review:number
     }
     interface ProductInfoType{
         product_id:number
@@ -146,6 +147,7 @@ declare module "collection-type"{
         product_price:number
         product_img:string
         discount_rate:number
+        review:number
     }
     interface ProductListInCollectionPage{
         product_id:number
@@ -229,7 +231,24 @@ declare module "order-list"{
         discount_rate:number | null
     }
 }
-
+declare module 'review'{
+    interface possibleListType{
+        ph_id:number
+        product_id:number
+        product_img:string
+        product_name:string
+        brand_name:string
+        order_date:string
+    }
+    interface writeListType{
+        product_id:number
+        product_name:string
+        review_comment:string
+        review_date:string
+        review_img:string
+        brand_name
+    }
+}
 declare module 'header'{
     interface MenuLinkType{
         name:string

@@ -1,9 +1,10 @@
 import {MutableRefObject, useEffect, useRef, useState} from "react";
 import {TimeRemaining} from "../../../function/public/date";
 import styles from "./limited-offer.module.css";
+import Image from "next/image";
 
 export default function LimitedTime({time}:{time:string}){
-    const [h, setHour] = useState<string>('00')
+    const [h, setHour] = useState<string>('00');
     const [min, setMin] = useState<string>('00');
     const [sec, setSec] = useState<string>('00');
     useEffect(()=>{
@@ -48,6 +49,9 @@ export default function LimitedTime({time}:{time:string}){
     }, 1000);
     return(
         <div className={styles['timer']}>
+            <div className={styles['test']}>
+                <Image src={'/image/clock.gif'} alt={'이미지'} width={36} height={36}/>
+            </div>
             <span className={styles['time']}>{h}</span>
             <span className={styles['colon']}>:</span>
             <span className={styles['time']}>{min}</span>

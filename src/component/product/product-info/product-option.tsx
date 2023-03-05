@@ -7,6 +7,9 @@ import {resetCount, setCount} from "../../../../store/product/product-info/reduc
 import {RootState} from "../../../../store/store";
 import {useEffect} from "react";
 import {ProductOptionType} from "product-type";
+import PlusIcon from "../../public/icon/plus-icon";
+import MinusIcon from "../../public/icon/minus-icon";
+import Image from "next/image";
 
 export default function ProductOption({pid}:{pid:string}){
     const dispatch = useDispatch();
@@ -65,9 +68,13 @@ export default function ProductOption({pid}:{pid:string}){
                         </div>
                         <div className={styles['product-result']}>
                             <div className={styles['result-count']}>
-                                <button disabled={count === 1} onClick={()=>dispatch(setCount(-1))}>-</button>
+                                <button disabled={count === 1} onClick={()=>dispatch(setCount(-1))}>
+                                    <MinusIcon/>
+                                </button>
                                 <div>{count}</div>
-                                <button onClick={()=>dispatch(setCount(+1))}>+</button>
+                                <button onClick={()=>dispatch(setCount(+1))}>
+                                    <PlusIcon/>
+                                </button>
                             </div>
                             {
                                 data.info.discount_rate !== 0

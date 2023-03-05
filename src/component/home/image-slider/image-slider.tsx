@@ -169,7 +169,8 @@ export default function ImageSlider({images}:{images:{src:string}[]}){
                  onMouseDown={mouseDown}
                  onMouseUp={mouseUp}
                  onMouseLeave={mouseUp}
-                 onMouseMove={mouseMove}>
+                 onMouseMove={mouseMove}
+            >
                 <div className={styles['img']} style={{backgroundImage:`url(${images[images.length-1].src})`,width:`${width}px`}}>
                 </div>
                 {images.map((item, index)=>(

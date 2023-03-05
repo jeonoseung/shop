@@ -35,9 +35,9 @@ const post = async (req:NextApiRequest,res:NextApiResponse) =>{
         const pidLi = list.map(({product_id}:CartListType)=>product_id)
         let sqlGroup = `INSERT INTO purchase_history_group(price,order_date,length,user_id) VALUE(${total.total},'${DateTimeNow()}',${list.length},${user.id})`
         const [rows] = await connection.query(sqlGroup)
-        let sql = `INSERT INTO purchase_history(product_id,user_id,count,price,discount_price,phg_id,product_name) VALUES`
+        let sql = `INSERT INTO purchase_history(product_id,user_id,count,price,discount_price,phg_id,product_name,review_state) VALUES`
         const values = list.reduce((query:string,li:CartListType,index:number)=>{
-            query += `(${li.product_id},${req.session.user.id},${li.count},${li.product_price},${(li.product_price*(li.discount_rate === 0 ? 0 : li.discount_rate * 0.01))},${rows.insertId},'${li.product_name}')` + (list.length-1 === index ? `;` : ',')
+            query += `(${li.product_id},${req.session.user.id},${li.count},${li.product_price},${(li.product_price*(li.discount_rate === 0 ? 0 : li.discount_rate * 0.01))},${rows.insertId},'${li.product_name}',0)` + (list.length-1 === index ? `;` : ',')
             return query
         },``)
         await connection.query(sql+values)

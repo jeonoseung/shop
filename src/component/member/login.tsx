@@ -50,11 +50,11 @@ export default function Login(){
                        value={user.pass} autoComplete={'false'} placeholder={'비밀번호'}
                        onChange={(e)=>setUser({...user,pass:e.target.value})}
                        onKeyUp={(e)=>e.key === "Enter" ? userLogin() : null}/>
-                <div className={styles.user_find}>
-                    <span>아이디 찾기</span>
-                    <span className={styles.find_space}>|</span>
-                    <span>비밀번호 찾기</span>
-                </div>
+                {/*<div className={styles.user_find}>*/}
+                {/*    <span>아이디 찾기</span>*/}
+                {/*    <span className={styles.find_space}>|</span>*/}
+                {/*    <span>비밀번호 찾기</span>*/}
+                {/*</div>*/}
                 <button type={'button'} className={styles.login_button} onClick={userLogin}>
                     로그인
                 </button>

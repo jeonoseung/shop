@@ -13,6 +13,7 @@ export default function PriceAndDiscount(){
             <div className={publicStyles['input-unit']}>
                 <input type={'text'}
                        placeholder={'가격'}
+                       maxLength={20}
                        value={value.price}
                        onChange={(e)=>{
                            e.target.value = e.target.value.replace(/[^0-9]/g, '')

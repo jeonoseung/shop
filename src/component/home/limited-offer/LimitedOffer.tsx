@@ -16,7 +16,9 @@ export default function LimitedOffer({component,product}:{component:any,product:
             <div>
                 <span className={styles['title']}>{component.lo_title}</span>
                 <span className={styles['subtitle']}>{component.lo_subtitle}</span>
-                <LimitedTime time={component.lo_end}/>
+                <div className={styles['time-area']}>
+                    <LimitedTime time={component.lo_end}/>
+                </div>
                 <span className={styles['content']}>망설이면 늦어요!</span>
             </div>
             <div className={productList}>

@@ -25,7 +25,7 @@ export default function ProductInfoPage({pid,isMobile}:{pid:string,isMobile:bool
             router.back()
         }
     },[])
-
+    console.log(data)
     return (
         <div className={publicStyle[isMobile ? 'mobile-content' : 'content']}>
             {data.info
@@ -39,7 +39,7 @@ export default function ProductInfoPage({pid,isMobile}:{pid:string,isMobile:bool
                             ?
                             <Image
                                 className={styles['product-img']}
-                                src={data.info.product_img }
+                                src={data.info.product_img}
                                 alt={'상품 이미지'}
                                 priority={true}
                                 width={1200} height={1500}/>

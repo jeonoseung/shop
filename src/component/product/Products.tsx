@@ -1,18 +1,8 @@
 import styles from "../../../styles/Product.module.css";
 import Image from "next/image";
-import {dehydrate, QueryClient, useQuery} from "react-query";
-import {getProduct, getSession} from "../../function/api/get/api";
+import {useQuery} from "react-query";
+import {getProduct} from "../../function/api/get/api";
 import {setPrice} from "../../function/public/price";
-import {useState} from "react";
-interface props{
-    list:{
-        src:string
-        kind:string
-        name:string
-        subname:string
-        price:number
-    }[]
-}
 
 export default function Products(){
     const {isLoading, data}:any = useQuery('product',()=>getProduct(false));

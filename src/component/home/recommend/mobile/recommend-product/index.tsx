@@ -11,8 +11,8 @@ interface props{
 
 export default function MobileRecommendProduct({data}:props){
     return(
-        <>
-            <div className={css['title-div']}>
+        <div className={css['recommend']}>
+            <div className={css['title']}>
                 <h2>이 상품 어때요?</h2>
             </div>
             <div className={css['mobile-slider']}>
@@ -48,6 +48,6 @@ export default function MobileRecommendProduct({data}:props){
                     ))
                 }
             </div>
-        </>
+        </div>
     )
 }

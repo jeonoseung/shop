@@ -5,9 +5,9 @@ import {getOrderDetail} from "../../../src/function/api/get/api";
 import publicStyles from "../../../styles/public.module.css";
 import styles from "../../../src/component/my-page/my-page.module.css";
 import MenuList from "../../../src/component/my-page/menu-list";
-import OrderDetailList from "../../../src/component/my-page/order-detail-list";
+import OrderDetailList from "../../../src/component/my-page/order/order-detail-list";
 import {checkUserAgent} from "../../../src/function/public/public";
-import OrderDetailListMobile from "../../../src/component/my-page/order-detail-list-mobile";
+import OrderDetailListMobile from "../../../src/component/my-page/order/order-detail-list-mobile";
 
 export default function OrderDetail({isMobile}:{isMobile:boolean}){
     return(

@@ -82,11 +82,11 @@ export default function LimitedFormManagement(){
             <button onClick={saveButton}>한정 판매 추가</button>
             <div>
                 <span>제목</span>
-                <input type={'text'} onChange={(e)=>setTitle(e.target.value)}/>
+                <input type={'text'} placeholder={'최대 20자'} maxLength={20} onChange={(e)=>setTitle(e.target.value)}/>
             </div>
             <div>
                 <span>부제목</span>
-                <input type={'text'} onChange={(e)=>setSubtitle(e.target.value)}/>
+                <input type={'text'} placeholder={'최대 20자'} maxLength={20}  onChange={(e)=>setSubtitle(e.target.value)}/>
             </div>
             <div>
                 <span>시작</span>

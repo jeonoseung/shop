@@ -86,11 +86,12 @@
     margin-top:0.5rem;
 }
 .product-result .result-count{
+    min-width:90px;
     width:25%;
     border:1px solid #ddd;
     border-radius:0.25rem;
     display:grid;
-    grid-template-columns:30% 40% 30%;
+    grid-template-columns:1fr 2fr 1fr;
     align-items:center;
     text-align:center;
     padding:0.125rem;
@@ -98,7 +99,7 @@
 .product-result .result-count *{
     background:none;
     border:0;
-    width:100%;
+
     font-size:16px;
     text-align:center;
 }

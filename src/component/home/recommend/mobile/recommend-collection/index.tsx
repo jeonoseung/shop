@@ -20,7 +20,7 @@ export default function MobileRecommendCollection({collection,data}:props){
      * */
     const product = data.length > dataLength ? data.slice(0,dataLength) : data
     return(
-        <>
+        <div className={css['recommend']}>
             <div className={css['title']}>
                 <h2>{collection.collection_name}</h2>
                 <Link href={`/collection/${collection.collection_router_name}`}>전체 보기</Link>
@@ -58,6 +58,6 @@ export default function MobileRecommendCollection({collection,data}:props){
                     ))
                 }
             </div>
-        </>
+        </div>
     )
 }

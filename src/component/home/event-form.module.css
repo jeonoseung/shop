@@ -52,6 +52,7 @@
 }
 .img-div{
     position: relative;
+    overflow:hidden;
 }
 .all-view-btn{
     width:60px;
@@ -67,17 +68,30 @@
 }
 .discount{
     font-weight:500;
-    font-size:16px;
     color:rgb(250,98,47);
 }
 .price{
     font-weight:500;
-    font-size:16px;
+}
+.cancel-area{
+    line-height:1rem;
 }
 .line-through{
     color:rgb(181,181,181);
-    font-size:14px;
+    font-size:0.9rem;
     text-decoration: line-through;
+    line-height:1rem;
+    display:block;
+    margin-bottom:0.125rem
+}
+.review{
+    display:flex;
+    align-items:center;
+}
+.review span{
+    margin-left:0.25rem;
+    font-size: 0.75rem;
+    color:rgb(153, 153, 153);
 }
 
 

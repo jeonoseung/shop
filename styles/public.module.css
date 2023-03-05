@@ -4,6 +4,7 @@
     padding:1.5rem 0 10rem 0;
 }
 .content{
+    min-width:1024px;
     width:1024px;
     margin:auto;
     padding:1.5rem 0 10rem 0;
@@ -12,6 +13,7 @@
     min-width:320px;
     width:100%;
     padding:1.5rem 1rem 10rem 1rem;
+    overflow:auto;
 }
 .checkbox{
     display:flex;

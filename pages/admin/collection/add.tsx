@@ -1,7 +1,6 @@
 import publicStyles from '../../../styles/public.module.css'
 import styles from '../../../src/component/collection/admin/add/collection-add.module.css'
-import {GetServerSideProps} from "next";
-import {dehydrate, QueryClient, useMutation, useQuery, useQueryClient} from "react-query";
+import {dehydrate, QueryClient, useMutation,useQueryClient} from "react-query";
 import {getCollectionRequiredData,} from "../../../src/function/api/get/api";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
@@ -15,8 +14,8 @@ import {useEffect} from "react";
 import {ResetCollectionValue} from "../../../store/collection/collection-add";
 import {checkUserAgent} from "../../../src/function/public/public";
 import {useRouter} from "next/router";
-
-
+import {withIronSessionSsr} from "iron-session/next";
+import {IronSessionOption} from "../../../src/function/api/iron-session/options";
 
 export default function CollectionAddPage({isMobile}:{isMobile:boolean}){
     const router = useRouter()
@@ -70,13 +69,26 @@ export default function CollectionAddPage({isMobile}:{isMobile:boolean}){
         </div>
     )
 }
-export const getServerSideProps:GetServerSideProps = async (context)=>{
-    const queryClient = new QueryClient()
-    await queryClient.prefetchQuery('collection-required-data',()=>getCollectionRequiredData(true))
-    return {
-        props:{
-            isMobile:checkUserAgent(context.req.headers['user-agent'] as string),
-            dehydratedState: dehydrate(queryClient),
+export const getServerSideProps = withIronSessionSsr(
+    async function getServerSideProps(context) {
+        const user = context.req.session.user;
+        const queryClient = new QueryClient()
+        await queryClient.prefetchQuery('collection-required-data',()=>getCollectionRequiredData(true))
+
+        if (!user || user.auth !== 1) {
+            return {
+                redirect: {
+                    permanent:false,
+                    destination:"/"
+                }
+            };
         }
-    }
-}
+        return {
+            props: {
+                isMobile:checkUserAgent(context.req.headers['user-agent'] as string),
+                dehydratedState: dehydrate(queryClient),
+            },
+        };
+    },
+    IronSessionOption
+);

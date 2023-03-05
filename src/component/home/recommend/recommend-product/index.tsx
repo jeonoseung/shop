@@ -3,6 +3,7 @@ import {CSSProperties, useState} from "react";
 import ProductListInHome from "../../public/product-list";
 import css from '../css.module.css'
 export default function RecommendProduct({data}:{data:RecommendProductList[]}){
+    console.log(data)
     /** content width */
     const width = 1024;
     /** 이미지 표시 수 */
@@ -24,18 +25,9 @@ export default function RecommendProduct({data}:{data:RecommendProductList[]}){
      * space-between 형식으로 만들기 위한 계산식
      * */
     const imgWidth = (width/imgLength)-(gap-(gap / imgLength));
-    /** component style */
-    const div:CSSProperties = {
-        position:'relative',
-        margin:'1rem 0'
-    }
     /** 슬라이드 style */
     const [slider,setSlider] = useState<CSSProperties>({
         transform:`translate(${width * index}px)`,
-        display:'flex',
-        width:'100%',
-        transition:'all 0.5s',
-        marginTop:'1rem',
     })
     /** 버튼 style */
     const preStyle:CSSProperties = {
@@ -64,31 +56,33 @@ export default function RecommendProduct({data}:{data:RecommendProductList[]}){
         setIndex(index + 1)
     }
     return(
-        <div style={div}>
+        <>
             <div className={css['title']}>
                 <span>이 상품 어때요?</span>
             </div>
-            <div style={{overflow:'hidden'}}>
-                <div style={slider}>
-                    {product.map((item)=>(
-                        <ProductListInHome key={item.product_id} item={item} width={imgWidth} gap={gap}/>
-                    ))
-                    }
+            <div className={css['product-nav']}>
+                <div style={{overflow:'hidden'}}>
+                    <div className={css['slider']} style={slider}>
+                        {product.map((item)=>(
+                            <ProductListInHome key={item.product_id} item={item} width={imgWidth} gap={gap}/>
+                        ))
+                        }
+                    </div>
                 </div>
+                {index === 0
+                    ? null
+                    : <button style={preStyle} className={css['slider-button']} onClick={previous} disabled={index === 0}>
+                        <div className={css.left}></div>
+                    </button>
+                }
+                {index >= product.length/imgLength-1
+                    ? null
+                    :
+                    <button style={nextStyle} className={css['slider-button']} onClick={next} disabled={index >= product.length/imgLength-1}>
+                        <div className={css.right}></div>
+                    </button>
+                }
             </div>
-            {index === 0
-                ? null
-                : <button style={preStyle} className={css['slider-button']} onClick={previous} disabled={index === 0}>
-                    <div className={css.left}></div>
-                </button>
-            }
-            {index >= product.length/imgLength-1
-                ? null
-                :
-                <button style={nextStyle} className={css['slider-button']} onClick={next} disabled={index >= product.length/imgLength-1}>
-                    <div className={css.right}></div>
-                </button>
-            }
-        </div>
+        </>
     )
 }

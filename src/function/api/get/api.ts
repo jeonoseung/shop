@@ -165,3 +165,9 @@ export const getCategoryProduct = async (ssr:boolean,pid:string,pageParam:number
     const data = await axios.get(url)
     return {list:data.data,nextPage:data.data.length > listLength-1 ? pageParam+1 : undefined}
 }
+/** 상품 후기 */
+export const getReview = async (ssr:boolean,user:number)=>{
+    const url = `${ssr? process.env.URL : ''}/api/review/${user}`
+    const data = await axios.get(url)
+    return data.data
+}

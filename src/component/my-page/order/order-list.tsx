@@ -1,12 +1,13 @@
-import styles from './my-page.module.css'
-import publicStyles from '../../../styles/public.module.css'
+import styles from '../my-page.module.css'
+import publicStyles from '../../../../styles/public.module.css'
 import Image from "next/image";
 import {useQuery} from "react-query";
-import {getOrderList} from "../../function/api/get/api";
+import {getOrderList} from "../../../function/api/get/api";
 import Link from "next/link";
-import {setDateOnOrderList} from "../../function/public/order-list-date";
-import {setPrice} from "../../function/public/price";
+import {setDateOnOrderList} from "../../../function/public/order-list-date";
+import {setPrice} from "../../../function/public/price";
 import {orderListType} from "order-list";
+
 
 export default function OrderList(){
     const {data,isLoading} = useQuery('order-li',()=>getOrderList(false))

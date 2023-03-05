@@ -1,4 +1,3 @@
-import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useMutation, useQuery} from "react-query";
 import publicStyle from '../../../styles/public.module.css'
 import {getHomeDisplayForm} from "../../../src/function/api/get/api";
@@ -12,6 +11,8 @@ import {UIForm} from "ui-form-type";
 import AddLimitedOffer from "../../../src/component/form/admin/limited/limited-offer-add";
 import publicStyles from "../../../styles/public.module.css";
 import {checkUserAgent} from "../../../src/function/public/public";
+import {withIronSessionSsr} from "iron-session/next";
+import {IronSessionOption} from "../../../src/function/api/iron-session/options";
 export default function SetFormPage({isMobile}:{isMobile:boolean}){
     const ui = useQuery('ui-li',()=>getHomeDisplayForm(false))
     const saveUI = useMutation((form:UIForm)=>axios.put('/api/form/admin',form),{
@@ -41,13 +42,26 @@ export default function SetFormPage({isMobile}:{isMobile:boolean}){
         </div>
     )
 }
-export const getServerSideProps:GetServerSideProps = async (context)=>{
-    const queryClient = new QueryClient()
-    await queryClient.prefetchQuery('ui-li',()=>getHomeDisplayForm(true))
-    return {
-        props:{
-            dehydratedState: dehydrate(queryClient),
-            isMobile:checkUserAgent(context.req.headers["user-agent"] as string)
+export const getServerSideProps = withIronSessionSsr(
+    async function getServerSideProps(context) {
+        const user = context.req.session.user;
+        const queryClient = new QueryClient()
+        await queryClient.prefetchQuery('ui-li',()=>getHomeDisplayForm(true))
+
+        if (!user || user.auth !== 1) {
+            return {
+                redirect: {
+                    permanent:false,
+                    destination:"/"
+                }
+            };
         }
-    }
-}
+        return {
+            props: {
+                dehydratedState: dehydrate(queryClient),
+                isMobile:checkUserAgent(context.req.headers["user-agent"] as string)
+            },
+        };
+    },
+    IronSessionOption
+);

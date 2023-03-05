@@ -1,17 +1,23 @@
+//component
 import LimitedOffer from "../src/component/home/limited-offer/LimitedOffer";
 import RecommendProduct from "../src/component/home/recommend/recommend-product";
-import publicStyles from '../styles/public.module.css'
-import {GetServerSideProps} from "next";
-import {dehydrate, QueryClient, useQuery} from "react-query";
-import {getHomeForm, getProductRand} from "../src/function/api/get/api";
-import ImageSlider from "../src/component/home/image-slider/image-slider";
-import RecommendTopic from "../src/component/home/recommend-topic/recommend-topic";
-import {ProductListType} from "product-type";
-import {checkUserAgent} from "../src/function/public/public";
-import RecommendTopicMobile from "../src/component/home/recommend-topic/mobile/recommend-topic";
+import RecommendCollection from "../src/component/home/recommend/recommend-collection";
 import MobileRecommendCollection from "../src/component/home/recommend/mobile/recommend-collection";
 import MobileRecommendProduct from "../src/component/home/recommend/mobile/recommend-product";
-import RecommendCollection from "../src/component/home/recommend/recommend-collection";
+import ImageSlider from "../src/component/home/image-slider/image-slider";
+import RecommendTopic from "../src/component/home/recommend-topic/recommend-topic";
+import MobileRecommendTopic from "../src/component/home/recommend-topic/mobile/recommend-topic";
+//css
+import publicStyles from '../styles/public.module.css'
+//lib
+import {dehydrate, QueryClient, useQuery} from "react-query";
+import {getHomeForm, getProductRand} from "../src/function/api/get/api";
+import {checkUserAgent} from "../src/function/public/public";
+//type
+import {GetServerSideProps} from "next";
+import {ProductListType} from "product-type";
+import MobileLimitedOffer from "../src/component/home/limited-offer/mobile/limited-offer";
+
 
 export default function Home({isMobile}:{isMobile:boolean}) {
     const recommendProduct = useQuery('rec-product',()=>getProductRand(false))
@@ -26,7 +32,6 @@ export default function Home({isMobile}:{isMobile:boolean}) {
     ]
     return (
         <div style={isMobile ? {width:'100%'} : {minWidth:'1024px'}}>
-
             <ImageSlider images={load_images1}/>
             <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
                 {
@@ -46,11 +51,13 @@ export default function Home({isMobile}:{isMobile:boolean}) {
                                     : <RecommendCollection key={index} collection={li.component} data={li.product}/>
                                 : li !== null && li.component.ui_kind === 'recommend_topic'
                                     ? isMobile
-                                        ? <RecommendTopicMobile key={index} component={li.component} product={li.product}/>
+                                        ? <MobileRecommendTopic key={index} component={li.component} product={li.product}/>
                                         : <RecommendTopic key={index} component={li.component} product={li.product}/>
                                     : li !== null && li.component.ui_kind === 'limited_offer'
                                         ? li.component.lo_state === 1
-                                            ? <LimitedOffer key={index} component={li.component} product={li.product}/>
+                                            ? isMobile
+                                                ? <MobileLimitedOffer key={index} component={li.component} product={li.product}/>
+                                                :  <LimitedOffer key={index} component={li.component} product={li.product}/>
                                             : null
                                         : null
                         ))

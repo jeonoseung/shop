@@ -25,7 +25,6 @@ export default function RecommendCollection({collection,data}:props){
      * 슬라이드에 표시되는 상품
      * */
     const product = data.length > dataLength ? data.slice(0,dataLength) : data
-
     /** 현재 인덱스 */
     const [index,setIndex] = useState<number>(0)
     /**
@@ -34,29 +33,18 @@ export default function RecommendCollection({collection,data}:props){
      * */
     const imgWidth = (width/imgLength)-(gap-(gap / imgLength));
     const imgHeight = 300;
-    /** component style */
-    const div:CSSProperties = {
-        position:'relative',
-        margin:'1rem 0',
-    }
     /** 슬라이드 style */
     const [slider,setSlider] = useState<CSSProperties>({
-        transform:`translate(${width * index}px)`,
-        display:'flex',
-        width:'100%',
-        transition:'all 0.5s',
-        marginTop:'1rem',
+        transform:`translate(${width * index}px)`
     })
     /** 버튼 style */
     const preStyle:CSSProperties = {
         position:'absolute',
         left:'-25px',
-        display: index === 0 ? 'none' : 'block',
     }
     const nextStyle:CSSProperties = {
         position:'absolute',
         right:'-25px',
-        display: index >= product.length/imgLength-(data.length > dataLength ? 0 : 1) ? 'none' : 'block'
     }
     /** 이전 버튼 이벤트*/
     const previous = () =>{
@@ -75,9 +63,8 @@ export default function RecommendCollection({collection,data}:props){
             : setSlider(c => ({...c,transform:`translate(-${translate}px)`}))
         setIndex(index + 1)
     }
-
     return(
-        <div style={div}>
+        <>
             <Link href={`/collection/${collection.collection_router_name}`} className={css['title']}>
                 <span>{collection.collection_name}</span>
                 <Image src={'/image/view-more.svg'} alt={'더보기'} width={32} height={32} priority={true}/>
@@ -85,38 +72,47 @@ export default function RecommendCollection({collection,data}:props){
             <div className={css['sub-title']}>
                 {collection.collection_title}
             </div>
-            <div style={{overflow:'hidden'}}>
-                <div style={slider}>
-                    {
-                        product.map((item)=>(
-                            <ProductListInHome key={item.product_id} item={item} width={imgWidth} gap={gap}/>
-                        ))
-                    }
-                    <div style={{marginRight:`${gap}px`,height:`${imgHeight}px`}}>
-                        <Link href={`/collection/${collection.collection_router_name}`}
-                              className={css['all-view']}
-                              style={{width:`${imgWidth}px`,position:"relative"}}>
-                            <div className={css['all-view-btn']}>
-                                <Image style={{margin:"auto"}} src={'/image/chevron-right-normal.svg'}
-                                       alt={'전체 보기'}
-                                       width={36}
-                                       height={36}
-                                       priority={true}
-                                />
-                            </div>
-                            <div style={{marginTop:"1rem"}}>
-                                <span>전체보기</span>
-                            </div>
-                        </Link>
+            <div className={css['product-nav']}>
+                <div style={{overflow:'hidden'}}>
+                    <div className={css['slider']} style={slider}>
+                        {
+                            product.map((item)=>(
+                                <ProductListInHome key={item.product_id} item={item} width={imgWidth} gap={gap}/>
+                            ))
+                        }
+                        <div style={{marginRight:`${gap}px`,height:`${imgHeight}px`}}>
+                            <Link href={`/collection/${collection.collection_router_name}`}
+                                  className={css['all-view']}
+                                  style={{width:`${imgWidth}px`,position:"relative"}}>
+                                <div className={css['all-view-btn']}>
+                                    <Image style={{margin:"auto"}} src={'/image/chevron-right-normal.svg'}
+                                           alt={'전체 보기'}
+                                           width={36}
+                                           height={36}
+                                           priority={true}
+                                    />
+                                </div>
+                                <div style={{marginTop:"1rem"}}>
+                                    <span>전체보기</span>
+                                </div>
+                            </Link>
+                        </div>
                     </div>
                 </div>
+                {index === 0
+                    ? null
+                    : <button style={preStyle} className={css['slider-button']} onClick={previous} disabled={index === 0}>
+                        <div className={css.left}></div>
+                    </button>
+                }
+                {index >= product.length/imgLength-(data.length > dataLength ? 0 : 1)
+                    ? null
+                    :
+                    <button style={nextStyle} className={css['slider-button']} onClick={next} disabled={index >= product.length/imgLength-(data.length > dataLength ? 0 : 1)}>
+                        <div className={css.right}></div>
+                    </button>
+                }
             </div>
-            <button style={preStyle} className={css['slider-button']} onClick={previous} disabled={index === 0}>
-                <div className={css.left}></div>
-            </button>
-            <button style={nextStyle} className={css['slider-button']} onClick={next} disabled={index >= product.length/imgLength-(data.length > dataLength ? 0 : 1)}>
-                <div className={css.right}></div>
-            </button>
-        </div>
+        </>
     )
 }

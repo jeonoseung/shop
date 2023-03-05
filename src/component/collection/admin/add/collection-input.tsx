@@ -15,6 +15,8 @@ export default function CollectionAddInput(){
                        className={publicStyles['input-text']}
                        value={collection.collection_name}
                        onChange={(e)=>dispatch(ChangeCollectionInput({...collection,collection_name:e.target.value}))}
+                       placeholder={'최대 20자'}
+                       maxLength={20}
                 />
             </div>
             <div className={publicStyles['input-group']}>
@@ -23,6 +25,8 @@ export default function CollectionAddInput(){
                        className={publicStyles['input-text']}
                        value={collection.collection_router_name}
                        onChange={(e)=>dispatch(ChangeCollectionInput({...collection,collection_router_name:e.target.value}))}
+                       placeholder={'최대 20자'}
+                       maxLength={20}
                 />
             </div>
             <div>
@@ -31,6 +35,8 @@ export default function CollectionAddInput(){
                        className={publicStyles['input-text']}
                        value={collection.collection_title}
                        onChange={(e)=>dispatch(ChangeCollectionInput({...collection,collection_title:e.target.value}))}
+                       placeholder={'최대 25자'}
+                       maxLength={25}
                 />
             </div>
         </div>

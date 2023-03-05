@@ -33,7 +33,8 @@ export default function CategoryAndBrand(){
             </div>
             <input type={'text'}
                    className={publicStyles['input-text']}
-                   placeholder={'브랜드 명'}
+                   placeholder={'브랜드 명 - 최대 15자'}
+                   maxLength={15}
                    spellCheck={false}
                    value={value.brand}
                    onChange={(e)=>

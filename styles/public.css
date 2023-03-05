@@ -30,7 +30,7 @@
 }
 body{
     position:relative;
-    overflow:auto;
+    overflow-x:auto;
     margin:0;
     font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
 }

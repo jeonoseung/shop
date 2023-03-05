@@ -1,5 +1,4 @@
-import {useInfiniteQuery, useMutation,useQueryClient} from "react-query";
-import axios from "axios";
+import {useInfiniteQuery} from "react-query";
 import {getCollectionAdmin} from "../../../src/function/api/get/api";
 import publicStyles from '../../../styles/public.module.css'
 import styles from '../../../src/component/collection/admin/list/collection-list.module.css'
@@ -8,10 +7,11 @@ import {AdminCollectionListType} from "collection-type";
 import {useRouter} from "next/router";
 import {useState} from "react";
 import SetInView from "../../../src/component/public/list/set-in-view";
-import {GetServerSideProps} from "next";
 import {checkUserAgent} from "../../../src/function/public/public";
 import CollectionList from "../../../src/component/collection/admin/list/collection-li";
 import CollectionListMobile from "../../../src/component/collection/admin/list/collection-list-mobile";
+import {withIronSessionSsr} from "iron-session/next";
+import {IronSessionOption} from "../../../src/function/api/iron-session/options";
 
 
 export default function CollectionManagementList({isMobile}:{isMobile:boolean}){
@@ -57,10 +57,22 @@ export default function CollectionManagementList({isMobile}:{isMobile:boolean}){
         </div>
     )
 }
-export const getServerSideProps:GetServerSideProps=async (context)=>{
-    return{
-        props:{
-            isMobile:checkUserAgent(context.req.headers['user-agent'] as string)
+export const getServerSideProps = withIronSessionSsr(
+    async function getServerSideProps({ req }) {
+        const user = req.session.user;
+        if (!user || user.auth !== 1) {
+            return {
+                redirect: {
+                    permanent:false,
+                    destination:"/"
+                }
+            };
         }
-    }
-}
+        return {
+            props: {
+                isMobile:checkUserAgent(req.headers['user-agent'] as string)
+            },
+        };
+    },
+    IronSessionOption
+);
