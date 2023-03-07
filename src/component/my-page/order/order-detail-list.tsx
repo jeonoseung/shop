@@ -8,7 +8,7 @@ import {getOrderDetail} from "../../../function/api/get/api";
 import setProductName from "../../../function/public/product-name";
 import {useDispatch} from "react-redux";
 import {setDisplay, setProductInfo} from "../../../../store/modal/cart-modal";
-import {orderDetailType} from "src/component/my-page/order/order-list";
+import {orderDetailType} from "order-list";
 
 export default function OrderDetailList(){
     const route = useRouter()

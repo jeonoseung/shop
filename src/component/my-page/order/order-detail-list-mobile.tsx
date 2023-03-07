@@ -3,12 +3,12 @@ import {useQuery} from "react-query";
 import {getOrderDetail} from "../../../function/api/get/api";
 import {useDispatch} from "react-redux";
 import styles from "../my-page.module.css";
-import {orderDetailType} from "src/component/my-page/order/order-list";
 import Image from "next/image";
 import setProductName from "../../../function/public/product-name";
 import {setPrice, totalPrice} from "../../../function/public/price";
 import publicStyles from "../../../../styles/public.module.css";
 import {setDisplay, setProductInfo} from "../../../../store/modal/cart-modal";
+import {orderDetailType} from "order-list";
 
 export default function OrderDetailListMobile(){
     const route = useRouter()
