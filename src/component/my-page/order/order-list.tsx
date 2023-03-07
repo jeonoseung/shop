@@ -43,13 +43,6 @@ export default function OrderList(){
                                             <span className={styles['info-value']}>{setPrice(li.price)}원</span>
                                         </div>
                                     </div>
-                                    <div className={styles['question']}>
-                                        <Link href={'/center/question'} style={{width:'100%'}}>
-                                            <button className={publicStyles['button']}>
-                                                1:1문의
-                                            </button>
-                                        </Link>
-                                    </div>
                                 </div>
                             </div>
                         ))

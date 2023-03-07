@@ -3,7 +3,6 @@ import {CSSProperties, useState} from "react";
 import ProductListInHome from "../../public/product-list";
 import css from '../css.module.css'
 export default function RecommendProduct({data}:{data:RecommendProductList[]}){
-    console.log(data)
     /** content width */
     const width = 1024;
     /** 이미지 표시 수 */

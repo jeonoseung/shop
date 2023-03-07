@@ -21,8 +21,8 @@ export default function HeaderBottom(){
                         </svg>
                     </span>
                         <span>
-                         카테고리
-                    </span>
+                            카테고리
+                        </span>
                     </div>
                     {
                         categoryMenu
@@ -33,9 +33,7 @@ export default function HeaderBottom(){
                                 <ul className={styles['category-list']}>
                                     {
                                         category.data.map((li:CategoryType)=>(
-                                            <li key={li.category_id}>
-                                                <Link href={`/category/${li.category_id}`}>{li.category_name}</Link>
-                                            </li>
+                                            <Link key={li.category_id} href={`/category/${li.category_id}`}>{li.category_name}</Link>
                                         ))
                                     }
                                 </ul>

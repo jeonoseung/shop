@@ -31,7 +31,7 @@ const post = async (req:NextApiRequest,res:NextApiResponse) =>{
             })
         })
         const {data,files} = result;
-        const src = await saveFile(files.file);
+        const src:string = files.file ? await saveFile(files.file) : ''
         const {ph,product,comment} = JSON.parse(data)
         const sql = `INSERT INTO review(product_id,review_comment,review_img,ph_id,review_date) 
                                  VALUES(${product},'${comment}','${src}',${ph},'${DateTimeNow()}');`

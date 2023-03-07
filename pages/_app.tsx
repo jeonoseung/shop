@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import {Provider} from "react-redux";
 import store from "../store/store";
 import {QueryClient, QueryClientProvider, Hydrate} from "react-query";
-import {useEffect, useState} from "react";
+import {CSSProperties, useEffect, useState} from "react";
 import CartModal from "../src/component/modal/cart/cart-modal";
 import {checkUserAgent} from "../src/function/public/public";
 import MobileHeader from "../src/component/header/mobile/mobile-header";
@@ -26,38 +26,34 @@ export default function App({Component, pageProps}: AppProps) {
     useEffect(()=>{
         checkIsMobile(checkUserAgent(navigator.userAgent))
     },[])
-    useEffect(()=>{
-        if(isMobile){
-            document.getElementsByTagName('body')[0].style.minWidth = '320px';
-        }else{
-            document.getElementsByTagName('body')[0].style.minWidth = '1024px';
-        }
-    },[isMobile])
+    const style:CSSProperties = {
+        minWidth:isMobile ? '320px' : '1024px'
+    }
     return (
         <QueryClientProvider client={query}>
             <Hydrate state={pageProps.dehydratedState}>
                 <Provider store={store}>
-                    <Head>
-                        <title>shop</title>
-                    </Head>
-                    <div>
-                        {
-                            isMobile
-                                ? <MobileHeader/>
-                                : <HeaderTop />
-                        }
-                        {
-                            isMobile
-                                ? null
-                                : <HeaderBottom />
-                        }
-                        <Component {...pageProps}/>
-                        {
-                            isMobile
-                                ? <MobileMenuBar/>
-                                : null
-                        }
-                        <CartModal />
+                    <div style={style}>
+                       <Head>
+                           <title>shop</title>
+                       </Head>
+                       {
+                           isMobile
+                               ? <MobileHeader/>
+                               : <HeaderTop />
+                       }
+                       {
+                           isMobile
+                               ? null
+                               : <HeaderBottom />
+                       }
+                       <Component {...pageProps}/>
+                       {
+                           isMobile
+                               ? <MobileMenuBar/>
+                               : null
+                       }
+                       <CartModal />
                     </div>
                 </Provider>
             </Hydrate>

@@ -13,6 +13,7 @@ import ProductOption from "../../src/component/product/product-info/product-opti
 import ProductTotalPrice from "../../src/component/product/product-info/product-total";
 import PutInCart from "../../src/component/product/product-info/put-in-cart";
 import {checkUserAgent} from "../../src/function/public/public";
+import ProductMoreInfo from "../../src/component/product/product-info/more-info";
 
 
 export default function ProductInfoPage({pid,isMobile}:{pid:string,isMobile:boolean}){
@@ -25,7 +26,6 @@ export default function ProductInfoPage({pid,isMobile}:{pid:string,isMobile:bool
             router.back()
         }
     },[])
-    console.log(data)
     return (
         <div className={publicStyle[isMobile ? 'mobile-content' : 'content']}>
             {data.info
@@ -33,7 +33,8 @@ export default function ProductInfoPage({pid,isMobile}:{pid:string,isMobile:bool
                 : <NextSeo title={'존재하지 않는 상품'}/>
             }
             {data.info
-                ? <div className={styles[isMobile ? 'product-info-mobile' : 'product-info']}>
+                ?
+                <div className={styles[isMobile ? 'product-info-mobile' : 'product-info']}>
                     <div className={styles[`product-info-img`]}>
                         {!isLoading
                             ?
@@ -56,6 +57,7 @@ export default function ProductInfoPage({pid,isMobile}:{pid:string,isMobile:bool
                 </div>
                 : null
             }
+            <ProductMoreInfo/>
         </div>
     )
 }

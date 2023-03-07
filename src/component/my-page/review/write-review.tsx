@@ -11,7 +11,7 @@ export default function WriteReview({data}:{data:writeListType[]}){
             {
                 data.map((li)=>(
                     <div key={li.product_id} className={styles['review']}>
-                        <Image src={li.review_img} alt={'리뷰 이미지'} width={768} height={768}/>
+                        <Image src={li.review_img === '' ? '/image/null-image.svg' : li.review_img} alt={'리뷰 이미지'} width={768} height={768}/>
                         <div className={styles['content']}>
                             <span className={styles['name']}>{setProductName(li.brand_name,li.product_name)}</span>
                             <div className={styles['comment']}>

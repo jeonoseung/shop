@@ -16,14 +16,14 @@ export default function MenuLink({item,setState}:props){
     const LinkActive:MouseEventHandler<HTMLAnchorElement> = (e) =>{
         const {offsetLeft,clientWidth} = e.target as HTMLAnchorElement;
         setState((prev)=>({
-            ...prev,left:`${offsetLeft}px`,width:`${clientWidth}px`
+            ...prev,left:`${offsetLeft / window.innerWidth * 100}%`,width:`${clientWidth}px`
         }))
     }
     useEffect(()=>{
         if(active){
             const {offsetLeft,clientWidth} = linkRef.current as HTMLAnchorElement;
             setState((prev)=>({
-                ...prev,left:`${offsetLeft}px`,width:`${clientWidth}px`
+                ...prev,left:`${offsetLeft / window.innerWidth * 100}%`,width:`${clientWidth}px`
             }))
         }
     },[router.pathname])

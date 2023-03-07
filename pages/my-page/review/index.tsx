@@ -39,7 +39,6 @@ export default function ReviewPage({isMobile,user}:{isMobile:boolean,user:any}){
                                     <input type={'radio'} name={'review-whether'} checked={!check} onChange={(e)=>setCheck(false)}/>
                                     <span>작성한 후기</span>
                                 </label>
-
                             </div>
                             {isLoading
                                 ? null

@@ -30,11 +30,6 @@ export const getProductInfo = async (ssr:boolean,pid:string | string[] | undefin
     return data.data
 }
 
-export const getProductOnCollectionAdmin = async (ssr:boolean)=>{
-    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/product`)
-    return data.data
-}
-
 
 export const getCollectionInfo=async (ssr:boolean,router:router,set:params)=>{
     const filter = set.filter;
@@ -165,9 +160,22 @@ export const getCategoryProduct = async (ssr:boolean,pid:string,pageParam:number
     const data = await axios.get(url)
     return {list:data.data,nextPage:data.data.length > listLength-1 ? pageParam+1 : undefined}
 }
-/** 상품 후기 */
+/** 마이페이지 상품 후기 */
 export const getReview = async (ssr:boolean,user:number)=>{
     const url = `${ssr? process.env.URL : ''}/api/review/${user}`
+    const data = await axios.get(url)
+    return data.data
+}
+/** 상품 정보 페이지 리뷰 목록 */
+export const getReviewProduct = async (ssr:boolean,product:string,pageParam:number)=>{
+    const length = 10;
+    const url = `${ssr? process.env.URL : ''}/api/review/product/${product}?page=${pageParam}&offset=${length}`
+    const data = await axios.get(url)
+    return {list:data.data,nextPage:data.data.length < length ? undefined : pageParam+1,prevPage:pageParam === 1 ? undefined : pageParam-1}
+}
+/** 모바일 검색에서 키워드 입력 시 간단 상품 목록 */
+export const getSearchSimple = async (keyword:string)=>{
+    const url = `/api/search/simple/${keyword}`
     const data = await axios.get(url)
     return data.data
 }

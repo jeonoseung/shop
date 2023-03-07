@@ -99,12 +99,10 @@
 .product-result .result-count *{
     background:none;
     border:0;
-
-    font-size:16px;
     text-align:center;
 }
 .product-result .result-price{
-    font-size: 13px;
+    font-size:0.9rem;
 }
 .product-result .result-price .through-price{
     text-decoration: line-through;
@@ -113,4 +111,42 @@
 }
 .product-result .result-price .price{
     font-weight:600;
+}
+.more-info{
+    margin-top:5rem;
+}
+.info-title h2{
+    font-weight: 500;
+}
+.product-review{
+    border-top:1px solid black;
+}
+.review{
+    display:grid;
+    grid-template-columns:1fr 4fr;
+    gap:1rem;
+    border-bottom:1px solid #ddd;
+    padding:1rem 0;
+}
+.review .user-name{
+    font-weight:500;
+}
+.review .p-name{
+    color:rgb(153, 153, 153);
+    font-size:0.9rem;
+}
+.review .comment{
+    font-size:0.9rem;
+    margin:0.5rem 0;
+}
+.review img{
+    width:100px;
+    height:105px;
+    border-radius:0.25rem;
+}
+.review-date{
+    color:rgb(153, 153, 153);
+    font-size:0.8rem;
+    display:block;
+    margin-top:1rem
 }

@@ -99,16 +99,21 @@
     text-align:left;
     border:1px solid #ddd;
     position:absolute;
-    padding:0 1rem;
+    padding:0;
     top:36px;
     left:0;
     background:white;
     font-weight:400;
     font-size:0.9rem;
 }
-.category-list li{
+.category-list a{
     width:100%;
-    padding:0.25rem 0;
+    display:block;
+    padding:0.5rem 1rem;
+}
+.category-list a:hover{
+    background:rgb(247,247,247);
+    color:#0d6efd;
 }
 .nav-menu{
     display:grid;
@@ -245,10 +250,107 @@
     left:0;
     display:flex;
     justify-content: space-between;
+    border-top:1px solid #ddd;
     padding:0 1rem;
     background:white;
     z-index:500;
 }
 .menus{
-    padding:1rem
+    padding:1rem;
+    background:none;
+    border:0;
+}
+.menu-bar-active{
+    color:#0d6efd;
+}
+.menu-bar-active svg{
+    color:#0d6efd;
+}
+
+.area{
+    width:100%;
+    height:100%;
+    position:fixed;
+    background:white;
+    z-index:150;
+    transition:all 0.4s;
+}
+.close{
+    text-align:right;
+    padding:0.5rem;
+}
+.close button{
+    border:none;
+    background:none;
+}
+.menu-ui{
+    border-top:1px solid #ddd;
+}
+.mobile-category-menu{
+
+}
+.mobile-category-menu a{
+    display:block;
+    border-bottom:1px solid #ddd;
+    width:100%;
+    padding:0.75rem 0.5rem;
+    font-weight:300;
+    font-size:1.25rem;
+}
+.mobile-user{
+    padding:1rem;
+    border-bottom:1px solid #ddd;
+}
+.mobile-user span{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.mobile-user-menu .menu{
+    padding:1rem;
+    border-bottom:1px solid #ddd;
+    font-weight:300;
+    font-size:1.25rem;
+}
+.search-area{
+    padding:0.5rem
+}
+.search-area h3{
+    margin:0.25rem;
+}
+.search-area nav{
+
+}
+.recent-search{
+    overflow:auto;
+    padding:0.75rem 0;
+}
+.recent-search::-webkit-scrollbar{
+    display:none;
+}
+.recent-search a{
+    border:1px solid #ddd;
+    font-weight:500;
+    padding:0.5rem 1rem;
+    border-radius:1.5rem;
+    margin-right:0.5rem;
+}
+.before-search{
+
+}
+.product-shortcuts{
+    display:block;
+    color:rgb(153, 153, 153);
+    font-size:0.9rem;
+    padding:0.5rem 0;
+
+}
+.search-product a{
+    font-weight:300;
+    border-bottom:1px solid #ddd;
+    display:block;
+    padding:0.75rem 0;
+    font-size:16px;
+}
+.search-product .keyword{
+    color:#0d6efd;
 }

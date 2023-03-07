@@ -34,15 +34,10 @@ const get = async (req:NextApiRequest,res:NextApiResponse)=>{
                          ON p.user_id = u.user_id
                          WHERE product_id = ${id};`;
         const sql2 = `SELECT * FROM product_option WHERE product_id = ${id};`
-        const sql3 = `SELECT review_comment,review_img,review_date,u.user_id,u.user_name
-                        FROM review as r
-                        INNER JOIN purchase_history as ph ON ph.ph_id = r.ph_id
-                        INNER JOIN user as u ON u.user_id = ph.user_id
-                        WHERE r.product_id = ${id}`
-        const [rows] = await connection.query(sql+sql2+sql3)
-        const [[info],option,comment] = rows;
+        const [rows] = await connection.query(sql+sql2)
+        const [[info],option] = rows;
         connection.release()
-        return res.status(200).send({info,option,comment})
+        return res.status(200).send({info,option})
     }catch (err){
         connection.release()
         return res.status(500).send('get-try-catch')

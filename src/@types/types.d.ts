@@ -131,6 +131,14 @@ declare module "product-type"{
         title:string
         content:string
     }
+    interface ProductReviewType{
+        product_name:string
+        review_comment:string
+        review_date:string
+        review_id:number
+        review_img:string
+        user_name:string
+    }
 }
 /** 컬렉션 */
 declare module "collection-type"{

@@ -11,10 +11,6 @@ export default function ReviewWritingModal({item,post}:{item:possibleListType | 
     const [file,setFile] = useState<File>()
     const [comment,setComment] = useState<string>('')
     const save = () =>{
-        if(!file){
-            alert('이미지를 선택 해주세요')
-            return
-        }
         if(!comment){
             alert('후기글을 작성 해주세요')
         }
