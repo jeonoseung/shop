@@ -25,7 +25,7 @@ export default function ListByTypeMember({list, type}:{list:CartListType[],type:
                 </div>
                 <label className={styles['fold']}>
                     <input type={'checkbox'} onChange={(e)=>setFold(e.target.checked)} checked={fold}/>
-                    <Image src={`/image/${fold ? 'up' : 'down'}.svg`} alt={'fold'} width={24} height={24}/>
+                    <Image src={`/image/${fold ? 'up' : 'down'}.svg`} alt={'fold'} width={24} height={24} priority={true}/>
                 </label>
 
             </div>

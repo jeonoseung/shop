@@ -14,7 +14,7 @@ export default function RecommendTopic({component,product}:props){
     return(
         <div className={styles['recommend-topic']}>
             <Link href={`/collection/${component.collection_router_name}`} className={styles['topic']}>
-                <Image src={component.topic_img} alt={'주제 이미지'} width={1280} height={299}/>
+                <Image src={component.topic_img} alt={'주제 이미지'} width={1280} height={299} priority={true}/>
                 <div className={styles['topic-text']}>
                     <span className={styles['topic-title']}>{component.collection_name}</span>
                     <p className={styles['topic-content']}>{component.topic_content}</p>

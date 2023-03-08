@@ -11,7 +11,7 @@ export default function ProductList({item}:any){
     return(
         <Link href={`/product/${item.product_id}`} className={styles['product-li']}>
             <div>
-                <Image src={item.product_img} alt={'상품 이미지'} width={768} height={300}/>
+                <Image src={item.product_img} alt={'상품 이미지'} width={768} height={300} priority={true}/>
             </div>
             <div>
                 <div className={styles['name-div']}>

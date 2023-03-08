@@ -1,5 +1,5 @@
 import {ChangeEventHandler, Dispatch, SetStateAction, useState} from "react";
-import styles from "../../../../styles/member.module.css";
+import styles from "../member.module.css";
 import {RegExp} from "../../../function/RegExp";
 interface value{
     id:string

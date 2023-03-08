@@ -20,14 +20,14 @@ export default function MobileRecommendTopic({component,product}:props){
         <div className={styles['recommend-topic']}>
             <div className={styles['topic']}>
                 <Link href={`/collection/${component.collection_router_name}`}><h2>{component.collection_name}</h2></Link>
-                <Image className={styles['topic-img']} src={component.topic_img} alt={'주제'} width={768} height={500}/>
+                <Image className={styles['topic-img']} src={component.topic_img} alt={'주제'} width={768} height={500} priority={true}/>
                 <p className={styles['content']}>{component.topic_content}</p>
             </div>
             <nav className={styles['product-nav']}>
                 {
                     product.map((li)=>(
                         <Link href={`/product/${li.product_id}`} key={li.product_id} className={styles['product-li']}>
-                            <Image src={li.product_img} alt={'상품 이미지'} width={125} height={150}/>
+                            <Image src={li.product_img} alt={'상품 이미지'} width={125} height={150} priority={true}/>
                             <div>
                                 <span className={styles['name']}>{setProductName(li.brand_name,li.product_name)}</span>
                                 <div className={styles['price-area']}>

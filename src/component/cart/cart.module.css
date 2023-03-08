@@ -11,9 +11,15 @@
     display:flex;
     align-items:center;
 }
-.test img{
+.img-d img{
     width:70px;
     height:100%;
+}
+.mobile-cart-li-content{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding:0.125rem 0;
 }
 .list-controller{
     display:flex;

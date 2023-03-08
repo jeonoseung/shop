@@ -1,4 +1,4 @@
-import styles from "../../../../styles/member.module.css";
+import styles from "../member.module.css";
 import {Dispatch, SetStateAction} from "react";
 interface value{
     id:string

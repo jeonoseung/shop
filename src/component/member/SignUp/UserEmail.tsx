@@ -1,4 +1,4 @@
-import styles from "../../../../styles/member.module.css";
+import styles from "../member.module.css";
 import {ChangeEventHandler, Dispatch, SetStateAction, useState} from "react";
 import {RegExp} from "../../../function/RegExp";
 import axios from "axios";

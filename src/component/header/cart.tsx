@@ -2,10 +2,22 @@ import {useQuery} from "react-query";
 import {getSession} from "../../function/api/get/api";
 import styles from "./header.module.css";
 import Link from "next/link";
+import {useEffect, useState} from "react";
+import {getCookie, getCookies} from "cookies-next";
+import {useRouter} from "next/router";
 
 
 export default function HeaderCart(){
+    const router = useRouter()
     const {data,isLoading} = useQuery('user',()=>getSession(false))
+    const [cart,setCart] = useState<number>(0)
+    useEffect(()=>{
+        const value = getCookie('cart')
+        if(value){
+            const json = JSON.parse(value as string)
+            setCart(json.length)
+        }
+    },[router.pathname,router.query])
     return(
         <div className={styles['cart']}>
             <Link href={'/cart'}>
@@ -17,12 +29,17 @@ export default function HeaderCart(){
             {
                 isLoading
                     ? null
-                    : data.cart === 0
-                        ? null
-                        :
-                        <span className={styles['cart-count']}>
-                            {data.cart}
-                        </span>
+                    : !data
+                        ? cart === 0
+                            ? null
+                            : <span className={styles['cart-count']}>
+                                {cart}
+                            </span>
+                        : data.cart === 0
+                            ? null
+                            : <span className={styles['cart-count']}>
+                                {data.cart}
+                            </span>
             }
         </div>
     )

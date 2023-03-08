@@ -83,10 +83,10 @@ export default function CartListMemberMobile({item}:{item:CartListType}){
                     [홍루이젠] 치즈 샌드위치 3개입
                 </div>
                 <div className={styles['info']}>
-                    <div className={styles['test']}>
-                        <Image src={item.product_img} alt={'test'} width={70} height={90}/>
+                    <div className={styles['img-d']}>
+                        <Image src={item.product_img} alt={'상품 이미지'} width={100} height={125} priority={true}/>
                     </div>
-                    <div style={{display:"flex",flexDirection:'column',justifyContent:'space-between',padding:'0.125rem 0'}}>
+                    <div className={styles['mobile-cart-li-content']}>
                         <div className={styles['price']}>
                             <span>
                                 {item.discount_rate !== 0

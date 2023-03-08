@@ -11,7 +11,7 @@ export default function ProductListInLimitedOffer({item}:{item:ProductListType})
     return(
         <Link href={`/product/${item.product_id}`} className={styles['product']}>
             <div className={styles['img-div']}>
-                <Image src={item.product_img} alt={'한정 상품 이미지!'} width={1280} height={400}/>
+                <Image src={item.product_img} alt={'한정 상품 이미지!'} width={1280} height={400} priority={true}/>
                 <CartButton pid={item.product_id} name={item.product_name} brand={item.brand_name} price={item.product_price} discount={item.discount_rate}/>
             </div>
             <span className={styles['product-title']}>{item.product_title}</span>

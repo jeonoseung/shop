@@ -40,7 +40,7 @@ export default function ProductFilterMobile({data}:{data:FilterCategoryType[]}){
                     <span>필터</span>
                     <div className={styles['filter-fold']}>
                         <input type={'checkbox'} checked={fold} onChange={(e)=>setFold(e.target.checked)}/>
-                        <Image src={`/image/${fold ? 'down' : 'up'}.svg`} alt={'fold'} width={24} height={24}/>
+                        <Image src={`/image/${fold ? 'down' : 'up'}.svg`} alt={'fold'} width={24} height={24} priority={true}/>
                     </div>
                 </label>
                 <div className={styles[router.query.filter ? 'reset-btn-active' : 'reset-btn']} onClick={()=>{

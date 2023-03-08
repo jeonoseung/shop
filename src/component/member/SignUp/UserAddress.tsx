@@ -1,4 +1,4 @@
-import styles from "../../../../styles/member.module.css";
+import styles from "../member.module.css";
 import {ChangeEventHandler, CSSProperties, Dispatch, SetStateAction, useEffect, useState} from "react";
 
 import {useDaumPostcodePopup} from "react-daum-postcode";

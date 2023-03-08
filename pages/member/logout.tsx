@@ -1,6 +1,5 @@
 import {withIronSessionSsr} from "iron-session/next";
 import {IronSessionOption} from "../../src/function/api/iron-session/options";
-import Spinner from "../../src/component/public/spinner";
 import {useEffect} from "react";
 import {useQueryClient} from "react-query";
 import {useRouter} from "next/router";
@@ -14,7 +13,7 @@ export default function LogoutPage(){
     },[])
     return(
         <div>
-            <Spinner/>
+            {/*<Spinner/>*/}
         </div>
     )
 }

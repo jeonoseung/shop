@@ -1,4 +1,4 @@
-import styles from "../../../../styles/member.module.css";
+import styles from "../member.module.css";
 import {ChangeEventHandler, Dispatch, SetStateAction, useEffect, useMemo, useState} from "react";
 interface value{
     id:string

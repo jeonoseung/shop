@@ -1,5 +1,5 @@
 import {useState} from "react";
-import styles from "../../../../styles/member.module.css";
+import styles from "../member.module.css";
 import {UserId} from "./UserId";
 import {UserPass} from "./UserPass";
 import UserPassChk from "./UserPassChk";

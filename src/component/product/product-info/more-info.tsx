@@ -45,7 +45,7 @@ export default function ProductMoreInfo(){
                                             {
                                                 li.review_img===''
                                                     ? null
-                                                    : <Image src={li.review_img} alt={'리뷰 이미지'} width={300} height={300}/>
+                                                    : <Image src={li.review_img} alt={'리뷰 이미지'} width={300} height={300} priority={true}/>
                                             }
                                             <span className={styles['review-date']}>{setDateOnOrderList(li.review_date)}</span>
                                         </div>

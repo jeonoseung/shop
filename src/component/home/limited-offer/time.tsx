@@ -50,7 +50,7 @@ export default function LimitedTime({time}:{time:string}){
     return(
         <div className={styles['timer']}>
             <div className={styles['test']}>
-                <Image src={'/image/clock.gif'} alt={'이미지'} width={36} height={36}/>
+                <Image src={'/image/clock.gif'} alt={'이미지'} width={36} height={36} priority={true}/>
             </div>
             <span className={styles['time']}>{h}</span>
             <span className={styles['colon']}>:</span>
