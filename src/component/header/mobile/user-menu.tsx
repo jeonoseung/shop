@@ -1,11 +1,8 @@
-import {useMutation, useQuery} from "react-query";
+import {useQuery} from "react-query";
 import {getSession} from "../../../function/api/get/api";
-import {useEffect} from "react";
 import Login from "../../member/login";
 import styles from '../header.module.css';
-import UserMenu from "../user-menu";
 import Link from "next/link";
-import axios from "axios";
 import {useRouter} from "next/router";
 
 export default function MobileUserMenu(){

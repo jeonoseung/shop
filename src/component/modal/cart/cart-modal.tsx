@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../store/store";
-import {CSSProperties, useEffect, useState} from "react";
+import {useEffect} from "react";
 import styles from './cart-modal.module.css'
 import {setDisplay, setModalCount} from "../../../../store/modal/cart-modal";
 import setProductName from "../../../function/public/product-name";

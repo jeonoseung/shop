@@ -1,11 +1,6 @@
 import css from '../css.module.css'
 import {CollectionType, RecommendProductList} from "collection-type";
 import Link from "next/link";
-import Image from "next/image";
-import CartButton from "../../../../modal/cart/cart-btn";
-import {setPrice} from "../../../../../function/public/price";
-import styles from "../../../event-form.module.css";
-import CommentIcon from "../../../../public/icon/comment";
 import MobileRecommendProductList from "../product-list";
 
 interface props{

@@ -73,8 +73,10 @@ export default withIronSessionApiRoute(
         switch (req.method){
             case "GET":
                 await get(req,res)
+                break;
             case "POST":
                 await post(req,res)
+                break;
         }
         return res.status(405).end()
     },

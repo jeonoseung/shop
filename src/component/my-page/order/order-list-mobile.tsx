@@ -1,4 +1,4 @@
-import {useInfiniteQuery, useQuery} from "react-query";
+import {useInfiniteQuery} from "react-query";
 import {getOrderList} from "../../../function/api/get/api";
 import styles from "../my-page.module.css";
 import {setDateOnOrderList} from "../../../function/public/order-list-date";

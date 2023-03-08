@@ -22,7 +22,7 @@ export default function CollectionUpdatePage({isMobile}:{isMobile:boolean}){
     const queryClient = useQueryClient();
     const router = useRouter()
     const dispatch = useDispatch()
-    const {data,isLoading} = useQuery('collection-update',()=>getCollectionUpdate(false,router.query.pid as string))
+    const {data} = useQuery('collection-update',()=>getCollectionUpdate(false,router.query.pid as string))
     useEffect(()=>{
         const {collection} = data;
         const {collection_name,collection_router_name,collection_title} = collection

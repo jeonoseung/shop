@@ -1,4 +1,4 @@
-import {ChangeEvent, useEffect, useState} from "react";
+import {ChangeEvent,useState} from "react";
 import public_styles from '../../../styles/public.module.css'
 import styles from '../../../styles/management/category.module.css'
 import {useDispatch, useSelector} from "react-redux";

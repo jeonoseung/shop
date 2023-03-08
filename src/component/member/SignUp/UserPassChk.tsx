@@ -1,4 +1,4 @@
-import {ChangeEventHandler, Dispatch, KeyboardEventHandler, SetStateAction, useState} from "react";
+import {ChangeEventHandler, Dispatch,SetStateAction, useState} from "react";
 import styles from "../../../../styles/member.module.css";
 
 interface value{

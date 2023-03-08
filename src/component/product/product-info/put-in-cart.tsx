@@ -1,5 +1,5 @@
 import publicStyle from '../../../../styles/public.module.css'
-import {CSSProperties, useEffect} from "react";
+import {CSSProperties} from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../store/store";
 import SetCart from "../../../function/public/set-cart";

@@ -13,7 +13,7 @@ import {getCartList} from "../../function/api/get/api";
 import DeleteIcon from "../public/icon/delete-icon";
 
 export default function CartList({item}:{item:CartListType}){
-    const {data,isLoading} = useQuery('cart-li',()=>getCartList(false))
+    const {data} = useQuery('cart-li',()=>getCartList(false))
     const queryClient = useQueryClient()
     const state = useSelector((state:RootState)=>state.cart)
     const dispatch = useDispatch()

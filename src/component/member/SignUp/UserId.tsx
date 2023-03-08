@@ -5,7 +5,6 @@ import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {setOverLapID} from "../../../../store/member/overlap-check";
 import {RootState} from "../../../../store/store";
-import {string} from "prop-types";
 interface value{
     id:string
     pass:string

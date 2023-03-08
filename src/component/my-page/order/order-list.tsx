@@ -1,6 +1,6 @@
 import styles from '../my-page.module.css'
 import Image from "next/image";
-import {useInfiniteQuery, useQuery} from "react-query";
+import {useInfiniteQuery} from "react-query";
 import {getOrderList} from "../../../function/api/get/api";
 import Link from "next/link";
 import {setDateOnOrderList} from "../../../function/public/order-list-date";

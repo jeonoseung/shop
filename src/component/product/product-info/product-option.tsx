@@ -9,12 +9,11 @@ import {useEffect} from "react";
 import {ProductOptionType} from "product-type";
 import PlusIcon from "../../public/icon/plus-icon";
 import MinusIcon from "../../public/icon/minus-icon";
-import Image from "next/image";
 
 export default function ProductOption({pid}:{pid:string}){
     const dispatch = useDispatch();
     const count = useSelector((state:RootState)=>state.ProductInfo.count)
-    const {isLoading, data} = useQuery('product-info',()=>getProductInfo(false,pid))
+    const {data} = useQuery('product-info',()=>getProductInfo(false,pid))
     const text = data.info.delivery_type === '샛별배송' ? `23시 전 주문 시 내일 아침 7시 전 도착${'\n'}(대구·부산·울산 샛별배송 운영시간 별도 확인)` : '담당자 연락 후 방문';
     const text2 = `택배배송은 에코 포장이 스티로폼으로 대체됩니다`
     const fixedOption = [

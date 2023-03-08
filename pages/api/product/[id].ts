@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import {con} from "../../../src/db/db";
 import fs from "fs";
 import * as formidable from "formidable";
-import {File, Files, PersistentFile} from "formidable";
+import {Files} from "formidable";
 import {AdminProductOptionType} from "product-type";
 
 

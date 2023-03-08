@@ -6,7 +6,7 @@ import {params} from "collection-type";
 
 export default function ProductSort({length,params}:{length:number,params:params}){
     const router = useRouter()
-    const imsi = (e:ChangeEvent<HTMLInputElement>) =>{
+    const sort = (e:ChangeEvent<HTMLInputElement>) =>{
         router.push({
             query:{...router.query,sort:e.target.value}
         })
@@ -18,22 +18,22 @@ export default function ProductSort({length,params}:{length:number,params:params
             </div>
             <div className={styles['sort-list']}>
                 <label className={styles['sort']}>
-                    <input type={'radio'} name={'sort'} value={'1'} onChange={imsi} checked={params.sort === '1'}/>
+                    <input type={'radio'} name={'sort'} value={'1'} onChange={sort} checked={params.sort === '1'}/>
                     <span>신상품순</span>
                 </label>
                 <span className={publicStyles['sign_or']}>|</span>
                 <label className={styles['sort']}>
-                    <input type={'radio'} name={'sort'} value={'2'} onChange={imsi} checked={params.sort === '2'}/>
+                    <input type={'radio'} name={'sort'} value={'2'} onChange={sort} checked={params.sort === '2'}/>
                     <span>판매량순</span>
                 </label>
                 <span className={publicStyles['sign_or']}>|</span>
                 <label className={styles['sort']}>
-                    <input type={'radio'} name={'sort'} value={'3'} onChange={imsi} checked={params.sort === '3'}/>
+                    <input type={'radio'} name={'sort'} value={'3'} onChange={sort} checked={params.sort === '3'}/>
                     <span>낮은 가격순</span>
                 </label>
                 <span className={publicStyles['sign_or']}>|</span>
                 <label className={styles['sort']}>
-                    <input type={'radio'} name={'sort'} value={'4'} onChange={imsi} checked={params.sort === '4'}/>
+                    <input type={'radio'} name={'sort'} value={'4'} onChange={sort} checked={params.sort === '4'}/>
                     <span>높은 가격순</span>
                 </label>
             </div>

@@ -1,8 +1,6 @@
 import styles from "./collection.module.css";
-import DoubleRightIcon from "../public/icon/double-right-icon";
 import Link from "next/link";
 import {useRouter} from "next/router";
-import {Dispatch, SetStateAction} from "react";
 
 interface props{
     check:boolean

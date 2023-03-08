@@ -1,6 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {con} from "../../../../src/db/db";
-// WHERE (product_name LIKE '%%' or brand_name '%%')
 const get = async (req:NextApiRequest,res:NextApiResponse) =>{
     const connection = await con()
     try{

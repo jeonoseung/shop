@@ -6,7 +6,6 @@ import {RootState} from "../../../../../store/store";
 import {useQuery} from "react-query";
 import {getCollectionRequiredData} from "../../../../function/api/get/api";
 import {CategoryType} from "category";
-import {checkUserAgent} from "../../../../function/public/public";
 
 export default function SelectFilter({isMobile}:{isMobile:boolean}){
     const filter = useSelector((state:RootState)=>state.collectionAdd.filter)

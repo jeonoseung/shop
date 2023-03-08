@@ -1,6 +1,5 @@
 import {params} from "collection-type";
 import {useRouter} from "next/router";
-import {ChangeEvent} from "react";
 import styles from "../collection.module.css";
 import publicStyles from "../../../../styles/public.module.css";
 

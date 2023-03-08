@@ -3,7 +3,7 @@ import Image from "next/image";
 import {setPrice, totalPrice} from "../../../function/public/price";
 import {setDisplay, setProductInfo} from "../../../../store/modal/cart-modal";
 import ButtonIcon from "./button-icon";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import Link from "next/link";
 
 export default function ProductList({item}:any){

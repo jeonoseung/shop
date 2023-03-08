@@ -16,7 +16,7 @@ import {IronSessionOption} from "../../../src/function/api/iron-session/options"
 
 export default function CollectionManagementList({isMobile}:{isMobile:boolean}){
     const router = useRouter()
-    const {data,error,isLoading,fetchNextPage,hasNextPage} =
+    const {data,isLoading,fetchNextPage,hasNextPage} =
         useInfiniteQuery('collection-li-admin',({pageParam=1})=>
             getCollectionAdmin(false,router.query.search ? router.query.search as string : '',pageParam),{
             getNextPageParam:(lastPage)=>lastPage.nextPage

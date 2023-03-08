@@ -4,8 +4,6 @@ import {GetServerSideProps} from "next";
 import {checkUserAgent} from "../../src/function/public/public";
 import {params} from "collection-type";
 import Title from "../../src/component/public/title";
-import ProductFilterMobile from "../../src/component/collection/mobile/product-filter";
-import ProductFilter from "../../src/component/collection/product-filter";
 import ProductSortMobile from "../../src/component/collection/mobile/product-sort";
 import ProductList from "../../src/component/collection/product-list";
 import SetInView from "../../src/component/public/list/set-in-view";

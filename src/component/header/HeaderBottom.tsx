@@ -2,7 +2,7 @@ import styles from './header.module.css'
 import Link from "next/link";
 import {useState} from "react";
 import {useQuery} from "react-query";
-import {getCategory, getSession} from "../../function/api/get/api";
+import {getCategory} from "../../function/api/get/api";
 import {CategoryType} from "category";
 import HeaderCart from "./cart";
 

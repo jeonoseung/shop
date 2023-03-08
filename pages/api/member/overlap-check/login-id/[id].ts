@@ -1,7 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import {ErrorHandler} from "next/dist/client/components/react-dev-overlay/internal/helpers/use-error-handler";
-import {RowDataPacket} from "mysql2";
 import {con} from "../../../../../src/db/db";
 
 const get = async (req:NextApiRequest,res:NextApiResponse)=>{

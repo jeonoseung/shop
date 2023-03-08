@@ -1,7 +1,6 @@
 import {ChangeEvent, useState} from "react";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {getCollections} from "../../../../function/api/get/api";
-import Spinner from "../../../public/spinner";
 import {File} from "next/dist/compiled/@edge-runtime/primitives/fetch";
 import axios from "axios";
 import {UITopic} from "ui-form-type";

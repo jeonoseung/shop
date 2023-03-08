@@ -5,7 +5,7 @@ import ProductPrice from "../../public/product-price";
 
 export default function ProductData({pid}:{pid:string}){
 
-    const {isLoading, data} = useQuery('product-info',()=>getProductInfo(false,pid))
+    const {data} = useQuery('product-info',()=>getProductInfo(false,pid))
     return(
         <div className={styles['product-data']}>
             <div><span className={styles['sub-text']}>샛별배송</span></div>

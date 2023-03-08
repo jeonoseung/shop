@@ -1,4 +1,4 @@
-import Head from "next/head";
+
 import MainHeaderMobile from "./main-header";
 import MenuHeaderMobile from "./menu-header";
 import styles from "../header.module.css";

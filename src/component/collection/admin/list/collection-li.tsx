@@ -1,7 +1,6 @@
 import styles from "./collection-list.module.css";
 import AdminListNameTag from "../../../public/admin/list-name-tag";
 import Link from "next/link";
-import DeleteIcon from "../../../public/icon/delete-icon";
 import {AdminCollectionListType} from "collection-type";
 import {useMutation, useQueryClient} from "react-query";
 import axios from "axios";

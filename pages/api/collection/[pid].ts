@@ -1,7 +1,7 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {con} from "../../../src/db/db";
 import {removeFile} from "../../../src/function/public/file";
-import {AdminCollectionInfo, SelectProductList} from "collection-type";
+import {SelectProductList} from "collection-type";
 
 
 const get = async (req:NextApiRequest,res:NextApiResponse)=>{

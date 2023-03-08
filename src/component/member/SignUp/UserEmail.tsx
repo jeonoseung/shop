@@ -2,7 +2,7 @@ import styles from "../../../../styles/member.module.css";
 import {ChangeEventHandler, Dispatch, SetStateAction, useState} from "react";
 import {RegExp} from "../../../function/RegExp";
 import axios from "axios";
-import {setOverLapEmail, setOverLapID} from "../../../../store/member/overlap-check";
+import {setOverLapEmail} from "../../../../store/member/overlap-check";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../store/store";
 interface value{

@@ -1,4 +1,3 @@
-
 import {useState} from "react";
 import styles from '../cart.module.css'
 import Image from "next/image";

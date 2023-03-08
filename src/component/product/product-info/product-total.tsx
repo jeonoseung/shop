@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../../../store/store";
 
 export default function ProductTotalPrice({pid}:{pid:string}){
-    const {isLoading, data} = useQuery('product-info',()=>getProductInfo(false,pid))
+    const {data} = useQuery('product-info',()=>getProductInfo(false,pid))
     const count = useSelector((state:RootState)=>state.ProductInfo.count)
     const div:CSSProperties = {
         textAlign:'right',
