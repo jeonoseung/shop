@@ -17,6 +17,8 @@ import {checkUserAgent} from "../src/function/public/public";
 import {GetServerSideProps} from "next";
 import {ProductListType} from "product-type";
 import MobileLimitedOffer from "../src/component/home/limited-offer/mobile/limited-offer";
+import MobileImageSlider from "../src/component/home/image-slider/mobile/image-slider";
+import {con} from "../src/db/db";
 
 
 export default function Home({isMobile}:{isMobile:boolean}) {
@@ -30,9 +32,22 @@ export default function Home({isMobile}:{isMobile:boolean}) {
         {src:'/image/slider5.jpg'},
         {src:'/image/slider6.jpg'}
     ]
+    const mobile = [
+        {src:'/image/mobile1.jpg'},
+        {src:'/image/mobile2.jpg'},
+        {src:'/image/mobile3.jpg'},
+        {src:'/image/mobile4.jpg'},
+        {src:'/image/mobile5.jpg'},
+        {src:'/image/mobile6.jpg'},
+        {src:'/image/mobile7.jpg'}
+    ]
     return (
         <div style={isMobile ? {width:'100%'} : {minWidth:'1024px'}}>
-            <ImageSlider images={load_images1}/>
+            {
+                isMobile
+                    ? <MobileImageSlider images={mobile}/>
+                    : <ImageSlider images={load_images1}/>
+            }
             <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
                 {
                     recommendProduct.isLoading || recommendProduct.status === 'error'

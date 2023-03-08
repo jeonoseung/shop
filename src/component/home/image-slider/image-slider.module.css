@@ -13,6 +13,18 @@
     background-position: center;
     background-size:cover;
 }
+.mobile-slider{
+    display:flex;
+}
+.mobile-slider .img{
+    min-width:320px;
+    width:100%;
+    height:auto;
+    flex-shrink:0;
+    background-repeat:no-repeat;
+    background-position: center;
+    background-size:cover;
+}
 .slider-length{
     display: flex;
     align-items:center;
@@ -65,4 +77,7 @@
 }
 .next-btn svg{
     fill:white;
+}
+.mobile-slider{
+
 }
