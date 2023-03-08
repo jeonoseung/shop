@@ -57,17 +57,10 @@ export const getCartList = async (ssr:boolean)=>{
     return data.data
 }
 
-export const getOrderList = async (ssr:boolean,user?:number)=>{
-    if(user)
-    {
-        const data = await axios.get(`${ssr ? process.env.URL : ''}/api/order?user=${user}`)
-        return data.data
-    }
-    else
-    {
-        const data = await axios.get(`${ssr ? process.env.URL : ''}/api/order`)
-        return data.data
-    }
+export const getOrderList = async (ssr:boolean,pageParam:number)=>{
+    const length = 10;
+    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/order?page=${pageParam}&limit=${length}`)
+    return {list:data.data,nextPage:data.data.length < length ? undefined : pageParam+1}
 }
 export const getOrderDetail = async (ssr:boolean,params:string|null,user?:number)=>{
     if(user)
@@ -171,7 +164,7 @@ export const getReviewProduct = async (ssr:boolean,product:string,pageParam:numb
     const length = 10;
     const url = `${ssr? process.env.URL : ''}/api/review/product/${product}?page=${pageParam}&offset=${length}`
     const data = await axios.get(url)
-    return {list:data.data,nextPage:data.data.length < length ? undefined : pageParam+1,prevPage:pageParam === 1 ? undefined : pageParam-1}
+    return {list:data.data.comment,nextPage:data.data.next === 0 ? undefined : pageParam+1}
 }
 /** 모바일 검색에서 키워드 입력 시 간단 상품 목록 */
 export const getSearchSimple = async (keyword:string)=>{

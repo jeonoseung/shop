@@ -149,6 +149,18 @@
     top:-5px;
     right:-7.5px;
 }
+.main-header-mobile .cart-count{
+    background:white;
+    color:#0d6efd;
+    border-radius:1rem;
+    padding:0 0.25rem 0 0.25rem;
+    line-height:16px;
+    font-size:0.75rem;
+    position:absolute;
+    top:-5px;
+    right:-7.5px;
+    font-weight:600;
+}
 .user_menu{
     width:100%;
     display:flex;
@@ -219,6 +231,9 @@
 }
 .main-header-mobile span{
     color:white;
+}
+.main-header-mobile .cart svg{
+    fill:white;
 }
 .menu-header-mobile{
     width:100%;

@@ -264,3 +264,18 @@ declare module 'header'{
         active:boolean
     }
 }
+declare module 'user'{
+    interface user{
+        id:string
+        pass:string
+        pass_chk:string
+        name:string
+        email:string
+        phone:string
+        zipcode:string
+        address:string
+        detail:string
+        gender:string
+        birth:string
+    }
+}

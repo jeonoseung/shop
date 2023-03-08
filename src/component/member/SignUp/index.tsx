@@ -1,5 +1,4 @@
-import {useEffect, useState} from "react";
-import p_styles from "../../../../styles/public.module.css"
+import {useState} from "react";
 import styles from "../../../../styles/member.module.css";
 import {UserId} from "./UserId";
 import {UserPass} from "./UserPass";
@@ -10,13 +9,16 @@ import {UserPhone} from "./UserPhone";
 import UserAddress from "./UserAddress";
 import Gender from "./Gender";
 import Birth from "./Birth";
-import FormData from "form-data";
 import axios from "axios";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {RootState} from "../../../../store/store";
+import {useMutation} from "react-query";
+import {useRouter} from "next/router";
+import {user} from "user";
 
 export default function SignUpIndex(){
-    const [Profile, setProfile] = useState({
+    const router = useRouter()
+    const [Profile, setProfile] = useState<user>({
         id:'',
         pass:'',
         pass_chk:'',
@@ -30,6 +32,15 @@ export default function SignUpIndex(){
         birth:''
     })
     const overlap = useSelector((state:RootState)=>state.overlap)
+    const signUpStart = useMutation((data:user)=>axios.post('/api/member',data),{
+        onSuccess:()=>{
+            alert('회원 가입 되었습니다!')
+            router.push({pathname:'/member/login'})
+        },
+        onError:()=>{
+            alert('회원가입 에러')
+        }
+    })
     const test = async () =>{
         if(!overlap.id)
         {
@@ -41,19 +52,7 @@ export default function SignUpIndex(){
             alert("이메일 중복 확인이 필요합니다")
             return false;
         }
-
-        const form:FormData = new FormData()
-        form.append("data",JSON.stringify(Profile))
-        const result:any = axios.post('/api/member/1',form,{
-            headers:{
-                "Content-Type":"multipart/form-data"
-            }
-        })
-        result.catch(({response}:any)=>{
-            alert(response.data.msg)
-            return false
-        })
-        result ? window.location.href = '/member/login' : null
+        signUpStart.mutate(Profile)
     }
     return(
         <div className={styles.signup}>

@@ -9,8 +9,7 @@ export default function LogoutPage(){
     const queryClient = useQueryClient();
     const router = useRouter()
     useEffect(()=>{
-        queryClient.invalidateQueries('cart-li')
-        queryClient.invalidateQueries('user')
+        queryClient.clear()
         router.push('/')
     },[])
     return(

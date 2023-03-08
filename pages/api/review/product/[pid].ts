@@ -14,9 +14,13 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                         INNER JOIN user as u ON ph.user_id = u.user_id
                         WHERE p.product_id = ${pid}
                         LIMIT ${LIMIT} OFFSET ${OFFSET};`
-        const [rows] = await connection.query(sql)
+        const sql2 = `SELECT review_id
+                        FROM review as r
+                        WHERE r.product_id = ${pid} 
+                        LIMIT ${LIMIT} OFFSET ${(parseInt(page as string))*LIMIT};`
+        const [[comment,count]] = await connection.query(sql+sql2)
         connection.release()
-        return res.status(200).send(rows)
+        return res.status(200).send({comment,next:count.length})
     }catch (err){
         console.log(err)
         connection.release()

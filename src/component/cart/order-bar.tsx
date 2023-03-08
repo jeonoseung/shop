@@ -32,6 +32,7 @@ export default function CartOrderBar({data}:{data:CartListType[]}){
         onSuccess:()=>{
             alert('주문 되었습니다! 주문 내역은 프로필 페이지에서 확인할 수 있습니다')
             queryClient.invalidateQueries('cart-li')
+            queryClient.invalidateQueries('user')
             dispatch(resetState())
         },
         onError:()=>{

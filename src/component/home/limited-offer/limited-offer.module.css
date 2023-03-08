@@ -102,3 +102,12 @@
     font-size:0.95rem;
     margin-left:0.5rem;
 }
+.review{
+    display:flex;
+    align-items:center;
+}
+.review span{
+    margin-left:0.25rem;
+    font-size: 0.75rem;
+    color:rgb(153, 153, 153);
+}

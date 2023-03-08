@@ -7,11 +7,11 @@ export default function Spinner(){
         position:"absolute",
         top:"50%",
         left:'50%',
-        transform:'translate(-50%,-50%)'
+        transform:'translate(-50%,-50%)',
+        width:'32px',
+        height:'32px',
     }
     return(
-        <div style={div}>
-            <Image src={'/image/spinner.svg'} alt={'loading...'} priority={true} width={25} height={25}/>
-        </div>
+        <Image style={div} src={'/image/spinner.svg'} alt={'loading...'} priority={true} width={25} height={25}/>
     )
 }

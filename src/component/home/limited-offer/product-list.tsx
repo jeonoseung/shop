@@ -4,6 +4,7 @@ import {ProductListType} from "product-type";
 import CartButton from "../../modal/cart/cart-btn";
 import {setPrice, totalPrice} from "../../../function/public/price";
 import Link from "next/link";
+import CommentIcon from "../../public/icon/comment";
 
 
 export default function ProductListInLimitedOffer({item}:{item:ProductListType}){
@@ -20,6 +21,15 @@ export default function ProductListInLimitedOffer({item}:{item:ProductListType})
                 <span className={styles['total-price']}>{setPrice(totalPrice(item.product_price,item.discount_rate))}원</span>
                 {item.discount_rate !== 0 ? <span className={styles['discount-price-3']}>{setPrice(item.product_price)}원</span> : null}
             </div>
+            {
+                item.review === 0
+                    ? null
+                    :
+                    <div className={styles['review']}>
+                        <CommentIcon/>
+                        <span>후기 {item.review}</span>
+                    </div>
+            }
         </Link>
     )
 }

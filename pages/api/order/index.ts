@@ -9,6 +9,9 @@ import {CartListType} from "cart-type";
 const get = async (req:NextApiRequest,res:NextApiResponse) =>{
     const connection = await con()
     try{
+        const {page,limit} = req.query;
+        const LIMIT = parseInt(limit as string)
+        const OFFSET = (parseInt(page as string)-1)*LIMIT
         const sql = `SELECT phg.phg_id,phg.price,order_date,phg.length,phg.user_id,
                     (SELECT p.product_name FROM products as p INNER JOIN purchase_history as ph ON p.product_id = ph.product_id WHERE phg_id = phg.phg_id limit 1) AS product_name,
                     (SELECT p.product_img FROM products as p INNER JOIN purchase_history as ph ON p.product_id = ph.product_id WHERE phg_id = phg.phg_id limit 1) AS product_img,
@@ -17,7 +20,8 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                     INNER JOIN purchase_history as ph
                     ON phg.phg_id = ph.phg_id
                     WHERE phg.user_id = ${req.query.user ? req.query.user : req.session.user.id}
-                    GROUP BY phg.phg_id ORDER BY order_date desc`;
+                    GROUP BY phg.phg_id ORDER BY order_date desc
+                    LIMIT ${LIMIT} OFFSET ${OFFSET}`;
         const [rows] = await connection.query(sql)
         connection.release()
         return res.status(200).send(rows)
