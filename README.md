@@ -129,8 +129,8 @@ UI는 추가는 관리자 메뉴의 메인 홈 UI 관리에서 가능합니다
 
 작성 가능한 상품 후기를 확인,작성하거나 작성한 후기를 확인할 수 있습니다.
 
-1.[`상품 후기 페이지`](https://github.com/jeonoseung/shop/blob/main/pages/my-page/review/index.tsx)
-2.[`UI 구성`](https://github.com/jeonoseung/shop/tree/main/src/component/my-page/review)
+1. [`상품 후기 페이지`](https://github.com/jeonoseung/shop/blob/main/pages/my-page/review/index.tsx)
+2. [`UI 구성`](https://github.com/jeonoseung/shop/tree/main/src/component/my-page/review)
 
 
 
