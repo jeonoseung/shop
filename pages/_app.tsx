@@ -12,6 +12,7 @@ import Head from "next/head";
 import HeaderTop from "../src/component/header/HeaderTop";
 import HeaderBottom from "../src/component/header/HeaderBottom";
 import {DefaultSeo} from "next-seo";
+import Footer from "../src/component/footer/footer";
 
 export default function App({Component, pageProps}: AppProps) {
     const [query] = useState(()=>new QueryClient({
@@ -51,11 +52,13 @@ export default function App({Component, pageProps}: AppProps) {
                                : <HeaderBottom />
                        }
                        <Component {...pageProps}/>
+                        <Footer/>
                        {
                            isMobile
                                ? <MobileMenuBar/>
                                : null
                        }
+
                        <CartModal />
                     </div>
                 </Provider>
