@@ -32,7 +32,7 @@ export default function App({Component, pageProps}: AppProps) {
     }
     const seo = {
         title:'SHOP-PROJECT | 마켓컬리 CLONE-PROJECT',
-        description:'전오승-포트폴리오 프로젝트:마켓컬리 사이트를 기능 축소해서 개발한 프로젝트입니다',
+        description:'전오승-포트폴리오 프로젝트:쇼핑몰 마켓컬리를 기능 축소해서 개발한 프로젝트입니다',
     }
     return (
         <QueryClientProvider client={query}>

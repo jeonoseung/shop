@@ -170,8 +170,8 @@ export default function MobileImageSlider({images}:{images:{src:string}[]}){
             <div className={styles['slider-length']}>
                 {Index}<span style={{margin:'0 0.25rem'}}>/</span>{length}
             </div>
-            <button onClick={previousImage} className={`${styles['pre-btn']} ${hover ? '' : styles['opacity']}`}><LeftIcon/></button>
-            <button onClick={nextImage} className={`${styles['next-btn']} ${hover ? '' : styles['opacity']}`} ref={nextButton}><RightIcon/></button>
+            {/*<button onClick={previousImage} className={`${styles['pre-btn']} ${hover ? '' : styles['opacity']}`}><LeftIcon/></button>*/}
+            {/*<button onClick={nextImage} className={`${styles['next-btn']} ${hover ? '' : styles['opacity']}`} ref={nextButton}><RightIcon/></button>*/}
         </div>
     )
 }
