@@ -1,6 +1,6 @@
 import {useQuery} from "react-query";
 import {getSession} from "../../../function/api/get/api";
-import Login from "../../member/login";
+import Login from "../../member/login/login";
 import styles from '../header.module.css';
 import Link from "next/link";
 import {useRouter} from "next/router";

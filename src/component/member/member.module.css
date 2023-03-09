@@ -1,11 +1,12 @@
 .login {
-    display: flex;
-    align-items: center;
+    display:flex;
+    align-items:center;
     min-height:500px;
 }
 .login .login_form{
     margin:auto;
     padding:0.5rem;
+    width:100%;
 }
 .login .login_form .title{
     width:100%;
@@ -15,7 +16,7 @@
 
 .login_form .user_input{
     display:block;
-    width:350px;
+    width:100%;
     padding:1rem 0.75rem;
     border:1px solid #ddd;
     margin:0.5rem 0;

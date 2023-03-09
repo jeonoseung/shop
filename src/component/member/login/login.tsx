@@ -1,5 +1,5 @@
 
-import styles from './member.module.css'
+import styles from '../member.module.css'
 import {useState} from "react";
 import Link from "next/link";
 import axios from "axios";
