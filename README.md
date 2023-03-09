@@ -12,6 +12,12 @@
 
 프로젝트 배포 링크 - [http://tnd10327.cafe24.com](http://tnd10327.cafe24.com)
 
+아이디:admin
+
+비밀번호:admin1234
+
+이미지와 DB는 백업되어 있습니다.
+
 ERD - [https://www.erdcloud.com/d/GAjjEJSWfjuuRbfYc](https://www.erdcloud.com/d/GAjjEJSWfjuuRbfYc)
 
 ### 목차
@@ -27,6 +33,8 @@ ERD - [https://www.erdcloud.com/d/GAjjEJSWfjuuRbfYc](https://www.erdcloud.com/d/
 10. [컬렉션 관리](#컬렉션-관리)
 11. [컬렉션 관리 추가&수정](컬렉션-관리-추가&수정)
 12. [메인 홈 UI 관리](메인-홈-UI-관리)
+13. [로그인](#로그인)
+14. [회원가입](#회원가입)
 
 <div align="center">
     <div align="center">
@@ -254,5 +262,15 @@ UI명 입력은 사용자 화면에 표시되는 기능이 아닌 관리 목록�
 1. [`로그인 페이지`](https://github.com/jeonoseung/shop/blob/main/pages/member/login.tsx)
 2. [`UI 구성`](https://github.com/jeonoseung/shop/blob/main/src/component/member/login.tsx)
     
-    구성이 적어 하나의 component로 관리
 
+    구성이 적어 하나의 component로 관리
+    다른 UI에서 분기별로(모바일 상태에서 비회원일시) 렌더링하여 사용하기 위해 component로 관리
+
+## 회원가입
+<img src="public/README/sign-up.PNG" alt="페이지"/>
+
+1. [`회원가입 페이지`](https://github.com/jeonoseung/shop/blob/main/pages/member/signup.tsx)
+2. [`UI 구성`](https://github.com/jeonoseung/shop/tree/main/src/component/member/SignUp)
+
+
+    입력란 마다 기능이 많기 때문에 전부 component로 나눔
