@@ -12,6 +12,8 @@
 
 프로젝트 배포 링크 - [http://tnd10327.cafe24.com](http://tnd10327.cafe24.com)
 
+ERD - [https://www.erdcloud.com/d/GAjjEJSWfjuuRbfYc](https://www.erdcloud.com/d/GAjjEJSWfjuuRbfYc)
+
 <div style="text-align:center">
     <div>
         사용 기슬 스택
@@ -31,7 +33,49 @@
         <img src="https://img.shields.io/badge/React Query-FF4154?style=flat&logo=React Query&logoColor=white" />
     </div>
 </div>
-<img src="./public/READEME/home.PNG" width="1280" height="auto"/>
+<div>
+    <h2>메인 홈페이지</h2>
+    <img src="./public/READEME/home.PNG" width="1280" height="auto"/>
+</div>
+
+메인 홈페이지의 구성은 메인 이미지 슬라이드,추천 상품,추천 컬렉션, 추천 주제, 한정 판매 UI로 구성되어 있습니다.
+이미지 슬라이드와 추천 상품은 하나의 UI에 고정되어 따로 추가 불가능합니다.
+UI는 추가는 관리자 메뉴의 메인 홈 UI 관리에서 가능합니다
+
+1. [홈페이지](https://github.com/jeonoseung/shop/blob/main/pages/index.tsx)
+
+
+2. [메인 이미지 슬라이드](https://github.com/jeonoseung/shop/tree/main/src/component/home/image-slider)
+
+    이미지 슬라이드는 이미지가 전환되는 기능만 있고 모바일 UI와 비슷하지만 모바일 UI는 터치 이벤트로 구현해야했기 때문에 분기별로 렌더링되게 했습니다.
+
+3. [추천 상품&컬렉션](https://github.com/jeonoseung/shop/tree/main/src/component/home/recommend)
+
+    추천 상품과 추천 켈렉션 UI는 기능은 거의 비슷하지만 추천 컬렉션에서 전체보기 기능 때문에 따로 나눴습니다.
+
+    추천 상품은 10분마다 상품목록에서 랜덤으로 20개의 데이터를 저장하는 테이블에서 데이터를 가져옵니다.
+
+    추천 컬렉션은 설정된 컬렉션으로 UI를 등록하면 메인 홈페이지에 표시됩니다.
+
+4. [추천 주제](https://github.com/jeonoseung/shop/tree/main/src/component/home/recommend-topic)
+
+    추천 주제는 추천 컬렉션과 비슷하고 설정한 이미지와 내용 + 컬렉션 구성 상품 4개를 표시합니다.    
+
+5. [한정 판매](https://github.com/jeonoseung/shop/tree/main/src/component/home/limited-offer)
+    
+    한정 판매는 시간과 선택한 상품(최대 3개)을 표시합니다.
+    설정한 시간이 다되면 삭제됩니다.
+
+<div>
+    <h2>장바구니</h2>
+    <img src="./public/READEME/cart.PNG" width="1280" height="auto"/>
+</div>
+
+장바구니 기능은 비회원도 가능하며 비회원 상태에서 장바구니 담기 시 쿠키에 저장됩니다.
+비회원 상태에서 회원으로 로그인 시 비회원 상태의 장바구니 목록이 로그인한 회원 장바구니에 저장됩니다.
+
+1. [장바구니 페이지](https://github.com/jeonoseung/shop/blob/main/pages/cart/index.tsx)
+
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
