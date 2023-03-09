@@ -16,19 +16,22 @@ import axios from "axios";
 import {checkUserAgent} from "../../../../src/function/public/public";
 import {withIronSessionSsr} from "iron-session/next";
 import {IronSessionOption} from "../../../../src/function/api/iron-session/options";
-
+/** 컬렉션 수정 페이지 */
 export default function CollectionUpdatePage({isMobile}:{isMobile:boolean}){
     const collection = useSelector((state:RootState)=>state.collectionAdd)
     const queryClient = useQueryClient();
     const router = useRouter()
     const dispatch = useDispatch()
+    /** 상품 수정을 위한 기존에 저장되어 있는 데이터 가져오기 */
     const {data} = useQuery('collection-update',()=>getCollectionUpdate(false,router.query.pid as string))
+    /** 데이터 셋팅 */
     useEffect(()=>{
         const {collection} = data;
         const {collection_name,collection_router_name,collection_title} = collection
         dispatch(SetCollectionInput({collection_name,collection_router_name,collection_title}))
         dispatch(SetSelectProduct(data.collection_product))
     },[])
+    /** 저장 버튼 클릭 */
     const save=()=>{
         const obj={
             collection:collection.data,
@@ -36,6 +39,7 @@ export default function CollectionUpdatePage({isMobile}:{isMobile:boolean}){
         }
         updateCollection.mutate(obj)
     }
+    /** 저장 이벤트 */
     const updateCollection = useMutation((obj:PutAxiosBodyType)=>
         axios.put(`/api/collection/${router.query.pid as string}`,obj),{
         onSuccess:()=>{

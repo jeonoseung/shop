@@ -2,35 +2,38 @@ import axios from "axios";
 import {params,router} from "collection-type";
 
 type ssr = boolean
-
+/** 카테고리 목록 */
 export const getCategory= async (ssr:boolean)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/category`)
     return data.data
 }
+/** 세션 값 가져오기 */
 export const getSession = async (ssr:boolean)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/session/user`)
     return data.data
 }
+/** 로그인 확인 */
 export const LoginCheck = async ()=>{
     const data = await axios.get(`/api/session`)
     return data.data
 }
+/** 메인 홈의 추천 상품 목록 */
 export const getProductRand = async (ssr:boolean)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/product/random`)
     return data.data
 }
-
+/** 상품 목록 표시 */
 export const getProduct = async (ssr:boolean)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/product`)
     return data.data
 }
-
+/** 상품 정보 */
 export const getProductInfo = async (ssr:boolean,pid:string | string[] | undefined)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/product/${pid}`);
     return data.data
 }
 
-
+/** 컬렉션 명, 컬렉션 상품 개수 */
 export const getCollectionInfo=async (ssr:boolean,router:router,set:params)=>{
     const filter = set.filter;
     const first = (filter !== '' ? filter.split('%').splice(1,filter.split('%').length) : filter)
@@ -38,7 +41,7 @@ export const getCollectionInfo=async (ssr:boolean,router:router,set:params)=>{
     const data = await axios.get(url)
     return data.data
 }
-
+/** 컬렉션 상품 목록 */
 export const getProductListInCollection = async (ssr:ssr,router:router,set:params,pageParam:number) =>{
     const {filter,sort,listLength} = set
     const first = (filter !== '' ? filter.split('%').splice(1,filter.split('%').length) : filter)
@@ -46,24 +49,25 @@ export const getProductListInCollection = async (ssr:ssr,router:router,set:param
     const data = await axios.get(url)
     return {list:data.data,nextPage:data.data.length < listLength ? undefined : pageParam+1}
 }
-
+/** 컬렉션 페이지의 필터를 위한 카테고리 목록 */
 export const getCategoryListInCollection = async (ssr:boolean,router:string|string[]|undefined)=>{
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/collection/category/${router}`)
     return data.data
 }
-
+/** 장바구니 목록 */
 export const getCartList = async (ssr:boolean)=>{
     const local = localStorage.getItem('cart')
     const url = `${ssr ? process.env.URL : ''}/api/cart?cart=${local}`
     const data = await axios.get(url)
     return data.data
 }
-
+/** 주문 내역 목록 */
 export const getOrderList = async (ssr:boolean,pageParam:number)=>{
     const length = 10;
     const data = await axios.get(`${ssr ? process.env.URL : ''}/api/order?page=${pageParam}&limit=${length}`)
     return {list:data.data,nextPage:data.data.length < length ? undefined : pageParam+1}
 }
+/** 주문 내역 상세 목록 */
 export const getOrderDetail = async (ssr:boolean,params:string|null,user?:number)=>{
     if(user)
     {

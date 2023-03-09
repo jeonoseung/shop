@@ -16,12 +16,13 @@ import {checkUserAgent} from "../../../src/function/public/public";
 import {useRouter} from "next/router";
 import {withIronSessionSsr} from "iron-session/next";
 import {IronSessionOption} from "../../../src/function/api/iron-session/options";
-
+/** 컬렉션 추가 페이지 */
 export default function CollectionAddPage({isMobile}:{isMobile:boolean}){
     const router = useRouter()
     const queryClient = useQueryClient()
     const collection = useSelector((state:RootState)=>state.collectionAdd)
     const dispatch = useDispatch()
+    /** 저장 이벤트 */
     const collectionSave = useMutation((body:PostType)=>axios.post('/api/collection',body),{
         onSuccess:()=>{
             alert('저장되었습니다')
@@ -37,6 +38,7 @@ export default function CollectionAddPage({isMobile}:{isMobile:boolean}){
             }
         }
     })
+    /** 저장 버튼 클릭 */
     const save = async () =>{
         if(collection.product.length < 4){
             alert('상품 4개 이상 선택이 필요합니다')
@@ -48,6 +50,7 @@ export default function CollectionAddPage({isMobile}:{isMobile:boolean}){
         }
         collectionSave.mutate(body)
     }
+    /** 수정 페이지 접속 후 추가 페이지로 이동 시 같은 Redux Store를 사용하기 때문에 초기화 필요 */
     useEffect(()=>{
         dispatch(ResetCollectionValue())
     },[])

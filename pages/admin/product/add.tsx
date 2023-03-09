@@ -26,16 +26,22 @@ interface props{
     isMobile:boolean
 }
 
+/** 상품 추가 페이지 */
 export default function ProductAddPage({user,isMobile}:props){
+    //이미지 파일 상태값
     const [file,setFile] = useState<File>()
     const dispatch = useDispatch()
+    /** 수정 페이지 접속 후 추가 페이지로 이동 시 같은 Redux Store를 사용하기 때문에 초기화 필요 */
     useEffect(()=>{
         dispatch(ResetProductData())
     },[])
+    //상품 정보
     const value = useSelector((state:RootState)=>state.ProductAdd.data)
+    //상품 옵션 정보
     const option = useSelector((state:RootState)=>state.ProductAdd.option)
     const queryClient = useQueryClient()
     const router = useRouter()
+    /** 상품 추가 요청 */
     const insertProduct = useMutation((form:FormData)=>axios.post('/api/product',form,{
         headers:{
             "Content-Type":"multipart/form-data"
@@ -50,6 +56,7 @@ export default function ProductAddPage({user,isMobile}:props){
         }
         }
     )
+    /** 상품 저장 버튼 클릭 */
     const SaveProduct = async () =>{
         const form:FormData = new FormData()
         if(!file) {alert("선택된 이미지가 없습니다");return false}

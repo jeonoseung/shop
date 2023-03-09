@@ -14,9 +14,12 @@ import {CartListType} from "cart-type";
 import {useDispatch} from "react-redux";
 import {checkUserAgent} from "../../src/function/public/public";
 
+/** 장바구니 페이지 */
 export default function Cart({isLogin,isMobile}:{isLogin:boolean,isMobile:boolean}){
+    //장바구니 목록 가져오기
     const {data,isLoading,isFetching} = useQuery('cart-li',()=>getCartList(false))
     const dispatch = useDispatch()
+    /** 장바구니 목록 전부 체크 */
     useEffect(()=>{
         if(!isFetching&&!isLoading){
             dispatch(allCheck({checked:true,list:data.map((li:CartListType)=>li.product_id)}))

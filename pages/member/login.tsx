@@ -3,6 +3,9 @@ import Login from "../../src/component/member/login";
 import {withIronSessionSsr} from "iron-session/next";
 import {IronSessionOption} from "../../src/function/api/iron-session/options";
 
+/**
+ * 로그인 페이지
+ * */
 export default function LoginPage(){
     return(
         <div className={public_styles.content}>

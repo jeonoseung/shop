@@ -21,13 +21,17 @@ import {checkUserAgent} from "../../../../src/function/public/public";
 import {withIronSessionSsr} from "iron-session/next";
 import {IronSessionOption} from "../../../../src/function/api/iron-session/options";
 
+/** 상품 수정 페이지 */
 export default function ProductUpdatePage({isMobile}:{isMobile:boolean}){
+    //파일 상태값
     const [file,setFile] = useState<File>()
     const dispatch = useDispatch();
     const queryClient = useQueryClient()
     const router = useRouter();
+    //상품 수정을 위한 기존 데이터
     const {data,isLoading} = useQuery('product-info',()=>getProductInfo(false,router.query.pid))
     const state = useSelector((state:RootState)=>state.ProductAdd)
+    /** 상품 수정을 위한 기존 데이터 셋팅 */
     useEffect(()=>{
         if(!isLoading){
             dispatch(setProductUpdatePage(data.info))
@@ -37,6 +41,7 @@ export default function ProductUpdatePage({isMobile}:{isMobile:boolean}){
             dispatch(setProductUpdatePageOption(result))
         }
     },[isLoading])
+    /** 상품 수정 요청 */
     const updateProduct = useMutation((obj:{pid:number,form:FormData})=>axios.put(`/api/product/${obj.pid}`,obj.form),{
         onSuccess:()=>{
             alert('변경되었습니다')
@@ -47,9 +52,11 @@ export default function ProductUpdatePage({isMobile}:{isMobile:boolean}){
             alert('변경 실패')
         }
     })
+    /** 수정 버튼 클릭 */
     const updateButton = () =>{
         const {pid} = router.query
         const form:FormData = new FormData()
+        //선택된 파일이 있을 시 append
         if(file){
             form.append('file',file)
         }

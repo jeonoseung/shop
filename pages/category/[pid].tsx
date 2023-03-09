@@ -13,13 +13,17 @@ import {getCategoryInfo, getCategoryProduct} from "../../src/function/api/get/ap
 import {useRouter} from "next/router";
 import {useEffect} from "react";
 
+/** 카테고리 상품 페이지 */
 export default function CategoryProductPage({isMobile,params}:{isMobile:boolean,params:params}){
     const router = useRouter()
+    // 카테고리 정보 데이터
     const info = useQuery('category-info',()=>getCategoryInfo(false,router.query.pid as string))
+    /** 목록 무한 쿼리 */
     const {data,isLoading,hasNextPage,fetchNextPage,refetch} = useInfiniteQuery('category-product-li',({pageParam=1})=>
         getCategoryProduct(false,router.query.pid as string,pageParam,params),{
         getNextPageParam:(lastPage)=>lastPage.nextPage
     })
+    /** 필터,정렬,카테고리 pid값이 변경되면 리패치 */
     useEffect(()=>{
         if(!isLoading){
             refetch()

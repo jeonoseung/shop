@@ -16,11 +16,13 @@ import {useEffect} from "react";
 
 export default function ProductListManagement({isMobile}:{isMobile:boolean}){
     const router = useRouter();
+    /** 무한 쿼리 데이터 */
     const {data,error,isLoading,fetchNextPage,hasNextPage,refetch} =
         useInfiniteQuery('product-li-admin',({pageParam=1})=>
             getProductListAdmin(false,router.query.search ? router.query.search as string : '',pageParam),{
         getNextPageParam:(lastPage)=>lastPage.nextPage,
     })
+    /** 검색 시 데이터 리패치 */
     useEffect(()=>{
         if(!isLoading){
             refetch()

@@ -19,15 +19,20 @@ import SetInView from "../../src/component/public/list/set-in-view";
 import ProductSortMobile from "../../src/component/public/list/mobile/product-sort";
 import ProductFilterMobile from "../../src/component/public/list/mobile/product-filter";
 
+/** 컬렉션 상품 목록 페이지 */
 export default function ProductListInCollection({isMobile,params}:{isMobile:boolean,params:params}){
     const router = useRouter()
+    //적용된 필터값
     const filter = useSelector((state:RootState)=>state.collection.filter)
+    //컬렉션 정보(컬렉션명,상품 개수)
     const collection = useQuery('collection',()=>getCollectionInfo(false,router.query.router,params))
+    /** 목록 무한 쿼리 데이터 */
     const {data,isLoading,refetch,fetchNextPage,hasNextPage} =
         useInfiniteQuery('collection-product-li', ({pageParam=1})=>
             getProductListInCollection(false,router.query.router,params,pageParam),{
             getNextPageParam:(lastPage)=>lastPage.nextPage,
         })
+    /** 필터링 카테고리 목록 */
     const category = useQuery('collection-category-li',()=>getCategoryListInCollection(false,router.query.router))
     const dispatch = useDispatch()
     /**
@@ -49,6 +54,7 @@ export default function ProductListInCollection({isMobile,params}:{isMobile:bool
             dispatch(resetFilter())
         }
     },[])
+    /** 필터,정렬,router 값이 변경되면 데이터 리패치 */
     useEffect(()=>{
         if(!isLoading){
             refetch()

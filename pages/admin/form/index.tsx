@@ -13,8 +13,12 @@ import publicStyles from "../../../styles/public.module.css";
 import {checkUserAgent} from "../../../src/function/public/public";
 import {withIronSessionSsr} from "iron-session/next";
 import {IronSessionOption} from "../../../src/function/api/iron-session/options";
+
+/** 메인 홈 UI 관리 페이지 */
 export default function SetFormPage({isMobile}:{isMobile:boolean}){
+    //관리 관련 값 가져오기 (UI 목록,추천 컬렉션, 추천 주제, 한정 판매)
     const ui = useQuery('ui-li',()=>getHomeDisplayForm(false))
+    /** 변경 UI 저장 */
     const saveUI = useMutation((form:UIForm)=>axios.put('/api/form/admin',form),{
         onSuccess:()=>{
             alert("저장 되었습니다")
@@ -23,14 +27,11 @@ export default function SetFormPage({isMobile}:{isMobile:boolean}){
             alert('error')
         }
     })
-    const ui_save = async () =>{
-        saveUI.mutate(ui.data.form)
-    }
     return(
         <div className={publicStyle[isMobile ? 'mobile-content' : 'content']}>
             <div className={styles[isMobile ? 'ui-set-mobile' : 'ui-set']}>
                 <div>
-                    <button onClick={ui_save} className={publicStyles['button']}>UI 저장</button>
+                    <button onClick={()=>saveUI.mutate(ui.data.form)} className={publicStyles['button']}>UI 저장</button>
                     <UIFormList />
                 </div>
                 <div>
