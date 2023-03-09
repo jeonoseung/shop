@@ -4,6 +4,7 @@ import {UICollection} from "ui-form-type";
 import {useState} from "react";
 import axios from "axios";
 import styles from "../set-form.module.css";
+import publicStyles from '../../../../../styles/public.module.css'
 
 export default function CollectionFormManagement(){
     const queryClient = useQueryClient()
@@ -20,14 +21,14 @@ export default function CollectionFormManagement(){
     })
     return(
         <div className={styles['ui-form-add']}>
-            <button onClick={()=>saveForm.mutate(collection)}>추천 컬렉션 추가</button>
+            <button className={publicStyles['button']} onClick={()=>saveForm.mutate(collection)}>추천 컬렉션 추가</button>
             <div>
                 <span>적용 컬렉션</span>
                 {
                     isLoading
                         ? null
                         :
-                        <select onChange={(e)=>setCollection(e.target.value)}>
+                        <select className={publicStyles['input-text']} onChange={(e)=>setCollection(e.target.value)}>
                             <option value={''}>선택</option>
                             {
                                 data.map((li:UICollection)=>(

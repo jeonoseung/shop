@@ -5,6 +5,7 @@ import {File} from "next/dist/compiled/@edge-runtime/primitives/fetch";
 import axios from "axios";
 import {UITopic} from "ui-form-type";
 import styles from '../set-form.module.css'
+import publicStyles from '../../../../../styles/public.module.css'
 
 export default function TopicFormManagement(){
     const queryClient = useQueryClient()
@@ -52,10 +53,10 @@ export default function TopicFormManagement(){
     }
     return(
         <div className={styles['ui-form-add']}>
-            <button onClick={saveTopic}>추천 주제 추가</button>
+            <button className={publicStyles['button']} onClick={saveTopic}>추천 주제 추가</button>
             <div>
                 <span>주제 내용</span>
-                <textarea onChange={(e)=>setContent(e.target.value)} value={content}></textarea>
+                <textarea className={publicStyles['textarea']} onChange={(e)=>setContent(e.target.value)} value={content}></textarea>
             </div>
             <label>
                 <span>주제 이미지</span>
@@ -67,7 +68,7 @@ export default function TopicFormManagement(){
                     isLoading
                         ? null
                         :
-                        <select onChange={(e)=>setCollection(e.target.value)}>
+                        <select className={publicStyles['select']} onChange={(e)=>setCollection(e.target.value)}>
                             <option value={''}>선택</option>
                             {
                                 data.map((li:UITopic)=>(

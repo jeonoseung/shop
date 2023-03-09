@@ -7,6 +7,7 @@ import axios from "axios";
 import styles from '../set-form.module.css'
 import {LimitedChecked} from "ui-form-type";
 import {checkNull} from "../../../../function/public/check";
+import publicStyles from "../../../../../styles/public.module.css";
 
 export default function LimitedFormManagement(){
     const queryClient = useQueryClient()
@@ -79,22 +80,22 @@ export default function LimitedFormManagement(){
     })
     return(
         <div className={styles['ui-form-add']}>
-            <button onClick={saveButton}>한정 판매 추가</button>
+            <button className={publicStyles['button']} onClick={saveButton}>한정 판매 추가</button>
             <div>
                 <span>제목</span>
-                <input type={'text'} placeholder={'최대 20자'} maxLength={20} onChange={(e)=>setTitle(e.target.value)}/>
+                <input type={'text'} className={publicStyles['input-text']} placeholder={'최대 20자'} maxLength={20} onChange={(e)=>setTitle(e.target.value)}/>
             </div>
             <div>
                 <span>부제목</span>
-                <input type={'text'} placeholder={'최대 20자'} maxLength={20}  onChange={(e)=>setSubtitle(e.target.value)}/>
+                <input type={'text'} className={publicStyles['input-text']} placeholder={'최대 20자'} maxLength={20}  onChange={(e)=>setSubtitle(e.target.value)}/>
             </div>
             <div>
                 <span>시작</span>
-                <input type={'datetime-local'} onChange={(e)=>setStart(getDateTimeLocal(e.target.value))}/>
+                <input type={'datetime-local'} className={publicStyles['input-text']} onChange={(e)=>setStart(getDateTimeLocal(e.target.value))}/>
             </div>
             <div>
                 <span>끝</span>
-                <input type={'datetime-local'} onChange={(e)=>setEnd(getDateTimeLocal(e.target.value))}/>
+                <input type={'datetime-local'} className={publicStyles['input-text']} onChange={(e)=>setEnd(getDateTimeLocal(e.target.value))}/>
             </div>
             <div className={styles['ui-management-lo-checked']}>
                 {
@@ -105,7 +106,7 @@ export default function LimitedFormManagement(){
                                 <span>현재 할인률:</span>
                                 <span>{li.discount_rate}%</span>
                             </div>
-                            <input type={'text'} placeholder={'할인률'} maxLength={2} value={checked[index].set_discount} onChange={(e)=>{
+                            <input type={'text'} className={publicStyles['input-text']} placeholder={'할인률'} maxLength={2} value={checked[index].set_discount} onChange={(e)=>{
                                 const copy = [...checked]
                                 const value = e.target.value.replace(/[^0-9]/g, '')
                                 copy[index].set_discount = isNaN(parseInt(value)) ? 0 : parseInt(value);
@@ -116,7 +117,7 @@ export default function LimitedFormManagement(){
                 }
             </div>
             <div>
-                <input type={'text'} value={filter} spellCheck={false} placeholder={'검색'} onChange={(e)=>setFilter(e.target.value)}/>
+                <input type={'text'} className={publicStyles['input-text']} value={filter} spellCheck={false} placeholder={'검색'} onChange={(e)=>setFilter(e.target.value)}/>
             </div>
             {
                 isLoading
