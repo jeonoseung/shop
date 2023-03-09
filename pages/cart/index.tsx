@@ -18,6 +18,7 @@ import {checkUserAgent} from "../../src/function/public/public";
 export default function Cart({isLogin,isMobile}:{isLogin:boolean,isMobile:boolean}){
     //장바구니 목록 가져오기
     const {data,isLoading,isFetching} = useQuery('cart-li',()=>getCartList(false))
+    console.log(data)
     const dispatch = useDispatch()
     /** 장바구니 목록 전부 체크 */
     useEffect(()=>{

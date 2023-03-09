@@ -57,7 +57,7 @@ export const getCategoryListInCollection = async (ssr:boolean,router:string|stri
 /** 장바구니 목록 */
 export const getCartList = async (ssr:boolean)=>{
     const local = localStorage.getItem('cart')
-    const url = `${ssr ? process.env.URL : ''}/api/cart?cart=${local}`
+    const url = `${ssr ? process.env.URL : ''}/api/cart`+(local ? `?cart=${local}` : '')
     const data = await axios.get(url)
     return data.data
 }
