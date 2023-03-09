@@ -16,7 +16,7 @@ import {useMutation} from "react-query";
 import {useRouter} from "next/router";
 import {user} from "user";
 
-export default function SignUpIndex(){
+export default function SignUpIndex({isMobile}:{isMobile:boolean}){
     const router = useRouter()
     const [Profile, setProfile] = useState<user>({
         id:'',
@@ -41,7 +41,7 @@ export default function SignUpIndex(){
             alert('회원가입 에러')
         }
     })
-    const test = async () =>{
+    const signUp = async () =>{
         if(!overlap.id)
         {
             alert("아이디 중복 확인이 필요합니다")
@@ -56,7 +56,7 @@ export default function SignUpIndex(){
     }
     return(
         <div className={styles.signup}>
-            <div className={styles.signup_form}>
+            <div className={styles[isMobile ? 'mobile-signup-form' : 'signup-form']}>
                 <UserId value={Profile.id} setState={setProfile}/>
                 <UserPass value={Profile.pass} setState={setProfile}/>
                 <UserPassChk value={Profile.pass_chk} setState={setProfile} chk={Profile.pass}/>
@@ -67,7 +67,9 @@ export default function SignUpIndex(){
                 <Gender value={Profile.gender} setState={setProfile}/>
                 <Birth value={Profile.birth} setState={setProfile}/>
             </div>
-            <button type={'button'} className={styles.event_button} onClick={test}>회원가입</button>
+            <div style={{textAlign:"center",marginTop:'1rem'}}>
+                <button type={'button'} className={styles.event_button} onClick={signUp}>회원가입</button>
+            </div>
         </div>
     )
 }

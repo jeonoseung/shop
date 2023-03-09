@@ -58,8 +58,10 @@ export function UserId({value,setState}:props){
                        placeholder={'아이디를 입력해주세요'}/>
                 <span className={styles.warning}>{warning}</span>
             </div>
-            <button className={overlap || warning !== '' ? styles['event-button__disabled'] : styles.event_button}
-                    onClick={OverlapCheck} disabled={overlap || warning !== ''}>중복확인</button>
+            <div className={styles['button-div']}>
+                <button className={overlap || warning !== '' ? styles['event-button__disabled'] : styles.event_button}
+                        onClick={OverlapCheck} disabled={overlap || warning !== ''}>중복확인</button>
+            </div>
         </div>
     )
 }

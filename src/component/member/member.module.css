@@ -73,28 +73,33 @@
 }
 
 .signup{
-    width:750px;
     margin:auto;
 }
-.signup .signup_form{
-
+.signup .signup-form{
+    width:800px;
+    margin:auto;
 }
-.signup .signup_form .input_div{
+.signup .signup-form .input_div{
     display:grid;
-    grid-template-columns:20% 60% 20%;
+    grid-template-columns:1fr 3fr 1fr;
     padding:0.5rem;
+    gap:0.5rem;
 }
-.signup .signup_form .input_div *{
+.signup .mobile-signup-form .input_div{
+    display:grid;
+    grid-template-columns:1fr;
+}
+.signup .input_div *{
     display:block;
 }
-.signup .signup_form .input_div .title_div{
+.signup .input_div .title_div{
     font-weight: bolder;
     font-size:0.9rem;
     height:45px;
     display:flex;
     align-items:center;
 }
-.signup .signup_form .input_div .signup_input{
+.signup .input_div .signup_input{
     width:100%;
     box-sizing : border-box;
     display:block;
@@ -115,17 +120,21 @@
     border-radius:0.25rem;
     margin-bottom:0.25rem;
 }
-.signup .signup_form .input_div .warning{
+.signup .input_div .warning{
     font-size:12px;
     color:red;
 }
-.signup .signup_form .input_div .signup_input:focus{
+.signup .input_div .signup_input:focus{
     outline:none;
     border:1px solid #0d6efd;
+}
+.signup .button-div{
+    text-align:right;
 }
 .signup .event_button{
     transition: border, background-color 0.5s;
     width:100%;
+    max-width:300px;
     height:45px;
     padding:0 0.75rem;
     border:1px solid #0d6efd;
@@ -146,18 +155,18 @@
 .signup .event_button:hover{
     cursor: pointer;
 }
-.signup_form .input_div .signup_radio{
+.input_div .signup_radio{
     display:flex;
     align-items: center;
     justify-content: space-around;
 }
-.signup_form .signup_radio .gender_radio{
+.signup_radio .gender_radio{
     display:none;
 }
-.signup_form .signup_radio .radio_label{
+.signup_radio .radio_label{
     display: flex;
 }
-.signup_form .radio{
+.radio{
     width:22px;
     height:22px;
     border-radius:11px;
@@ -166,7 +175,7 @@
     border:1px solid #ddd;
     margin:0 0.5rem;
 }
-.signup_form .radio_in{
+.radio_in{
     width:50%;
     height:50%;
     border-radius:50%;
@@ -177,14 +186,11 @@
     transform: translate(-50%, -50%);
     background-color:white;
 }
-.signup_form .gender_radio:checked + .radio{
+.gender_radio:checked + .radio{
     background: #0d6efd;
     border:1px solid #0d6efd;
 }
-.signup_form .signup_input_div{
-    padding:0 0.5rem;
-}
-.signup_form .signup_input_div .birth_div{
+.signup_input_div .birth_div{
     width:100%;
     box-sizing : border-box;
     display:flex;
@@ -195,17 +201,17 @@
     border-radius:0.25rem;
     margin-bottom:0.25rem;
 }
-.signup_form .birth_div div{
+.birth_div div{
     display:block;
     border:0;
     max-width:50px;
     font-size:16px;
     margin:auto;
 }
-.signup_form .birth_div span{
+.birth_div span{
     color:#ddd;
 }
-.signup_form .birth_div input[type='text']{
+.birth_div input[type='text']{
     box-sizing : border-box;
     display:block;
     border:0;
@@ -213,13 +219,13 @@
     margin:auto;
     padding: 0;
 }
-.signup_form .birth_div .y_input{
+.birth_div .y_input{
     width:52px;
 }
-.signup_form .birth_div .md_input{
+.birth_div .md_input{
     width:26px;
 }
-.signup_form .birth_div input[type='text']:focus{
+.birth_div input[type='text']:focus{
     outline: none;
 }
 
