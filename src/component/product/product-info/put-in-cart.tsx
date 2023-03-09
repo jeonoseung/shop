@@ -2,7 +2,7 @@ import publicStyle from '../../../../styles/public.module.css'
 import {CSSProperties} from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../store/store";
-import SetCart from "../../../function/public/set-cart";
+import {setCartLocal} from "../../../function/public/set-cart";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import axios from "axios";
 import {LoginCheck} from "../../../function/api/get/api";
@@ -27,8 +27,10 @@ export default function PutInCart({pid}:{pid:string}){
             })
         }
         else{
-            const result:any = SetCart(count,parseInt(pid));
-            result.state ? alert(result.msg) : alert(result.err)
+            const result:any = setCartLocal(count,parseInt(pid));
+            result.state
+                ? alert(result.msg)
+                : alert(result.err)
         }
     }
     const button:CSSProperties = {

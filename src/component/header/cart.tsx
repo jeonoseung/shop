@@ -3,7 +3,6 @@ import {getSession} from "../../function/api/get/api";
 import styles from "./header.module.css";
 import Link from "next/link";
 import {useEffect, useState} from "react";
-import {getCookie, getCookies} from "cookies-next";
 import {useRouter} from "next/router";
 
 
@@ -12,7 +11,7 @@ export default function HeaderCart(){
     const {data,isLoading} = useQuery('user',()=>getSession(false))
     const [cart,setCart] = useState<number>(0)
     useEffect(()=>{
-        const value = getCookie('cart')
+        const value = localStorage.getItem('cart')
         if(value){
             const json = JSON.parse(value as string)
             setCart(json.length)

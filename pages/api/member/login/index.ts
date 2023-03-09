@@ -26,7 +26,9 @@ const get = async (req:NextApiRequest,res:NextApiResponse)=>{
 const post = async (req:NextApiRequest,res:NextApiResponse)=>{
     const connection = await con()
     try{
-        const {id,pass} = req.body
+        const {user,cart} = req.body;
+        const {id,pass} = user;
+
         const sql = `SELECT user_id, user_login_id, user_authority,user_name, user_login_password FROM user WHERE user_login_id = '${id}'`
         const [[userInfo]] = await connection.query(sql)
         const {user_id,user_login_id,user_authority,user_name} = userInfo;
@@ -41,8 +43,9 @@ const post = async (req:NextApiRequest,res:NextApiResponse)=>{
             connection.release()
             ResponseClass.BadRequest204(res,'user-data','아이디 또는 비밀번호 확인 필요')
         }
-        if(req.cookies.cart){
-            const localCart = JSON.parse(req.cookies.cart as string)
+        if(cart){
+
+            const localCart = cart;
             const sql = `INSERT INTO cart(product_id,user_id) VALUES`
             const values = localCart.reduce((sql:string,li:{product:number,count:number},index:number)=>{
                 let value = ''

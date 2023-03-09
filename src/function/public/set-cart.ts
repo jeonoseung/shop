@@ -1,47 +1,42 @@
 
-import {CookieValueTypes, getCookie, setCookie} from "cookies-next";
-
-interface cookie{
-    product:string
+interface cart{
+    product:number
     count:number
 }
-
-export default function SetCart(count:number,pid:number){
-    if(pid===0)
-    {
+export const setCartLocal =(count:number,pid:number)=>{
+    if(pid===0){
         alert('올바르지않은 경로')
         return false;
     }
-    const option = {
-        maxAge:60*60*24
-    }
     try{
-        const current:CookieValueTypes = getCookie('cart')
-        if(typeof current === 'string')
-        {
-            const cookie = JSON.parse(current);
-            const check = cookie.map((item:cookie)=>item.product)
-            if(check.includes(pid))
-            {
-                const index = check.indexOf(pid);
-                cookie[index].count = cookie[index].count+count;
-                setCookie('cart',JSON.stringify(cookie),option)
-                return {state:true,msg:'이미 담은 상품으로 수량을 추가했습니다'}
+        const cart = localStorage.getItem('cart')
+        if(cart){
+            const list = JSON.parse(cart)
+            const include = list.map((li:cart)=>li.product);
+            if(include.includes(pid)){
+                const result = list.map((li:cart)=>{
+                    const copy = {...li};
+                    if(pid === li.product){
+                        copy.count += count;
+                    }
+                    return copy
+                })
+                localStorage.setItem('cart',JSON.stringify(result))
+                return {state:true,msg:'장바구니에 추가되었습니다.'}
             }
-            else
-            {
-                const set = [...cookie,{product:pid,count:count}]
-                setCookie('cart',JSON.stringify(set),option)
+            else{
+                const value = [...list,{product:pid,count:count}]
+                localStorage.setItem('cart',JSON.stringify(value))
                 return {state:true,msg:'장바구니에 추가되었습니다.'}
             }
         }
-        else
-        {
-            const cookie = [{product:pid,count:count}]
-            setCookie('cart',JSON.stringify(cookie),option)
+        else{
+            const value = [{product:pid,count:count}]
+            localStorage.setItem('cart',JSON.stringify(value))
             return {state:true,msg:'장바구니에 추가되었습니다.'}
         }
-    }catch (err) {
+    }catch (err){
+        alert(err)
         return {state:false,err:err}
     }
 }

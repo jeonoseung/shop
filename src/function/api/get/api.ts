@@ -53,7 +53,9 @@ export const getCategoryListInCollection = async (ssr:boolean,router:string|stri
 }
 
 export const getCartList = async (ssr:boolean)=>{
-    const data = await axios.get(`${ssr ? process.env.URL : ''}/api/cart`)
+    const local = localStorage.getItem('cart')
+    const url = `${ssr ? process.env.URL : ''}/api/cart?cart=${local}`
+    const data = await axios.get(url)
     return data.data
 }
 

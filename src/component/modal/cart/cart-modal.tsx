@@ -7,10 +7,10 @@ import setProductName from "../../../function/public/product-name";
 import {setPrice, totalPrice} from "../../../function/public/price";
 import MinusIcon from "../../public/icon/minus-icon";
 import PlusIcon from "../../public/icon/plus-icon";
-import SetCart from "../../../function/public/set-cart";
 import {useMutation, useQuery, useQueryClient} from "react-query";
 import {LoginCheck} from "../../../function/api/get/api";
 import axios from "axios";
+import {setCartLocal} from "../../../function/public/set-cart";
 
 export default function CartModal(){
     const queryClient = useQueryClient()
@@ -62,6 +62,7 @@ export default function CartModal(){
                         </span>
                         </div>
                     </div>
+
                     <div className={styles['button-div']}>
                         <button className={styles['cancel-btn']} onClick={()=>dispatch(setDisplay(false))}>취소</button>
                         <button className={styles['in-cart-btn']} onClick={()=>{
@@ -70,7 +71,7 @@ export default function CartModal(){
                                 addCart.mutate({pid:state.product.id,count:state.product.count})
                             }
                             else{
-                                SetCart(state.product.count,state.product.id)
+                                setCartLocal(state.product.count,state.product.id)
                                 queryClient.invalidateQueries('cart-li')
                             }
                         }}>담기</button>

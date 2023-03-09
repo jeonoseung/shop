@@ -5,7 +5,6 @@ import Link from "next/link";
 import axios from "axios";
 import {useRouter} from "next/router";
 import {useMutation, useQueryClient} from "react-query";
-import {getCookie, removeCookies} from "cookies-next";
 
 export default function Login(){
     const router = useRouter()
@@ -13,18 +12,24 @@ export default function Login(){
         id:string
         pass:string
     }
+    interface cart{
+        product:number
+        count:number
+    }
     const queryClient = useQueryClient()
     const [user, setUser] = useState<user>({
         id:'',
         pass:''
     })
-    const startLogin = useMutation((value:user)=>axios.post(`/api/member/login`,value),{
+    const startLogin = useMutation((data:{user:user,cart:cart})=>axios.post(`/api/member/login`,data),{
         onSuccess:()=>{
             const {redirect} = router.query
             redirect ? router.push(redirect as string) : router.push('/')
+            localStorage.getItem('cart')
+                ? localStorage.removeItem('cart')
+                : null
             queryClient.invalidateQueries('user')
             queryClient.invalidateQueries('cart-li')
-            getCookie('cart') ? removeCookies('cart') : null
         },
         onError:()=>{
             alert('아이디 또는 비밀번호를 다시 확인 해주세요')
@@ -36,7 +41,10 @@ export default function Login(){
             alert('아이디 또는 비밀번호를 입력 해주세요');
             return false;
         }
-        startLogin.mutate(user)
+        const storage = localStorage.getItem('cart')
+        const cart = JSON.parse(storage as string)
+        const data = {user,cart}
+        startLogin.mutate(data)
     }
     return(
         <div className={styles.login}>
@@ -50,11 +58,6 @@ export default function Login(){
                        value={user.pass} autoComplete={'false'} placeholder={'비밀번호'}
                        onChange={(e)=>setUser({...user,pass:e.target.value})}
                        onKeyUp={(e)=>e.key === "Enter" ? userLogin() : null}/>
-                {/*<div className={styles.user_find}>*/}
-                {/*    <span>아이디 찾기</span>*/}
-                {/*    <span className={styles.find_space}>|</span>*/}
-                {/*    <span>비밀번호 찾기</span>*/}
-                {/*</div>*/}
                 <button type={'button'} className={styles.login_button} onClick={userLogin}>
                     로그인
                 </button>

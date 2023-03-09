@@ -3,7 +3,6 @@ import styles from './cart.module.css'
 import Image from "next/image";
 import public_style from "../../../styles/public.module.css";
 import {setPrice} from "../../function/public/price";
-import {deleteCookie, getCookie, setCookie} from "cookies-next";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import {setCheck,setFetch} from "../../../store/cart/cart";
@@ -29,7 +28,7 @@ export default function CartList({item}:{item:CartListType}){
                 return {product:li.product_id,count:li.count}
             }
         })
-        setCookie('cart',JSON.stringify(result))
+        localStorage.setItem('cart',JSON.stringify(result))
         queryClient.invalidateQueries('cart-li')
         dispatch(setFetch(1))
     }
@@ -45,15 +44,15 @@ export default function CartList({item}:{item:CartListType}){
                 return {product:li.product_id,count:li.count}
             }
         })
-        setCookie('cart',JSON.stringify(result))
+        localStorage.setItem('cart',JSON.stringify(result))
         queryClient.invalidateQueries('cart-li')
         dispatch(setFetch(1))
     }
     const RemoveList = (pid:number) =>{
-        const cookie = getCookie('cart');
-        const parse = JSON.parse(cookie as string);
+        const cart = localStorage.getItem('cart')
+        const parse = JSON.parse(cart as string);
         const result = parse.filter((list:CartCookie)=>list.product !== pid)
-        result.length === 0 ? deleteCookie('cart') : setCookie('cart',JSON.stringify(result))
+        result.length === 0 ?  localStorage.removeItem('cart') : localStorage.setItem('cart',JSON.stringify(result))
         dispatch(setCheck({checked:false,value:pid}))
         alert('삭제되었습니다')
         queryClient.invalidateQueries('cart-li')

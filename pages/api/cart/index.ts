@@ -17,11 +17,11 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
             return res.status(200).send(rows)
         }
         else{
-            const {cart} = req.cookies;
+            const {cart} = req.query;
             if(!cart){
                 return res.status(200).send([])
             }
-            const cartList = JSON.parse(cart)
+            const cartList = JSON.parse(cart as string)
             const in_pid = cartList.map((li:CartCookie)=>li.product)
             const sql = `SELECT product_id,product_name,product_price,discount_rate,product_img,product_title,storage_type,brand_name
                          FROM products 

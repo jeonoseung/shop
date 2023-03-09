@@ -6,7 +6,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import {useQuery, useQueryClient} from "react-query";
 import {getCartList} from "../../function/api/get/api";
-import {deleteCookie, getCookie, setCookie} from "cookies-next";
 import {CartCookie,CartListType} from "cart-type";
 
 export default function CartListController(){
@@ -16,11 +15,11 @@ export default function CartListController(){
     const {data} = useQuery('cart-li',()=>getCartList(false))
     const RemoveCartList = () =>{
         const check = [...state.check];
-        const cookie = getCookie('cart');
-        if(!cookie || typeof cookie !== "string") return false;
-        const parse = JSON.parse(cookie as string);
+        const cart = localStorage.getItem('cart');
+        if(!cart) return false;
+        const parse = JSON.parse(cart as string);
         const result = parse.filter((list:CartCookie)=>!check.includes(list.product))
-        result.length === 0 ? deleteCookie('cart') : setCookie('cart',JSON.stringify(result))
+        result.length === 0 ? localStorage.removeItem('cart') : localStorage.setItem('cart',JSON.stringify(result))
         dispatch(allCheck({checked:false,list:[]}))
         dispatch(setFetch(1))
         alert('삭제되었습니다')
