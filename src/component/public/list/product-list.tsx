@@ -1,9 +1,9 @@
-import styles from './collection.module.css'
+import styles from './css.module.css'
 import Image from "next/image";
-import {setPrice} from "../../function/public/price";
+import {setPrice} from "../../../function/public/price";
 import {ProductListInCollectionPage} from "collection-type";
 import Link from "next/link";
-import CartButton from "../modal/cart/cart-btn";
+import CartButton from "../../modal/cart/cart-btn";
 
 interface props{
     data:{

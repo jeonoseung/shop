@@ -2,11 +2,11 @@ import {FilterCategoryType} from "category";
 import {ChangeEvent, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../../store/store";
-import {addFilter, removeFilter, resetFilter} from "../../../../store/collection/collection";
-import styles from "../collection.module.css";
-import RefreshIcon from "../../public/icon/refresh-icon";
-import CheckIcon from "../../public/icon/check-icon";
+import {RootState} from "../../../../../store/store";
+import {addFilter, removeFilter, resetFilter} from "../../../../../store/collection/collection";
+import styles from "../css.module.css";
+import RefreshIcon from "../../icon/refresh-icon";
+import CheckIcon from "../../icon/check-icon";
 import Image from "next/image";
 
 export default function ProductFilterMobile({data}:{data:FilterCategoryType[]}){

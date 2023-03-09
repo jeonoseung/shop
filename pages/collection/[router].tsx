@@ -1,12 +1,12 @@
 import {GetServerSideProps} from "next";
 import {dehydrate, QueryClient, useInfiniteQuery, useQuery} from "react-query";
 import publicStyles from '../../styles/public.module.css'
-import styles from '../../src/component/collection/collection.module.css'
+import styles from '../../src/component/public/list/css.module.css'
 import {getCategoryListInCollection, getCollectionInfo,getProductListInCollection
 } from "../../src/function/api/get/api";
-import ProductFilter from "../../src/component/collection/product-filter";
-import ProductList from "../../src/component/collection/product-list";
-import ProductSort from "../../src/component/collection/product-sort";
+import ProductFilter from "../../src/component/public/list/product-filter";
+import ProductList from "../../src/component/public/list/product-list";
+import ProductSort from "../../src/component/public/list/product-sort";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/store";
@@ -16,8 +16,8 @@ import {params} from "collection-type";
 import {checkUserAgent} from "../../src/function/public/public";
 import {useRouter} from "next/router";
 import SetInView from "../../src/component/public/list/set-in-view";
-import ProductSortMobile from "../../src/component/collection/mobile/product-sort";
-import ProductFilterMobile from "../../src/component/collection/mobile/product-filter";
+import ProductSortMobile from "../../src/component/public/list/mobile/product-sort";
+import ProductFilterMobile from "../../src/component/public/list/mobile/product-filter";
 
 export default function ProductListInCollection({isMobile,params}:{isMobile:boolean,params:params}){
     const router = useRouter()

@@ -11,7 +11,7 @@ import {
 import {ChangeEvent, CSSProperties} from "react";
 import Image from "next/image";
 import CheckIcon from "../../../public/icon/check-icon";
-import fstyles from '../../../collection/collection.module.css'
+import aStyles from '../../../public/list/css.module.css'
 
 export default function ProductOption(){
     const option = useSelector((state:RootState)=>state.ProductAdd.option)
@@ -38,12 +38,12 @@ export default function ProductOption(){
             <div className={styles['product-options']}>
                 {
                     options.map((li:{title:string},index:number)=>(
-                        <label key={index} className={fstyles['list']}>
+                        <label key={index} className={aStyles['list']}>
                             <input type={'checkbox'}
                                    onChange={(e)=>setOptionList(e,{id:index,title:li.title})}
                                    checked={option.map(({title}:{title:string})=>title).includes(li.title)}
                             />
-                            <div className={fstyles['check-circle']}>
+                            <div className={aStyles['check-circle']}>
                                 <CheckIcon />
                             </div>
                             <div>

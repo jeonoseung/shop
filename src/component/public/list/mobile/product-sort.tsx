@@ -1,7 +1,7 @@
 import {params} from "collection-type";
 import {useRouter} from "next/router";
-import styles from "../collection.module.css";
-import publicStyles from "../../../../styles/public.module.css";
+import styles from "../css.module.css";
+import publicStyles from "../../../../../styles/public.module.css";
 
 export default function ProductSortMobile({length,params}:{length:number,params:params}){
     const router = useRouter()

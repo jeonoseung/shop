@@ -15,7 +15,7 @@
 ERD - [https://www.erdcloud.com/d/GAjjEJSWfjuuRbfYc](https://www.erdcloud.com/d/GAjjEJSWfjuuRbfYc)
 
 <div style="text-align:center">
-    <div>
+    <div style="align-items:center">
         사용 기슬 스택
     </div>
     <div style="align-items:center">
@@ -33,8 +33,9 @@ ERD - [https://www.erdcloud.com/d/GAjjEJSWfjuuRbfYc](https://www.erdcloud.com/d/
         <img src="https://img.shields.io/badge/React Query-FF4154?style=flat&logo=React Query&logoColor=white" alt="stack"/>
     </div>
 </div>
+
+## 메인 홈페이지
 <div>
-    <h2>메인 홈페이지</h2>
     <img src="./public/READEME/home.PNG" alt="페이지"/>
 </div>
 
@@ -43,8 +44,6 @@ ERD - [https://www.erdcloud.com/d/GAjjEJSWfjuuRbfYc](https://www.erdcloud.com/d/
 UI는 추가는 관리자 메뉴의 메인 홈 UI 관리에서 가능합니다
 
 1. [홈페이지](https://github.com/jeonoseung/shop/blob/main/pages/index.tsx)
-
-
 2. [메인 이미지 슬라이드](https://github.com/jeonoseung/shop/tree/main/src/component/home/image-slider)
 
     
@@ -72,8 +71,8 @@ UI는 추가는 관리자 메뉴의 메인 홈 UI 관리에서 가능합니다
     한정 판매는 시간과 선택한 상품(최대 3개)을 표시합니다.
     설정한 시간이 다되면 삭제됩니다.
 
+## 장바구니
 <div>
-    <h2>장바구니</h2>
     <img src="./public/READEME/cart.PNG" alt="페이지"/>
 </div>
 
@@ -81,19 +80,26 @@ UI는 추가는 관리자 메뉴의 메인 홈 UI 관리에서 가능합니다
 비회원 상태에서 회원으로 로그인 시 비회원 상태의 장바구니 목록이 로그인한 회원 장바구니에 저장됩니다.
 
 1. [장바구니 페이지](https://github.com/jeonoseung/shop/blob/main/pages/cart/index.tsx)
-
 2. [UI 구성](https://github.com/jeonoseung/shop/tree/main/src/component/cart)
 
 
     회원 비회원 으로 구성 전체적으로 비슷하나 
     회원,비회원,모바일별로 렌더링 해야했기때문에 파일을 나눴습니다.
 
+## 카테고리 상품
 <div>
-    <h2>카테고리 상품 페이지</h2>
     <img src="./public/READEME/category.PNG" alt="페이지"/>
 </div>
 
 카테고리 목록에서 특정 카테고리를 선택하면 해당 카테고리의 상품 목록이 표시됩니다. 신상품순, 판매량순, 낮은 가격 또는 높은 가격순으로 정렬할 수 있습니다.
+
+1. [카테고리 상품 페이지](https://github.com/jeonoseung/shop/blob/main/pages/category/%5Bpid%5D.tsx)
+2. [UI 구성](https://github.com/jeonoseung/shop/tree/main/src/component/public/list)
+
+
+    목록,정렬 UI는 검색 페이지, 컬렉션 상품 목록 페이지에서도 
+    사용하고 있기 때문에 공용 component에서 관리하고 있습니다.
+
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 

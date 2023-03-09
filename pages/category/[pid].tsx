@@ -1,13 +1,13 @@
 import publicStyles from '../../styles/public.module.css'
-import styles from '../../src/component/collection/collection.module.css'
+import styles from '../../src/component/public/list/css.module.css'
 import {GetServerSideProps} from "next";
 import {checkUserAgent} from "../../src/function/public/public";
 import {params} from "collection-type";
 import Title from "../../src/component/public/title";
-import ProductSortMobile from "../../src/component/collection/mobile/product-sort";
-import ProductList from "../../src/component/collection/product-list";
+import ProductSortMobile from "../../src/component/public/list/mobile/product-sort";
+import ProductList from "../../src/component/public/list/product-list";
 import SetInView from "../../src/component/public/list/set-in-view";
-import ProductSort from "../../src/component/collection/product-sort";
+import ProductSort from "../../src/component/public/list/product-sort";
 import {dehydrate, QueryClient, useInfiniteQuery, useQuery} from "react-query";
 import {getCategoryInfo, getCategoryProduct} from "../../src/function/api/get/api";
 import {useRouter} from "next/router";

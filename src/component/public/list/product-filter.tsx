@@ -1,11 +1,11 @@
-import styles from './collection.module.css'
-import CheckIcon from "../public/icon/check-icon";
+import styles from './css.module.css'
+import CheckIcon from "../icon/check-icon";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../store/store";
+import {RootState} from "../../../../store/store";
 import {ChangeEvent, useEffect, useState} from "react";
-import {addFilter, removeFilter, resetFilter} from "../../../store/collection/collection";
+import {addFilter, removeFilter, resetFilter} from "../../../../store/collection/collection";
 import {useRouter} from "next/router";
-import RefreshIcon from "../public/icon/refresh-icon";
+import RefreshIcon from "../icon/refresh-icon";
 import {FilterCategoryType} from "category";
 
 export default function ProductFilter({data}:{data:FilterCategoryType[]}){

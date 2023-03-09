@@ -1,5 +1,5 @@
-import publicStyles from "../../../styles/public.module.css";
-import styles from "./collection.module.css";
+import publicStyles from "../../../../styles/public.module.css";
+import styles from "./css.module.css";
 import {useRouter} from "next/router";
 import {ChangeEvent} from "react";
 import {params} from "collection-type";
