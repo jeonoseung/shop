@@ -247,3 +247,12 @@ UI명 입력은 사용자 화면에 표시되는 기능이 아닌 관리 목록�
     한정 판매 양식 생성 후 UI에 등록하면 시작 시간이 되기 전까지 메인 홈UI에 나타나지 않습니다.
     설정한 종료 시간이 되면 UI목록에서 제거되고 양식 또한 삭제됩니다.
     그리고 설정한 할인률은 원래 할인률로 초기화 됩니다.
+
+## 로그인
+<img src="public/README/login.PNG" alt="페이지"/>
+
+1. [`로그인 페이지`](https://github.com/jeonoseung/shop/blob/main/pages/member/login.tsx)
+2. [`UI 구성`](https://github.com/jeonoseung/shop/blob/main/src/component/member/login.tsx)
+    
+    구성이 적어 하나의 component로 관리
+
