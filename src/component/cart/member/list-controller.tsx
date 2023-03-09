@@ -18,6 +18,7 @@ export default function CartListControllerMember(){
             alert('삭제되었습니다')
             dispatch(allCheck({checked:false,list:[]}))
             queryClient.invalidateQueries('cart-li')
+            queryClient.invalidateQueries('user')
         },
         onError:()=>{
             alert('삭제 실패')
