@@ -42,7 +42,7 @@ export default function App({Component, pageProps}: AppProps) {
             site_name: "TEST-PROJECT",
             images: [
                 {
-                    url: "/image/LEE.jpg",
+                    url: "/README/home.PNG",
                     width: 300,
                     height: 200,
                     alt: "이미지"
