@@ -144,7 +144,7 @@ UI는 추가는 관리자 메뉴의 메인 홈 UI 관리에서 가능합니다
 2. [`UI 구성`](https://github.com/jeonoseung/shop/tree/main/src/component/my-page/order)
 
     
-    모바일 화면에서 width가 좁다면 부자연스럽게 보이기 때문에 분기별 렌더링으로 구현
+    모바일 화면에서 width가 좁다면 부자연스럽게 보이기 때문에 분기별 렌더링으로 구현했습니다
 
 ## 상품 후기
 <img src="public/README/review.PNG" alt="페이지"/>
@@ -164,50 +164,48 @@ UI는 추가는 관리자 메뉴의 메인 홈 UI 관리에서 가능합니다
 2. [`UI 구성`](https://github.com/jeonoseung/shop/tree/main/src/component/product/admin/list)
 
     
-    모바일 화면에서 width 좁다면 부자연스럽게 보이기 때문에 분기별 렌더링으로 구현
+    모바일 화면에서 width 좁다면 부자연스럽게 보이기 때문에 분기별 렌더링으로 구현했습니다
 
 ## 상품 관리 추가&수정
 <img src="public/README/product-add.PNG" alt="페이지" />
-<img src="public/README/product-update.PNG" alt="페이지"/>
 
 상품 추가,수정 가능한 페이지
-상품 추가,수정 페이지에서 같은 component 사용
-수정 페이지에서 useEffect를 사용해 데이터 셋팅
+상품 추가,수정 페이지에서 같은 component 사용했고
+수정 페이지에서 useEffect를 사용해 전역 상태 값을 셋팅 해줬습니다.
 
 1. [`상품 추가 페이지`](https://github.com/jeonoseung/shop/blob/main/pages/admin/product/add.tsx)
 2. [`상품 수정 페이지`](https://github.com/jeonoseung/shop/blob/main/pages/admin/product/update/%5Bpid%5D.tsx)
 3. [`UI 구성`](https://github.com/jeonoseung/shop/tree/main/src/component/product/admin/add)
 
     
-    데이터만 셋팅 해주고 저장 이벤트만 변경해주면 같은 component를 사용해도 문제없이 작동
+    데이터만 셋팅 해주고 저장 이벤트만 변경해줘서 같은 component를 사용했습니다
 
 ## 컬렉션 관리
 <img src="public/README/collection-admin.PNG" alt="페이지"/>
 
 UI나 특정 주제 상품 모음에 사용할 컬렉션 관리 페이지
 컬렉션 명, router명 제목 표시와 메인 홈 UI에서 해당 컬렉션을 사용중 유무와
-등록되어 있는 상품 개수 표시
+등록되어 있는 상품 개수 표시됩니다.
 
 1. [`컬렉션 관리 목록 페이지`](https://github.com/jeonoseung/shop/blob/main/pages/admin/collection/list.tsx)
 2. [`UI 구성`](https://github.com/jeonoseung/shop/tree/main/src/component/collection/admin/list)
     
 
-    모바일 화면에서 width 좁다면 부자연스럽게 보이기 때문에 분기별 렌더링으로 구현
+    모바일 화면에서 width 좁다면 부자연스럽게 보이기 때문에 분기별 렌더링으로 구현했습니다
 
 ## 컬렉션 관리 추가&수정
 <img src="public/README/collection-add.PNG" alt="페이지"/>
-<img src="public/README/collection-update.PNG" alt="페이지"/>
 
 컬렉션 추가,수정 가능한 페이지
-상품 관리와 같이 컬렉션 추가,수정 페이지에서도 같은 component 사용
-수정 페이지에서 useEffect를 사용해 데이터 셋팅
+상품 관리와 같이 컬렉션 추가,수정 페이지에서도 같은 component 사용했고
+수정 페이지에서 useEffect를 사용해 전역 상태 값을 셋팅 해줬습니다
 
 1. [`컬렉션 추가 페이지`](https://github.com/jeonoseung/shop/blob/main/pages/admin/collection/add.tsx)
 2. [`컬렉션 수정 페이지`](https://github.com/jeonoseung/shop/blob/main/pages/admin/collection/update/%5Bpid%5D.tsx)
 3. [`UI 구성`](https://github.com/jeonoseung/shop/tree/main/src/component/collection/admin/add)
 
     
-    상품 관리와 같이 전연 상태 값 셋팅, 이벤트만 변경해주면 같은 component를 사용해도 문제없이 작동
+    상품 관리와 같이 전역 상태 값 셋팅, 이벤트만 변경해줘서 같은 component를 사용했습니다
 
 ## 메인 홈 UI 관리
 <img src="public/README/main.PNG" alt="페이지"/>
@@ -264,7 +262,7 @@ UI명 입력은 사용자 화면에 표시되는 기능이 아닌 관리 목록�
     
 
     구성이 적어 하나의 component로 관리
-    다른 UI에서 분기별로(모바일 상태에서 비회원일시) 렌더링하여 사용하기 위해 component로 관리
+    다른 UI에서 분기별로(모바일 상태에서 비회원일시) 렌더링하여 사용하기 위해 component로 관리했습니다
 
 ## 회원가입
 <img src="public/README/sign-up.PNG" alt="페이지"/>
@@ -273,4 +271,4 @@ UI명 입력은 사용자 화면에 표시되는 기능이 아닌 관리 목록�
 2. [`UI 구성`](https://github.com/jeonoseung/shop/tree/main/src/component/member/SignUp)
 
 
-    입력란 마다 기능이 많기 때문에 전부 component로 나눔
+    입력란 마다 기능이 많기 때문에 전부 component로 나눴습니다
