@@ -9,39 +9,54 @@ import {LimitedChecked} from "ui-form-type";
 import {checkNull} from "../../../../function/public/check";
 import publicStyles from "../../../../../styles/public.module.css";
 
+/** 한정 판매 양식 관리 */
 export default function LimitedFormManagement(){
     const queryClient = useQueryClient()
+    //상품 검색 필터 상태값
     const [filter,setFilter] = useState<string>('');
+    //체크한 상품 목록
     const [checked,setChecked] = useState<LimitedChecked[]>([]);
+    //선택할 상품 목록 데이터 가져오기
     const {data,isLoading} = useQuery('product-li-form-admin',()=>getProduct(false),{
+        /** 필터링 */
         select:(product)=>{
             return product.filter(({product_name}:ProductListType)=>product_name.includes(filter))
         }
     })
+    /** 체크 시 상태값 수정 */
     const check = (e:ChangeEvent<HTMLInputElement>,product:ProductListType) =>{
         if(e.target.checked){
+            //세개까지만 선택 가능
             if(checked.length === 3){
                 alert('세가지만 선택할 수 있습니다')
                 e.target.checked = false;
                 return
             }
+            //배열에 추가
             setChecked([...checked,{product_id:product.product_id,discount_rate:product.discount_rate,product_img:product.product_img,set_discount:0}])
         }
         else{
+            //체크 해제시 저장된 배열에 해당 값 삭제
             setChecked(checked.filter((li)=>li.product_id !== product.product_id))
         }
     }
+    //한정판매 제목
     const [title,setTitle] = useState<string>('');
+    //한정판매 부제목
     const [subtitle,setSubtitle] = useState<string>('');
+    //시작 시간
     const [start,setStart] = useState<string>('');
+    //종료 시간
     const [end,setEnd] = useState<string>('');
 
+    /** 선택한 값을 양식에 맞게 수정하여 리턴 */
     const getDateTimeLocal = (dateLocal:string) =>{
         const dateTime = dateLocal.split('T');
         const date = dateTime[0];
         const time = dateTime[1];
         return `${date} ${time}:00`
     }
+    /** 저장 버튼 클릭 */
     const saveButton = () =>{
         if(checkNull([title,subtitle,start,end])){
             alert('빈 입력란이 있는지 확인 해주세요')
@@ -52,8 +67,11 @@ export default function LimitedFormManagement(){
             alert('선택한 상품이 없습니다')
             return
         }
+        //현재 시간
         const current = new Date().getTime();
+        //시작 시간
         const start_date = new Date(start).getTime()
+        //종료 시간
         const end_date = new Date(end).getTime()
         if(start_date < current){
             alert('시작 시간은 현재 시간 이전으로 설정할 수 없습니다')
@@ -69,6 +87,7 @@ export default function LimitedFormManagement(){
         }
         saveForm.mutate()
     }
+    /** 한정 판매 양식 추가 요청 */
     const saveForm = useMutation(()=>axios.post(`/api/form/admin/limited-offer`,{title,subtitle,start,end,checked}),{
         onSuccess:()=>{
             alert('저장되었습니다')

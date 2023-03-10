@@ -1,3 +1,4 @@
+/** 구매내역에서 날짜 표시를 위한 함수 다른 페이지에서도 사용 */
 export function setDateOnOrderList(date:string){
     const split = date.split(' ')
     const ymd = split[0].split('-')

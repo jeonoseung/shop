@@ -20,6 +20,7 @@ export const useGet = (category_set:string,value:string)=>{
     })
 }
 
+/** 선택 상품 목록 */
 export default function SelectProductInList({isMobile}:{isMobile:boolean}){
     const collection = useSelector((state:RootState)=>state.collectionAdd)
     const {data,isLoading} = useGet(collection.filter.category,collection.filter.search)

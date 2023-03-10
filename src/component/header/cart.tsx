@@ -5,7 +5,12 @@ import Link from "next/link";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 
-
+/**
+ * 장바구니 버튼 표시
+ * 회원,비회원 상태를 나눠서
+ * 회원일 때는 DB에 있는 장바구니 목록을 가져오고
+ * 비회원일 때는 로컬 스토리지에서 장바구니 목록 확인
+ *  */
 export default function HeaderCart(){
     const router = useRouter()
     const {data,isLoading} = useQuery('user',()=>getSession(false))

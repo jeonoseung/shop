@@ -9,6 +9,8 @@ interface state{
     kind:number | undefined
     area:CSSProperties
 }
+
+/** 특정 메뉴들을 표시하기 위한 메뉴 바 UI 사이드바와 비슷한 형식 */
 export default function MobileMenuBarArea({state}:{state:state}){
     return(
         state.display

@@ -10,10 +10,14 @@ import publicStyles from "../../../../../styles/public.module.css";
 
 export default function AddLimitedOffer(){
     const queryClient = useQueryClient();
+    //한정 판매 추가 UI 렌더링
     const [setting,setSetting] = useState<boolean>(false)
+    //UI명 상태값
     const [name,setName] = useState<string>('')
+    //선택한 UI pid
     const [use,setUse] = useState<number | null>(null)
     const ui = useQuery('ui-li',()=>getHomeDisplayForm(false))
+    /** UI추가 */
     const InsertUI = () =>{
         if(name===''){
             alert('이름을 입력 해주세요');
@@ -23,7 +27,11 @@ export default function AddLimitedOffer(){
             alert('한정 판매 목록을 선택해주세요')
             return
         }
-        /** 캐싱된 데이터 수정 */
+        /**
+         * 캐싱된 데이터 수정
+         * UI 목록 배열에 추가하고 최종적으로 저장 버튼을 눌러야하기 때문에
+         * 바로 DB에 저장하지 않음
+         * */
         queryClient.setQueryData('ui-li',(data)=>{
             if(!data) return false
             const copy:UiListType = data as any;
@@ -31,6 +39,7 @@ export default function AddLimitedOffer(){
             return copy
         })
     }
+    /** 선택된 한정 판매 삭제 요청 */
     const removeLimited = useMutation((pid:number)=>axios.delete(`/api/form/admin/limited-offer/${pid}`),{
         onSuccess:()=>{
             alert('삭제 완료')

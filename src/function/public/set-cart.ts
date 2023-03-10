@@ -3,6 +3,7 @@ interface cart{
     product:number
     count:number
 }
+/** 비회원 일때 장바구니 목록 추가 */
 export const setCartLocal =(count:number,pid:number)=>{
     if(pid===0){
         alert('올바르지않은 경로')

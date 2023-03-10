@@ -10,6 +10,7 @@ interface useGetParams{
     index:number
     li:MainUserInterface
 }
+/** UI 목록 상태값에 따라 순서 변경 */
 export const useGet = (a?:useGetParams|null,b?:useGetParams|null) =>{
     return useQuery('ui-li',()=>getHomeDisplayForm(false),{
         select:(data)=>{
@@ -25,10 +26,15 @@ export const useGet = (a?:useGetParams|null,b?:useGetParams|null) =>{
     })
 }
 export default function UIFormList(){
+    //드래그 상태
     let dragged = useRef<any>()
+    //현재 index
     const [indexState,setIndexState] = useState<number|null>(0);
+    //드래그 중인 목록 값
     const [list,setList] = useState<MainUserInterface | null>();
+    //enter 중인 값
     const [enter,setEnter] = useState<useGetParams|null>(null);
+    //drag 중인 값
     const [drag,setDrag] = useState<useGetParams|null>(null);
     const ui = useGet(enter,drag);
     const dragStart = (e:React.DragEvent<HTMLDivElement>,index:number,li:MainUserInterface) =>{
@@ -74,6 +80,7 @@ export default function UIFormList(){
             return copy
         })
     }
+    /** 위 화살표 버튼 */
     const setUpArray = (index:number) =>{
         queryClient.setQueryData('ui-li',(data:any)=>{
             const copy = [...data.form]
@@ -82,6 +89,7 @@ export default function UIFormList(){
             return data;
         })
     }
+    /** 아래 화살표 버튼 */
     const setDownArray = (index:number) =>{
         queryClient.setQueryData('ui-li',(data:any)=>{
             const copy = [...data.form]

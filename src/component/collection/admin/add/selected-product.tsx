@@ -5,6 +5,7 @@ import {RootState} from "../../../../../store/store";
 import DeleteIcon from "../../../public/icon/delete-icon";
 import {RemoveSelectedProduct} from "../../../../../store/collection/collection-add";
 
+/** 선택한 상품 목록 */
 export default function SelectedProduct({isMobile}:{isMobile:boolean}){
     const product = useSelector((state:RootState)=>state.collectionAdd.product)
     const dispatch = useDispatch()

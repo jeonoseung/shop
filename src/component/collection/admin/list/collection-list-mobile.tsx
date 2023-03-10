@@ -6,8 +6,10 @@ import publicStyles from '../../../../../styles/public.module.css'
 import AdminListNameTag from "../../../public/admin/list-name-tag";
 import Link from "next/link";
 
+/** 모바일 컬렉션 목록 */
 export default function CollectionListMobile({item}:{item:AdminCollectionListType}){
     const queryClient = useQueryClient()
+    /** 선택한 컬렉션 삭제 요청 */
     const removeCollection = useMutation((pid:number)=>axios.delete(`/api/collection/${pid}`),{
         onSuccess:()=>{
             alert('삭제되었습니다')

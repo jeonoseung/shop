@@ -8,12 +8,17 @@ import styles from "../set-form.module.css";
 import DeleteIcon from "../../../public/icon/delete-icon";
 import axios from "axios";
 
+/** UI추가 및 추천 컬렉션 목록 관리 */
 export default function AddRecommendCollection(){
     const queryClient = useQueryClient();
+    //추천 컬렉션 추가 UI 렌더링
     const [setting,setSetting] = useState<boolean>(false);
+    //UI명
     const [name,setName] = useState<string>('')
+    //사용 UI pid
     const [use,setUse] = useState<number | null>(null)
     const ui = useQuery('ui-li',()=>getHomeDisplayForm(false))
+    /** UI추가 */
     const InsertUI = () =>{
         if(name===''){
             alert('이름을 입력 해주세요');
@@ -23,7 +28,11 @@ export default function AddRecommendCollection(){
             alert('추천 컬렉션 목록을 선택해주세요')
             return
         }
-        /** 캐싱된 데이터 수정 */
+        /**
+         * 캐싱된 데이터 수정
+         * UI 목록 배열에 추가하고 최종적으로 저장 버튼을 눌러야하기 때문에
+         * 바로 DB에 저장하지 않음
+         * */
         queryClient.setQueryData('ui-li',(data)=>{
             if(!data) return false
             const copy:UiListType = data as any;
@@ -31,6 +40,7 @@ export default function AddRecommendCollection(){
             return copy
         })
     }
+    /** 선택한 추천 컬렉션 삭제 */
     const removeForm = useMutation((pid:number)=>axios.delete(`/api/form/admin/recommend-collection/${pid}`),{
         onSuccess:()=>{
             alert('삭제되었습니다')

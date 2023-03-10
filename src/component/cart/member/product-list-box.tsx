@@ -3,6 +3,7 @@ import {CartListType} from "cart-type";
 import ListByTypeMember from "./list-by-type";
 import CartListControllerMember from "./list-controller";
 
+/** 장바구니 상품 목록 보관 타입별 표시 */
 export default function ProductListBoxMember({data}:{data:CartListType[]}){
     const cold = data.filter((li:CartListType)=>li.storage_type === "냉장")
     const frozen = data.filter((li:CartListType)=>li.storage_type === "냉동")

@@ -8,6 +8,10 @@ import {useQuery, useQueryClient} from "react-query";
 import {getCartList} from "../../function/api/get/api";
 import {CartCookie,CartListType} from "cart-type";
 
+/**
+ * 상품 목록 관리
+ * 목록 전체 체크, 선택 삭제
+ *  */
 export default function CartListController(){
     const dispatch = useDispatch()
     const queryClient = useQueryClient()

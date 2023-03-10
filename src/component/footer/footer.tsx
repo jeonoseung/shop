@@ -1,5 +1,6 @@
 import {CSSProperties} from "react";
 
+/** 푸터 */
 export default function Footer(){
     const div:CSSProperties = {
         borderTop:'1px solid #ddd',

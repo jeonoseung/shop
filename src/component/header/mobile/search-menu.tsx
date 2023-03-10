@@ -5,16 +5,22 @@ import {useRouter} from "next/router";
 import BeforeSearch from "./before-search";
 import AfterSearch from "./after-search";
 
+/** 검색 메뉴 UI */
 export default function MobileSearchMenu(){
+    //키워드 상태 값
     const [keyword,setKeyword] = useState<string>('')
     const router = useRouter()
+    /** 검색 시작 시 로컬 스토리지에 검색 키워드를 저장 */
     const searchStart = () =>{
+        //keyword 쿼리 추가
         router.push({pathname:'/search',query:{keyword:keyword}})
         const storage = localStorage.getItem('search')
+        //로컬 스토리지가 있을 경우 기존 배열에 추가
         if(storage){
             const array = JSON.parse(storage)
             localStorage.setItem('search',JSON.stringify([...array,keyword]))
         }
+        //없으면 새로 추가
         else{
             localStorage.setItem('search',JSON.stringify([keyword]))
         }

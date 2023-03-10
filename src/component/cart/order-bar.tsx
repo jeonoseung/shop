@@ -9,6 +9,7 @@ import {resetState} from "../../../store/cart/cart";
 import {LoginCheck} from "../../function/api/get/api";
 import {useRouter} from "next/router";
 
+/** 상품 총 가격 및 주문하기 */
 export default function CartOrderBar({data}:{data:CartListType[]}){
     const router = useRouter()
     const queryClient = useQueryClient()

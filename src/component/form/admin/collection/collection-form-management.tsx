@@ -6,10 +6,13 @@ import axios from "axios";
 import styles from "../set-form.module.css";
 import publicStyles from '../../../../../styles/public.module.css'
 
+/** 추천 컬렉션 양식 관리 */
 export default function CollectionFormManagement(){
     const queryClient = useQueryClient()
+    //선택 컬렉션 상태값
     const [collection,setCollection] = useState('');
     const {data,isLoading} = useQuery('collection-li',()=>getCollections(false))
+    /** 추천 컬렉션 추가 요청 */
     const saveForm = useMutation((pid:string)=>axios.post('/api/form/admin/recommend-collection',{pid:pid}),{
         onSuccess:()=>{
             alert('저장되었습니다')

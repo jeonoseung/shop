@@ -7,12 +7,17 @@ import {UITopic} from "ui-form-type";
 import styles from '../set-form.module.css'
 import publicStyles from '../../../../../styles/public.module.css'
 
+/** 추천 주제 양식 관리 */
 export default function TopicFormManagement(){
     const queryClient = useQueryClient()
+    //선택한 컬렉션
     const [collection,setCollection] = useState('');
+    //이미지 파일
     const [file,setFile] = useState<File>();
+    //주제 내용
     const [content,setContent]= useState<string>('')
     const {data,isLoading} = useQuery('collection-li',()=>getCollections(false))
+    /** 추천 주제 양식 추가 요청 */
     const save = useMutation((form:FormData)=>axios.post('/api/form/admin/recommend-topic',form,{
         headers: {
             'Content-Type': 'multipart/form-data'
@@ -25,6 +30,7 @@ export default function TopicFormManagement(){
             alert('error')
         }
     })
+    /** 추천 주제 저장 */
     const saveTopic = async () =>{
         if(!file){
             alert('이미지를 선택해주세요')
@@ -47,6 +53,7 @@ export default function TopicFormManagement(){
         await form.append('data',JSON.stringify(info))
         save.mutate(form)
     }
+    /** 이미지 선택 시 */
     const SelectImage = (e:ChangeEvent<HTMLInputElement>) =>{
         if(!e.target.files){return}
         setFile(e.target.files[0])
@@ -60,7 +67,7 @@ export default function TopicFormManagement(){
             </div>
             <label>
                 <span>주제 이미지</span>
-                <input type={'file'} onChange={SelectImage}/>
+                <input type={'file'} accept="image/*" onChange={SelectImage}/>
             </label>
             <div>
                 <span>적용 컬렉션</span>

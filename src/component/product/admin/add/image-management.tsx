@@ -22,7 +22,7 @@ export default function ImageManagement({img,setFile}:props){
     }
     return(
         <label className={styles['product-img-label']}>
-            <input type={'file'} onChange={ImageChange}/>
+            <input type={'file'} accept="image/*" onChange={ImageChange}/>
             <Image src={src} alt={'상품 이미지'} width={450} height={500} priority={true}/>
         </label>
     )

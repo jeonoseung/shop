@@ -7,6 +7,7 @@ import {allCheck} from "../../../store/cart/cart";
 import {useDispatch} from "react-redux";
 import {useRouter} from "next/router";
 
+/** 상품 보관 타입별 목록 */
 export default function ProductListBox({data}:{data:CartListType[]}){
     const cold = data.filter((li:CartListType)=>li.storage_type === "냉장")
     const frozen = data.filter((li:CartListType)=>li.storage_type === "냉동")

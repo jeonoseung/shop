@@ -12,8 +12,8 @@ import CartListMemberMobile from "./mobile/cart-list";
  * list - 필터링한 데이터
  * type - 보관 타입
  *  */
-
 export default function ListByTypeMember({list, type}:{list:CartListType[],type:string}){
+    /** 리스트 접기 펴기 */
     const [fold,setFold] = useState<boolean>(true)
     const isMobile = checkUserAgent(navigator.userAgent);
     return (

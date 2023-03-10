@@ -5,6 +5,10 @@ import styles from '../header.module.css';
 import Link from "next/link";
 import {useRouter} from "next/router";
 
+/**
+ * 사용자 메뉴
+ * 비회원 상태일 때 로그인 UI표시
+ *  */
 export default function MobileUserMenu(){
     const {data,isLoading} = useQuery('user',()=>getSession(false))
     const router = useRouter()

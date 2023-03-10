@@ -6,8 +6,10 @@ import {useMutation, useQueryClient} from "react-query";
 import axios from "axios";
 import publicStyles from "../../../../../styles/public.module.css";
 
+/** 컬렉션 목록 */
 export default function CollectionList({item}:{item:AdminCollectionListType}){
     const queryClient = useQueryClient()
+    /** 선택한 컬렉션 삭제 요청 */
     const removeCollection = useMutation((pid:number)=>axios.delete(`/api/collection/${pid}`),{
         onSuccess:()=>{
             alert('삭제되었습니다')

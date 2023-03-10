@@ -3,6 +3,8 @@ import {getCategory} from "../../../function/api/get/api";
 import styles from '../header.module.css'
 import {CategoryType} from "category";
 import Link from "next/link";
+
+/** 모바일 카테고리 목록 표시 */
 export default function CategoryMenu(){
     const {data,isLoading} = useQuery('category-li',()=>getCategory(false))
     return(

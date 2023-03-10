@@ -8,6 +8,8 @@ import SearchIcon from "../../public/icon/search-icon";
 import ListIcon from "../../public/icon/list-icon";
 import UserIcon from "../../public/icon/user-icon";
 import HomeIcon from "../../public/icon/home-icon";
+
+/** 모바일 화면의 하단 fixed 상태 UI */
 export default function MobileMenuBar(){
     const router = useRouter()
     interface state{
@@ -15,7 +17,9 @@ export default function MobileMenuBar(){
         kind:number | undefined
         area:CSSProperties
     }
+    /** 애니메이션 속도 */
     const translate = 400;
+    /** UI 상태 값 */
     const [state,setState] = useState<state>({
         display:false,
         kind:undefined,
@@ -25,17 +29,23 @@ export default function MobileMenuBar(){
             left:'0'
         }
     })
+    /** 렌더링 상태 값이 변경될 때 마다 실행 */
     useEffect(()=>{
+        //선택한 메뉴 표시
         if(state.display){
             setState((prev)=>({...prev,area:{...prev.area,top:'0'}}))
         }
     },[state.display])
+    /** 링크 이동할 시 메뉴 자동 닫기 */
     useEffect(()=>{
         setMenu(undefined)
     },[router.pathname,router.query])
+    /** 메뉴 렌더링 */
     const setMenu = (num:number | undefined) =>{
+        //메뉴 닫기
         if(num === undefined || num === state.kind){
             setState((prev)=>({...prev,area:{...prev.area,top:'100%'}}))
+            //애니메이션 시간이 있기 때문에 일정 시간 후 UI를 표시하지않음
             setTimeout(()=>setState((prev)=>({...prev,kind:undefined,display:false})),translate)
         }
         else{

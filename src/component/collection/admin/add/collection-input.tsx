@@ -4,6 +4,7 @@ import {ChangeCollectionInput} from "../../../../../store/collection/collection-
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../../store/store";
 
+/** 컬렉션 정보 입력 */
 export default function CollectionAddInput(){
     const collection = useSelector((state:RootState)=>state.collectionAdd.data)
     const dispatch = useDispatch()

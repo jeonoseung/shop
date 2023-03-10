@@ -23,7 +23,11 @@ export default function AddRecommendTopic(){
             alert('추천 주제 목록을 선택해주세요')
             return
         }
-        /** 캐싱된 데이터 수정 */
+        /**
+         * 캐싱된 데이터 수정
+         * UI 목록 배열에 추가하고 최종적으로 저장 버튼을 눌러야하기 때문에
+         * 바로 DB에 저장하지 않음
+         * */
         queryClient.setQueryData('ui-li',(data)=>{
             if(!data) return false
             const copy:UiListType = data as any;
@@ -31,6 +35,7 @@ export default function AddRecommendTopic(){
             return copy
         })
     }
+    /** 선택한 추천 주제 삭제 요청 */
     const removeTopic = useMutation((pid:number)=>axios.delete(`/api/form/admin/recommend-topic/${pid}`),{
         onSuccess:()=>{
             alert('삭제 되었습니다')

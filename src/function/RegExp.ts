@@ -1,10 +1,5 @@
 
-
-// export const UserIdCheck=(value:string)=>{
-//     const test = /[0-9a-zA-z]{5,20}$/
-//     const sp = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/
-//     return !test.test(value) || sp.test(value)
-// }
+/** 회원가입 입력 값 확인 */
 export class RegExp{
     constructor() {
 

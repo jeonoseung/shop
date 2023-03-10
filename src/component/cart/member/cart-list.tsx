@@ -10,10 +10,14 @@ import {setPrice} from "../../../function/public/price";
 import DeleteIcon from "../../public/icon/delete-icon";
 import axios from "axios";
 
+/**
+ * 장바구니 상품 목록 li
+ *  */
 export default function CartListMember({item}:{item:CartListType}){
     const queryClient = useQueryClient()
     const state = useSelector((state:RootState)=>state.cart)
     const dispatch = useDispatch()
+    /** 개수 - 버튼을 누르면 장바구니에 저장된 상품 하나를 삭제하고 query를 stale 상태로 만들어 재요청 하지않고 저장되어 있는 쿼리를 수정 */
     const minusProduct = useMutation((pid:number)=>axios.delete(`/api/cart/count/${pid}`),{
         onSuccess:()=>{
             queryClient.setQueryData('cart-li',(data:any)=>{
@@ -29,6 +33,7 @@ export default function CartListMember({item}:{item:CartListType}){
             alert('error')
         }
     })
+    /** 개수 + 버튼을 누르면 장바구니에 저장된 상품 하나를 추가하고 query를 stale 상태로 만들어 재요청 하지않고 저장되어 있는 쿼리를 수정 */
     const plusProduct = useMutation((pid:number)=>axios.post(`/api/cart/count/${pid}`),{
         onSuccess: async ()=>{
             queryClient.setQueryData('cart-li', (data: any) => {
@@ -44,16 +49,19 @@ export default function CartListMember({item}:{item:CartListType}){
             alert('error')
         }
     })
+    /** -버튼 클릭 */
     const CountMinus = async () =>{
         if(item.count === 1) return false;
         await minusProduct.mutate(item.product_id)
         dispatch(setFetch(1))
     }
+    /** +버튼 클릭 */
     const CountPlus = async () =>{
         if(item.count === 99) return false;
         await plusProduct.mutate(item.product_id)
         dispatch(setFetch(1))
     }
+    /** 장바구니 상품 삭제 */
     const removeCart = useMutation((pid:number)=>axios.delete(`/api/cart/${pid}`),{
         onSuccess:()=>{
             alert('삭제되었습니다')

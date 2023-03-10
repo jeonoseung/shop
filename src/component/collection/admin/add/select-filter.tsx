@@ -7,6 +7,7 @@ import {useQuery} from "react-query";
 import {getCollectionRequiredData} from "../../../../function/api/get/api";
 import {CategoryType} from "category";
 
+/** 상품 선택 목록에서 필터 적용 */
 export default function SelectFilter({isMobile}:{isMobile:boolean}){
     const filter = useSelector((state:RootState)=>state.collectionAdd.filter)
     const {data,isLoading} = useQuery('collection-required-data',()=>getCollectionRequiredData(false))

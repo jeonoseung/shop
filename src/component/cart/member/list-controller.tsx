@@ -8,11 +8,16 @@ import {RootState} from "../../../../store/store";
 import {getCartList} from "../../../function/api/get/api";
 import axios from "axios";
 
+/**
+ * 목록 관리
+ * 목록 체크,선택 삭제 기능
+ *  */
 export default function CartListControllerMember(){
     const queryClient = useQueryClient()
     const dispatch = useDispatch()
     const state = useSelector((state:RootState)=>state.cart)
     const {data} = useQuery('cart-li',()=>getCartList(false))
+    /** 체크한 목록 전체 삭제 */
     const removeCart = useMutation(()=>axios.delete(`/api/cart/list/${state.check}`),{
         onSuccess:()=>{
             alert('삭제되었습니다')
@@ -24,7 +29,6 @@ export default function CartListControllerMember(){
             alert('삭제 실패')
         }
     })
-
     return(
         <div className={styles['list-controller']}>
             <label className={styles['all-check']}>
