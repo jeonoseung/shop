@@ -34,6 +34,21 @@ export default function App({Component, pageProps}: AppProps) {
     const seo = {
         title:'SHOP-PROJECT | 마켓컬리 CLONE-PROJECT',
         description:'전오승-포트폴리오 프로젝트:쇼핑몰 마켓컬리를 기능 축소해서 개발한 프로젝트입니다',
+        openGraph: {
+            type: "website",
+            locale: "ko_KR",
+            url: "http://tnd10327.cafe24.com",
+            title: "SHOP-PROJECT | 마켓컬리 클론코딩 프로젝트",
+            site_name: "TEST-PROJECT",
+            images: [
+                {
+                    url: "/image/LEE.jpg",
+                    width: 300,
+                    height: 200,
+                    alt: "이미지"
+                }
+            ]
+        }
     }
     return (
         <QueryClientProvider client={query}>
