@@ -11,6 +11,7 @@ import {setDisplay, setProductInfo} from "../../../../store/modal/cart-modal";
 import {orderDetailType} from "order-list";
 import NoList from "../no-list";
 
+/** 모바일 주문내역 상세보기 */
 export default function OrderDetailListMobile(){
     const route = useRouter()
     const {data,isLoading} = useQuery('order-detail-li',()=>getOrderDetail(false,route.query.phg_id as string))

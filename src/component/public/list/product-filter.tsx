@@ -8,6 +8,7 @@ import {useRouter} from "next/router";
 import RefreshIcon from "../icon/refresh-icon";
 import {FilterCategoryType} from "category";
 
+/** 상품 카테고리 필터 UI */
 export default function ProductFilter({data}:{data:FilterCategoryType[]}){
     const [state,setState] = useState(false)
     const router = useRouter()

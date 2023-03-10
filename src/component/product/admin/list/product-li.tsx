@@ -8,6 +8,7 @@ import {useRouter} from "next/router";
 import AdminListNameTag from "../../../public/admin/list-name-tag";
 import publicStyles from '../../../../../styles/public.module.css'
 
+/** 상품 관리 목록 UI */
 export default function ProductManagementList({item}:{item:ProductListType}){
     const router = useRouter()
     return(

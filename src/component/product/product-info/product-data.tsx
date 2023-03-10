@@ -3,6 +3,7 @@ import {useQuery} from "react-query";
 import {getProductInfo} from "../../../function/api/get/api";
 import ProductPrice from "../../public/product-price";
 
+/** 상품 정보 UI */
 export default function ProductData({pid}:{pid:string}){
 
     const {data} = useQuery('product-info',()=>getProductInfo(false,pid))

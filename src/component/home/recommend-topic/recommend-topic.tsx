@@ -10,6 +10,7 @@ interface props{
     product:ProductListType[]
 }
 
+/** 추천 주제 UI */
 export default function RecommendTopic({component,product}:props){
     return(
         <div className={styles['recommend-topic']}>

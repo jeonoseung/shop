@@ -10,7 +10,7 @@ import setProductName from "../../../function/public/product-name";
 import NoList from "../no-list";
 import SetInView from "../../public/list/set-in-view";
 
-
+/** 주문내역 보기 */
 export default function OrderList(){
     const {data,isLoading,hasNextPage,fetchNextPage} = useInfiniteQuery('order-li-t',
         ({pageParam=1})=>getOrderList(false,pageParam),{

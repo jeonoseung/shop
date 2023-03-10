@@ -8,6 +8,7 @@ interface props{
     setFile:Dispatch<SetStateAction<File | undefined>>
 }
 
+/** 이미지 관리 UI */
 export default function ImageManagement({img,setFile}:props){
     const [src, setSrc] = useState<string>(img)
     /** 이미지 변경 시 미리보기 이미지 변경 */

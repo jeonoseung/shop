@@ -5,6 +5,7 @@ import {getProductInfo} from "../../../function/api/get/api";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../store/store";
 
+/** 상품 총 금액 표시 UI */
 export default function ProductTotalPrice({pid}:{pid:string}){
     const {data} = useQuery('product-info',()=>getProductInfo(false,pid))
     const count = useSelector((state:RootState)=>state.ProductInfo.count)

@@ -1,13 +1,14 @@
 import styles from "./header.module.css";
 import Link from "next/link";
 
+/** 사용자 메뉴 */
 export default function UserMenu({auth}:{auth:number}){
     const menu = [
         {text:'주문 내역',router:'/my-page/order'},
         {text:'상품 후기',router:'/my-page/review'},
         {text:'로그 아웃',router:'/member/logout'}
     ]
-
+    //권한이 관리자일 경우
     return auth === 1
         ?
         <div className={styles['user-menu']}>

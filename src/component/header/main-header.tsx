@@ -13,9 +13,11 @@ export default function MainHeader(){
     const {data,isLoading} = useQuery('user',()=>getSession(false))
     const [isLoginHover,setIsLoginHover] = useState<boolean>(false);
 
+    //입력된 키워드가 있을 시 초기화버튼 표시
     const ResetButton:CSSProperties = {
         visibility:Search === '' ? 'hidden' : 'visible'
     }
+    /** 검색 시작 /search로 이동 후 keyword 쿼리 값 추가 */
     const searchStart:KeyboardEventHandler<HTMLInputElement> = (e) =>{
         e.code === "Enter" ? router.push({pathname:`/search`,query:{keyword:Search}}) : null
     }

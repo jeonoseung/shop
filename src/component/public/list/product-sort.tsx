@@ -4,6 +4,7 @@ import {useRouter} from "next/router";
 import {ChangeEvent} from "react";
 import {params} from "collection-type";
 
+/** 상품 정렬 UI */
 export default function ProductSort({length,params}:{length:number,params:params}){
     const router = useRouter()
     const sort = (e:ChangeEvent<HTMLInputElement>) =>{

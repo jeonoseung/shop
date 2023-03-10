@@ -12,11 +12,14 @@ import {LoginCheck} from "../../../function/api/get/api";
 import axios from "axios";
 import {setCartLocal} from "../../../function/public/set-cart";
 
+/** 장바구니 모달창 UI */
 export default function CartModal(){
     const queryClient = useQueryClient()
     const dispatch = useDispatch()
     const state = useSelector((state:RootState)=>state.cartModal)
+    //로그인 체크를 해서 DB에 상품을 담을지 로컬 스토리지에 담을지 결정
     const login = useQuery('is-login',LoginCheck)
+    /** 회원 장바구니 추가 요청 */
     const addCart = useMutation((data:{pid:number,count:number})=>axios.post(`/api/cart`,data),{
         onSuccess:()=>{
             queryClient.invalidateQueries('user')

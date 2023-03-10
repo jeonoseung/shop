@@ -14,6 +14,7 @@ interface props{
     product:ProductListType[]
 }
 
+/** 모바일 추천 주제 UI */
 export default function MobileRecommendTopic({component,product}:props){
     const dispatch = useDispatch()
     return(

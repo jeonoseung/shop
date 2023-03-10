@@ -9,6 +9,7 @@ import {orderListType} from "order-list";
 import setProductName from "../../../function/public/product-name";
 import NoList from "../no-list";
 
+/** 모바일 주문 내역 UI */
 export default function OrderListMobile(){
     const {data,isLoading,hasNextPage,fetchNextPage} = useInfiniteQuery('order-li-t',
         ({pageParam=1})=>getOrderList(false,pageParam),{

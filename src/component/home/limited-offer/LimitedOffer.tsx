@@ -4,8 +4,10 @@ import LimitedTime from "./time";
 import ProductListInLimitedOffer from "./product-list";
 import {ProductListType} from "product-type";
 
+/** 한정 판매 UI */
 export default function LimitedOffer({component,product}:{component:any,product:ProductListType[]}){
     const three = product.length === 3;
+    //상품 개수에 따라서 grid 셋팅
     const limitedOffer:CSSProperties = {
         gridTemplateColumns:three ? '1fr 3fr' : '1fr 2fr'
     }

@@ -22,40 +22,21 @@ interface props{
     detail:string
     setState:Dispatch<SetStateAction<value>>
 }
-
+/** 주소 입력란 */
 export default function UserAddress({address,zipcode,detail,setState}:props){
     const open = (useDaumPostcodePopup(postcodeScriptUrl))
 
     const Check:ChangeEventHandler<HTMLInputElement> = (e) =>{
         setState(c=>({...c,detail:e.target.value}))
     }
+    /** 주소 찾기 완료 시 */
     const handleComplete = (data:any) => {
         setState(c=>({...c,address:data.address,zipcode:data.zonecode}))
     };
+    /** 주소 찾기 api 요청 */
     const handleClick = () => {
         open({ onComplete: handleComplete });
     };
-    const handlePostCode = (data:any) => {
-
-    }
-    const [apiStyle,setApiStyle] = useState<CSSProperties>({
-        display:"none",
-        position: "absolute",
-        top: "45%",
-        left:'50%',
-        width: "100%",
-        maxWidth:"500px",
-        height: "500px",
-        transform:'translate(-50%,-50%)',
-        border:'1px solid #ddd',
-        background:"white",
-        zIndex:'30'
-    });
-    const SearchAddress=()=>{
-        apiStyle.display === "none"
-            ? setApiStyle(c=>({...c,display:'block'}))
-            : setApiStyle(c=>({...c,display:'none'}))
-    }
     return(
         <div className={styles.input_div}>
             <span className={styles.title_div}>주소</span>

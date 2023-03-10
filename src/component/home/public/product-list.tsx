@@ -7,6 +7,7 @@ import {RecommendProductList} from "collection-type";
 import CommentIcon from "../../public/icon/comment";
 import setProductName from "../../../function/public/product-name";
 
+/** 추천 상품,추천 컬렉션 상품 리스트에서 사용 */
 export default function ProductListInHome({item,width,gap}:{item:RecommendProductList,width:number,gap:number}){
     return(
         <Link key={item.product_id} href={`/product/${item.product_id}`} style={{marginRight:`${gap}px`,display:'block'}}>

@@ -6,6 +6,7 @@ import ButtonIcon from "./button-icon";
 import {useDispatch} from "react-redux";
 import Link from "next/link";
 
+/** 추천 주제 상품 목록 */
 export default function ProductList({item}:any){
     const dispatch = useDispatch()
     return(

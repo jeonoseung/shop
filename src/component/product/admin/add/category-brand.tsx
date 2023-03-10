@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {ProductInputChange} from "../../../../../store/product/admin/product-add/reducer";
 import {RootState} from "../../../../../store/store";
 
+/** 카테고리 또는 브랜드 입력란 UI */
 export default function CategoryAndBrand(){
     const {data,isLoading} = useQuery('product-category',()=>getCategory(false))
     const value = useSelector((state:RootState)=>state.ProductAdd.data)

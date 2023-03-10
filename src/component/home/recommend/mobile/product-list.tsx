@@ -8,6 +8,7 @@ import styles from "../../event-form.module.css";
 import CommentIcon from "../../../public/icon/comment";
 import {RecommendProductList} from "collection-type";
 
+/** 모바일 상품 추천, 컬렉션 추천 상룸 목록 UI */
 export default function MobileRecommendProductList({item}:{item:RecommendProductList}){
     return(
         <Link key={item.product_id} href={`/product/${item.product_id}`} className={css['product']}>

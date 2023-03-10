@@ -4,8 +4,8 @@ import Image from "next/image";
 import setProductName from "../../../function/public/product-name";
 import {setDateOnOrderList} from "../../../function/public/order-list-date";
 
+/** 작성한 후기 목록 UI */
 export default function WriteReview({data}:{data:writeListType[]}){
-    console.log(data)
     return(
         <div className={styles['write-review']}>
             {

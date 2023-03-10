@@ -13,6 +13,7 @@ import Image from "next/image";
 import CheckIcon from "../../../public/icon/check-icon";
 import aStyles from '../../../public/list/css.module.css'
 
+/** 상품 옵션 UI */
 export default function ProductOption(){
     const option = useSelector((state:RootState)=>state.ProductAdd.option)
     const dispatch = useDispatch();

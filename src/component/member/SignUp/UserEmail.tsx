@@ -22,18 +22,24 @@ interface props{
     value:string,
     setState:Dispatch<SetStateAction<value>>
 }
+/** 사용자 이메일 */
 export function UserEmail({value,setState}:props){
     const dispatch = useDispatch();
     const overlap = useSelector((state:RootState)=>state.overlap.email)
+    //양식에 맞지않는 값이면 메시지 표시
     const [warning,setWarning] = useState<string>('')
+    /** 양식 검사 */
     const Check:ChangeEventHandler<HTMLInputElement> = (e) =>{
+        //중복확인을 성공적으로 완료했는데 값을 변경 시 초기화
         dispatch(setOverLapEmail(false))
+
         const {status,msg} = RegExp.UserEmailCheck(e.target.value)
         status
             ? setWarning(msg)
             : setWarning('')
         setState(c=>({...c,email:e.target.value}))
     }
+    /** 이메일 중복확인 요청 */
     const OverlapCheck = async ()=>{
         const {data} = await axios.get(`/api/member/overlap-check/email/${value}`)
         if(data.overlap)

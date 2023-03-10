@@ -16,8 +16,10 @@ import {useMutation} from "react-query";
 import {useRouter} from "next/router";
 import {user} from "user";
 
+/** 회원가입 UI */
 export default function SignUpIndex({isMobile}:{isMobile:boolean}){
     const router = useRouter()
+    //입력 상태값
     const [Profile, setProfile] = useState<user>({
         id:'',
         pass:'',
@@ -31,7 +33,9 @@ export default function SignUpIndex({isMobile}:{isMobile:boolean}){
         gender:'',
         birth:''
     })
+    //중복 체크
     const overlap = useSelector((state:RootState)=>state.overlap)
+    /** 회원 가입 요청 */
     const signUpStart = useMutation((data:user)=>axios.post('/api/member',data),{
         onSuccess:()=>{
             alert('회원 가입 되었습니다!')
@@ -41,6 +45,7 @@ export default function SignUpIndex({isMobile}:{isMobile:boolean}){
             alert('회원가입 에러')
         }
     })
+    /** 회원가입 시작 */
     const signUp = async () =>{
         if(!overlap.id)
         {

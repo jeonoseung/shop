@@ -9,6 +9,7 @@ import publicStyles from "../../../../../../styles/public.module.css";
 import DeleteProductBtn from "../delete-product-btn";
 import {checkUserAgent} from "../../../../../function/public/public";
 
+/** 모바일 상품 관리 목록 */
 export default function ProductManagementListMobile({item}:{item:ProductListType}){
     const router = useRouter()
     const isMobile = checkUserAgent(navigator.userAgent)

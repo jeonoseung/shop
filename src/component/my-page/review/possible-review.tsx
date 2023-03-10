@@ -9,9 +9,11 @@ import {useMutation, useQueryClient} from "react-query";
 import FormData from "form-data";
 import axios from "axios";
 
+/** 작성 가능한 후기 UI */
 export default function PossibleReview({data}:{data:possibleListType[]}){
     const queryClient = useQueryClient()
     const [item,setItem] = useState<possibleListType | undefined>()
+    /** 후기 작성 요청 */
     const saveReview = useMutation((form:FormData)=>axios.post('/api/review',form,{
         headers: {
             'Content-Type': 'multipart/form-data'

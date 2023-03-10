@@ -6,6 +6,7 @@ import axios from "axios";
 import {useRouter} from "next/router";
 import {useMutation, useQueryClient} from "react-query";
 
+/** 로그인 UI */
 export default function Login(){
     const router = useRouter()
     interface user{
@@ -17,14 +18,18 @@ export default function Login(){
         count:number
     }
     const queryClient = useQueryClient()
+    //아이디 비밀번호 상태값
     const [user, setUser] = useState<user>({
         id:'',
         pass:''
     })
+    /** 로그인 요청 */
     const startLogin = useMutation((data:{user:user,cart:cart})=>axios.post(`/api/member/login`,data),{
         onSuccess:()=>{
             const {redirect} = router.query
+            //정상적으로 요청 완료 시 로그인 이전 페이지로 돌아감
             redirect ? router.push(redirect as string) : router.push('/')
+            //기존 장바구니 목록 삭제
             localStorage.getItem('cart')
                 ? localStorage.removeItem('cart')
                 : null
@@ -35,12 +40,14 @@ export default function Login(){
             alert('아이디 또는 비밀번호를 다시 확인 해주세요')
         }
     })
+    /** 로그인 시작 */
     const userLogin = async () =>{
         if(user.id === '' || user.pass === '')
         {
             alert('아이디 또는 비밀번호를 입력 해주세요');
             return false;
         }
+        //로그인 시 비회원 상태의 장바구니 목록이 있으면 같이 보내기
         const storage = localStorage.getItem('cart')
         const cart = JSON.parse(storage as string)
         const data = {user,cart}

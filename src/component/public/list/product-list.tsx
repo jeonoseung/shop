@@ -15,6 +15,7 @@ interface props{
         }[]
     } | undefined
 }
+/** 상품 목록 UI */
 export default function ProductList({data}:props){
     return(
         data?.pages[0].list.length === 0

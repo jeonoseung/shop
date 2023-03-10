@@ -3,6 +3,7 @@ import {TimeRemaining} from "../../../function/public/date";
 import styles from "./limited-offer.module.css";
 import Image from "next/image";
 
+/** 타이머  시간 종료 시 00:00:00에서 멈춤 */
 export default function LimitedTime({time}:{time:string}){
     const [h, setHour] = useState<string>('00');
     const [min, setMin] = useState<string>('00');

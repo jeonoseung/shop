@@ -23,11 +23,14 @@ interface props{
     setState:Dispatch<SetStateAction<value>>
 }
 
+/** 사용자 아이디 UI */
 export function UserId({value,setState}:props){
     const dispatch = useDispatch()
     const overlap = useSelector((state:RootState)=>state.overlap.id)
+    //양식에 맞지 않을 시 경고 메시지 출력
     const [warning,setWarning] = useState<string>('')
     const Check:ChangeEventHandler<HTMLInputElement> = (e) =>{
+        //중복확인을 성공적으로 완료 했는데 값을 변경하면 초기화
         dispatch(setOverLapID(false))
         const {status,msg} = RegExp.UserIdCheck(e.target.value)
         status
@@ -35,6 +38,7 @@ export function UserId({value,setState}:props){
             : setWarning('')
         setState(c=>({...c,id:e.target.value}))
     }
+    /** 중복확인 요청 */
     const OverlapCheck = async ()=>{
         const {data} = await axios.get(`/api/member/overlap-check/login-id/${value}`)
         if(data.overlap)

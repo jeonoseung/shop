@@ -8,6 +8,7 @@ interface props{
     data:RecommendProductList[]
 }
 
+/** 모바일 추천 컬렉션  UI */
 export default function MobileRecommendCollection({collection,data}:props){
     /**
      * 데이터 표시 제한 수

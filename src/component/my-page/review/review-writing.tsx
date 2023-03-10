@@ -6,10 +6,11 @@ import setProductName from "../../../function/public/product-name";
 import {useState} from "react";
 import FormData from "form-data";
 
+/** 후기 작성 모달창 UI */
 export default function ReviewWritingModal({item,post}:{item:possibleListType | undefined,post:any}){
-
     const [file,setFile] = useState<File>()
     const [comment,setComment] = useState<string>('')
+    /** 후기 작성 시작 */
     const save = () =>{
         if(!comment){
             alert('후기글을 작성 해주세요')

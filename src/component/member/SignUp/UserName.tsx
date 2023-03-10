@@ -18,7 +18,9 @@ interface props{
     value:string,
     setState:Dispatch<SetStateAction<value>>
 }
+/** 사용자 명 UI */
 export default function UserName({value,setState}:props){
+    //양식에 맞지않는 값 입력 시 경고 메시지 출력
     const [warning,setWarning] = useState<string>('')
     const Check:ChangeEventHandler<HTMLInputElement> = (e) =>{
         const {status,msg} = RegExp.UserNameCheck(e.target.value);

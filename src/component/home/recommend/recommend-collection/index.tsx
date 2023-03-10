@@ -10,6 +10,7 @@ interface props{
     data:RecommendProductList[]
 }
 
+/** 추천 컬렉션 UI */
 export default function RecommendCollection({collection,data}:props){
     /** content width */
     const width = 1024;

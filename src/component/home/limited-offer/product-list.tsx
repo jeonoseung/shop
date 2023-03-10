@@ -6,7 +6,7 @@ import {setPrice, totalPrice} from "../../../function/public/price";
 import Link from "next/link";
 import CommentIcon from "../../public/icon/comment";
 
-
+/** 한정 판매 상품 목록 */
 export default function ProductListInLimitedOffer({item}:{item:ProductListType}){
     return(
         <Link href={`/product/${item.product_id}`} className={styles['product']}>

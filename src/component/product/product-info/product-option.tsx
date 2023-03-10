@@ -10,10 +10,12 @@ import {ProductOptionType} from "product-type";
 import PlusIcon from "../../public/icon/plus-icon";
 import MinusIcon from "../../public/icon/minus-icon";
 
+/** 상품 추가 옵션 UI */
 export default function ProductOption({pid}:{pid:string}){
     const dispatch = useDispatch();
     const count = useSelector((state:RootState)=>state.ProductInfo.count)
     const {data} = useQuery('product-info',()=>getProductInfo(false,pid))
+    //해당 정보는 상품 정보지만 같은 UI 형식이기 때문에 해당 UI 에서 표시
     const text = data.info.delivery_type === '샛별배송' ? `23시 전 주문 시 내일 아침 7시 전 도착${'\n'}(대구·부산·울산 샛별배송 운영시간 별도 확인)` : '담당자 연락 후 방문';
     const text2 = `택배배송은 에코 포장이 스티로폼으로 대체됩니다`
     const fixedOption = [

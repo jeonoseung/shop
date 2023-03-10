@@ -2,6 +2,8 @@ import {RecommendProductList} from "collection-type";
 import {CSSProperties, useState} from "react";
 import ProductListInHome from "../../public/product-list";
 import css from '../css.module.css'
+
+/** 추천 상품 UI */
 export default function RecommendProduct({data}:{data:RecommendProductList[]}){
     /** content width */
     const width = 1024;

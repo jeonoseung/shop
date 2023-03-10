@@ -4,7 +4,7 @@ import publicStyles from "../../../../../styles/public.module.css";
 import {useState} from "react";
 import {useRouter} from "next/router";
 
-
+/** 상품 목록 관리 UI (추가 버튼 또는 검색) */
 export default function ProductListManagementOption(){
     const router = useRouter()
     const [search,setSearch] = useState<string>('')

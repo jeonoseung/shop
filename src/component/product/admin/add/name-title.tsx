@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {ProductInputChange} from "../../../../../store/product/admin/product-add/reducer";
 import {RootState} from "../../../../../store/store";
 
+/** 상품명 또는 상품 제목 UI */
 export default function NameAndTitle(){
     const div:CSSProperties = {
         display:'grid',

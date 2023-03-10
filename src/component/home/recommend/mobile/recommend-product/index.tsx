@@ -6,6 +6,7 @@ interface props{
     data:RecommendProductList[]
 }
 
+/** 모바일 추천 상품 UI */
 export default function MobileRecommendProduct({data}:props){
     return(
         <div className={css['recommend']}>

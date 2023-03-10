@@ -7,6 +7,12 @@ import LeftIcon from "../icon/left-icon";
 import DoubleLeftIcon from "../icon/double-left-icon";
 import PageButton from "./page-btn";
 
+/**
+ * 페이지네이션 UI
+ * 사용 가능하나 현재 사용중인 페이지는 없음
+ * 대부분 무한 스크롤로 적용
+ * SSR에서 미리 데이터를 불러올 때 사용하면 좋을듯
+ *  */
 export default function ProductPagination({length,listLength}:{length:number,listLength:number}){
     const router = useRouter();
     const page = Math.ceil(length / listLength);

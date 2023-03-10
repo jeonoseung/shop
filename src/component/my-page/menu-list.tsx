@@ -2,11 +2,11 @@ import styles from "./my-page.module.css";
 import Link from "next/link";
 import {useRouter} from "next/router";
 
+/** 좌측 메뉴 목록 UI */
 export default function MenuList(){
     const menu = [
         {name:'주문 내역',router:'order'},
         {name:'상품 후기',router:'review'},
-        // {name:'개인 정보 수정',router:'info'},
     ]
     const router = useRouter()
     return(

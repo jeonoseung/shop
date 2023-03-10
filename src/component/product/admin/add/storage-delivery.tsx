@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../../store/store";
 import {ProductInputChange} from "../../../../../store/product/admin/product-add/reducer";
 
-
+/** 보관타입 또는 배송타입 UI */
 export default function StorageAndDelivery(){
     const value = useSelector((state:RootState)=>state.ProductAdd.data)
     const dispatch = useDispatch()

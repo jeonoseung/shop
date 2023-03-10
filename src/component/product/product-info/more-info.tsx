@@ -9,10 +9,11 @@ import {setDateOnOrderList} from "../../../function/public/order-list-date";
 import {useEffect, useState} from "react";
 import NoList from "../../my-page/no-list";
 
+/** 상품 후기 UI */
 export default function ProductMoreInfo(){
     const router = useRouter()
     const {pid} = router.query
-    const {data,isLoading,hasNextPage,refetch,fetchNextPage} =
+    const {data,isLoading,refetch,fetchNextPage} =
         useInfiniteQuery('p-info-review-li',({pageParam=1})=>
         getReviewProduct(false,pid as string,pageParam),{
         getNextPageParam:(lastPage) => lastPage.nextPage,
@@ -23,6 +24,7 @@ export default function ProductMoreInfo(){
             refetch()
         }
     },[])
+    //현재 페이지만 표시
     const result = isLoading ? null : data?.pages[index];
     return(
         <div className={styles['more-info']}>
