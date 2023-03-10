@@ -1,12 +1,13 @@
-import styles from './header.module.css'
-import Link from "next/link";
 import {useState} from "react";
 import {useQuery} from "react-query";
 import {getCategory} from "../../function/api/get/api";
+import styles from "./header.module.css";
 import {CategoryType} from "category";
+import Link from "next/link";
 import HeaderCart from "./cart";
 
-export default function HeaderBottom(){
+/** 메뉴 헤더 카테고리,컬렉션 메뉴,장바구니 */
+export default function MenuHeader(){
     const [categoryMenu,setCategoryMenu] = useState<boolean>(false)
     const category = useQuery('category-li',()=>getCategory(false))
     return(

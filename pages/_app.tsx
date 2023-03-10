@@ -8,11 +8,10 @@ import CartModal from "../src/component/modal/cart/cart-modal";
 import {checkUserAgent} from "../src/function/public/public";
 import MobileHeader from "../src/component/header/mobile/mobile-header";
 import MobileMenuBar from "../src/component/header/mobile/menu-bar";
-import Head from "next/head";
-import HeaderTop from "../src/component/header/HeaderTop";
-import HeaderBottom from "../src/component/header/HeaderBottom";
 import {DefaultSeo} from "next-seo";
 import Footer from "../src/component/footer/footer";
+import MainHeader from "../src/component/header/main-header";
+import MenuHeader from "../src/component/header/menu-header";
 
 export default function App({Component, pageProps}: AppProps) {
     const [query] = useState(()=>new QueryClient({
@@ -59,12 +58,12 @@ export default function App({Component, pageProps}: AppProps) {
                        {
                            isMobile
                                ? <MobileHeader/>
-                               : <HeaderTop />
+                               : <MainHeader/>
                        }
                        {
                            isMobile
                                ? null
-                               : <HeaderBottom />
+                               :  <MenuHeader/>
                        }
                        <Component {...pageProps}/>
                         <Footer/>

@@ -1,12 +1,13 @@
-import styles from './header.module.css'
-import {CSSProperties, KeyboardEventHandler,useState} from "react";
-import Link from "next/link";
+import {useRouter} from "next/router";
+import {CSSProperties, KeyboardEventHandler, useEffect, useState} from "react";
 import {useQuery} from "react-query";
 import {getSession} from "../../function/api/get/api";
-import {useRouter} from "next/router";
+import styles from "./header.module.css";
+import Link from "next/link";
 import UserMenu from "./user-menu";
 
-export default function HeaderTop(){
+/** 메인 헤더 로고,검색,사용자 메뉴 */
+export default function MainHeader(){
     const router = useRouter()
     const [Search,setSearch] = useState('');
     const {data,isLoading} = useQuery('user',()=>getSession(false))
@@ -18,6 +19,9 @@ export default function HeaderTop(){
     const searchStart:KeyboardEventHandler<HTMLInputElement> = (e) =>{
         e.code === "Enter" ? router.push({pathname:`/search`,query:{keyword:Search}}) : null
     }
+    useEffect(()=>{
+        setIsLoginHover(false)
+    },[])
     return(
         <div className={styles['header']}>
             <div className={styles.header_top}>
