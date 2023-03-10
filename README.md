@@ -12,9 +12,9 @@
 
 프로젝트 배포 링크 - [http://tnd10327.cafe24.com](http://tnd10327.cafe24.com)
 
-아이디:admin
+관리자 아이디:admin
 
-비밀번호:admin1234
+관리자 비밀번호:admin1234
 
 이미지와 DB는 백업되어 있습니다.
 
