@@ -59,23 +59,31 @@ export default function Home({isMobile}:{isMobile:boolean}) {
                 {
                     form.isLoading || form.status === 'error'
                         ? null
-                        : form.data.map((li:{component:any,product:ProductListType[]},index:number)=>(
-                            li !== null && li.component.ui_kind === 'recommend_collection'
-                                ? isMobile
+                        : form.data.map((li:{component:any,product:ProductListType[]},index:number)=>{
+                            //추천 컬렉션
+                            if(li !== null && li.component.ui_kind === 'recommend_collection'){
+                                return isMobile
                                     ? <MobileRecommendCollection key={index} collection={li.component} data={li.product}/>
                                     : <RecommendCollection key={index} collection={li.component} data={li.product}/>
-                                : li !== null && li.component.ui_kind === 'recommend_topic'
+                            }
+                            //추천 주제
+                            else if(li !== null && li.component.ui_kind === 'recommend_topic'){
+                                return isMobile
+                                    ? <MobileRecommendTopic key={index} component={li.component} product={li.product}/>
+                                    : <RecommendTopic key={index} component={li.component} product={li.product}/>
+                            }
+                            //한정 판매
+                            else if(li !== null && li.component.ui_kind === 'limited_offer'){
+                                return li.component.lo_state === 1
                                     ? isMobile
-                                        ? <MobileRecommendTopic key={index} component={li.component} product={li.product}/>
-                                        : <RecommendTopic key={index} component={li.component} product={li.product}/>
-                                    : li !== null && li.component.ui_kind === 'limited_offer'
-                                        ? li.component.lo_state === 1
-                                            ? isMobile
-                                                ? <MobileLimitedOffer key={index} component={li.component} product={li.product}/>
-                                                :  <LimitedOffer key={index} component={li.component} product={li.product}/>
-                                            : null
-                                        : null
-                        ))
+                                        ? <MobileLimitedOffer key={index} component={li.component} product={li.product}/>
+                                        : <LimitedOffer key={index} component={li.component} product={li.product}/>
+                                    : null
+                            }
+                            else {
+                                return null
+                            }
+                        })
                 }
             </div>
         </div>
