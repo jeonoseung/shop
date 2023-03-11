@@ -18,7 +18,6 @@ import {GetServerSideProps} from "next";
 import {ProductListType} from "product-type";
 import MobileLimitedOffer from "../src/component/home/limited-offer/mobile/limited-offer";
 import MobileImageSlider from "../src/component/home/image-slider/mobile/image-slider";
-import {con} from "../src/db/db";
 
 
 export default function Home({isMobile}:{isMobile:boolean}) {
