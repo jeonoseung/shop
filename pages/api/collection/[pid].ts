@@ -2,6 +2,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 import {con} from "../../../src/db/db";
 import {removeFile} from "../../../src/function/public/file";
 import {SelectProductList} from "collection-type";
+import {replaceString} from "../../../src/function/public/public";
 
 
 const get = async (req:NextApiRequest,res:NextApiResponse)=>{
@@ -56,14 +57,14 @@ const put = async (req:NextApiRequest,res:NextApiResponse)=>{
         const router_replace = collection_router_name.replaceAll(' ','-')
         const [[check]] = await connection.query(`
                                 SELECT collection_id FROM collections 
-                                WHERE collection_router_name = '${router_replace}'
+                                WHERE collection_router_name = "${replaceString(router_replace)}"
                                 AND collection_id != ${pid}`)
         if(check){
             return res.status(400).send({msg:'router name',kind:'duplication'})
         }
-        const sql = `UPDATE collections SET collection_name = '${collection_name}',
-                                            collection_router_name = '${router_replace}',
-                                            collection_title = '${collection_title}'
+        const sql = `UPDATE collections SET collection_name = "${replaceString(collection_name)}",
+                                            collection_router_name = "${replaceString(router_replace)}",
+                                            collection_title = "${replaceString(collection_title)}"
                                             WHERE collection_id = ${pid};`
         const cp_reset = `DELETE cp FROM collection_product cp 
                           INNER JOIN(SELECT cp_id FROM collection_product WHERE collection_id=${pid}) temp ON temp.cp_id = cp.cp_id;`

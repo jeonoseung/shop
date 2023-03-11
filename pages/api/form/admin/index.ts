@@ -1,5 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {con} from "../../../../src/db/db";
+import {replaceString} from "../../../../src/function/public/public";
 
 
 const get = async (req:NextApiRequest,res:NextApiResponse) =>{
@@ -36,7 +37,7 @@ const put = async (req:NextApiRequest,res:NextApiResponse)=>{
         const sql = `INSERT INTO main_user_interface(ui_order,ui_use,ui_kind,ui_name) VALUES`
         let values = ``;
         list.map((li:any,index:number)=>{
-            values += `(${index+1},${li.ui_use},'${li.ui_kind}','${li.ui_name}')`;
+            values += `(${index+1},${li.ui_use},'${li.ui_kind}',"${replaceString(li.ui_name)}")`;
             values += list.length-1 === index ? `;` :`,`;
         })
         await connection.query(reset+sql+values)

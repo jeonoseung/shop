@@ -1,5 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {con} from "../../../../src/db/db";
+import {replaceString} from "../../../../src/function/public/public";
 
 const get = async (req:NextApiRequest,res:NextApiResponse) =>{
     const connection = await con()
@@ -9,7 +10,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                     INNER JOIN collections as c ON cp.collection_id = c.collection_id
                     INNER JOIN products as p ON cp.product_id = p.product_id
                     INNER JOIN category as ca ON ca.category_id = p.category_id
-                    WHERE c.collection_router_name = '${router}'
+                    WHERE c.collection_router_name = "${replaceString(router as string)}"
                     GROUP BY ca.category_id
                     ORDER BY category_name`;
     const [rows] = await connection.query(sql)

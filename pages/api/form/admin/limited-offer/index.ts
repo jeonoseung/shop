@@ -1,6 +1,7 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {con} from "../../../../../src/db/db";
 import {LimitedChecked} from "ui-form-type";
+import {replaceString} from "../../../../../src/function/public/public";
 
 interface PostBody{
     title:string
@@ -16,7 +17,10 @@ const post = async (req:NextApiRequest,res:NextApiResponse)=>{
         const {title,subtitle,start,end,checked}:PostBody = req.body;
 
         const lo_sql = `INSERT INTO limited_offer(lo_title,lo_subtitle,lo_start,lo_end,lo_state) 
-                                       VALUE('${title}','${subtitle}','${start}','${end}',0)`;
+                                       VALUE("${replaceString(title as string)}",
+                                       '${replaceString(subtitle as string)}',
+                                       '${replaceString(start as string)}',
+                                       '${replaceString(end as string)}',0)`;
         const [lo_insert] = await connection.query(lo_sql)
         const lop_sql = `INSERT INTO limited_offer_product(lo_id,product_id) VALUES`
         const values = checked.reduce((sql:string,{product_id},index:number)=>{

@@ -1,11 +1,12 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {con} from "../../../../src/db/db";
+import {replaceString} from "../../../../src/function/public/public";
 
 const get = async (req:NextApiRequest,res:NextApiResponse) =>{
     const connection = await con()
     try{
         const query = req.query
-        const router = query.router
+        const router = query.router as string
         const filter = query.filter
         const sort = query.sort
         const page = query.page ? parseInt(query.page as string) : 1
@@ -15,7 +16,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                          INNER JOIN collections as c ON cp.collection_id = c.collection_id
                          INNER JOIN products as p ON cp.product_id = p.product_id
                          LEFT JOIN purchase_history as ph ON ph.product_id = p.product_id
-                         WHERE c.collection_router_name = '${router}' `;
+                         WHERE c.collection_router_name = "${replaceString(router)}" `;
         const sqlFilter = (filter !== 'all' && filter !== undefined ? `AND p.category_id IN (${filter}) `:' ');
         const groupby = `GROUP BY p.product_id `;
         const sqlSort =

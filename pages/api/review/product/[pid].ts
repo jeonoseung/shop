@@ -12,11 +12,11 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                         INNER JOIN products as p ON p.product_id = r.product_id
                         INNER JOIN purchase_history as ph ON ph.ph_id = r.ph_id
                         INNER JOIN user as u ON ph.user_id = u.user_id
-                        WHERE p.product_id = ${pid}
+                        WHERE p.product_id = ${parseInt(pid as string)}
                         LIMIT ${LIMIT} OFFSET ${OFFSET};`
         const sql2 = `SELECT review_id
                         FROM review as r
-                        WHERE r.product_id = ${pid} 
+                        WHERE r.product_id = ${parseInt(pid as string)} 
                         LIMIT ${LIMIT} OFFSET ${(parseInt(page as string))*LIMIT};`
         const [[comment,count]] = await connection.query(sql+sql2)
         connection.release()

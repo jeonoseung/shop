@@ -5,7 +5,7 @@ import styles from '../../../src/component/collection/admin/list/collection-list
 import Link from "next/link";
 import {AdminCollectionListType} from "collection-type";
 import {useRouter} from "next/router";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import SetInView from "../../../src/component/public/list/set-in-view";
 import {checkUserAgent} from "../../../src/function/public/public";
 import CollectionList from "../../../src/component/collection/admin/list/collection-li";
@@ -17,7 +17,7 @@ import {IronSessionOption} from "../../../src/function/api/iron-session/options"
 export default function CollectionManagementList({isMobile}:{isMobile:boolean}){
     const router = useRouter()
     /** 무한 쿼리 데이터 */
-    const {data,isLoading,fetchNextPage,hasNextPage} =
+    const {data,isLoading,fetchNextPage,hasNextPage,refetch} =
         useInfiniteQuery('collection-li-admin',({pageParam=1})=>
             getCollectionAdmin(false,router.query.search ? router.query.search as string : '',pageParam),{
             getNextPageParam:(lastPage)=>lastPage.nextPage
@@ -28,6 +28,11 @@ export default function CollectionManagementList({isMobile}:{isMobile:boolean}){
     }
     //검색 키워드 상태 값
     const [keyword,setKeyword] = useState<string>('')
+    useEffect(()=>{
+        if(!isLoading){
+            refetch()
+        }
+    },[router.query.search])
     return(
         <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
             <div className={styles['list-controller']}>

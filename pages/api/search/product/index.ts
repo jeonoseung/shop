@@ -1,5 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {con} from "../../../../src/db/db";
+import {replaceString} from "../../../../src/function/public/public";
 
 const get = async (req:NextApiRequest,res:NextApiResponse)=>{
     const connection = await con()
@@ -13,7 +14,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse)=>{
                 FROM products as p
                 INNER JOIN category as c ON p.category_id = c.category_id
                 LEFT JOIN purchase_history as ph ON ph.product_id = p.product_id 
-                WHERE (p.product_name LIKE '%${keyword}%' OR brand_name LIKE '%${keyword}%') `
+                WHERE (p.product_name LIKE "%${replaceString(keyword as string)}%" OR brand_name LIKE "%${replaceString(keyword as string)}%") `
         const sqlFilter = (filter !== 'all' && filter !== undefined ? 'AND p.category_id IN ('+filter+') ':' ');
         const groupby = `GROUP BY p.product_id `;
         const sqlSort =

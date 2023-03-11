@@ -20,7 +20,7 @@ export default function ProductInfoPage({pid,isMobile}:{pid:string,isMobile:bool
     const router = useRouter()
     const {isLoading, data} = useQuery('product-info',()=>getProductInfo(false,pid))
     useEffect(()=>{
-        if(!data.info)
+        if(!data || !data.info)
         {
             alert("존재하지 않는 상품입니다.")
             router.back()
@@ -28,12 +28,14 @@ export default function ProductInfoPage({pid,isMobile}:{pid:string,isMobile:bool
     },[])
     return (
         <div className={publicStyle[isMobile ? 'mobile-content' : 'content']}>
-            {data.info
-                ? <NextSeo title={`${data.info.brand_name !== '' ? '['+data.info.brand_name+'] ' : ''} ${data.info.product_name}`}/>
-                : <NextSeo title={'존재하지 않는 상품'}/>
+            {!data || !data.info
+                ? <NextSeo title={'존재하지 않는 상품'}/>
+                : <NextSeo title={`${data.info.brand_name !== '' ? '['+data.info.brand_name+'] ' : ''} ${data.info.product_name}`}/>
             }
-            {data.info
+            {!data || !data.info
                 ?
+                null
+                :
                 <div className={styles[isMobile ? 'product-info-mobile' : 'product-info']}>
                     <div className={styles[`product-info-img`]}>
                         {!isLoading
@@ -55,7 +57,6 @@ export default function ProductInfoPage({pid,isMobile}:{pid:string,isMobile:bool
                         <PutInCart pid={pid}/>
                     </div>
                 </div>
-                : null
             }
             <ProductMoreInfo/>
         </div>

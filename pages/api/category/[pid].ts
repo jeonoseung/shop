@@ -10,7 +10,7 @@ const get =async (req:NextApiRequest,res:NextApiResponse) =>{
         const sql = `SELECT category_name,COUNT(p.category_id) as count
                         FROM category as c
                         LEFT JOIN products as p ON c.category_id = p.category_id
-                        WHERE c.category_id = ${pid}
+                        WHERE c.category_id = ${parseInt(pid as string) ? parseInt(pid as string) : 0}
                         GROUP BY c.category_id`;
         const [[row]] = await connection.query(sql)
         connection.release()

@@ -2,6 +2,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 import {con, database} from "../../../src/db/db";
 import {RegExp} from "../../../src/function/RegExp";
 import bcrypt from "bcrypt";
+import {replaceString} from "../../../src/function/public/public";
 
 const BadRequest400 = (res:NextApiResponse,parameter:string,error:string,type:string,msg:string,value:string)=>{
     return res.status(400).json({parameter:parameter, error:error,type:type,msg:msg, value:value})
@@ -47,7 +48,7 @@ const post = async (req:NextApiRequest,res:NextApiResponse) =>{
             BadRequest400(res,"birth",'InputError','null',`${BIRTH.msg}`,birth) : null;
         const password = await bcrypt.hash(pass,10)
         const sql = `INSERT INTO user(user_login_id,user_login_password,user_authority,user_name,user_address,user_phone,user_email,user_gender,user_birth)
-                    VALUE('${id}','${password}','${3}','${name}','${zipcode+'_'+address+'_'+detail}','${phone}','${email}','${gender}','${birth}');`
+                    VALUE('${id}','${password}','${3}','${name}',"${zipcode+"_"+address+"_"+replaceString(detail)}",'${phone}','${email}','${gender}','${birth}');`
         await database.query(sql);
         connection.release()
         return res.status(201).end()

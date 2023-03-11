@@ -3,6 +3,7 @@ import {con} from "../../../src/db/db";
 import fs from 'fs';
 import * as formidable from "formidable";
 import {DateTimeNow} from "../../../src/function/public/date";
+import {replaceString} from "../../../src/function/public/public";
 
 
 export const config = {
@@ -40,15 +41,15 @@ const post = async(req:NextApiRequest,res:NextApiResponse)=>{
                                  category_id, date, storage_type, 
                                  delivery_type,user_id)
                                  VALUE(
-                                 '${data.name}', '${data.brand}', 
-                                 '${data.title}', ${data.price.split(',').join('')}, 
-                                 '${src}', ${data.sale}, ${data.category}, '${DateTimeNow()}', 
-                                 '${data.storage_type}', '${data.delivery_type}',${user});`;
+                                 "${replaceString(data.name)}", "${replaceString(data.brand)}", 
+                                 "${replaceString(data.title)}", ${data.price.split(',').join('')}, 
+                                 "${src}", ${data.sale}, ${data.category}, "${DateTimeNow()}", 
+                                 "${data.storage_type}", '${data.delivery_type}',${user});`;
             const result = await connection.query(sql);
 
             let sql2 = `INSERT INTO product_option(po_name,po_content,product_id,po_order) VALUES`;
             option.map((item:{title:string,content:string},index:number)=>{
-                sql2 += `('${item.title}','${item.content}',${result[0].insertId},${index})`;
+                sql2 += `("${replaceString(item.title)}","${replaceString(item.content)}",${result[0].insertId},${index})`;
                 option.length-1 === index ? sql2 += ';' : sql2 += ','
             })
             await connection.query(sql2)

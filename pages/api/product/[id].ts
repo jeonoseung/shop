@@ -4,6 +4,7 @@ import fs from "fs";
 import * as formidable from "formidable";
 import {Files} from "formidable";
 import {AdminProductOptionType} from "product-type";
+import {replaceString} from "../../../src/function/public/public";
 
 
 export const config = {
@@ -32,8 +33,8 @@ const get = async (req:NextApiRequest,res:NextApiResponse)=>{
                          FROM products as p
                          INNER JOIN user as u
                          ON p.user_id = u.user_id
-                         WHERE product_id = ${id};`;
-        const sql2 = `SELECT * FROM product_option WHERE product_id = ${id};`
+                         WHERE product_id = ${parseInt(id as string)};`;
+        const sql2 = `SELECT * FROM product_option WHERE product_id = ${parseInt(id as string)};`
         const [rows] = await connection.query(sql+sql2)
         const [[info],option] = rows;
         connection.release()
@@ -84,11 +85,11 @@ const put = async (req:NextApiRequest,res:NextApiResponse) =>{
             await removeFile(product.product_img)
         }
         const update = `UPDATE products `
-        const set = `SET product_name = '${name}',
-                         brand_name = '${brand}',
-                         product_price = ${price},
+        const set = `SET product_name = "${replaceString(name)}",
+                         brand_name = "${replaceString(brand)}",
+                         product_price = ${price.split(',').join('')},
                          discount_rate = ${sale},
-                         product_title = '${title}',
+                         product_title = "${replaceString(title)}",
                          category_id = ${category},
                          storage_type = '${storage_type}',
                          delivery_type = '${delivery_type}' `+(src ? `,product_img = '${src}' ` : ' ')
@@ -97,7 +98,7 @@ const put = async (req:NextApiRequest,res:NextApiResponse) =>{
                               FROM product_option po
                               INNER JOIN(SELECT po_id FROM product_option WHERE product_id=${id}) temp on temp.po_id = po.po_id;`
         const values = option.reduce((sql:string,li:AdminProductOptionType,index:number)=>{
-            return sql+`('${li.title}','${li.content}',${li.id},${id})${index === option.length-1 ? ';' : ','}`
+            return sql+`("${replaceString(li.title)}","${replaceString(li.content)}",${li.id},${id})${index === option.length-1 ? ';' : ','}`
         },'')
         const insertOption = `INSERT INTO product_option(po_name,po_content,po_order,product_id) VALUES`
         const sql = (update+set+where)+deleteOption+(insertOption+values);

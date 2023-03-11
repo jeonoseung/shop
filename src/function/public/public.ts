@@ -2,3 +2,7 @@
 export const checkUserAgent=(agent:string)=>{
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent);
 }
+/** 따옴표 치환 */
+export const replaceString=(value:string)=>{
+    return value.replaceAll('"',"'")
+}

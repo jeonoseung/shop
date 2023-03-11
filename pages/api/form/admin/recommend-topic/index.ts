@@ -2,6 +2,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 import {con} from "../../../../../src/db/db";
 import * as formidable from "formidable";
 import fs from "fs";
+import {replaceString} from "../../../../../src/function/public/public";
 
 export const config = {
     api:{
@@ -29,7 +30,7 @@ const post = async (req:NextApiRequest,res:NextApiResponse) =>{
         const {pid,content} = result.fields;
         const sql = `INSERT INTO recommend_collection(collection_id) VALUE(${pid})`
         const [{insertId}] = await connection.query(sql)
-        const topic = `INSERT INTO recommend_collection_topic(topic_content,topic_img,rec_id) VALUE('${content}','${src}',${insertId})`
+        const topic = `INSERT INTO recommend_collection_topic(topic_content,topic_img,rec_id) VALUE("${replaceString(content as string)}",'${src}',${insertId})`
         await connection.query(topic)
         connection.release()
         return res.status(201).end()

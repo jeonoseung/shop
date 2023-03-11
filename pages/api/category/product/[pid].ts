@@ -13,7 +13,7 @@ const get = async (req:NextApiRequest,res:NextApiResponse) =>{
                         FROM category as c
                         INNER JOIN products as p ON c.category_id = p.category_id
                         LEFT JOIN purchase_history as ph ON ph.product_id = p.product_id
-                        WHERE c.category_id = ${pid} `;
+                        WHERE c.category_id = ${parseInt(pid as string) ? parseInt(pid as string) : 0} `;
         const groupby = `GROUP BY p.product_id `;
         const sqlSort =
             sort === undefined || sort === '1'

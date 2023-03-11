@@ -32,25 +32,31 @@ export default function CategoryProductPage({isMobile,params}:{isMobile:boolean,
     return(
         <div className={publicStyles[isMobile ? 'mobile-content' : 'content']}>
             <div>
-                {info.isLoading ? null : <Title title={info.data.category_name}/>}
+                {info.isLoading
+                    ? null
+                    : !info.data
+                        ? null
+                        : <Title title={info.data.category_name}/>
+                }
             </div>
             <div className={styles[isMobile ? 'collection-mobile' : 'category']}>
                 {
                     isLoading ? null
-                        :
-                        isMobile
-                            ?
-                            <div>
-                                <ProductSortMobile length={info.data.count} params={params}/>
-                                <ProductList data = {data}/>
-                                <SetInView hasNextPage={hasNextPage} fetchNextPage={fetchNextPage}/>
-                            </div>
-                            :
-                            <div>
-                                <ProductSort length={info.data.count} params={params}/>
-                                <ProductList data = {data}/>
-                                <SetInView hasNextPage={hasNextPage} fetchNextPage={fetchNextPage}/>
-                            </div>
+                        : !data || !info.data
+                            ? null
+                            : isMobile
+                                ?
+                                <div>
+                                    <ProductSortMobile length={info.data.count} params={params}/>
+                                    <ProductList data = {data}/>
+                                    <SetInView hasNextPage={hasNextPage} fetchNextPage={fetchNextPage}/>
+                                </div>
+                                :
+                                <div>
+                                    <ProductSort length={info.data.count} params={params}/>
+                                    <ProductList data = {data}/>
+                                    <SetInView hasNextPage={hasNextPage} fetchNextPage={fetchNextPage}/>
+                                </div>
                 }
             </div>
         </div>
