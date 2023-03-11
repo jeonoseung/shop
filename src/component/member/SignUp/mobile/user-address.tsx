@@ -1,8 +1,8 @@
-import styles from "../member.module.css";
-import {ChangeEventHandler,Dispatch, SetStateAction} from "react";
-
+import styles from "../../member.module.css";
 import {useDaumPostcodePopup} from "react-daum-postcode";
 import {postcodeScriptUrl} from "react-daum-postcode/lib/loadPostcode";
+import {ChangeEventHandler, Dispatch, SetStateAction} from "react";
+
 interface value{
     id:string,
     pass:string,
@@ -22,8 +22,8 @@ interface props{
     detail:string
     setState:Dispatch<SetStateAction<value>>
 }
-/** 주소 입력란 */
-export default function UserAddress({address,zipcode,detail,setState}:props){
+
+export default function MobileUserAddress({address,zipcode,detail,setState}:props){
     const open = (useDaumPostcodePopup(postcodeScriptUrl))
 
     const Check:ChangeEventHandler<HTMLInputElement> = (e) =>{
@@ -39,13 +39,15 @@ export default function UserAddress({address,zipcode,detail,setState}:props){
     };
     return(
         <div className={styles.input_div}>
-            <span className={styles.title_div}>주소</span>
+            <div className={styles['mobile-title']}>
+                <span className={styles.title_div}>주소</span>
+                <button className={styles.event_button} style={{maxWidth:'100px',height:'30px'}} onClick={handleClick}>주소 찾기</button>
+            </div>
             <div className={styles.signup_input_div}>
                 <input type={'text'} className={styles.signup_zipcode} value={zipcode} disabled={true}/>
                 <input type={'text'} className={styles.signup_input} value={address} disabled={true}/>
                 <input type={'text'} className={styles.signup_input} value={detail} onChange={Check}/>
             </div>
-            <button className={styles.event_button} onClick={handleClick}>주소 찾기</button>
         </div>
     )
 }

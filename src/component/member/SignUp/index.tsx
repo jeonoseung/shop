@@ -15,6 +15,9 @@ import {RootState} from "../../../../store/store";
 import {useMutation} from "react-query";
 import {useRouter} from "next/router";
 import {user} from "user";
+import MobileUserId from "./mobile/user-id";
+import MobileUserEmail from "./mobile/user-email";
+import MobileUserAddress from "./mobile/user-address";
 
 /** 회원가입 UI */
 export default function SignUpIndex({isMobile}:{isMobile:boolean}){
@@ -62,13 +65,22 @@ export default function SignUpIndex({isMobile}:{isMobile:boolean}){
     return(
         <div className={styles.signup}>
             <div className={styles[isMobile ? 'mobile-signup-form' : 'signup-form']}>
-                <UserId value={Profile.id} setState={setProfile}/>
+                {
+                    isMobile ? <MobileUserId value={Profile.id} setState={setProfile}/> : <UserId value={Profile.id} setState={setProfile}/>
+                }
                 <UserPass value={Profile.pass} setState={setProfile}/>
                 <UserPassChk value={Profile.pass_chk} setState={setProfile} chk={Profile.pass}/>
                 <UserName value={Profile.name} setState={setProfile}/>
-                <UserEmail value={Profile.email} setState={setProfile}/>
+                {
+                    isMobile ? <MobileUserEmail value={Profile.email} setState={setProfile}/> : <UserEmail value={Profile.email} setState={setProfile}/>
+                }
                 <UserPhone value={Profile.phone} setState={setProfile}/>
-                <UserAddress address={Profile.address} zipcode={Profile.zipcode} detail={Profile.detail} setState={setProfile}/>
+                {
+                    isMobile
+                        ?  <MobileUserAddress  address={Profile.address} zipcode={Profile.zipcode} detail={Profile.detail} setState={setProfile}/>
+                        :  <UserAddress address={Profile.address} zipcode={Profile.zipcode} detail={Profile.detail} setState={setProfile}/>
+                }
+
                 <Gender value={Profile.gender} setState={setProfile}/>
                 <Birth value={Profile.birth} setState={setProfile}/>
             </div>

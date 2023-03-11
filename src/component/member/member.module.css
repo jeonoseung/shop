@@ -87,6 +87,8 @@
     gap:0.5rem;
 }
 .signup .mobile-signup-form .input_div{
+    margin:auto;
+    max-width:500px;
     display:grid;
     grid-template-columns:1fr;
 }
@@ -106,7 +108,6 @@
     display:block;
     height:45px;
     padding:0 0.75rem;
-    font-size:16px;
     border:1px solid #ddd;
     border-radius:0.25rem;
     margin-bottom:0.25rem;
@@ -116,18 +117,23 @@
     display:block;
     height:45px;
     padding:0 0.75rem;
-    font-size:16px;
     border:1px solid #ddd;
     border-radius:0.25rem;
     margin-bottom:0.25rem;
 }
 .signup .input_div .warning{
-    font-size:12px;
+    font-size:0.8rem;
     color:red;
 }
 .signup .input_div .signup_input:focus{
     outline:none;
     border:1px solid #0d6efd;
+}
+.signup .mobile-title{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    margin-bottom:0.25rem;
 }
 .signup .button-div{
     text-align:right;
