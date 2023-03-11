@@ -65,7 +65,7 @@ export default function RecommendCollection({collection,data}:props){
         setIndex(index + 1)
     }
     return(
-        <>
+        <div style={{marginBottom:'5rem'}}>
             <Link href={`/collection/${collection.collection_router_name}`} className={css['title']}>
                 <span>{collection.collection_name}</span>
                 <Image src={'/image/view-more.svg'} alt={'더보기'} width={32} height={32} priority={true}/>
@@ -114,6 +114,6 @@ export default function RecommendCollection({collection,data}:props){
                     </button>
                 }
             </div>
-        </>
+        </div>
     )
 }
