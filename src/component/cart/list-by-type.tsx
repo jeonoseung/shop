@@ -1,8 +1,10 @@
 import CartList from "./cart-list";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import styles from './cart.module.css'
 import Image from "next/image";
 import {CartListType} from "cart-type";
+import {checkUserAgent} from "../../function/public/public";
+import MobileCartList from "./mobile/cart-list";
 
 /**
  * 냉장,냉동,상온별로 리스트 표시
@@ -13,6 +15,10 @@ import {CartListType} from "cart-type";
 
 export default function ListByType({list, type}:{list:CartListType[],type:string}){
     const [fold,setFold] = useState<boolean>(true)
+    const [isMobile,setIsMobile] = useState<boolean>(false)
+    useEffect(()=>{
+        setIsMobile(checkUserAgent(navigator.userAgent))
+    },[])
     return (
         <div className={styles['list-by-type']}>
             <div className={styles['type-title']}>
@@ -29,10 +35,9 @@ export default function ListByType({list, type}:{list:CartListType[],type:string
                 fold
                     ?
                     list.map((item)=>(
-                        <CartList
-                            item={item}
-                            key={item.product_id}
-                        />
+                        isMobile
+                            ? <MobileCartList item={item} key={item.product_id}/>
+                            : <CartList item={item} key={item.product_id}/>
                     ))
                     : null
             }

@@ -1,18 +1,18 @@
-import publicStyles from '../../../styles/public.module.css'
-import styles from './cart.module.css'
-import Image from "next/image";
-import {setPrice} from "../../function/public/price";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../store/store";
-import {setCheck,setFetch} from "../../../store/cart/cart";
+import {CartCookie, CartListType} from "cart-type";
 import {useQuery, useQueryClient} from "react-query";
-import {CartCookie,CartListType} from "cart-type";
-import {getCartList} from "../../function/api/get/api";
-import DeleteIcon from "../public/icon/delete-icon";
-import MinusIcon from "../public/icon/minus-icon";
-import PlusIcon from "../public/icon/plus-icon";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../../../store/store";
+import {setCheck, setFetch} from "../../../../store/cart/cart";
+import styles from "../cart.module.css";
+import publicStyles from "../../../../styles/public.module.css";
+import Image from "next/image";
+import {setPrice} from "../../../function/public/price";
+import DeleteIcon from "../../public/icon/delete-icon";
+import {getCartList} from "../../../function/api/get/api";
+import MinusIcon from "../../public/icon/minus-icon";
+import PlusIcon from "../../public/icon/plus-icon";
 
-export default function CartList({item}:{item:CartListType}){
+export default function MobileCartList({item}:{item:CartListType}){
     const {data} = useQuery('cart-li',()=>getCartList(false))
     const queryClient = useQueryClient()
     const state = useSelector((state:RootState)=>state.cart)
@@ -49,6 +49,7 @@ export default function CartList({item}:{item:CartListType}){
         queryClient.invalidateQueries('cart-li')
         dispatch(setFetch(1))
     }
+    /** 해당 장바구니 상품 삭제 */
     const RemoveList = (pid:number) =>{
         const cart = localStorage.getItem('cart')
         const parse = JSON.parse(cart as string);
@@ -59,7 +60,7 @@ export default function CartList({item}:{item:CartListType}){
         queryClient.invalidateQueries('cart-li')
     }
     return(
-        <div className={styles['cart-li']}>
+        <div className={styles['cart-li-mobile']}>
             <label className={publicStyles.checkbox}>
                 <input type={'checkbox'}
                        checked={state.check.includes(item.product_id)}
@@ -70,38 +71,31 @@ export default function CartList({item}:{item:CartListType}){
                     </svg>
                 </span>
             </label>
-            <Image src={item.product_img} alt={'상품 이미지'} width={75} height={100} priority={true}/>
-            <div className={styles['name-title']}>
-                <div className={styles['name']}>
-                    {
-                        item.brand_name !== '' ? <span>[{item.brand_name}]</span> : null
-                    }
-                    <span>{item.product_name}</span>
+            <div>
+                <div style={{marginBottom:'0.25rem'}}>
+                    [홍루이젠] 치즈 샌드위치 3개입
                 </div>
-                {
-                    item.product_title !== ''
-                        ?
-                        <div className={styles['title']}>
-                            {item.product_title}
+                <div className={styles['info']}>
+                    <div className={styles['img-d']}>
+                        <Image src={item.product_img} alt={'상품 이미지'} width={100} height={125} priority={true}/>
+                    </div>
+                    <div className={styles['mobile-cart-li-content']}>
+                        <div className={styles['price']}>
+                            <span>
+                                {item.discount_rate !== 0
+                                    ? setPrice((item.product_price * (1-item.discount_rate * 0.01))*item.count)
+                                    : setPrice(item.product_price*item.count)}원
+                            </span>
                         </div>
-                        : null
-                }
+                        <div className={publicStyles['result-count']}>
+                            <button onClick={CountMinus}><MinusIcon/></button>
+                            <div>{item.count}</div>
+                            <button onClick={CountPlus}><PlusIcon/></button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className={publicStyles['result-count']}>
-                <button onClick={CountMinus}><MinusIcon/></button>
-                <div>{item.count}</div>
-                <button onClick={CountPlus}><PlusIcon/></button>
-            </div>
-            <div className={styles['price']}>
-                <span>
-                    {item.discount_rate !== 0
-                        ? setPrice((item.product_price * (1-item.discount_rate * 0.01))*item.count)
-                        : setPrice(item.product_price*item.count)}원
-                </span>
-                {item.discount_rate !== 0
-                    ? <span className={styles['discount']}>{setPrice(item.product_price*item.count)}원</span> : null}
-            </div>
-            <div className={styles['delete']}>
+            <div>
                 <span onClick={()=>RemoveList(item.product_id)}>
                     <DeleteIcon/>
                 </span>

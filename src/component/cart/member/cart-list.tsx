@@ -9,6 +9,8 @@ import {RootState} from "../../../../store/store";
 import {setPrice} from "../../../function/public/price";
 import DeleteIcon from "../../public/icon/delete-icon";
 import axios from "axios";
+import MinusIcon from "../../public/icon/minus-icon";
+import PlusIcon from "../../public/icon/plus-icon";
 
 /**
  * 장바구니 상품 목록 li
@@ -103,9 +105,9 @@ export default function CartListMember({item}:{item:CartListType}){
                 }
             </div>
             <div className={publicStyles['result-count']}>
-                <button onClick={CountMinus}>-</button>
+                <button onClick={CountMinus}><MinusIcon/></button>
                 <div>{item.count}</div>
-                <button onClick={CountPlus}>+</button>
+                <button onClick={CountPlus}><PlusIcon/></button>
             </div>
             <div className={styles['price']}>
                 <span>
