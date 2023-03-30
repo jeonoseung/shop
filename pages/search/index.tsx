@@ -14,6 +14,7 @@ import {GetServerSideProps} from "next";
 import {checkUserAgent} from "../../src/function/public/public";
 import ProductFilterMobile from "../../src/component/public/list/mobile/product-filter";
 import ProductSortMobile from "../../src/component/public/list/mobile/product-sort";
+import Image from "next/image";
 
 export default function SearchPage({isMobile}:{isMobile:boolean}){
     const filter = useSelector((state:RootState)=>state.collection.filter)
