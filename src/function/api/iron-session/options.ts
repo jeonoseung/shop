@@ -4,7 +4,7 @@ export const IronSessionOption = {
     // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
     cookieOptions: {
         secure: false,
-        sameSite: "Strict",
+        sameSite: true,
         maxAge:60 * 60000,
         httpOnly: false
     }
