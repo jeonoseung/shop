@@ -10,7 +10,7 @@
 
 마켓컬리 - [https://www.kurly.com](https://www.kurly.com)
 
-프로젝트 배포 링크 - [http://tnd10327.cafe24.com](http://tnd10327.cafe24.com)
+프로젝트 배포 링크 - [http://43.202.5.75:8000](http://43.202.5.75:8000)
 
 관리자 아이디:admin
 
